@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package exampleservicev1_test
+package ibmcloudcodeenginev1_test
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -22,7 +22,7 @@ import (
 	"testing"
 )
 
-func TestExampleServiceV1(t *testing.T) {
+func TestIbmCloudCodeEngineV1(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "ExampleServiceV1 Suite")
+	RunSpecs(t, "IbmCloudCodeEngineV1 Suite")
 }

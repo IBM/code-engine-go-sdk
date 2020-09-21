@@ -11,3 +11,7 @@ vendor/
 
 # credentials files
 *.env
+
+# development guide ignores
+swagger.json
+openapi-sdkgen
