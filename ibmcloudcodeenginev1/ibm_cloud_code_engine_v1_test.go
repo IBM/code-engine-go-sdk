@@ -19,11 +19,11 @@ package ibmcloudcodeenginev1_test
 import (
 	"bytes"
 	"fmt"
+	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.ibm.com/coligo/go-sdk/ibmcloudcodeenginev1"
 	"io"
 	"io/ioutil"
 	"net/http"

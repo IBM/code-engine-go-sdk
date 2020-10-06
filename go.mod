@@ -1,4 +1,4 @@
-module github.ibm.com/coligo/go-sdk
+module github.com/IBM/code-engine-go-sdk
 
 go 1.13
 

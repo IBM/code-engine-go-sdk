@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
 	"github.com/IBM/go-sdk-core/v4/core"
-	"github.ibm.com/coligo/go-sdk/ibmcloudcodeenginev1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"

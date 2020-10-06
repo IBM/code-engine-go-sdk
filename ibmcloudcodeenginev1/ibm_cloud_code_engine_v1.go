@@ -24,8 +24,8 @@ package ibmcloudcodeenginev1
 
 import (
 	"fmt"
+	common "github.com/IBM/code-engine-go-sdk/common"
 	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.ibm.com/coligo/go-sdk/common"
 )
 
 // IbmCloudCodeEngineV1 : The purpose is to provide an API to get Kubeconfig for IBM Cloud Code Engine Project
