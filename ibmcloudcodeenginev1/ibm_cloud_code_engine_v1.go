@@ -110,7 +110,7 @@ func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) SetServiceURL(url string) error 
 
 // ListKubeconfig : Retrieve KUBECONFIG for a specified project
 // Returns the KUBECONFIG, similar to the output of `kubectl config view --minify=true`.
-func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) ListKubeconfig(listKubeconfigOptions *ListKubeconfigOptions) (response *core.DetailedResponse, err error) {
+func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) ListKubeconfig(listKubeconfigOptions *ListKubeconfigOptions) (result *string, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listKubeconfigOptions, "listKubeconfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -137,7 +137,7 @@ func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) ListKubeconfig(listKubeconfigOpt
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Accept", "text/html")
 	if listKubeconfigOptions.RefreshToken != nil {
 		builder.AddHeader("Refresh-Token", fmt.Sprint(*listKubeconfigOptions.RefreshToken))
 	}
@@ -150,7 +150,7 @@ func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) ListKubeconfig(listKubeconfigOpt
 		return
 	}
 
-	response, err = ibmCloudCodeEngine.Service.Request(request, nil)
+	response, err = ibmCloudCodeEngine.Service.Request(request, &result)
 
 	return
 }
@@ -163,7 +163,7 @@ type ListKubeconfigOptions struct {
 	// The id of the IBM Cloud Code Engine project.
 	ID *string `json:"id" validate:"required"`
 
-	// The type of the response: application/json or text/html. A character encoding can be specified by including a
+	// The type of the response: text/html or application/json. A character encoding can be specified by including a
 	// `charset` parameter. For example, 'text/html;charset=utf-8'.
 	Accept *string `json:"Accept,omitempty"`
 

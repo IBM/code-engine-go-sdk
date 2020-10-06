@@ -15,3 +15,6 @@ vendor/
 # development guide ignores
 swagger.json
 openapi-sdkgen
+
+# example binary ignore
+example/example

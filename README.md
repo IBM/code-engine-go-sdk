@@ -94,6 +94,8 @@ to your `Gopkg.toml` file.  Here is an example:
 then run `dep ensure`.
 
 ## Using the SDK
+Examples and a demo are available in the [example](/example) folder.
+
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
 
 ## Questions
