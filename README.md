@@ -1,7 +1,5 @@
-<!--
 [![Build Status](https://travis-ci.com/IBM/code-engine-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/IBM/code-engine-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
--->
 
 # IBM Cloud Code Engine Go SDK 0.0.1
 Go client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
