@@ -6,19 +6,22 @@
 
 echo "Running integration tests..."
 
-# Enter example directory
-cd example
-
 # Run example, get exit code
-output=$(go run example.go)
-exitcode=$?
-
-# Print results
-if [ $exitcode = 0 ]; then
-    echo "Success!"
-else
-    echo "Integration tests failed with exit code $exitcode"
-    echo $output
+cd example
+exampleoutput=$(go run example.go)
+exampleexit=$?
+if [ $exampleexit -ne 0 ]; then
+    echo "Integration tests failed with exit code $exampleexit"
+    echo $exampleoutput
+    exit $exampleexit
 fi
 
-exit $exitcode
+# Check if output is expected
+outputcheck="3 configmaps"
+if [[ $exampleoutput != *$outputcheck* ]]; then
+    echo "Intergration test output is incorrect:"
+    echo "Expected '$exampleoutput' to contain '$outputcheck'"
+    exit 1
+fi
+
+echo "Success!"
