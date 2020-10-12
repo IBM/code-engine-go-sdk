@@ -16,7 +16,7 @@ import (
 func main() {
 
 	// Validate environment
-	requiredEnvs := []string{"CE_API_KEY", "CE_PROJECT_REGION", "CE_PROJECT_ID", "CE_REFRESH_TOKEN"}
+	requiredEnvs := []string{"CE_API_KEY", "CE_PROJECT_REGION", "CE_PROJECT_ID"}
 	for _, env := range requiredEnvs {
 		if os.Getenv(env) == "" {
 			fmt.Printf("Environment variable %s must be set\n", env)
@@ -43,9 +43,17 @@ func main() {
 		return
 	}
 
+	// Get an IAM token
+	iamToken, err := authenticator.RequestToken()
+	if err != nil {
+		fmt.Printf("RequestToken error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
 	// Get Code Engine project config using the Code Engine Client
 	projectID := os.Getenv("CE_PROJECT_ID")
-	refreshToken := os.Getenv("CE_REFRESH_TOKEN") // TODO: Set to authenticator-generated token once Core is updated
+	refreshToken := iamToken.RefreshToken
 	result, _, err := ceClient.ListKubeconfig(&ibmcloudcodeenginev1.ListKubeconfigOptions{
 		RefreshToken: &refreshToken,
 		ID:           &projectID,
