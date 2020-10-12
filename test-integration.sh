@@ -17,7 +17,7 @@ if [ $exampleexit -ne 0 ]; then
 fi
 
 # Check if output is expected
-outputcheck="3 configmaps"
+outputcheck="2 configmaps"
 if [[ $exampleoutput != *$outputcheck* ]]; then
     echo "Intergration test output is incorrect:"
     echo "Expected '$exampleoutput' to contain '$outputcheck'"
