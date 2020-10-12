@@ -24,6 +24,9 @@ install:
 
 script:
   - make travis-ci
+  - go build ./...
+  - go test ./...
+  - ./test-integration.sh
 
 # To enable semantic-release, uncomment these sections.
 # before_deploy:
