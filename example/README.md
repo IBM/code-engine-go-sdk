@@ -30,7 +30,8 @@ ceClient, err := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeengin
 ### Use the Code Engine client to get a Kubernetes config
 ```go
 projectID := os.Getenv("CE_PROJECT_ID")
-refreshToken := os.Getenv("CE_REFRESH_TOKEN") // TODO: Set to authenticator-generated token once Core is updated
+iamToken, _ := authenticator.RequestToken()
+refreshToken := iamToken.RefreshToken
 result, _, err := ceClient.ListKubeconfig(&ibmcloudcodeenginev1.ListKubeconfigOptions{
     RefreshToken: &refreshToken,
     ID:           &projectID,
