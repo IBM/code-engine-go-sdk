@@ -2,6 +2,11 @@ language: go
 dist: xenial
 go: 1.13.x
 
+# Only run on main (still tests PRs)
+branches:
+  only:
+  - main
+
 notifications:
   email: true
 
