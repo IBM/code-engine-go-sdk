@@ -4,10 +4,9 @@ go 1.13
 
 require (
 	github.com/IBM/code-engine-go-sdk v0.0.0-00010101000000-000000000000
-	github.com/IBM/go-sdk-core/v4 v4.6.1
+	github.com/IBM/go-sdk-core/v4 v4.10.0
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
 	github.com/go-openapi/errors v0.19.7 // indirect
-	github.com/go-openapi/strfmt v0.19.6 // indirect
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/googleapis/gnostic v0.3.1 // indirect
