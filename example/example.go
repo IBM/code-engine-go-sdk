@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -9,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -114,7 +115,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	configMapList, err := kubeClient.CoreV1().ConfigMaps(namespace).List(metav1.ListOptions{})
+	configMapList, err := kubeClient.CoreV1().ConfigMaps(namespace).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		fmt.Printf("Pods list error: %s\n", err.Error())
 		os.Exit(1)
