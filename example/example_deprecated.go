@@ -2,12 +2,8 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/url"
 	"os"
-	"strings"
 
 	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -18,7 +14,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func main() {
+func deprecated() {
 
 	// Validate environment
 	requiredEnvs := []string{"CE_API_KEY", "CE_PROJECT_REGION", "CE_PROJECT_ID"}
@@ -48,42 +44,23 @@ func main() {
 		return
 	}
 
-	// Use the http library to get an IAM Delegated Refresh Token
-	iamRequestData := url.Values{}
-	iamRequestData.Set("grant_type", "urn:ibm:params:oauth:grant-type:apikey")
-	iamRequestData.Set("apikey", os.Getenv("CE_API_KEY"))
-	iamRequestData.Set("response_type", "delegated_refresh_token")
-	iamRequestData.Set("receiver_client_ids", "ce")
-	iamRequestData.Set("delegated_refresh_token_expiry", "3600")
-
-	client := &http.Client{}
-	req, err := http.NewRequest("POST", "https://iam.cloud.ibm.com/identity/token", strings.NewReader(iamRequestData.Encode()))
+	// Get an IAM token
+	iamToken, err := authenticator.RequestToken()
 	if err != nil {
-		fmt.Printf("NewRequest err: %s\n", err)
+		fmt.Printf("RequestToken error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Printf("POST /identity/token err: %s\n", err)
-		os.Exit(1)
-		return
-	}
-
-	var iamResponseData map[string]string
-	json.NewDecoder(resp.Body).Decode(&iamResponseData)
-	resp.Body.Close()
-	delegatedRefreshToken := iamResponseData["delegated_refresh_token"]
 
 	// Get Code Engine project config using the Code Engine Client
 	projectID := os.Getenv("CE_PROJECT_ID")
-	result, _, err := ceClient.GetKubeconfig(&ibmcloudcodeenginev1.GetKubeconfigOptions{
-		XDelegatedRefreshToken: &delegatedRefreshToken,
-		ID:                     &projectID,
+	refreshToken := iamToken.RefreshToken
+	result, _, err := ceClient.ListKubeconfig(&ibmcloudcodeenginev1.ListKubeconfigOptions{
+		RefreshToken: &refreshToken,
+		ID:           &projectID,
 	})
 	if err != nil {
-		fmt.Printf("GetKubeconfig error: %s\n", err.Error())
+		fmt.Printf("ListKubeconfig error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
@@ -122,4 +99,5 @@ func main() {
 		return
 	}
 	fmt.Printf("Project %s has %d configmaps.\n", os.Getenv("CE_PROJECT_ID"), len(configMapList.Items))
+
 }

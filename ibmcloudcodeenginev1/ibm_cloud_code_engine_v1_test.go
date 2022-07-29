@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@ package ibmcloudcodeenginev1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -143,13 +144,18 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listKubeconfigPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listKubeconfigPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Accept"]).ToNot(BeNil())
-					Expect(req.Header["Accept"][0]).To(Equal(fmt.Sprintf("%v", "text/html")))
-					res.Header().Set("Content-type", "text/html")
+					Expect(req.Header["Accept"][0]).To(Equal(fmt.Sprintf("%v", "text/plain")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "text/plain")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `"OperationResponse"`)
 				}))
@@ -172,7 +178,7 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 				listKubeconfigOptionsModel := new(ibmcloudcodeenginev1.ListKubeconfigOptions)
 				listKubeconfigOptionsModel.RefreshToken = core.StringPtr("testString")
 				listKubeconfigOptionsModel.ID = core.StringPtr("testString")
-				listKubeconfigOptionsModel.Accept = core.StringPtr("text/html")
+				listKubeconfigOptionsModel.Accept = core.StringPtr("text/plain")
 				listKubeconfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -180,6 +186,13 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr = ibmCloudCodeEngineService.ListKubeconfigWithContext(ctx, listKubeconfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
 			It(`Invoke ListKubeconfig with error: Operation validation and request error`, func() {
 				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
@@ -193,7 +206,7 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 				listKubeconfigOptionsModel := new(ibmcloudcodeenginev1.ListKubeconfigOptions)
 				listKubeconfigOptionsModel.RefreshToken = core.StringPtr("testString")
 				listKubeconfigOptionsModel.ID = core.StringPtr("testString")
-				listKubeconfigOptionsModel.Accept = core.StringPtr("text/html")
+				listKubeconfigOptionsModel.Accept = core.StringPtr("text/plain")
 				listKubeconfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := ibmCloudCodeEngineService.SetServiceURL("")
@@ -216,11 +229,120 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 			})
 		})
 	})
+
+	Describe(`GetKubeconfig(getKubeconfigOptions *GetKubeconfigOptions)`, func() {
+		getKubeconfigPath := "/project/testString/config"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getKubeconfigPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Delegated-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Delegated-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept"]).ToNot(BeNil())
+					Expect(req.Header["Accept"][0]).To(Equal(fmt.Sprintf("%v", "text/plain")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "text/plain")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `"OperationResponse"`)
+				}))
+			})
+			It(`Invoke GetKubeconfig successfully`, func() {
+				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(ibmCloudCodeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := ibmCloudCodeEngineService.GetKubeconfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetKubeconfigOptions model
+				getKubeconfigOptionsModel := new(ibmcloudcodeenginev1.GetKubeconfigOptions)
+				getKubeconfigOptionsModel.XDelegatedRefreshToken = core.StringPtr("testString")
+				getKubeconfigOptionsModel.ID = core.StringPtr("testString")
+				getKubeconfigOptionsModel.Accept = core.StringPtr("text/plain")
+				getKubeconfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = ibmCloudCodeEngineService.GetKubeconfig(getKubeconfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr = ibmCloudCodeEngineService.GetKubeconfigWithContext(ctx, getKubeconfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			It(`Invoke GetKubeconfig with error: Operation validation and request error`, func() {
+				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(ibmCloudCodeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetKubeconfigOptions model
+				getKubeconfigOptionsModel := new(ibmcloudcodeenginev1.GetKubeconfigOptions)
+				getKubeconfigOptionsModel.XDelegatedRefreshToken = core.StringPtr("testString")
+				getKubeconfigOptionsModel.ID = core.StringPtr("testString")
+				getKubeconfigOptionsModel.Accept = core.StringPtr("text/plain")
+				getKubeconfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := ibmCloudCodeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := ibmCloudCodeEngineService.GetKubeconfig(getKubeconfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetKubeconfigOptions model with no property values
+				getKubeconfigOptionsModelNew := new(ibmcloudcodeenginev1.GetKubeconfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = ibmCloudCodeEngineService.GetKubeconfig(getKubeconfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			ibmCloudCodeEngineService, _ := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
 				URL:           "http://ibmcloudcodeenginev1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewGetKubeconfigOptions successfully`, func() {
+				// Construct an instance of the GetKubeconfigOptions model
+				xDelegatedRefreshToken := "testString"
+				id := "testString"
+				getKubeconfigOptionsModel := ibmCloudCodeEngineService.NewGetKubeconfigOptions(xDelegatedRefreshToken, id)
+				getKubeconfigOptionsModel.SetXDelegatedRefreshToken("testString")
+				getKubeconfigOptionsModel.SetID("testString")
+				getKubeconfigOptionsModel.SetAccept("text/plain")
+				getKubeconfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getKubeconfigOptionsModel).ToNot(BeNil())
+				Expect(getKubeconfigOptionsModel.XDelegatedRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(getKubeconfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getKubeconfigOptionsModel.Accept).To(Equal(core.StringPtr("text/plain")))
+				Expect(getKubeconfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListKubeconfigOptions successfully`, func() {
 				// Construct an instance of the ListKubeconfigOptions model
@@ -229,12 +351,12 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 				listKubeconfigOptionsModel := ibmCloudCodeEngineService.NewListKubeconfigOptions(refreshToken, id)
 				listKubeconfigOptionsModel.SetRefreshToken("testString")
 				listKubeconfigOptionsModel.SetID("testString")
-				listKubeconfigOptionsModel.SetAccept("text/html")
+				listKubeconfigOptionsModel.SetAccept("text/plain")
 				listKubeconfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listKubeconfigOptionsModel).ToNot(BeNil())
 				Expect(listKubeconfigOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(listKubeconfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeconfigOptionsModel.Accept).To(Equal(core.StringPtr("text/html")))
+				Expect(listKubeconfigOptionsModel.Accept).To(Equal(core.StringPtr("text/plain")))
 				Expect(listKubeconfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})

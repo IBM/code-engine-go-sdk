@@ -1,9 +1,9 @@
+[![Build Status](https://travis-ci.com/IBM/code-engine-go-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-go-sdk)
 <!--
-[![Build Status](https://travis-ci.com/IBM/code-engine-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/IBM/code-engine-go-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 -->
 
-# IBM Cloud Code Engine Go SDK 0.0.1
+# IBM Cloud Code Engine Go SDK 0.1.0
 Go client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
@@ -54,7 +54,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.0.1
+The current version of this SDK: 0.1.0
 
 There are a few different ways to download and install the Code Engine Go SDK project for use by your
 Go application:
@@ -87,7 +87,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/code-engine-go-sdk"
-  version = "0.0.1"
+  version = "0.1.0"
 
 ```
 
