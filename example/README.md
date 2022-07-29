@@ -27,12 +27,34 @@ ceClient, err := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeengin
 })
 ```
 
+### Use an HTTP library to get a Delegated Refresh Token from IAM
+```go
+iamRequestData := url.Values{}
+iamRequestData.Set("grant_type", "urn:ibm:params:oauth:grant-type:apikey")
+iamRequestData.Set("apikey", os.Getenv("CE_API_KEY"))
+iamRequestData.Set("response_type", "delegated_refresh_token")
+iamRequestData.Set("receiver_client_ids", "ce")
+iamRequestData.Set("delegated_refresh_token_expiry", "3600")
+
+client := &http.Client{}
+req, _ := http.NewRequest("POST", "https://iam.cloud.ibm.com/identity/token", strings.NewReader(iamRequestData.Encode()))
+req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+resp, _ := client.Do(req)
+
+var iamResponseData map[string]string
+json.NewDecoder(resp.Body).Decode(&iamResponseData)
+delegatedRefreshToken := iamResponseData["delegated_refresh_token"]
+```
+
 ### Use the Code Engine client to get a Kubernetes config
 ```go
 projectID := os.Getenv("CE_PROJECT_ID")
-refreshToken := os.Getenv("CE_REFRESH_TOKEN") // TODO: Set to authenticator-generated token once Core is updated
-result, _, err := ceClient.ListKubeconfig(&ibmcloudcodeenginev1.ListKubeconfigOptions{
-    RefreshToken: &refreshToken,
-    ID:           &projectID,
+result, _, err := ceClient.GetKubeconfig(&ibmcloudcodeenginev1.GetKubeconfigOptions{
+    XDelegatedRefreshToken: &delegatedRefreshToken,
+    ID:                     &projectID,
 })
 ```
+
+## Deprecated endpoint
+
+The `/namespaces/{id}/config` endpoint function, `ListKubeconfig()`, is deprecated, and will be removed before Code Engine is out of Beta. Please use the `GetKubeconfig` function, demonstrated in the example above.
