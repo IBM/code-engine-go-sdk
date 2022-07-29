@@ -21,7 +21,7 @@ import (
 func main() {
 
 	// Validate environment
-	requiredEnvs := []string{"CE_API_KEY", "CE_PROJECT_REGION", "CE_PROJECT_ID"}
+	requiredEnvs := []string{"CE_API_KEY", "CE_API_HOST", "CE_PROJECT_ID"}
 	for _, env := range requiredEnvs {
 		if os.Getenv(env) == "" {
 			fmt.Printf("Environment variable %s must be set\n", env)
@@ -30,17 +30,23 @@ func main() {
 		}
 	}
 
+	iamEndpoint := "https://iam.cloud.ibm.com"
+	if len(os.Getenv("IAM_ENDPOINT")) > 0 {
+		iamEndpoint = os.Getenv("IAM_ENDPOINT")
+	}
+
 	// Create an IAM authenticator.
 	authenticator := &core.IamAuthenticator{
 		ApiKey:       os.Getenv("CE_API_KEY"),
 		ClientId:     "bx",
 		ClientSecret: "bx",
+		URL:          iamEndpoint,
 	}
 
 	// Setup a Code Engine client
 	ceClient, err := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
 		Authenticator: authenticator,
-		URL:           "https://api." + os.Getenv("CE_PROJECT_REGION") + ".codeengine.cloud.ibm.com/api/v1",
+		URL:           "https://" + os.Getenv("CE_API_HOST") + "/api/v1",
 	})
 	if err != nil {
 		fmt.Printf("NewIbmCloudCodeEngineV1 error: %s\n", err.Error())
@@ -57,7 +63,7 @@ func main() {
 	iamRequestData.Set("delegated_refresh_token_expiry", "3600")
 
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", "https://iam.cloud.ibm.com/identity/token", strings.NewReader(iamRequestData.Encode()))
+	req, err := http.NewRequest("POST", iamEndpoint+"/identity/token", strings.NewReader(iamRequestData.Encode()))
 	if err != nil {
 		fmt.Printf("NewRequest err: %s\n", err)
 		os.Exit(1)
