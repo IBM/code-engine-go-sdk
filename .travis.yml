@@ -1,11 +1,17 @@
 language: go
-dist: xenial
-go: 1.13.x
+go: "1.18.x"
+os: linux
 
 # Only run on main (still tests PRs)
 branches:
   only:
   - main
+
+
+cache:
+  directories:
+    - $HOME/.cache/go-build
+    - $HOME/gopath/pkg/mod
 
 notifications:
   email: true
