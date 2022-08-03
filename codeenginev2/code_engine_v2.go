@@ -159,14 +159,14 @@ func (codeEngine *CodeEngineV2) DisableRetries() {
 	codeEngine.Service.DisableRetries()
 }
 
-// ListProjectsV2 : List all projects
+// ListProjectsV2 : List projects
 // List projects.
-func (codeEngine *CodeEngineV2) ListProjectsV2(listProjectsV2Options *ListProjectsV2Options) (result *V2ProjectList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListProjectsV2(listProjectsV2Options *ListProjectsV2Options) (result *ListProjectsV2Response, response *core.DetailedResponse, err error) {
 	return codeEngine.ListProjectsV2WithContext(context.Background(), listProjectsV2Options)
 }
 
 // ListProjectsV2WithContext is an alternate form of the ListProjectsV2 method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListProjectsV2WithContext(ctx context.Context, listProjectsV2Options *ListProjectsV2Options) (result *V2ProjectList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListProjectsV2WithContext(ctx context.Context, listProjectsV2Options *ListProjectsV2Options) (result *ListProjectsV2Response, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listProjectsV2Options, "listProjectsV2Options cannot be nil")
 	if err != nil {
 		return
@@ -208,7 +208,7 @@ func (codeEngine *CodeEngineV2) ListProjectsV2WithContext(ctx context.Context, l
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ProjectList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListProjectsV2Response)
 		if err != nil {
 			return
 		}
@@ -651,6 +651,34 @@ func (options *ListProjectsV2Options) SetHeaders(param map[string]string) *ListP
 	return options
 }
 
+// ListProjectsV2Response : ListProjectsV2Response struct
+type ListProjectsV2Response struct {
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	Projects []V2Project `json:"projects,omitempty"`
+}
+
+// UnmarshalListProjectsV2Response unmarshals an instance of ListProjectsV2Response from the specified map of raw messages.
+func UnmarshalListProjectsV2Response(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListProjectsV2Response)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalV2Project)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PaginationListNextMetadata : PaginationListNextMetadata struct
 type PaginationListNextMetadata struct {
 	Href *string `json:"href,omitempty"`
@@ -742,34 +770,6 @@ func UnmarshalV2Project(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2ProjectList : V2ProjectList struct
-type V2ProjectList struct {
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-
-	Projects []V2Project `json:"projects,omitempty"`
-}
-
-// UnmarshalV2ProjectList unmarshals an instance of V2ProjectList from the specified map of raw messages.
-func UnmarshalV2ProjectList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2ProjectList)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalV2Project)
 	if err != nil {
 		return
 	}
