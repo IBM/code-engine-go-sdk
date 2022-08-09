@@ -129,11 +129,9 @@ func main() {
 	}
 
 	// List Code Engine projects using the Code Engine Client
-	listResult, _, err := ceClient.ListProjectsV2(&codeenginev2.ListProjectsV2Options{
-		RefreshToken: &authenticator.RefreshToken,
-	})
+	listResult, _, err := ceClient.ListProjects(&codeenginev2.ListProjectsOptions{})
 	if err != nil {
-		fmt.Printf("ListProjectsV2 error: %s\n", err.Error())
+		fmt.Printf("ListProjects error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
@@ -142,14 +140,13 @@ func main() {
 	// Create a new Code Engine project using the Code Engine Client
 	projectName := "project-sdk-go-e2e--crud--" + time.Now().Format("060102-150405")
 	region := "eu-de"
-	createdProject, _, err := ceClient.CreateProjectV2(&codeenginev2.CreateProjectV2Options{
-		RefreshToken:    &authenticator.RefreshToken,
+	createdProject, _, err := ceClient.CreateProject(&codeenginev2.CreateProjectOptions{
 		Name:            &projectName,
 		ResourceGroupID: resourceGroupId,
 		Region:          &region,
 	})
 	if err != nil {
-		fmt.Printf("CreateProjectV2 error: %s\n", err.Error())
+		fmt.Printf("CreateProject error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
@@ -161,12 +158,11 @@ func main() {
 		// sleep for 10 seconds and then try to fetch the project
 		time.Sleep(10 * time.Second)
 
-		obtainedProject, _, err := ceClient.GetProjectV2(&codeenginev2.GetProjectV2Options{
-			RefreshToken: &authenticator.RefreshToken,
-			ProjectGuid:  createdProject.ID,
+		obtainedProject, _, err := ceClient.GetProject(&codeenginev2.GetProjectOptions{
+			ProjectGuid: createdProject.ID,
 		})
 		if err != nil {
-			fmt.Printf("GetProjectV2 error: %s\n", err.Error())
+			fmt.Printf("GetProject error: %s\n", err.Error())
 			os.Exit(1)
 			return
 		}
@@ -176,22 +172,19 @@ func main() {
 		}
 	}
 
-	resp, err := ceClient.DeleteProjectV2(&codeenginev2.DeleteProjectV2Options{
-		RefreshToken: &authenticator.RefreshToken,
-		ProjectGuid:  createdProject.ID,
+	resp, err := ceClient.DeleteProject(&codeenginev2.DeleteProjectOptions{
+		ProjectGuid: createdProject.ID,
 	})
 	if err != nil {
-		fmt.Printf("DeleteProjectV2 error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		fmt.Printf("DeleteProject error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
 		os.Exit(1)
 		return
 	}
 	fmt.Printf("Deleted project: '%d'\n", resp.StatusCode)
 
-	listResult, _, err = ceClient.ListProjectsV2(&codeenginev2.ListProjectsV2Options{
-		RefreshToken: &authenticator.RefreshToken,
-	})
+	listResult, _, err = ceClient.ListProjects(&codeenginev2.ListProjectsOptions{})
 	if err != nil {
-		fmt.Printf("ListProjectsV2 error: %s\n", err.Error())
+		fmt.Printf("ListProjects error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
