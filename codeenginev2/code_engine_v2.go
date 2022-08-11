@@ -1405,8 +1405,10 @@ func (options *UpdateConfigmapOptions) SetHeaders(param map[string]string) *Upda
 
 // PaginationListNextMetadata : PaginationListNextMetadata struct
 type PaginationListNextMetadata struct {
+	// URL that points to the next page.
 	Href *string `json:"href,omitempty"`
 
+	// Token.
 	Start *string `json:"start,omitempty"`
 }
 
@@ -1479,8 +1481,10 @@ func UnmarshalV2ConfigMap(m map[string]json.RawMessage, result interface{}) (err
 
 // V2ConfigMapList : V2ConfigMapList struct
 type V2ConfigMapList struct {
+	// List of Configmaps.
 	Configmaps []V2ConfigMap `json:"configmaps,omitempty"`
 
+	// Max number of resources per page.
 	Limit *int64 `json:"limit,omitempty"`
 
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
@@ -1594,10 +1598,12 @@ func UnmarshalV2Project(m map[string]json.RawMessage, result interface{}) (err e
 
 // V2ProjectList : V2ProjectList struct
 type V2ProjectList struct {
+	// Max number of resources per page.
 	Limit *int64 `json:"limit,omitempty"`
 
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 
+	// List of projects.
 	Projects []V2Project `json:"projects,omitempty"`
 }
 
@@ -1695,6 +1701,7 @@ func UnmarshalV2Reclamation(m map[string]json.RawMessage, result interface{}) (e
 
 // V2ReclamationList : V2ReclamationList struct
 type V2ReclamationList struct {
+	// List of reclamations.
 	Reclamations []V2Reclamation `json:"reclamations,omitempty"`
 }
 
