@@ -425,7 +425,7 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/builds`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -492,7 +492,7 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/builds`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -599,7 +599,7 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -660,7 +660,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -709,7 +709,7 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{build_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -815,7 +815,7 @@ func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, li
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/buildruns`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -882,7 +882,7 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/buildruns`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -998,7 +998,7 @@ func (codeEngine *CodeEngineV2) GetBuildrunWithContext(ctx context.Context, getB
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1059,7 +1059,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildrunWithContext(ctx context.Context, d
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/v2/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2906,7 +2906,7 @@ func UnmarshalPaginationListNextMetadata(m map[string]json.RawMessage, result in
 	return
 }
 
-// V2Build : V2Build struct
+// V2Build : Build is the response model for Batch BuildDefinition objects.
 type V2Build struct {
 	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
@@ -3052,7 +3052,7 @@ func UnmarshalV2Build(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// V2BuildList : V2BuildList struct
+// V2BuildList : Contains a list of builds and pagination information.
 type V2BuildList struct {
 	// List of all builds.
 	Builds []V2Build `json:"builds,omitempty"`
@@ -3139,6 +3139,7 @@ type V2BuildRun struct {
 	// URL describes the URL of the Git repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
+	// Describes the current status condition of a buildrun.
 	Status *V2BuildRunStatus `json:"status,omitempty"`
 
 	// Strategy name references the BuildStrategy to use to build the container image.
@@ -3242,7 +3243,7 @@ func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// V2BuildRunList : V2BuildRunList struct
+// V2BuildRunList : Contains a list of buildruns and pagination information.
 type V2BuildRunList struct {
 	// List of all buildruns.
 	Buildruns []V2BuildRun `json:"buildruns,omitempty"`
@@ -3280,7 +3281,7 @@ func (resp *V2BuildRunList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// V2BuildRunStatus : V2BuildRunStatus struct
+// V2BuildRunStatus : Describes the current status condition of a buildrun.
 type V2BuildRunStatus struct {
 	// CompletionTime describes the time the build completed.
 	CompletionTime *string `json:"completion_time,omitempty"`
@@ -3363,7 +3364,7 @@ func UnmarshalV2ConfigMap(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// V2ConfigMapList : V2ConfigMapList struct
+// V2ConfigMapList : Contains a list of configmaps and pagination information.
 type V2ConfigMapList struct {
 	// List of all configmaps.
 	Configmaps []V2ConfigMap `json:"configmaps,omitempty"`
@@ -3401,7 +3402,7 @@ func (resp *V2ConfigMapList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// V2Project : V2Project struct
+// V2Project : Describes the model of a project.
 type V2Project struct {
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
@@ -3488,7 +3489,7 @@ func UnmarshalV2Project(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// V2ProjectList : V2ProjectList struct
+// V2ProjectList : Contains a list of projects and pagination information.
 type V2ProjectList struct {
 	// Maximum number of resources per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -3526,7 +3527,7 @@ func (resp *V2ProjectList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// V2Reclamation : V2Reclamation struct
+// V2Reclamation : Describes the model of a reclamation.
 type V2Reclamation struct {
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
@@ -3599,8 +3600,13 @@ func UnmarshalV2Reclamation(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// V2ReclamationList : V2ReclamationList struct
+// V2ReclamationList : Contains a list of reclamations and pagination information.
 type V2ReclamationList struct {
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
 	// List of all project reclamations.
 	Reclamations []V2Reclamation `json:"reclamations,omitempty"`
 }
@@ -3608,12 +3614,28 @@ type V2ReclamationList struct {
 // UnmarshalV2ReclamationList unmarshals an instance of V2ReclamationList from the specified map of raw messages.
 func UnmarshalV2ReclamationList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(V2ReclamationList)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "reclamations", &obj.Reclamations, UnmarshalV2Reclamation)
 	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *V2ReclamationList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 //
@@ -3937,5 +3959,86 @@ func (pager *ConfigmapsPager) GetNext() (page []V2ConfigMap, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ConfigmapsPager) GetAll() (allItems []V2ConfigMap, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// ReclamationsPager can be used to simplify the use of the "ListReclamations" method.
+//
+type ReclamationsPager struct {
+	hasNext bool
+	options *ListReclamationsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewReclamationsPager returns a new ReclamationsPager instance.
+func (codeEngine *CodeEngineV2) NewReclamationsPager(options *ListReclamationsOptions) (pager *ReclamationsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListReclamationsOptions = *options
+	pager = &ReclamationsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *ReclamationsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *ReclamationsPager) GetNextWithContext(ctx context.Context) (page []V2Reclamation, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListReclamationsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Reclamations
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *ReclamationsPager) GetAllWithContext(ctx context.Context) (allItems []V2Reclamation, err error) {
+	for pager.HasNext() {
+		var nextPage []V2Reclamation
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *ReclamationsPager) GetNext() (page []V2Reclamation, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *ReclamationsPager) GetAll() (allItems []V2Reclamation, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
