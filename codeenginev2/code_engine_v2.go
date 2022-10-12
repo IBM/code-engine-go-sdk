@@ -218,7 +218,7 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 	return
 }
 
-// CreateProject : Create a Project
+// CreateProject : Create a project
 // Create a project in the current resource group.
 func (codeEngine *CodeEngineV2) CreateProject(createProjectOptions *CreateProjectOptions) (result *V2Project, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateProjectWithContext(context.Background(), createProjectOptions)
@@ -518,20 +518,20 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	if createBuildOptions.Name != nil {
 		body["name"] = createBuildOptions.Name
 	}
-	if createBuildOptions.OutputAccess != nil {
-		body["output_access"] = createBuildOptions.OutputAccess
-	}
 	if createBuildOptions.OutputImage != nil {
 		body["output_image"] = createBuildOptions.OutputImage
 	}
-	if createBuildOptions.SourceAccess != nil {
-		body["source_access"] = createBuildOptions.SourceAccess
+	if createBuildOptions.OutputSecret != nil {
+		body["output_secret"] = createBuildOptions.OutputSecret
 	}
 	if createBuildOptions.SourceContextDir != nil {
 		body["source_context_dir"] = createBuildOptions.SourceContextDir
 	}
 	if createBuildOptions.SourceRevision != nil {
 		body["source_revision"] = createBuildOptions.SourceRevision
+	}
+	if createBuildOptions.SourceSecret != nil {
+		body["source_secret"] = createBuildOptions.SourceSecret
 	}
 	if createBuildOptions.SourceType != nil {
 		body["source_type"] = createBuildOptions.SourceType
@@ -735,20 +735,20 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	if updateBuildOptions.Name != nil {
 		body["name"] = updateBuildOptions.Name
 	}
-	if updateBuildOptions.OutputAccess != nil {
-		body["output_access"] = updateBuildOptions.OutputAccess
-	}
 	if updateBuildOptions.OutputImage != nil {
 		body["output_image"] = updateBuildOptions.OutputImage
 	}
-	if updateBuildOptions.SourceAccess != nil {
-		body["source_access"] = updateBuildOptions.SourceAccess
+	if updateBuildOptions.OutputSecret != nil {
+		body["output_secret"] = updateBuildOptions.OutputSecret
 	}
 	if updateBuildOptions.SourceContextDir != nil {
 		body["source_context_dir"] = updateBuildOptions.SourceContextDir
 	}
 	if updateBuildOptions.SourceRevision != nil {
 		body["source_revision"] = updateBuildOptions.SourceRevision
+	}
+	if updateBuildOptions.SourceSecret != nil {
+		body["source_secret"] = updateBuildOptions.SourceSecret
 	}
 	if updateBuildOptions.SourceType != nil {
 		body["source_type"] = updateBuildOptions.SourceType
@@ -792,7 +792,7 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 }
 
 // ListBuildruns : List build runs
-// List all buildruns in a project.
+// List all build runs in a project.
 func (codeEngine *CodeEngineV2) ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions) (result *V2BuildRunList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListBuildrunsWithContext(context.Background(), listBuildrunsOptions)
 }
@@ -858,8 +858,8 @@ func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, li
 	return
 }
 
-// CreateBuildrun : Create a buildrun
-// Create a buildrun.
+// CreateBuildrun : Create a build run
+// Create a build run.
 func (codeEngine *CodeEngineV2) CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateBuildrunWithContext(context.Background(), createBuildrunOptions)
 }
@@ -914,23 +914,23 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	if createBuildrunOptions.Name != nil {
 		body["name"] = createBuildrunOptions.Name
 	}
-	if createBuildrunOptions.OutputAccess != nil {
-		body["output_access"] = createBuildrunOptions.OutputAccess
-	}
 	if createBuildrunOptions.OutputImage != nil {
 		body["output_image"] = createBuildrunOptions.OutputImage
 	}
+	if createBuildrunOptions.OutputSecret != nil {
+		body["output_secret"] = createBuildrunOptions.OutputSecret
+	}
 	if createBuildrunOptions.ServiceAccount != nil {
 		body["service_account"] = createBuildrunOptions.ServiceAccount
-	}
-	if createBuildrunOptions.SourceAccess != nil {
-		body["source_access"] = createBuildrunOptions.SourceAccess
 	}
 	if createBuildrunOptions.SourceContextDir != nil {
 		body["source_context_dir"] = createBuildrunOptions.SourceContextDir
 	}
 	if createBuildrunOptions.SourceRevision != nil {
 		body["source_revision"] = createBuildrunOptions.SourceRevision
+	}
+	if createBuildrunOptions.SourceSecret != nil {
+		body["source_secret"] = createBuildrunOptions.SourceSecret
 	}
 	if createBuildrunOptions.SourceType != nil {
 		body["source_type"] = createBuildrunOptions.SourceType
@@ -973,8 +973,8 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	return
 }
 
-// GetBuildrun : Get a buildrun
-// Display the details of a buildrun.
+// GetBuildrun : Get a build run
+// Display the details of a build run.
 func (codeEngine *CodeEngineV2) GetBuildrun(getBuildrunOptions *GetBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
 	return codeEngine.GetBuildrunWithContext(context.Background(), getBuildrunOptions)
 }
@@ -1413,6 +1413,410 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 	return
 }
 
+// ListSecrets : List secret
+// List secrets.
+func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *V2SecretList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
+}
+
+// ListSecretsWithContext is an alternate form of the ListSecrets method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, listSecretsOptions *ListSecretsOptions) (result *V2SecretList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listSecretsOptions, "listSecretsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listSecretsOptions, "listSecretsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *listSecretsOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listSecretsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListSecrets")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if listSecretsOptions.RefreshToken != nil {
+		builder.AddHeader("Refresh-Token", fmt.Sprint(*listSecretsOptions.RefreshToken))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2SecretList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateSecret : Create a secret
+// Create a secret.
+func (codeEngine *CodeEngineV2) CreateSecret(createSecretOptions *CreateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateSecretWithContext(context.Background(), createSecretOptions)
+}
+
+// CreateSecretWithContext is an alternate form of the CreateSecret method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, createSecretOptions *CreateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createSecretOptions, "createSecretOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createSecretOptions, "createSecretOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *createSecretOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createSecretOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateSecret")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if createSecretOptions.RefreshToken != nil {
+		builder.AddHeader("Refresh-Token", fmt.Sprint(*createSecretOptions.RefreshToken))
+	}
+
+	body := make(map[string]interface{})
+	if createSecretOptions.BindingSecretRef != nil {
+		body["binding_secret_ref"] = createSecretOptions.BindingSecretRef
+	}
+	if createSecretOptions.CeComponents != nil {
+		body["ce_components"] = createSecretOptions.CeComponents
+	}
+	if createSecretOptions.Created != nil {
+		body["created"] = createSecretOptions.Created
+	}
+	if createSecretOptions.Data != nil {
+		body["data"] = createSecretOptions.Data
+	}
+	if createSecretOptions.Format != nil {
+		body["format"] = createSecretOptions.Format
+	}
+	if createSecretOptions.ID != nil {
+		body["id"] = createSecretOptions.ID
+	}
+	if createSecretOptions.Immutable != nil {
+		body["immutable"] = createSecretOptions.Immutable
+	}
+	if createSecretOptions.Name != nil {
+		body["name"] = createSecretOptions.Name
+	}
+	if createSecretOptions.ResourceID != nil {
+		body["resource_id"] = createSecretOptions.ResourceID
+	}
+	if createSecretOptions.ResourceType != nil {
+		body["resource_type"] = createSecretOptions.ResourceType
+	}
+	if createSecretOptions.ResourcekeyID != nil {
+		body["resourcekey_id"] = createSecretOptions.ResourcekeyID
+	}
+	if createSecretOptions.Role != nil {
+		body["role"] = createSecretOptions.Role
+	}
+	if createSecretOptions.ServiceidCrn != nil {
+		body["serviceid_crn"] = createSecretOptions.ServiceidCrn
+	}
+	if createSecretOptions.Target != nil {
+		body["target"] = createSecretOptions.Target
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetSecret : Get a secret
+// Get a secret.
+func (codeEngine *CodeEngineV2) GetSecret(getSecretOptions *GetSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	return codeEngine.GetSecretWithContext(context.Background(), getSecretOptions)
+}
+
+// GetSecretWithContext is an alternate form of the GetSecret method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSecretOptions *GetSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getSecretOptions, "getSecretOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getSecretOptions, "getSecretOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *getSecretOptions.ProjectGuid,
+		"secret_name": *getSecretOptions.SecretName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{secret_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getSecretOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetSecret")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getSecretOptions.RefreshToken != nil {
+		builder.AddHeader("Refresh-Token", fmt.Sprint(*getSecretOptions.RefreshToken))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteSecret : Delete a secret
+// Delete a secret.
+func (codeEngine *CodeEngineV2) DeleteSecret(deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteSecretWithContext(context.Background(), deleteSecretOptions)
+}
+
+// DeleteSecretWithContext is an alternate form of the DeleteSecret method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteSecretOptions, "deleteSecretOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteSecretOptions, "deleteSecretOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *deleteSecretOptions.ProjectGuid,
+		"secret_name": *deleteSecretOptions.SecretName,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{secret_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteSecretOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteSecret")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	if deleteSecretOptions.RefreshToken != nil {
+		builder.AddHeader("Refresh-Token", fmt.Sprint(*deleteSecretOptions.RefreshToken))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateSecret : Update a secret
+// Update a secret.
+func (codeEngine *CodeEngineV2) UpdateSecret(updateSecretOptions *UpdateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateSecretWithContext(context.Background(), updateSecretOptions)
+}
+
+// UpdateSecretWithContext is an alternate form of the UpdateSecret method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, updateSecretOptions *UpdateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateSecretOptions, "updateSecretOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateSecretOptions, "updateSecretOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *updateSecretOptions.ProjectGuid,
+		"secret_name": *updateSecretOptions.SecretName,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{secret_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateSecretOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateSecret")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateSecretOptions.RefreshToken != nil {
+		builder.AddHeader("Refresh-Token", fmt.Sprint(*updateSecretOptions.RefreshToken))
+	}
+
+	body := make(map[string]interface{})
+	if updateSecretOptions.BindingSecretRef != nil {
+		body["binding_secret_ref"] = updateSecretOptions.BindingSecretRef
+	}
+	if updateSecretOptions.CeComponents != nil {
+		body["ce_components"] = updateSecretOptions.CeComponents
+	}
+	if updateSecretOptions.Created != nil {
+		body["created"] = updateSecretOptions.Created
+	}
+	if updateSecretOptions.Data != nil {
+		body["data"] = updateSecretOptions.Data
+	}
+	if updateSecretOptions.Format != nil {
+		body["format"] = updateSecretOptions.Format
+	}
+	if updateSecretOptions.ID != nil {
+		body["id"] = updateSecretOptions.ID
+	}
+	if updateSecretOptions.Immutable != nil {
+		body["immutable"] = updateSecretOptions.Immutable
+	}
+	if updateSecretOptions.Name != nil {
+		body["name"] = updateSecretOptions.Name
+	}
+	if updateSecretOptions.ResourceID != nil {
+		body["resource_id"] = updateSecretOptions.ResourceID
+	}
+	if updateSecretOptions.ResourceType != nil {
+		body["resource_type"] = updateSecretOptions.ResourceType
+	}
+	if updateSecretOptions.ResourcekeyID != nil {
+		body["resourcekey_id"] = updateSecretOptions.ResourcekeyID
+	}
+	if updateSecretOptions.Role != nil {
+		body["role"] = updateSecretOptions.Role
+	}
+	if updateSecretOptions.ServiceidCrn != nil {
+		body["serviceid_crn"] = updateSecretOptions.ServiceidCrn
+	}
+	if updateSecretOptions.Target != nil {
+		body["target"] = updateSecretOptions.Target
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListReclamations : List all reclamations
 // List all project reclamations.
 func (codeEngine *CodeEngineV2) ListReclamations(listReclamationsOptions *ListReclamationsOptions) (result *V2ReclamationList, response *core.DetailedResponse, err error) {
@@ -1657,46 +2061,44 @@ type CreateBuildOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
+	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
 
-	// Dockerfile is the path to the Dockerfile to be used for build strategies which bank on the Dockerfile for building
-	// an image.
+	// The path to the Dockerfile that is used for build strategies for building an image.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 
 	// The name of the build. Use a name that is unique within the project.
 	Name *string `json:"name,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the image registry.
-	OutputAccess *string `json:"output_access,omitempty"`
-
-	// Image is the reference of the image.
+	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the source git repository.
-	SourceAccess *string `json:"source_access,omitempty"`
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// ContextDir is a path to subfolder in the repo. Optional.
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
-	// Revision describes the Git revision (e.g., branch, tag, commit SHA, etc.) to fetch. Optional.
+	// The commit, tag, or branch in the source repository to pull.
 	SourceRevision *string `json:"source_revision,omitempty"`
 
-	// SourceType is used to distinct between build git sources and local sources This property is used to enable local
-	// builds.
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	SourceType *string `json:"source_type,omitempty"`
 
-	// URL describes the URL of the Git repository.
+	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
-	// Strategy name references the BuildStrategy to use to build the container image.
+	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
 
-	// Strategy size specifies the quantity of resources that should be used to run the strategy (small, medium, large,
-	// xlarge).
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
-	// Timeout defines the maximum number of seconds the Build should take to execute.
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1734,21 +2136,15 @@ func (_options *CreateBuildOptions) SetName(name string) *CreateBuildOptions {
 	return _options
 }
 
-// SetOutputAccess : Allow user to set OutputAccess
-func (_options *CreateBuildOptions) SetOutputAccess(outputAccess string) *CreateBuildOptions {
-	_options.OutputAccess = core.StringPtr(outputAccess)
-	return _options
-}
-
 // SetOutputImage : Allow user to set OutputImage
 func (_options *CreateBuildOptions) SetOutputImage(outputImage string) *CreateBuildOptions {
 	_options.OutputImage = core.StringPtr(outputImage)
 	return _options
 }
 
-// SetSourceAccess : Allow user to set SourceAccess
-func (_options *CreateBuildOptions) SetSourceAccess(sourceAccess string) *CreateBuildOptions {
-	_options.SourceAccess = core.StringPtr(sourceAccess)
+// SetOutputSecret : Allow user to set OutputSecret
+func (_options *CreateBuildOptions) SetOutputSecret(outputSecret string) *CreateBuildOptions {
+	_options.OutputSecret = core.StringPtr(outputSecret)
 	return _options
 }
 
@@ -1761,6 +2157,12 @@ func (_options *CreateBuildOptions) SetSourceContextDir(sourceContextDir string)
 // SetSourceRevision : Allow user to set SourceRevision
 func (_options *CreateBuildOptions) SetSourceRevision(sourceRevision string) *CreateBuildOptions {
 	_options.SourceRevision = core.StringPtr(sourceRevision)
+	return _options
+}
+
+// SetSourceSecret : Allow user to set SourceSecret
+func (_options *CreateBuildOptions) SetSourceSecret(sourceSecret string) *CreateBuildOptions {
+	_options.SourceSecret = core.StringPtr(sourceSecret)
 	return _options
 }
 
@@ -1805,55 +2207,53 @@ type CreateBuildrunOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Name of a app revision that this buildrun is owned by.
+	// The name of the app revision with which this build run is associated.
 	AppRevision *string `json:"app_revision,omitempty"`
 
-	// Name of the build this buildrun is based upon.
+	// The name of the build on which this build run is associated.
 	Build *string `json:"build,omitempty"`
 
-	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
+	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
 
-	// Dockerfile is the path to the Dockerfile to be used for build strategies which bank on the Dockerfile for building
-	// an image.
+	// The path to the Dockerfile that is used for build strategies for building an image.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 
-	// Name defines the name of the BuildRun.
+	// Name of the build run.
 	Name *string `json:"name,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the image registry.
-	OutputAccess *string `json:"output_access,omitempty"`
-
-	// Image is the reference of the image.
+	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
+
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
 
 	// ServiceAccount refers to the serviceaccount which is used for resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the source git repository.
-	SourceAccess *string `json:"source_access,omitempty"`
-
-	// ContextDir is a path to subfolder in the repo. Optional.
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
-	// Revision describes the Git revision (e.g., branch, tag, commit SHA, etc.) to fetch. Optional.
+	// The commit, tag, or branch in the source repository to pull.
 	SourceRevision *string `json:"source_revision,omitempty"`
 
-	// SourceType is used to distinct between build git sources and local sources This property is used to enable local
-	// builds.
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	SourceType *string `json:"source_type,omitempty"`
 
-	// URL describes the URL of the Git repository.
+	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
-	// Strategy name references the BuildStrategy to use to build the container image.
+	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
 
-	// Strategy size specifies the quantity of resources that should be used to run the strategy (small, medium, large,
-	// xlarge).
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
-	// Timeout defines the maximum number of seconds the Build should take to execute.
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1903,27 +2303,21 @@ func (_options *CreateBuildrunOptions) SetName(name string) *CreateBuildrunOptio
 	return _options
 }
 
-// SetOutputAccess : Allow user to set OutputAccess
-func (_options *CreateBuildrunOptions) SetOutputAccess(outputAccess string) *CreateBuildrunOptions {
-	_options.OutputAccess = core.StringPtr(outputAccess)
-	return _options
-}
-
 // SetOutputImage : Allow user to set OutputImage
 func (_options *CreateBuildrunOptions) SetOutputImage(outputImage string) *CreateBuildrunOptions {
 	_options.OutputImage = core.StringPtr(outputImage)
 	return _options
 }
 
-// SetServiceAccount : Allow user to set ServiceAccount
-func (_options *CreateBuildrunOptions) SetServiceAccount(serviceAccount string) *CreateBuildrunOptions {
-	_options.ServiceAccount = core.StringPtr(serviceAccount)
+// SetOutputSecret : Allow user to set OutputSecret
+func (_options *CreateBuildrunOptions) SetOutputSecret(outputSecret string) *CreateBuildrunOptions {
+	_options.OutputSecret = core.StringPtr(outputSecret)
 	return _options
 }
 
-// SetSourceAccess : Allow user to set SourceAccess
-func (_options *CreateBuildrunOptions) SetSourceAccess(sourceAccess string) *CreateBuildrunOptions {
-	_options.SourceAccess = core.StringPtr(sourceAccess)
+// SetServiceAccount : Allow user to set ServiceAccount
+func (_options *CreateBuildrunOptions) SetServiceAccount(serviceAccount string) *CreateBuildrunOptions {
+	_options.ServiceAccount = core.StringPtr(serviceAccount)
 	return _options
 }
 
@@ -1936,6 +2330,12 @@ func (_options *CreateBuildrunOptions) SetSourceContextDir(sourceContextDir stri
 // SetSourceRevision : Allow user to set SourceRevision
 func (_options *CreateBuildrunOptions) SetSourceRevision(sourceRevision string) *CreateBuildrunOptions {
 	_options.SourceRevision = core.StringPtr(sourceRevision)
+	return _options
+}
+
+// SetSourceSecret : Allow user to set SourceSecret
+func (_options *CreateBuildrunOptions) SetSourceSecret(sourceSecret string) *CreateBuildrunOptions {
+	_options.SourceSecret = core.StringPtr(sourceSecret)
 	return _options
 }
 
@@ -2041,7 +2441,7 @@ type CreateProjectOptions struct {
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
-	// A list of label to assign to your project. You can manage tags through the Tagging API in IBM Cloud.
+	// A list of labels to assign to your project. You can manage tags through the Tagging API in IBM Cloud.
 	Tags []string `json:"tags,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2079,6 +2479,170 @@ func (_options *CreateProjectOptions) SetTags(tags []string) *CreateProjectOptio
 
 // SetHeaders : Allow user to set Headers
 func (options *CreateProjectOptions) SetHeaders(param map[string]string) *CreateProjectOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateSecretOptions : The CreateSecret options.
+type CreateSecretOptions struct {
+	// Refresh Token.
+	RefreshToken *string `json:"Refresh-Token" validate:"required"`
+
+	// Project GUID.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// Name of the secret.
+	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
+
+	// List of bound CE Components.
+	CeComponents []string `json:"ce_components,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map.
+	Data map[string]string `json:"data,omitempty"`
+
+	// Specify the format of the secret.
+	Format *string `json:"format,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Define whether the secret is immutable.
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// The name of the Secret.
+	Name *string `json:"name,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// Type of IBM Cloud service associtaed with the secret.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// ID of the service credential (resource key) associated with the secret.
+	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
+
+	// Role of the service credential (resource key).
+	Role *string `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential (resource key).
+	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+
+	// Specify the target of the secret (aka how the secret will be used) label format: "target_<target>: <target>".
+	Target *string `json:"target,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateSecretOptions : Instantiate CreateSecretOptions
+func (*CodeEngineV2) NewCreateSecretOptions(refreshToken string, projectGuid string) *CreateSecretOptions {
+	return &CreateSecretOptions{
+		RefreshToken: core.StringPtr(refreshToken),
+		ProjectGuid: core.StringPtr(projectGuid),
+	}
+}
+
+// SetRefreshToken : Allow user to set RefreshToken
+func (_options *CreateSecretOptions) SetRefreshToken(refreshToken string) *CreateSecretOptions {
+	_options.RefreshToken = core.StringPtr(refreshToken)
+	return _options
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *CreateSecretOptions) SetProjectGuid(projectGuid string) *CreateSecretOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetBindingSecretRef : Allow user to set BindingSecretRef
+func (_options *CreateSecretOptions) SetBindingSecretRef(bindingSecretRef string) *CreateSecretOptions {
+	_options.BindingSecretRef = core.StringPtr(bindingSecretRef)
+	return _options
+}
+
+// SetCeComponents : Allow user to set CeComponents
+func (_options *CreateSecretOptions) SetCeComponents(ceComponents []string) *CreateSecretOptions {
+	_options.CeComponents = ceComponents
+	return _options
+}
+
+// SetCreated : Allow user to set Created
+func (_options *CreateSecretOptions) SetCreated(created string) *CreateSecretOptions {
+	_options.Created = core.StringPtr(created)
+	return _options
+}
+
+// SetData : Allow user to set Data
+func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecretOptions {
+	_options.Data = data
+	return _options
+}
+
+// SetFormat : Allow user to set Format
+func (_options *CreateSecretOptions) SetFormat(format string) *CreateSecretOptions {
+	_options.Format = core.StringPtr(format)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *CreateSecretOptions) SetID(id string) *CreateSecretOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetImmutable : Allow user to set Immutable
+func (_options *CreateSecretOptions) SetImmutable(immutable bool) *CreateSecretOptions {
+	_options.Immutable = core.BoolPtr(immutable)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetResourceID : Allow user to set ResourceID
+func (_options *CreateSecretOptions) SetResourceID(resourceID string) *CreateSecretOptions {
+	_options.ResourceID = core.StringPtr(resourceID)
+	return _options
+}
+
+// SetResourceType : Allow user to set ResourceType
+func (_options *CreateSecretOptions) SetResourceType(resourceType string) *CreateSecretOptions {
+	_options.ResourceType = core.StringPtr(resourceType)
+	return _options
+}
+
+// SetResourcekeyID : Allow user to set ResourcekeyID
+func (_options *CreateSecretOptions) SetResourcekeyID(resourcekeyID string) *CreateSecretOptions {
+	_options.ResourcekeyID = core.StringPtr(resourcekeyID)
+	return _options
+}
+
+// SetRole : Allow user to set Role
+func (_options *CreateSecretOptions) SetRole(role string) *CreateSecretOptions {
+	_options.Role = core.StringPtr(role)
+	return _options
+}
+
+// SetServiceidCrn : Allow user to set ServiceidCrn
+func (_options *CreateSecretOptions) SetServiceidCrn(serviceidCrn string) *CreateSecretOptions {
+	_options.ServiceidCrn = core.StringPtr(serviceidCrn)
+	return _options
+}
+
+// SetTarget : Allow user to set Target
+func (_options *CreateSecretOptions) SetTarget(target string) *CreateSecretOptions {
+	_options.Target = core.StringPtr(target)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateSecretOptions) SetHeaders(param map[string]string) *CreateSecretOptions {
 	options.Headers = param
 	return options
 }
@@ -2126,7 +2690,7 @@ type DeleteBuildrunOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// The name of your buildrun.
+	// The name of your build run.
 	BuildrunName *string `json:"buildrun_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -2225,6 +2789,54 @@ func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *Delete
 	return options
 }
 
+// DeleteSecretOptions : The DeleteSecret options.
+type DeleteSecretOptions struct {
+	// Refresh Token.
+	RefreshToken *string `json:"Refresh-Token" validate:"required"`
+
+	// Project GUID.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// Secret name.
+	SecretName *string `json:"secret_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteSecretOptions : Instantiate DeleteSecretOptions
+func (*CodeEngineV2) NewDeleteSecretOptions(refreshToken string, projectGuid string, secretName string) *DeleteSecretOptions {
+	return &DeleteSecretOptions{
+		RefreshToken: core.StringPtr(refreshToken),
+		ProjectGuid: core.StringPtr(projectGuid),
+		SecretName: core.StringPtr(secretName),
+	}
+}
+
+// SetRefreshToken : Allow user to set RefreshToken
+func (_options *DeleteSecretOptions) SetRefreshToken(refreshToken string) *DeleteSecretOptions {
+	_options.RefreshToken = core.StringPtr(refreshToken)
+	return _options
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *DeleteSecretOptions) SetProjectGuid(projectGuid string) *DeleteSecretOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetSecretName : Allow user to set SecretName
+func (_options *DeleteSecretOptions) SetSecretName(secretName string) *DeleteSecretOptions {
+	_options.SecretName = core.StringPtr(secretName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteSecretOptions) SetHeaders(param map[string]string) *DeleteSecretOptions {
+	options.Headers = param
+	return options
+}
+
 // GetBuildOptions : The GetBuild options.
 type GetBuildOptions struct {
 	// The ID of the project.
@@ -2268,7 +2880,7 @@ type GetBuildrunOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// The name of your buildrun.
+	// The name of your build run.
 	BuildrunName *string `json:"buildrun_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -2395,15 +3007,63 @@ func (options *GetReclamationOptions) SetHeaders(param map[string]string) *GetRe
 	return options
 }
 
+// GetSecretOptions : The GetSecret options.
+type GetSecretOptions struct {
+	// Refresh Token.
+	RefreshToken *string `json:"Refresh-Token" validate:"required"`
+
+	// Project GUID.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// Secret name.
+	SecretName *string `json:"secret_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetSecretOptions : Instantiate GetSecretOptions
+func (*CodeEngineV2) NewGetSecretOptions(refreshToken string, projectGuid string, secretName string) *GetSecretOptions {
+	return &GetSecretOptions{
+		RefreshToken: core.StringPtr(refreshToken),
+		ProjectGuid: core.StringPtr(projectGuid),
+		SecretName: core.StringPtr(secretName),
+	}
+}
+
+// SetRefreshToken : Allow user to set RefreshToken
+func (_options *GetSecretOptions) SetRefreshToken(refreshToken string) *GetSecretOptions {
+	_options.RefreshToken = core.StringPtr(refreshToken)
+	return _options
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *GetSecretOptions) SetProjectGuid(projectGuid string) *GetSecretOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetSecretName : Allow user to set SecretName
+func (_options *GetSecretOptions) SetSecretName(secretName string) *GetSecretOptions {
+	_options.SecretName = core.StringPtr(secretName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretOptions {
+	options.Headers = param
+	return options
+}
+
 // ListBuildrunsOptions : The ListBuildruns options.
 type ListBuildrunsOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Determines maximum number of returned buildruns.
+	// The maximum number of build runs per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of buildruns.
+	// Token to continue traversing paginated list of build runs.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2446,10 +3106,10 @@ type ListBuildsOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Determines maximum number of returned builds.
+	// The maximum number of builds per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of builds.
+	// The token to continue traversing paginated list of builds.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2492,7 +3152,7 @@ type ListConfigmapsOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Determines maximum number of returned configmaps.
+	// The maximum number of configmaps per page.
 	Limit *int64 `json:"limit,omitempty"`
 
 	// Token to continue traversing paginated list of configmaps.
@@ -2535,7 +3195,7 @@ func (options *ListConfigmapsOptions) SetHeaders(param map[string]string) *ListC
 
 // ListProjectsOptions : The ListProjects options.
 type ListProjectsOptions struct {
-	// Determines maximum number of returned projects.
+	// The maximum number of projects per page.
 	Limit *int64 `json:"limit,omitempty"`
 
 	// Token to continue traversing paginated list of projects.
@@ -2570,7 +3230,7 @@ func (options *ListProjectsOptions) SetHeaders(param map[string]string) *ListPro
 
 // ListReclamationsOptions : The ListReclamations options.
 type ListReclamationsOptions struct {
-	// Determines maximum number of returned reclamations.
+	// The maximum number of reclamations per page.
 	Limit *int64 `json:"limit,omitempty"`
 
 	// Token to continue traversing paginated list of reclamations.
@@ -2599,6 +3259,44 @@ func (_options *ListReclamationsOptions) SetStart(start string) *ListReclamation
 
 // SetHeaders : Allow user to set Headers
 func (options *ListReclamationsOptions) SetHeaders(param map[string]string) *ListReclamationsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListSecretsOptions : The ListSecrets options.
+type ListSecretsOptions struct {
+	// Refresh Token.
+	RefreshToken *string `json:"Refresh-Token" validate:"required"`
+
+	// Project GUID.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListSecretsOptions : Instantiate ListSecretsOptions
+func (*CodeEngineV2) NewListSecretsOptions(refreshToken string, projectGuid string) *ListSecretsOptions {
+	return &ListSecretsOptions{
+		RefreshToken: core.StringPtr(refreshToken),
+		ProjectGuid: core.StringPtr(projectGuid),
+	}
+}
+
+// SetRefreshToken : Allow user to set RefreshToken
+func (_options *ListSecretsOptions) SetRefreshToken(refreshToken string) *ListSecretsOptions {
+	_options.RefreshToken = core.StringPtr(refreshToken)
+	return _options
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *ListSecretsOptions) SetProjectGuid(projectGuid string) *ListSecretsOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListSecretsOptions) SetHeaders(param map[string]string) *ListSecretsOptions {
 	options.Headers = param
 	return options
 }
@@ -2667,46 +3365,44 @@ type UpdateBuildOptions struct {
 	// The name of your build.
 	BuildName *string `json:"build_name" validate:"required,ne="`
 
-	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
+	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
 
-	// Dockerfile is the path to the Dockerfile to be used for build strategies which bank on the Dockerfile for building
-	// an image.
+	// The path to the Dockerfile that is used for build strategies for building an image.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 
 	// The name of the build. Use a name that is unique within the project.
 	Name *string `json:"name,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the image registry.
-	OutputAccess *string `json:"output_access,omitempty"`
-
-	// Image is the reference of the image.
+	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the source git repository.
-	SourceAccess *string `json:"source_access,omitempty"`
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// ContextDir is a path to subfolder in the repo. Optional.
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
-	// Revision describes the Git revision (e.g., branch, tag, commit SHA, etc.) to fetch. Optional.
+	// The commit, tag, or branch in the source repository to pull.
 	SourceRevision *string `json:"source_revision,omitempty"`
 
-	// SourceType is used to distinct between build git sources and local sources This property is used to enable local
-	// builds.
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	SourceType *string `json:"source_type,omitempty"`
 
-	// URL describes the URL of the Git repository.
+	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
-	// Strategy name references the BuildStrategy to use to build the container image.
+	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
 
-	// Strategy size specifies the quantity of resources that should be used to run the strategy (small, medium, large,
-	// xlarge).
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
-	// Timeout defines the maximum number of seconds the Build should take to execute.
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2751,21 +3447,15 @@ func (_options *UpdateBuildOptions) SetName(name string) *UpdateBuildOptions {
 	return _options
 }
 
-// SetOutputAccess : Allow user to set OutputAccess
-func (_options *UpdateBuildOptions) SetOutputAccess(outputAccess string) *UpdateBuildOptions {
-	_options.OutputAccess = core.StringPtr(outputAccess)
-	return _options
-}
-
 // SetOutputImage : Allow user to set OutputImage
 func (_options *UpdateBuildOptions) SetOutputImage(outputImage string) *UpdateBuildOptions {
 	_options.OutputImage = core.StringPtr(outputImage)
 	return _options
 }
 
-// SetSourceAccess : Allow user to set SourceAccess
-func (_options *UpdateBuildOptions) SetSourceAccess(sourceAccess string) *UpdateBuildOptions {
-	_options.SourceAccess = core.StringPtr(sourceAccess)
+// SetOutputSecret : Allow user to set OutputSecret
+func (_options *UpdateBuildOptions) SetOutputSecret(outputSecret string) *UpdateBuildOptions {
+	_options.OutputSecret = core.StringPtr(outputSecret)
 	return _options
 }
 
@@ -2778,6 +3468,12 @@ func (_options *UpdateBuildOptions) SetSourceContextDir(sourceContextDir string)
 // SetSourceRevision : Allow user to set SourceRevision
 func (_options *UpdateBuildOptions) SetSourceRevision(sourceRevision string) *UpdateBuildOptions {
 	_options.SourceRevision = core.StringPtr(sourceRevision)
+	return _options
+}
+
+// SetSourceSecret : Allow user to set SourceSecret
+func (_options *UpdateBuildOptions) SetSourceSecret(sourceSecret string) *UpdateBuildOptions {
+	_options.SourceSecret = core.StringPtr(sourceSecret)
 	return _options
 }
 
@@ -2882,6 +3578,180 @@ func (options *UpdateConfigmapOptions) SetHeaders(param map[string]string) *Upda
 	return options
 }
 
+// UpdateSecretOptions : The UpdateSecret options.
+type UpdateSecretOptions struct {
+	// Refresh Token.
+	RefreshToken *string `json:"Refresh-Token" validate:"required"`
+
+	// Project GUID.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// Secret name.
+	SecretName *string `json:"secret_name" validate:"required,ne="`
+
+	// Name of the secret.
+	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
+
+	// List of bound CE Components.
+	CeComponents []string `json:"ce_components,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map.
+	Data map[string]string `json:"data,omitempty"`
+
+	// Specify the format of the secret.
+	Format *string `json:"format,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Define whether the secret is immutable.
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// The name of the Secret.
+	Name *string `json:"name,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// Type of IBM Cloud service associtaed with the secret.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// ID of the service credential (resource key) associated with the secret.
+	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
+
+	// Role of the service credential (resource key).
+	Role *string `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential (resource key).
+	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+
+	// Specify the target of the secret (aka how the secret will be used) label format: "target_<target>: <target>".
+	Target *string `json:"target,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateSecretOptions : Instantiate UpdateSecretOptions
+func (*CodeEngineV2) NewUpdateSecretOptions(refreshToken string, projectGuid string, secretName string) *UpdateSecretOptions {
+	return &UpdateSecretOptions{
+		RefreshToken: core.StringPtr(refreshToken),
+		ProjectGuid: core.StringPtr(projectGuid),
+		SecretName: core.StringPtr(secretName),
+	}
+}
+
+// SetRefreshToken : Allow user to set RefreshToken
+func (_options *UpdateSecretOptions) SetRefreshToken(refreshToken string) *UpdateSecretOptions {
+	_options.RefreshToken = core.StringPtr(refreshToken)
+	return _options
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *UpdateSecretOptions) SetProjectGuid(projectGuid string) *UpdateSecretOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetSecretName : Allow user to set SecretName
+func (_options *UpdateSecretOptions) SetSecretName(secretName string) *UpdateSecretOptions {
+	_options.SecretName = core.StringPtr(secretName)
+	return _options
+}
+
+// SetBindingSecretRef : Allow user to set BindingSecretRef
+func (_options *UpdateSecretOptions) SetBindingSecretRef(bindingSecretRef string) *UpdateSecretOptions {
+	_options.BindingSecretRef = core.StringPtr(bindingSecretRef)
+	return _options
+}
+
+// SetCeComponents : Allow user to set CeComponents
+func (_options *UpdateSecretOptions) SetCeComponents(ceComponents []string) *UpdateSecretOptions {
+	_options.CeComponents = ceComponents
+	return _options
+}
+
+// SetCreated : Allow user to set Created
+func (_options *UpdateSecretOptions) SetCreated(created string) *UpdateSecretOptions {
+	_options.Created = core.StringPtr(created)
+	return _options
+}
+
+// SetData : Allow user to set Data
+func (_options *UpdateSecretOptions) SetData(data map[string]string) *UpdateSecretOptions {
+	_options.Data = data
+	return _options
+}
+
+// SetFormat : Allow user to set Format
+func (_options *UpdateSecretOptions) SetFormat(format string) *UpdateSecretOptions {
+	_options.Format = core.StringPtr(format)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdateSecretOptions) SetID(id string) *UpdateSecretOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetImmutable : Allow user to set Immutable
+func (_options *UpdateSecretOptions) SetImmutable(immutable bool) *UpdateSecretOptions {
+	_options.Immutable = core.BoolPtr(immutable)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateSecretOptions) SetName(name string) *UpdateSecretOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetResourceID : Allow user to set ResourceID
+func (_options *UpdateSecretOptions) SetResourceID(resourceID string) *UpdateSecretOptions {
+	_options.ResourceID = core.StringPtr(resourceID)
+	return _options
+}
+
+// SetResourceType : Allow user to set ResourceType
+func (_options *UpdateSecretOptions) SetResourceType(resourceType string) *UpdateSecretOptions {
+	_options.ResourceType = core.StringPtr(resourceType)
+	return _options
+}
+
+// SetResourcekeyID : Allow user to set ResourcekeyID
+func (_options *UpdateSecretOptions) SetResourcekeyID(resourcekeyID string) *UpdateSecretOptions {
+	_options.ResourcekeyID = core.StringPtr(resourcekeyID)
+	return _options
+}
+
+// SetRole : Allow user to set Role
+func (_options *UpdateSecretOptions) SetRole(role string) *UpdateSecretOptions {
+	_options.Role = core.StringPtr(role)
+	return _options
+}
+
+// SetServiceidCrn : Allow user to set ServiceidCrn
+func (_options *UpdateSecretOptions) SetServiceidCrn(serviceidCrn string) *UpdateSecretOptions {
+	_options.ServiceidCrn = core.StringPtr(serviceidCrn)
+	return _options
+}
+
+// SetTarget : Allow user to set Target
+func (_options *UpdateSecretOptions) SetTarget(target string) *UpdateSecretOptions {
+	_options.Target = core.StringPtr(target)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateSecretOptions) SetHeaders(param map[string]string) *UpdateSecretOptions {
+	options.Headers = param
+	return options
+}
+
 // PaginationListNextMetadata : PaginationListNextMetadata struct
 type PaginationListNextMetadata struct {
 	// URL that points to the next page.
@@ -2906,9 +3776,9 @@ func UnmarshalPaginationListNextMetadata(m map[string]json.RawMessage, result in
 	return
 }
 
-// V2Build : Build is the response model for Batch BuildDefinition objects.
+// V2Build : Build is the response model for build resources.
 type V2Build struct {
-	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
+	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
 
 	// The date when the resource was created.
@@ -2917,55 +3787,53 @@ type V2Build struct {
 	// Detailed information on the status.
 	Details *string `json:"details,omitempty"`
 
-	// Dockerfile is the path to the Dockerfile to be used for build strategies which bank on the Dockerfile for building
-	// an image.
+	// The path to the Dockerfile that is used for build strategies for building an image.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// The name of the resource. Use a name that is unique within the project.
+	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the image registry.
-	OutputAccess *string `json:"output_access,omitempty"`
-
-	// Image is the reference of the image.
+	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
 
-	// Reason that provides some more context on the given status.
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// The reason to provide more context for the status.
 	Reason *string `json:"reason,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the source git repository.
-	SourceAccess *string `json:"source_access,omitempty"`
-
-	// ContextDir is a path to subfolder in the repo. Optional.
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
-	// Revision describes the Git revision (e.g., branch, tag, commit SHA, etc.) to fetch. Optional.
+	// The commit, tag, or branch in the source repository to pull.
 	SourceRevision *string `json:"source_revision,omitempty"`
 
-	// SourceType is used to distinct between build git sources and local sources This property is used to enable local
-	// builds.
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	SourceType *string `json:"source_type,omitempty"`
 
-	// URL describes the URL of the Git repository.
+	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
 	// The current state of the Code Engine resource.
 	Status *string `json:"status,omitempty"`
 
-	// Strategy name references the BuildStrategy to use to build the container image.
+	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
 
-	// Strategy size specifies the quantity of resources that should be used to run the strategy (small, medium, large,
-	// xlarge).
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
-	// Timeout defines the maximum number of seconds the Build should take to execute.
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
-	// Defines the resource type.
+	// The type of the resource.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -2996,19 +3864,15 @@ func UnmarshalV2Build(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "output_access", &obj.OutputAccess)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_access", &obj.SourceAccess)
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
 		return
 	}
@@ -3017,6 +3881,10 @@ func UnmarshalV2Build(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
 	if err != nil {
 		return
 	}
@@ -3092,67 +3960,65 @@ func (resp *V2BuildList) GetNextStart() (*string, error) {
 
 // V2BuildRun : V2BuildRun struct
 type V2BuildRun struct {
-	// Name of a app revision that this buildrun is owned by.
+	// The name of the app revision with which this build run is associated.
 	AppRevision *string `json:"app_revision,omitempty"`
 
-	// Name of the build this buildrun is based upon.
+	// The name of the build on which this build run is associated.
 	Build *string `json:"build,omitempty"`
 
-	// CeOwnerRef defines a reference to a resource owning this Build, e.g. an App or Job.
+	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
 
 	// The date when the resource was created.
 	Created *string `json:"created,omitempty"`
 
-	// Dockerfile is the path to the Dockerfile to be used for build strategies which bank on the Dockerfile for building
-	// an image.
+	// The path to the Dockerfile that is used for build strategies for building an image.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// The name of the resource. Use a name that is unique within the project.
+	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the image registry.
-	OutputAccess *string `json:"output_access,omitempty"`
-
-	// Image is the reference of the image.
+	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
+
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
 
 	// ServiceAccount refers to the serviceaccount which is used for resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
 
-	// Credentials references a Secret that contains credentials to access the source git repository.
-	SourceAccess *string `json:"source_access,omitempty"`
-
-	// ContextDir is a path to subfolder in the repo. Optional.
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
-	// Revision describes the Git revision (e.g., branch, tag, commit SHA, etc.) to fetch. Optional.
+	// The commit, tag, or branch in the source repository to pull.
 	SourceRevision *string `json:"source_revision,omitempty"`
 
-	// SourceType is used to distinct between build git sources and local sources This property is used to enable local
-	// builds.
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	SourceType *string `json:"source_type,omitempty"`
 
-	// URL describes the URL of the Git repository.
+	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
-	// Describes the current status condition of a buildrun.
+	// Describes the current status condition of a build run.
 	Status *V2BuildRunStatus `json:"status,omitempty"`
 
-	// Strategy name references the BuildStrategy to use to build the container image.
+	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
 
-	// Strategy size specifies the quantity of resources that should be used to run the strategy (small, medium, large,
-	// xlarge).
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
-	// Timeout defines the maximum number of seconds the Build should take to execute.
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
-	// Defines the resource type.
+	// The type of the resource.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -3187,19 +4053,15 @@ func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "output_access", &obj.OutputAccess)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
+	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_access", &obj.SourceAccess)
+	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
 	if err != nil {
 		return
 	}
@@ -3208,6 +4070,10 @@ func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
 	if err != nil {
 		return
 	}
@@ -3243,9 +4109,9 @@ func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// V2BuildRunList : Contains a list of buildruns and pagination information.
+// V2BuildRunList : Contains a list of build runs and pagination information.
 type V2BuildRunList struct {
-	// List of all buildruns.
+	// List of all build runs.
 	Buildruns []V2BuildRun `json:"buildruns,omitempty"`
 
 	// Maximum number of resources per page.
@@ -3281,15 +4147,15 @@ func (resp *V2BuildRunList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// V2BuildRunStatus : Describes the current status condition of a buildrun.
+// V2BuildRunStatus : Describes the current status condition of a build run.
 type V2BuildRunStatus struct {
-	// CompletionTime describes the time the build completed.
+	// Describes the time the build run completed.
 	CompletionTime *string `json:"completion_time,omitempty"`
 
-	// LatestTaskRunRef describes the name of the TaskRun responsible for executing this BuildRun.
+	// Describes the name of the task run responsible for executing this build run.
 	LastTaskRun *string `json:"last_task_run,omitempty"`
 
-	// StartTime describes the time the build is actually started.
+	// Describes the time the build run started.
 	StartTime *string `json:"start_time,omitempty"`
 }
 
@@ -3312,7 +4178,7 @@ func UnmarshalV2BuildRunStatus(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// V2ConfigMap : V2ConfigMap struct
+// V2ConfigMap : Describes the model of a configmap.
 type V2ConfigMap struct {
 	// The date when the resource was created.
 	Created *string `json:"created,omitempty"`
@@ -3323,13 +4189,13 @@ type V2ConfigMap struct {
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// Indicates that the key-value pair cannot be edited.
+	// Specifies that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the resource. Use a name that is unique within the project.
+	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
-	// Defines the resource type.
+	// The type of the resource.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -3422,7 +4288,7 @@ type V2Project struct {
 	// The name of the project.
 	Name *string `json:"name,omitempty"`
 
-	// Reason that provides some more context on the given status.
+	// The reason to provide more context for the status.
 	Reason *string `json:"reason,omitempty"`
 
 	// The region for your project deployment.
@@ -3541,7 +4407,7 @@ type V2Reclamation struct {
 	// The ID of the Code Engine project resource instance.
 	ProjectID *string `json:"project_id,omitempty"`
 
-	// Reason that provides some more context on the given status.
+	// The reason to provide more context for the status.
 	Reason *string `json:"reason,omitempty"`
 
 	// The ID of the resource group.
@@ -3636,6 +4502,169 @@ func (resp *V2ReclamationList) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	return resp.Next.Start, nil
+}
+
+// V2Secret : A secret resource.
+type V2Secret struct {
+	// Name of the secret.
+	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
+
+	// List of bound CE Components.
+	CeComponents []string `json:"ce_components,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map.
+	Data map[string]string `json:"data,omitempty"`
+
+	// Specify the format of the secret.
+	Format *string `json:"format,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Define whether the secret is immutable.
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// The name of the resource. Use a name that is unique within the project.
+	Name *string `json:"name,omitempty"`
+
+	ProjectID *string `json:"project_id,omitempty"`
+
+	Region *string `json:"region,omitempty"`
+
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// Type of IBM Cloud service associtaed with the secret.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// ID of the service credential (resource key) associated with the secret.
+	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
+
+	// Role of the service credential (resource key).
+	Role *string `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential (resource key).
+	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+
+	// Specify the target of the secret (aka how the secret will be used).
+	Target *string `json:"target,omitempty"`
+
+	// Defines the resource type.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalV2Secret unmarshals an instance of V2Secret from the specified map of raw messages.
+func UnmarshalV2Secret(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(V2Secret)
+	err = core.UnmarshalPrimitive(m, "binding_secret_ref", &obj.BindingSecretRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ce_components", &obj.CeComponents)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "format", &obj.Format)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resourcekey_id", &obj.ResourcekeyID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// V2SecretList : List of secret resources.
+type V2SecretList struct {
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	// List of Secrets.
+	Secrets []V2Secret `json:"secrets,omitempty"`
+}
+
+// UnmarshalV2SecretList unmarshals an instance of V2SecretList from the specified map of raw messages.
+func UnmarshalV2SecretList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(V2SecretList)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "secrets", &obj.Secrets, UnmarshalV2Secret)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 //

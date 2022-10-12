@@ -231,7 +231,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -288,7 +288,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -1069,7 +1069,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully with retries`, func() {
@@ -1127,7 +1127,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully`, func() {
@@ -1262,9 +1262,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_access":"ce-default-icr-us-south","output_image":"stg.icr.io/icr_namespace/image-name","reason":"create","source_access":"SourceAccess","source_context_dir":"SourceContextDir","source_revision":"main","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"secret/v2"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_access":"ce-default-icr-us-south","output_image":"stg.icr.io/icr_namespace/image-name","reason":"create","source_access":"SourceAccess","source_context_dir":"SourceContextDir","source_revision":"main","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"secret/v2"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1349,11 +1349,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildOptionsModel.SourceType = core.StringPtr("git")
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -1411,7 +1411,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully with retries`, func() {
@@ -1429,11 +1429,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildOptionsModel.SourceType = core.StringPtr("git")
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -1494,7 +1494,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully`, func() {
@@ -1517,11 +1517,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildOptionsModel.SourceType = core.StringPtr("git")
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -1550,11 +1550,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildOptionsModel.SourceType = core.StringPtr("git")
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -1604,11 +1604,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildOptionsModel.SourceType = core.StringPtr("git")
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -1692,7 +1692,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully with retries`, func() {
@@ -1747,7 +1747,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully`, func() {
@@ -1946,11 +1946,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceType = core.StringPtr("git")
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2008,7 +2008,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully with retries`, func() {
@@ -2027,11 +2027,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceType = core.StringPtr("git")
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2092,7 +2092,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "reason": "create", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully`, func() {
@@ -2116,11 +2116,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceType = core.StringPtr("git")
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2150,11 +2150,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceType = core.StringPtr("git")
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2205,11 +2205,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SourceAccess = core.StringPtr("testString")
+				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
 				updateBuildOptionsModel.SourceType = core.StringPtr("git")
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2298,7 +2298,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildruns successfully with retries`, func() {
@@ -2356,7 +2356,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildruns successfully`, func() {
@@ -2491,9 +2491,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_access":"ce-default-icr-us-south","output_image":"stg.icr.io/icr_namespace/image-name","service_account":"ServiceAccount","source_access":"SourceAccess","source_context_dir":"SourceContextDir","source_revision":"main","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"secret/v2"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_access":"ce-default-icr-us-south","output_image":"stg.icr.io/icr_namespace/image-name","service_account":"ServiceAccount","source_access":"SourceAccess","source_context_dir":"SourceContextDir","source_revision":"main","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"secret/v2"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2580,12 +2580,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceAccess = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2643,7 +2643,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuildrun successfully with retries`, func() {
@@ -2663,12 +2663,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceAccess = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2729,7 +2729,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuildrun successfully`, func() {
@@ -2754,12 +2754,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceAccess = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2790,12 +2790,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceAccess = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2847,12 +2847,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputAccess = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceAccess = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
 				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
@@ -2936,7 +2936,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuildrun successfully with retries`, func() {
@@ -2991,7 +2991,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_access": "ce-default-icr-us-south", "output_image": "stg.icr.io/icr_namespace/image-name", "service_account": "ServiceAccount", "source_access": "SourceAccess", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "secret/v2"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuildrun successfully`, func() {
@@ -3228,7 +3228,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configmaps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"configmaps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListConfigmaps successfully with retries`, func() {
@@ -3286,7 +3286,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configmaps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}], "limit": 5, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"configmaps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListConfigmaps successfully`, func() {
@@ -3421,9 +3421,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"configmaps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","immutable":false,"name":"resource-example","type":"configmap/v2"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"configmaps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","immutable":false,"name":"resource-example","type":"Type"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"configmaps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","immutable":false,"name":"resource-example","type":"configmap/v2"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"configmaps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","immutable":false,"name":"resource-example","type":"Type"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -3560,7 +3560,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateConfigmap successfully with retries`, func() {
@@ -3633,7 +3633,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateConfigmap successfully`, func() {
@@ -3801,7 +3801,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetConfigmap successfully with retries`, func() {
@@ -3856,7 +3856,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetConfigmap successfully`, func() {
@@ -4107,7 +4107,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateConfigmap successfully with retries`, func() {
@@ -4181,7 +4181,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "configmap/v2"}`)
+					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateConfigmap successfully`, func() {
@@ -4289,6 +4289,1186 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
+		listSecretsPath := "/projects/testString/secrets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListSecrets with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
+		listSecretsPath := "/projects/testString/secrets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}]}`)
+				}))
+			})
+			It(`Invoke ListSecrets successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}]}`)
+				}))
+			})
+			It(`Invoke ListSecrets successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListSecrets(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListSecrets with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListSecretsOptions model with no property values
+				listSecretsOptionsModelNew := new(codeenginev2.ListSecretsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListSecrets successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions) - Operation response error`, func() {
+		createSecretPath := "/projects/testString/secrets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				createSecretOptionsModel.CeComponents = []string{"testString"}
+				createSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Format = core.StringPtr("testString")
+				createSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.Immutable = core.BoolPtr(true)
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Target = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
+		createSecretPath := "/projects/testString/secrets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke CreateSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				createSecretOptionsModel.CeComponents = []string{"testString"}
+				createSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Format = core.StringPtr("testString")
+				createSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.Immutable = core.BoolPtr(true)
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Target = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke CreateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				createSecretOptionsModel.CeComponents = []string{"testString"}
+				createSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Format = core.StringPtr("testString")
+				createSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.Immutable = core.BoolPtr(true)
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Target = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				createSecretOptionsModel.CeComponents = []string{"testString"}
+				createSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Format = core.StringPtr("testString")
+				createSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.Immutable = core.BoolPtr(true)
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Target = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateSecretOptions model with no property values
+				createSecretOptionsModelNew := new(codeenginev2.CreateSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CreateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				createSecretOptionsModel.CeComponents = []string{"testString"}
+				createSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Format = core.StringPtr("testString")
+				createSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.Immutable = core.BoolPtr(true)
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Target = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSecret(getSecretOptions *GetSecretOptions) - Operation response error`, func() {
+		getSecretPath := "/projects/testString/secrets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				getSecretOptionsModel.SecretName = core.StringPtr("testString")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
+		getSecretPath := "/projects/testString/secrets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke GetSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				getSecretOptionsModel.SecretName = core.StringPtr("testString")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke GetSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				getSecretOptionsModel.SecretName = core.StringPtr("testString")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				getSecretOptionsModel.SecretName = core.StringPtr("testString")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetSecretOptions model with no property values
+				getSecretOptionsModelNew := new(codeenginev2.GetSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				getSecretOptionsModel.SecretName = core.StringPtr("testString")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
+		deleteSecretPath := "/projects/testString/secrets/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteSecretPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteSecretOptions model
+				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
+				deleteSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				deleteSecretOptionsModel.SecretName = core.StringPtr("testString")
+				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteSecretOptions model
+				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
+				deleteSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				deleteSecretOptionsModel.SecretName = core.StringPtr("testString")
+				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteSecret(deleteSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteSecretOptions model with no property values
+				deleteSecretOptionsModelNew := new(codeenginev2.DeleteSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSecret(updateSecretOptions *UpdateSecretOptions) - Operation response error`, func() {
+		updateSecretPath := "/projects/testString/secrets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateSecretOptions model
+				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
+				updateSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				updateSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				updateSecretOptionsModel.SecretName = core.StringPtr("testString")
+				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				updateSecretOptionsModel.CeComponents = []string{"testString"}
+				updateSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.Data = make(map[string]string)
+				updateSecretOptionsModel.Format = core.StringPtr("testString")
+				updateSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				updateSecretOptionsModel.Role = core.StringPtr("testString")
+				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				updateSecretOptionsModel.Target = core.StringPtr("testString")
+				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSecret(updateSecretOptions *UpdateSecretOptions)`, func() {
+		updateSecretPath := "/projects/testString/secrets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke UpdateSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateSecretOptions model
+				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
+				updateSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				updateSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				updateSecretOptionsModel.SecretName = core.StringPtr("testString")
+				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				updateSecretOptionsModel.CeComponents = []string{"testString"}
+				updateSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.Data = make(map[string]string)
+				updateSecretOptionsModel.Format = core.StringPtr("testString")
+				updateSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				updateSecretOptionsModel.Role = core.StringPtr("testString")
+				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				updateSecretOptionsModel.Target = core.StringPtr("testString")
+				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateSecretWithContext(ctx, updateSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateSecretWithContext(ctx, updateSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"binding_secret_ref": "BindingSecretRef", "ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "Format", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "immutable": false, "name": "resource-example", "project_id": "ProjectID", "region": "Region", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "role": "Role", "serviceid_crn": "ServiceidCrn", "target": "Target", "type": "secret/v2"}`)
+				}))
+			})
+			It(`Invoke UpdateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateSecretOptions model
+				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
+				updateSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				updateSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				updateSecretOptionsModel.SecretName = core.StringPtr("testString")
+				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				updateSecretOptionsModel.CeComponents = []string{"testString"}
+				updateSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.Data = make(map[string]string)
+				updateSecretOptionsModel.Format = core.StringPtr("testString")
+				updateSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				updateSecretOptionsModel.Role = core.StringPtr("testString")
+				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				updateSecretOptionsModel.Target = core.StringPtr("testString")
+				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateSecretOptions model
+				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
+				updateSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				updateSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				updateSecretOptionsModel.SecretName = core.StringPtr("testString")
+				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				updateSecretOptionsModel.CeComponents = []string{"testString"}
+				updateSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.Data = make(map[string]string)
+				updateSecretOptionsModel.Format = core.StringPtr("testString")
+				updateSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				updateSecretOptionsModel.Role = core.StringPtr("testString")
+				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				updateSecretOptionsModel.Target = core.StringPtr("testString")
+				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateSecretOptions model with no property values
+				updateSecretOptionsModelNew := new(codeenginev2.UpdateSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateSecretOptions model
+				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
+				updateSecretOptionsModel.RefreshToken = core.StringPtr("testString")
+				updateSecretOptionsModel.ProjectGuid = core.StringPtr("testString")
+				updateSecretOptionsModel.SecretName = core.StringPtr("testString")
+				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
+				updateSecretOptionsModel.CeComponents = []string{"testString"}
+				updateSecretOptionsModel.Created = core.StringPtr("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.Data = make(map[string]string)
+				updateSecretOptionsModel.Format = core.StringPtr("testString")
+				updateSecretOptionsModel.ID = core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
+				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
+				updateSecretOptionsModel.Role = core.StringPtr("testString")
+				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
+				updateSecretOptionsModel.Target = core.StringPtr("testString")
+				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions) - Operation response error`, func() {
 		listReclamationsPath := "/reclamations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -4356,7 +5536,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2"}]}`)
 				}))
 			})
 			It(`Invoke ListReclamations successfully with retries`, func() {
@@ -4413,7 +5593,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 100, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2"}]}`)
 				}))
 			})
 			It(`Invoke ListReclamations successfully`, func() {
@@ -5244,11 +6424,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SetCeOwnerReference("testString")
 				createBuildOptionsModel.SetDockerfile("Dockerfile")
 				createBuildOptionsModel.SetName("my-build")
-				createBuildOptionsModel.SetOutputAccess("ce-default-icr-us-south")
 				createBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SetSourceAccess("testString")
+				createBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				createBuildOptionsModel.SetSourceContextDir("testString")
 				createBuildOptionsModel.SetSourceRevision("main")
+				createBuildOptionsModel.SetSourceSecret("testString")
 				createBuildOptionsModel.SetSourceType("git")
 				createBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.SetStrategyName("dockerfile")
@@ -5260,11 +6440,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
-				Expect(createBuildOptionsModel.OutputAccess).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
-				Expect(createBuildOptionsModel.SourceAccess).To(Equal(core.StringPtr("testString")))
+				Expect(createBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
+				Expect(createBuildOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
 				Expect(createBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(createBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
@@ -5282,12 +6462,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SetCeOwnerReference("testString")
 				createBuildrunOptionsModel.SetDockerfile("Dockerfile")
 				createBuildrunOptionsModel.SetName("testString")
-				createBuildrunOptionsModel.SetOutputAccess("ce-default-icr-us-south")
 				createBuildrunOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
+				createBuildrunOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				createBuildrunOptionsModel.SetServiceAccount("testString")
-				createBuildrunOptionsModel.SetSourceAccess("testString")
 				createBuildrunOptionsModel.SetSourceContextDir("testString")
 				createBuildrunOptionsModel.SetSourceRevision("main")
+				createBuildrunOptionsModel.SetSourceSecret("testString")
 				createBuildrunOptionsModel.SetSourceType("git")
 				createBuildrunOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.SetStrategyName("dockerfile")
@@ -5301,12 +6481,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createBuildrunOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildrunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.OutputAccess).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildrunOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
+				Expect(createBuildrunOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildrunOptionsModel.ServiceAccount).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.SourceAccess).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
+				Expect(createBuildrunOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
 				Expect(createBuildrunOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(createBuildrunOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
@@ -5344,6 +6524,47 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createProjectOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")))
 				Expect(createProjectOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateSecretOptions successfully`, func() {
+				// Construct an instance of the CreateSecretOptions model
+				refreshToken := "testString"
+				projectGuid := "testString"
+				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(refreshToken, projectGuid)
+				createSecretOptionsModel.SetRefreshToken("testString")
+				createSecretOptionsModel.SetProjectGuid("testString")
+				createSecretOptionsModel.SetBindingSecretRef("testString")
+				createSecretOptionsModel.SetCeComponents([]string{"testString"})
+				createSecretOptionsModel.SetCreated("2022-09-13T11:41:35+02:00")
+				createSecretOptionsModel.SetData(make(map[string]string))
+				createSecretOptionsModel.SetFormat("testString")
+				createSecretOptionsModel.SetID("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				createSecretOptionsModel.SetImmutable(true)
+				createSecretOptionsModel.SetName("testString")
+				createSecretOptionsModel.SetResourceID("testString")
+				createSecretOptionsModel.SetResourceType("testString")
+				createSecretOptionsModel.SetResourcekeyID("testString")
+				createSecretOptionsModel.SetRole("testString")
+				createSecretOptionsModel.SetServiceidCrn("testString")
+				createSecretOptionsModel.SetTarget("testString")
+				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createSecretOptionsModel).ToNot(BeNil())
+				Expect(createSecretOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.BindingSecretRef).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
+				Expect(createSecretOptionsModel.Created).To(Equal(core.StringPtr("2022-09-13T11:41:35+02:00")))
+				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ID).To(Equal(core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")))
+				Expect(createSecretOptionsModel.Immutable).To(Equal(core.BoolPtr(true)))
+				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ServiceidCrn).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteBuildOptions successfully`, func() {
 				// Construct an instance of the DeleteBuildOptions model
@@ -5393,6 +6614,22 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(deleteProjectOptionsModel).ToNot(BeNil())
 				Expect(deleteProjectOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteSecretOptions successfully`, func() {
+				// Construct an instance of the DeleteSecretOptions model
+				refreshToken := "testString"
+				projectGuid := "testString"
+				secretName := "testString"
+				deleteSecretOptionsModel := codeEngineService.NewDeleteSecretOptions(refreshToken, projectGuid, secretName)
+				deleteSecretOptionsModel.SetRefreshToken("testString")
+				deleteSecretOptionsModel.SetProjectGuid("testString")
+				deleteSecretOptionsModel.SetSecretName("testString")
+				deleteSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteSecretOptionsModel).ToNot(BeNil())
+				Expect(deleteSecretOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(deleteSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(deleteSecretOptionsModel.SecretName).To(Equal(core.StringPtr("testString")))
+				Expect(deleteSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBuildOptions successfully`, func() {
 				// Construct an instance of the GetBuildOptions model
@@ -5452,6 +6689,22 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getReclamationOptionsModel).ToNot(BeNil())
 				Expect(getReclamationOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getReclamationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetSecretOptions successfully`, func() {
+				// Construct an instance of the GetSecretOptions model
+				refreshToken := "testString"
+				projectGuid := "testString"
+				secretName := "testString"
+				getSecretOptionsModel := codeEngineService.NewGetSecretOptions(refreshToken, projectGuid, secretName)
+				getSecretOptionsModel.SetRefreshToken("testString")
+				getSecretOptionsModel.SetProjectGuid("testString")
+				getSecretOptionsModel.SetSecretName("testString")
+				getSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getSecretOptionsModel).ToNot(BeNil())
+				Expect(getSecretOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(getSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(getSecretOptionsModel.SecretName).To(Equal(core.StringPtr("testString")))
+				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBuildrunsOptions successfully`, func() {
 				// Construct an instance of the ListBuildrunsOptions model
@@ -5517,6 +6770,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listReclamationsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listReclamationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListSecretsOptions successfully`, func() {
+				// Construct an instance of the ListSecretsOptions model
+				refreshToken := "testString"
+				projectGuid := "testString"
+				listSecretsOptionsModel := codeEngineService.NewListSecretsOptions(refreshToken, projectGuid)
+				listSecretsOptionsModel.SetRefreshToken("testString")
+				listSecretsOptionsModel.SetProjectGuid("testString")
+				listSecretsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listSecretsOptionsModel).ToNot(BeNil())
+				Expect(listSecretsOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(listSecretsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(listSecretsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewReclaimReclamationOptions successfully`, func() {
 				// Construct an instance of the ReclaimReclamationOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -5547,11 +6813,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SetCeOwnerReference("testString")
 				updateBuildOptionsModel.SetDockerfile("Dockerfile")
 				updateBuildOptionsModel.SetName("my-build")
-				updateBuildOptionsModel.SetOutputAccess("ce-default-icr-us-south")
 				updateBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SetSourceAccess("testString")
+				updateBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				updateBuildOptionsModel.SetSourceContextDir("testString")
 				updateBuildOptionsModel.SetSourceRevision("main")
+				updateBuildOptionsModel.SetSourceSecret("testString")
 				updateBuildOptionsModel.SetSourceType("git")
 				updateBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.SetStrategyName("dockerfile")
@@ -5564,11 +6830,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(updateBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
-				Expect(updateBuildOptionsModel.OutputAccess).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(updateBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
-				Expect(updateBuildOptionsModel.SourceAccess).To(Equal(core.StringPtr("testString")))
+				Expect(updateBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(updateBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
+				Expect(updateBuildOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
 				Expect(updateBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(updateBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
@@ -5594,6 +6860,50 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateConfigmapOptionsModel.Immutable).To(Equal(core.BoolPtr(false)))
 				Expect(updateConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(updateConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateSecretOptions successfully`, func() {
+				// Construct an instance of the UpdateSecretOptions model
+				refreshToken := "testString"
+				projectGuid := "testString"
+				secretName := "testString"
+				updateSecretOptionsModel := codeEngineService.NewUpdateSecretOptions(refreshToken, projectGuid, secretName)
+				updateSecretOptionsModel.SetRefreshToken("testString")
+				updateSecretOptionsModel.SetProjectGuid("testString")
+				updateSecretOptionsModel.SetSecretName("testString")
+				updateSecretOptionsModel.SetBindingSecretRef("testString")
+				updateSecretOptionsModel.SetCeComponents([]string{"testString"})
+				updateSecretOptionsModel.SetCreated("2022-09-13T11:41:35+02:00")
+				updateSecretOptionsModel.SetData(make(map[string]string))
+				updateSecretOptionsModel.SetFormat("testString")
+				updateSecretOptionsModel.SetID("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")
+				updateSecretOptionsModel.SetImmutable(true)
+				updateSecretOptionsModel.SetName("testString")
+				updateSecretOptionsModel.SetResourceID("testString")
+				updateSecretOptionsModel.SetResourceType("testString")
+				updateSecretOptionsModel.SetResourcekeyID("testString")
+				updateSecretOptionsModel.SetRole("testString")
+				updateSecretOptionsModel.SetServiceidCrn("testString")
+				updateSecretOptionsModel.SetTarget("testString")
+				updateSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateSecretOptionsModel).ToNot(BeNil())
+				Expect(updateSecretOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.SecretName).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.BindingSecretRef).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
+				Expect(updateSecretOptionsModel.Created).To(Equal(core.StringPtr("2022-09-13T11:41:35+02:00")))
+				Expect(updateSecretOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(updateSecretOptionsModel.Format).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ID).To(Equal(core.StringPtr("e33b1cv7-7390-4437-a5c2-130d5ccdddc3")))
+				Expect(updateSecretOptionsModel.Immutable).To(Equal(core.BoolPtr(true)))
+				Expect(updateSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.ServiceidCrn).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(updateSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})
