@@ -1414,7 +1414,7 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 }
 
 // ListSecrets : List secret
-// List secrets.
+// List all secrets in a project.
 func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *V2SecretList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
 }
@@ -1515,9 +1515,6 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createSecretOptions.RefreshToken != nil {
-		builder.AddHeader("Refresh-Token", fmt.Sprint(*createSecretOptions.RefreshToken))
-	}
 
 	body := make(map[string]interface{})
 	if createSecretOptions.BindingSecretRef != nil {
@@ -1526,17 +1523,11 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.CeComponents != nil {
 		body["ce_components"] = createSecretOptions.CeComponents
 	}
-	if createSecretOptions.Created != nil {
-		body["created"] = createSecretOptions.Created
-	}
 	if createSecretOptions.Data != nil {
 		body["data"] = createSecretOptions.Data
 	}
 	if createSecretOptions.Format != nil {
 		body["format"] = createSecretOptions.Format
-	}
-	if createSecretOptions.ID != nil {
-		body["id"] = createSecretOptions.ID
 	}
 	if createSecretOptions.Immutable != nil {
 		body["immutable"] = createSecretOptions.Immutable
@@ -1627,9 +1618,6 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	if getSecretOptions.RefreshToken != nil {
-		builder.AddHeader("Refresh-Token", fmt.Sprint(*getSecretOptions.RefreshToken))
-	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1690,9 +1678,6 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	if deleteSecretOptions.RefreshToken != nil {
-		builder.AddHeader("Refresh-Token", fmt.Sprint(*deleteSecretOptions.RefreshToken))
-	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1744,9 +1729,6 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateSecretOptions.RefreshToken != nil {
-		builder.AddHeader("Refresh-Token", fmt.Sprint(*updateSecretOptions.RefreshToken))
-	}
 
 	body := make(map[string]interface{})
 	if updateSecretOptions.BindingSecretRef != nil {
@@ -1755,17 +1737,11 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	if updateSecretOptions.CeComponents != nil {
 		body["ce_components"] = updateSecretOptions.CeComponents
 	}
-	if updateSecretOptions.Created != nil {
-		body["created"] = updateSecretOptions.Created
-	}
 	if updateSecretOptions.Data != nil {
 		body["data"] = updateSecretOptions.Data
 	}
 	if updateSecretOptions.Format != nil {
 		body["format"] = updateSecretOptions.Format
-	}
-	if updateSecretOptions.ID != nil {
-		body["id"] = updateSecretOptions.ID
 	}
 	if updateSecretOptions.Immutable != nil {
 		body["immutable"] = updateSecretOptions.Immutable
@@ -2485,20 +2461,14 @@ func (options *CreateProjectOptions) SetHeaders(param map[string]string) *Create
 
 // CreateSecretOptions : The CreateSecret options.
 type CreateSecretOptions struct {
-	// Refresh Token.
-	RefreshToken *string `json:"Refresh-Token" validate:"required"`
-
-	// Project GUID.
+	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
 	// Name of the secret.
 	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
 
-	// List of bound CE Components.
+	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
-
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map.
 	Data map[string]string `json:"data,omitempty"`
@@ -2506,31 +2476,28 @@ type CreateSecretOptions struct {
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
 
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Define whether the secret is immutable.
+	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the Secret.
+	// The name of the secret.
 	Name *string `json:"name,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
 
-	// Type of IBM Cloud service associtaed with the secret.
+	// Type of IBM Cloud service associated with the secret.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// ID of the service credential (resource key) associated with the secret.
+	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
-	// Role of the service credential (resource key).
+	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential (resource key).
+	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret (aka how the secret will be used) label format: "target_<target>: <target>".
+	// Specify the target of the secret.
 	Target *string `json:"target,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2538,17 +2505,10 @@ type CreateSecretOptions struct {
 }
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
-func (*CodeEngineV2) NewCreateSecretOptions(refreshToken string, projectGuid string) *CreateSecretOptions {
+func (*CodeEngineV2) NewCreateSecretOptions(projectGuid string) *CreateSecretOptions {
 	return &CreateSecretOptions{
-		RefreshToken: core.StringPtr(refreshToken),
 		ProjectGuid: core.StringPtr(projectGuid),
 	}
-}
-
-// SetRefreshToken : Allow user to set RefreshToken
-func (_options *CreateSecretOptions) SetRefreshToken(refreshToken string) *CreateSecretOptions {
-	_options.RefreshToken = core.StringPtr(refreshToken)
-	return _options
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
@@ -2569,12 +2529,6 @@ func (_options *CreateSecretOptions) SetCeComponents(ceComponents []string) *Cre
 	return _options
 }
 
-// SetCreated : Allow user to set Created
-func (_options *CreateSecretOptions) SetCreated(created string) *CreateSecretOptions {
-	_options.Created = core.StringPtr(created)
-	return _options
-}
-
 // SetData : Allow user to set Data
 func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecretOptions {
 	_options.Data = data
@@ -2584,12 +2538,6 @@ func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecr
 // SetFormat : Allow user to set Format
 func (_options *CreateSecretOptions) SetFormat(format string) *CreateSecretOptions {
 	_options.Format = core.StringPtr(format)
-	return _options
-}
-
-// SetID : Allow user to set ID
-func (_options *CreateSecretOptions) SetID(id string) *CreateSecretOptions {
-	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -2791,13 +2739,10 @@ func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *Delete
 
 // DeleteSecretOptions : The DeleteSecret options.
 type DeleteSecretOptions struct {
-	// Refresh Token.
-	RefreshToken *string `json:"Refresh-Token" validate:"required"`
-
-	// Project GUID.
+	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Secret name.
+	// The name of your secret.
 	SecretName *string `json:"secret_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -2805,18 +2750,11 @@ type DeleteSecretOptions struct {
 }
 
 // NewDeleteSecretOptions : Instantiate DeleteSecretOptions
-func (*CodeEngineV2) NewDeleteSecretOptions(refreshToken string, projectGuid string, secretName string) *DeleteSecretOptions {
+func (*CodeEngineV2) NewDeleteSecretOptions(projectGuid string, secretName string) *DeleteSecretOptions {
 	return &DeleteSecretOptions{
-		RefreshToken: core.StringPtr(refreshToken),
 		ProjectGuid: core.StringPtr(projectGuid),
 		SecretName: core.StringPtr(secretName),
 	}
-}
-
-// SetRefreshToken : Allow user to set RefreshToken
-func (_options *DeleteSecretOptions) SetRefreshToken(refreshToken string) *DeleteSecretOptions {
-	_options.RefreshToken = core.StringPtr(refreshToken)
-	return _options
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
@@ -3009,13 +2947,10 @@ func (options *GetReclamationOptions) SetHeaders(param map[string]string) *GetRe
 
 // GetSecretOptions : The GetSecret options.
 type GetSecretOptions struct {
-	// Refresh Token.
-	RefreshToken *string `json:"Refresh-Token" validate:"required"`
-
-	// Project GUID.
+	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Secret name.
+	// The name of your secret.
 	SecretName *string `json:"secret_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -3023,18 +2958,11 @@ type GetSecretOptions struct {
 }
 
 // NewGetSecretOptions : Instantiate GetSecretOptions
-func (*CodeEngineV2) NewGetSecretOptions(refreshToken string, projectGuid string, secretName string) *GetSecretOptions {
+func (*CodeEngineV2) NewGetSecretOptions(projectGuid string, secretName string) *GetSecretOptions {
 	return &GetSecretOptions{
-		RefreshToken: core.StringPtr(refreshToken),
 		ProjectGuid: core.StringPtr(projectGuid),
 		SecretName: core.StringPtr(secretName),
 	}
-}
-
-// SetRefreshToken : Allow user to set RefreshToken
-func (_options *GetSecretOptions) SetRefreshToken(refreshToken string) *GetSecretOptions {
-	_options.RefreshToken = core.StringPtr(refreshToken)
-	return _options
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
@@ -3580,23 +3508,17 @@ func (options *UpdateConfigmapOptions) SetHeaders(param map[string]string) *Upda
 
 // UpdateSecretOptions : The UpdateSecret options.
 type UpdateSecretOptions struct {
-	// Refresh Token.
-	RefreshToken *string `json:"Refresh-Token" validate:"required"`
-
-	// Project GUID.
+	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// Secret name.
+	// The name of your secret.
 	SecretName *string `json:"secret_name" validate:"required,ne="`
 
 	// Name of the secret.
 	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
 
-	// List of bound CE Components.
+	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
-
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map.
 	Data map[string]string `json:"data,omitempty"`
@@ -3604,31 +3526,28 @@ type UpdateSecretOptions struct {
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
 
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Define whether the secret is immutable.
+	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the Secret.
+	// The name of the secret.
 	Name *string `json:"name,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
 
-	// Type of IBM Cloud service associtaed with the secret.
+	// Type of IBM Cloud service associated with the secret.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// ID of the service credential (resource key) associated with the secret.
+	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
-	// Role of the service credential (resource key).
+	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential (resource key).
+	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret (aka how the secret will be used) label format: "target_<target>: <target>".
+	// Specify the target of the secret.
 	Target *string `json:"target,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3636,18 +3555,11 @@ type UpdateSecretOptions struct {
 }
 
 // NewUpdateSecretOptions : Instantiate UpdateSecretOptions
-func (*CodeEngineV2) NewUpdateSecretOptions(refreshToken string, projectGuid string, secretName string) *UpdateSecretOptions {
+func (*CodeEngineV2) NewUpdateSecretOptions(projectGuid string, secretName string) *UpdateSecretOptions {
 	return &UpdateSecretOptions{
-		RefreshToken: core.StringPtr(refreshToken),
 		ProjectGuid: core.StringPtr(projectGuid),
 		SecretName: core.StringPtr(secretName),
 	}
-}
-
-// SetRefreshToken : Allow user to set RefreshToken
-func (_options *UpdateSecretOptions) SetRefreshToken(refreshToken string) *UpdateSecretOptions {
-	_options.RefreshToken = core.StringPtr(refreshToken)
-	return _options
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
@@ -3674,12 +3586,6 @@ func (_options *UpdateSecretOptions) SetCeComponents(ceComponents []string) *Upd
 	return _options
 }
 
-// SetCreated : Allow user to set Created
-func (_options *UpdateSecretOptions) SetCreated(created string) *UpdateSecretOptions {
-	_options.Created = core.StringPtr(created)
-	return _options
-}
-
 // SetData : Allow user to set Data
 func (_options *UpdateSecretOptions) SetData(data map[string]string) *UpdateSecretOptions {
 	_options.Data = data
@@ -3689,12 +3595,6 @@ func (_options *UpdateSecretOptions) SetData(data map[string]string) *UpdateSecr
 // SetFormat : Allow user to set Format
 func (_options *UpdateSecretOptions) SetFormat(format string) *UpdateSecretOptions {
 	_options.Format = core.StringPtr(format)
-	return _options
-}
-
-// SetID : Allow user to set ID
-func (_options *UpdateSecretOptions) SetID(id string) *UpdateSecretOptions {
-	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -3776,7 +3676,7 @@ func UnmarshalPaginationListNextMetadata(m map[string]json.RawMessage, result in
 	return
 }
 
-// V2Build : Build is the response model for build resources.
+// V2Build : Response model for build definitions.
 type V2Build struct {
 	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
@@ -3792,6 +3692,9 @@ type V2Build struct {
 
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
 
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
@@ -3857,6 +3760,10 @@ func UnmarshalV2Build(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
 	if err != nil {
 		return
 	}
@@ -3978,6 +3885,9 @@ type V2BuildRun struct {
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
+
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
@@ -4046,6 +3956,10 @@ func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
 	if err != nil {
 		return
 	}
@@ -4192,6 +4106,9 @@ type V2ConfigMap struct {
 	// Specifies that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
+
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
@@ -4215,6 +4132,10 @@ func UnmarshalV2ConfigMap(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
 	if err != nil {
 		return
 	}
@@ -4268,6 +4189,28 @@ func (resp *V2ConfigMapList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// V2Link : V2Link struct
+type V2Link struct {
+	Href *string `json:"href,omitempty"`
+
+	Method *string `json:"method,omitempty"`
+}
+
+// UnmarshalV2Link unmarshals an instance of V2Link from the specified map of raw messages.
+func UnmarshalV2Link(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(V2Link)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // V2Project : Describes the model of a project.
 type V2Project struct {
 	// An alphanumeric value identifying the account ID.
@@ -4284,6 +4227,9 @@ type V2Project struct {
 
 	// The ID of the project.
 	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
 
 	// The name of the project.
 	Name *string `json:"name,omitempty"`
@@ -4324,6 +4270,10 @@ func UnmarshalV2Project(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
 	if err != nil {
 		return
 	}
@@ -4404,6 +4354,9 @@ type V2Reclamation struct {
 	// The ID of the reclamation.
 	ID *string `json:"id,omitempty"`
 
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
+
 	// The ID of the Code Engine project resource instance.
 	ProjectID *string `json:"project_id,omitempty"`
 
@@ -4435,6 +4388,10 @@ func UnmarshalV2Reclamation(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
 	if err != nil {
 		return
 	}
@@ -4504,12 +4461,12 @@ func (resp *V2ReclamationList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// V2Secret : A secret resource.
+// V2Secret : Describes the model of a secret.
 type V2Secret struct {
 	// Name of the secret.
 	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
 
-	// List of bound CE Components.
+	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
 
 	// The date when the resource was created.
@@ -4524,37 +4481,34 @@ type V2Secret struct {
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// Define whether the secret is immutable.
+	// Specifies that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the resource. Use a name that is unique within the project.
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]V2Link `json:"links,omitempty"`
+
+	// The name of the resource.
 	Name *string `json:"name,omitempty"`
-
-	ProjectID *string `json:"project_id,omitempty"`
-
-	Region *string `json:"region,omitempty"`
-
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
 
-	// Type of IBM Cloud service associtaed with the secret.
+	// Type of IBM Cloud service associated with the secret.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// ID of the service credential (resource key) associated with the secret.
+	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
-	// Role of the service credential (resource key).
+	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential (resource key).
+	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret (aka how the secret will be used).
+	// Specify the target of the secret.
 	Target *string `json:"target,omitempty"`
 
-	// Defines the resource type.
+	// The type of the resource.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -4589,19 +4543,11 @@ func UnmarshalV2Secret(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
 		return
 	}
