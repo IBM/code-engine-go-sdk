@@ -381,7 +381,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.V2ProjectList)
+				responseObject := new(codeenginev2.ProjectList)
 				nextObject := new(codeenginev2.PaginationListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -391,7 +391,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.V2ProjectList)
+				responseObject := new(codeenginev2.ProjectList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -437,7 +437,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.V2Project
+				var allResults []codeenginev2.Project
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -1230,7 +1230,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.V2BuildList)
+				responseObject := new(codeenginev2.BuildList)
 				nextObject := new(codeenginev2.PaginationListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -1240,7 +1240,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.V2BuildList)
+				responseObject := new(codeenginev2.BuildList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -1287,7 +1287,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.V2Build
+				var allResults []codeenginev2.Build
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -2231,7 +2231,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions) - Operation response error`, func() {
-		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns"
+		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2280,7 +2280,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions)`, func() {
-		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns"
+		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2459,7 +2459,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.V2BuildRunList)
+				responseObject := new(codeenginev2.BuildRunList)
 				nextObject := new(codeenginev2.PaginationListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -2469,7 +2469,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.V2BuildRunList)
+				responseObject := new(codeenginev2.BuildRunList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -2516,7 +2516,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.V2BuildRun
+				var allResults []codeenginev2.BuildRun
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -2550,7 +2550,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions) - Operation response error`, func() {
-		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns"
+		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2611,7 +2611,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions)`, func() {
-		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns"
+		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2874,7 +2874,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildrun(getBuildrunOptions *GetBuildrunOptions) - Operation response error`, func() {
-		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns/my-buildrun"
+		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2899,7 +2899,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
 				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetBuildrun(getBuildrunOptionsModel)
@@ -2920,7 +2920,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildrun(getBuildrunOptions *GetBuildrunOptions)`, func() {
-		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns/my-buildrun"
+		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2951,7 +2951,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
 				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3011,7 +3011,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
 				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3032,7 +3032,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
 				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3074,7 +3074,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
 				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3091,7 +3091,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBuildrun(deleteBuildrunOptions *DeleteBuildrunOptions)`, func() {
-		deleteBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/buildruns/my-buildrun"
+		deleteBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3120,7 +3120,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteBuildrunOptions model
 				deleteBuildrunOptionsModel := new(codeenginev2.DeleteBuildrunOptions)
 				deleteBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				deleteBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				deleteBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3139,7 +3139,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteBuildrunOptions model
 				deleteBuildrunOptionsModel := new(codeenginev2.DeleteBuildrunOptions)
 				deleteBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.BuildrunName = core.StringPtr("my-buildrun")
+				deleteBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
 				deleteBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3161,7 +3161,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions) - Operation response error`, func() {
-		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps"
+		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3210,7 +3210,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions)`, func() {
-		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps"
+		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3389,7 +3389,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.V2ConfigMapList)
+				responseObject := new(codeenginev2.ConfigMapList)
 				nextObject := new(codeenginev2.PaginationListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -3399,7 +3399,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.V2ConfigMapList)
+				responseObject := new(codeenginev2.ConfigMapList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -3446,7 +3446,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.V2ConfigMap
+				var allResults []codeenginev2.ConfigMap
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -3480,7 +3480,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions) - Operation response error`, func() {
-		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps"
+		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3528,7 +3528,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions)`, func() {
-		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps"
+		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3739,7 +3739,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigmap(getConfigmapOptions *GetConfigmapOptions) - Operation response error`, func() {
-		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps/my-configmap"
+		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3764,7 +3764,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
 				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetConfigmap(getConfigmapOptionsModel)
@@ -3785,7 +3785,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigmap(getConfigmapOptions *GetConfigmapOptions)`, func() {
-		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps/my-configmap"
+		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3816,7 +3816,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
 				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3876,7 +3876,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
 				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3897,7 +3897,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
 				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3939,7 +3939,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
 				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3956,7 +3956,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteConfigmap(deleteConfigmapOptions *DeleteConfigmapOptions)`, func() {
-		deleteConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps/my-configmap"
+		deleteConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3985,7 +3985,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteConfigmapOptions model
 				deleteConfigmapOptionsModel := new(codeenginev2.DeleteConfigmapOptions)
 				deleteConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				deleteConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				deleteConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4004,7 +4004,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteConfigmapOptions model
 				deleteConfigmapOptionsModel := new(codeenginev2.DeleteConfigmapOptions)
 				deleteConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				deleteConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				deleteConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -4026,7 +4026,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions) - Operation response error`, func() {
-		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps/my-configmap"
+		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4051,7 +4051,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
 				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
@@ -4075,7 +4075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions)`, func() {
-		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/configmaps/my-configmap"
+		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4122,7 +4122,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
 				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
@@ -4201,7 +4201,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
 				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
@@ -4225,7 +4225,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
 				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
@@ -4270,7 +4270,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigmapName = core.StringPtr("my-configmap")
+				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
 				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
@@ -5629,7 +5629,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.V2ReclamationList)
+				responseObject := new(codeenginev2.ReclamationList)
 				nextObject := new(codeenginev2.PaginationListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -5639,7 +5639,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.V2ReclamationList)
+				responseObject := new(codeenginev2.ReclamationList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -5685,7 +5685,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.V2Reclamation
+				var allResults []codeenginev2.Reclamation
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -6518,27 +6518,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewDeleteBuildrunOptions successfully`, func() {
 				// Construct an instance of the DeleteBuildrunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildrunName := "my-buildrun"
-				deleteBuildrunOptionsModel := codeEngineService.NewDeleteBuildrunOptions(projectGuid, buildrunName)
+				buildRunName := "my-build-run"
+				deleteBuildrunOptionsModel := codeEngineService.NewDeleteBuildrunOptions(projectGuid, buildRunName)
 				deleteBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.SetBuildrunName("my-buildrun")
+				deleteBuildrunOptionsModel.SetBuildRunName("my-build-run")
 				deleteBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteBuildrunOptionsModel).ToNot(BeNil())
 				Expect(deleteBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteBuildrunOptionsModel.BuildrunName).To(Equal(core.StringPtr("my-buildrun")))
+				Expect(deleteBuildrunOptionsModel.BuildRunName).To(Equal(core.StringPtr("my-build-run")))
 				Expect(deleteBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteConfigmapOptions successfully`, func() {
 				// Construct an instance of the DeleteConfigmapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configmapName := "my-configmap"
-				deleteConfigmapOptionsModel := codeEngineService.NewDeleteConfigmapOptions(projectGuid, configmapName)
+				configMapName := "my-config-map"
+				deleteConfigmapOptionsModel := codeEngineService.NewDeleteConfigmapOptions(projectGuid, configMapName)
 				deleteConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.SetConfigmapName("my-configmap")
+				deleteConfigmapOptionsModel.SetConfigMapName("my-config-map")
 				deleteConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteConfigmapOptionsModel).ToNot(BeNil())
 				Expect(deleteConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteConfigmapOptionsModel.ConfigmapName).To(Equal(core.StringPtr("my-configmap")))
+				Expect(deleteConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
 				Expect(deleteConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
@@ -6580,27 +6580,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewGetBuildrunOptions successfully`, func() {
 				// Construct an instance of the GetBuildrunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildrunName := "my-buildrun"
-				getBuildrunOptionsModel := codeEngineService.NewGetBuildrunOptions(projectGuid, buildrunName)
+				buildRunName := "my-build-run"
+				getBuildrunOptionsModel := codeEngineService.NewGetBuildrunOptions(projectGuid, buildRunName)
 				getBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.SetBuildrunName("my-buildrun")
+				getBuildrunOptionsModel.SetBuildRunName("my-build-run")
 				getBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getBuildrunOptionsModel).ToNot(BeNil())
 				Expect(getBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getBuildrunOptionsModel.BuildrunName).To(Equal(core.StringPtr("my-buildrun")))
+				Expect(getBuildrunOptionsModel.BuildRunName).To(Equal(core.StringPtr("my-build-run")))
 				Expect(getBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetConfigmapOptions successfully`, func() {
 				// Construct an instance of the GetConfigmapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configmapName := "my-configmap"
-				getConfigmapOptionsModel := codeEngineService.NewGetConfigmapOptions(projectGuid, configmapName)
+				configMapName := "my-config-map"
+				getConfigmapOptionsModel := codeEngineService.NewGetConfigmapOptions(projectGuid, configMapName)
 				getConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.SetConfigmapName("my-configmap")
+				getConfigmapOptionsModel.SetConfigMapName("my-config-map")
 				getConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getConfigmapOptionsModel).ToNot(BeNil())
 				Expect(getConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getConfigmapOptionsModel.ConfigmapName).To(Equal(core.StringPtr("my-configmap")))
+				Expect(getConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
 				Expect(getConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetProjectOptions successfully`, func() {
@@ -6775,17 +6775,17 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewUpdateConfigmapOptions successfully`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configmapName := "my-configmap"
-				updateConfigmapOptionsModel := codeEngineService.NewUpdateConfigmapOptions(projectGuid, configmapName)
+				configMapName := "my-config-map"
+				updateConfigmapOptionsModel := codeEngineService.NewUpdateConfigmapOptions(projectGuid, configMapName)
 				updateConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.SetConfigmapName("my-configmap")
+				updateConfigmapOptionsModel.SetConfigMapName("my-config-map")
 				updateConfigmapOptionsModel.SetData(make(map[string]string))
 				updateConfigmapOptionsModel.SetImmutable(false)
 				updateConfigmapOptionsModel.SetName("my-configmap")
 				updateConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateConfigmapOptionsModel).ToNot(BeNil())
 				Expect(updateConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateConfigmapOptionsModel.ConfigmapName).To(Equal(core.StringPtr("my-configmap")))
+				Expect(updateConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
 				Expect(updateConfigmapOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(updateConfigmapOptionsModel.Immutable).To(Equal(core.BoolPtr(false)))
 				Expect(updateConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))

@@ -161,12 +161,12 @@ func (codeEngine *CodeEngineV2) DisableRetries() {
 
 // ListProjects : List all projects
 // List all projects in the current resource group.
-func (codeEngine *CodeEngineV2) ListProjects(listProjectsOptions *ListProjectsOptions) (result *V2ProjectList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListProjectsWithContext(context.Background(), listProjectsOptions)
 }
 
 // ListProjectsWithContext is an alternate form of the ListProjects method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *V2ProjectList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ProjectList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listProjectsOptions, "listProjectsOptions")
 	if err != nil {
 		return
@@ -208,7 +208,7 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ProjectList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectList)
 		if err != nil {
 			return
 		}
@@ -220,12 +220,12 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 
 // CreateProject : Create a project
 // Create a project in the current resource group.
-func (codeEngine *CodeEngineV2) CreateProject(createProjectOptions *CreateProjectOptions) (result *V2Project, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
 
 // CreateProjectWithContext is an alternate form of the CreateProject method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *V2Project, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createProjectOptions, "createProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -283,7 +283,7 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Project)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
 			return
 		}
@@ -295,12 +295,12 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 
 // GetProject : Get a project
 // Display the details of a single project.
-func (codeEngine *CodeEngineV2) GetProject(getProjectOptions *GetProjectOptions) (result *V2Project, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetProject(getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return codeEngine.GetProjectWithContext(context.Background(), getProjectOptions)
 }
 
 // GetProjectWithContext is an alternate form of the GetProject method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *V2Project, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectOptions, "getProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -343,7 +343,7 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Project)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
 			return
 		}
@@ -403,12 +403,12 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 
 // ListBuilds : List builds
 // List all builds in a project.
-func (codeEngine *CodeEngineV2) ListBuilds(listBuildsOptions *ListBuildsOptions) (result *V2BuildList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListBuilds(listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListBuildsWithContext(context.Background(), listBuildsOptions)
 }
 
 // ListBuildsWithContext is an alternate form of the ListBuilds method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listBuildsOptions *ListBuildsOptions) (result *V2BuildList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listBuildsOptions, "listBuildsOptions cannot be nil")
 	if err != nil {
 		return
@@ -458,7 +458,7 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2BuildList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildList)
 		if err != nil {
 			return
 		}
@@ -470,12 +470,12 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 
 // CreateBuild : Create a build
 // Create a build.
-func (codeEngine *CodeEngineV2) CreateBuild(createBuildOptions *CreateBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateBuild(createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateBuildWithContext(context.Background(), createBuildOptions)
 }
 
 // CreateBuildWithContext is an alternate form of the CreateBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, createBuildOptions *CreateBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createBuildOptions, "createBuildOptions cannot be nil")
 	if err != nil {
 		return
@@ -564,7 +564,7 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Build)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
 			return
 		}
@@ -576,12 +576,12 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 
 // GetBuild : Get a build
 // Display the details of a build.
-func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	return codeEngine.GetBuildWithContext(context.Background(), getBuildOptions)
 }
 
 // GetBuildWithContext is an alternate form of the GetBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuildOptions *GetBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBuildOptions, "getBuildOptions cannot be nil")
 	if err != nil {
 		return
@@ -625,7 +625,7 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Build)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
 			return
 		}
@@ -686,12 +686,12 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 
 // UpdateBuild : Update a build
 // Update a build.
-func (codeEngine *CodeEngineV2) UpdateBuild(updateBuildOptions *UpdateBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateBuild(updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	return codeEngine.UpdateBuildWithContext(context.Background(), updateBuildOptions)
 }
 
 // UpdateBuildWithContext is an alternate form of the UpdateBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, updateBuildOptions *UpdateBuildOptions) (result *V2Build, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateBuildOptions, "updateBuildOptions cannot be nil")
 	if err != nil {
 		return
@@ -781,7 +781,7 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Build)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
 			return
 		}
@@ -793,12 +793,12 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 
 // ListBuildruns : List build runs
 // List all build runs in a project.
-func (codeEngine *CodeEngineV2) ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions) (result *V2BuildRunList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions) (result *BuildRunList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListBuildrunsWithContext(context.Background(), listBuildrunsOptions)
 }
 
 // ListBuildrunsWithContext is an alternate form of the ListBuildruns method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, listBuildrunsOptions *ListBuildrunsOptions) (result *V2BuildRunList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, listBuildrunsOptions *ListBuildrunsOptions) (result *BuildRunList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listBuildrunsOptions, "listBuildrunsOptions cannot be nil")
 	if err != nil {
 		return
@@ -815,7 +815,7 @@ func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, li
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -848,7 +848,7 @@ func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, li
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2BuildRunList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRunList)
 		if err != nil {
 			return
 		}
@@ -860,12 +860,12 @@ func (codeEngine *CodeEngineV2) ListBuildrunsWithContext(ctx context.Context, li
 
 // CreateBuildrun : Create a build run
 // Create a build run.
-func (codeEngine *CodeEngineV2) CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateBuildrunWithContext(context.Background(), createBuildrunOptions)
 }
 
 // CreateBuildrunWithContext is an alternate form of the CreateBuildrun method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, createBuildrunOptions *CreateBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, createBuildrunOptions *CreateBuildrunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createBuildrunOptions, "createBuildrunOptions cannot be nil")
 	if err != nil {
 		return
@@ -882,7 +882,7 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -963,7 +963,7 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2BuildRun)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRun)
 		if err != nil {
 			return
 		}
@@ -975,12 +975,12 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 
 // GetBuildrun : Get a build run
 // Display the details of a build run.
-func (codeEngine *CodeEngineV2) GetBuildrun(getBuildrunOptions *GetBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetBuildrun(getBuildrunOptions *GetBuildrunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	return codeEngine.GetBuildrunWithContext(context.Background(), getBuildrunOptions)
 }
 
 // GetBuildrunWithContext is an alternate form of the GetBuildrun method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetBuildrunWithContext(ctx context.Context, getBuildrunOptions *GetBuildrunOptions) (result *V2BuildRun, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetBuildrunWithContext(ctx context.Context, getBuildrunOptions *GetBuildrunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBuildrunOptions, "getBuildrunOptions cannot be nil")
 	if err != nil {
 		return
@@ -992,13 +992,13 @@ func (codeEngine *CodeEngineV2) GetBuildrunWithContext(ctx context.Context, getB
 
 	pathParamsMap := map[string]string{
 		"project_guid": *getBuildrunOptions.ProjectGuid,
-		"buildrun_name": *getBuildrunOptions.BuildrunName,
+		"build_run_name": *getBuildrunOptions.BuildRunName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs/{build_run_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1024,7 +1024,7 @@ func (codeEngine *CodeEngineV2) GetBuildrunWithContext(ctx context.Context, getB
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2BuildRun)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRun)
 		if err != nil {
 			return
 		}
@@ -1053,13 +1053,13 @@ func (codeEngine *CodeEngineV2) DeleteBuildrunWithContext(ctx context.Context, d
 
 	pathParamsMap := map[string]string{
 		"project_guid": *deleteBuildrunOptions.ProjectGuid,
-		"buildrun_name": *deleteBuildrunOptions.BuildrunName,
+		"build_run_name": *deleteBuildrunOptions.BuildRunName,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/buildruns/{buildrun_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs/{build_run_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1085,12 +1085,12 @@ func (codeEngine *CodeEngineV2) DeleteBuildrunWithContext(ctx context.Context, d
 
 // ListConfigmaps : List configmaps
 // List all configmaps in a project.
-func (codeEngine *CodeEngineV2) ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions) (result *V2ConfigMapList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListConfigmapsWithContext(context.Background(), listConfigmapsOptions)
 }
 
 // ListConfigmapsWithContext is an alternate form of the ListConfigmaps method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListConfigmapsWithContext(ctx context.Context, listConfigmapsOptions *ListConfigmapsOptions) (result *V2ConfigMapList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListConfigmapsWithContext(ctx context.Context, listConfigmapsOptions *ListConfigmapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigmapsOptions, "listConfigmapsOptions cannot be nil")
 	if err != nil {
 		return
@@ -1107,7 +1107,7 @@ func (codeEngine *CodeEngineV2) ListConfigmapsWithContext(ctx context.Context, l
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/configmaps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1140,7 +1140,7 @@ func (codeEngine *CodeEngineV2) ListConfigmapsWithContext(ctx context.Context, l
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ConfigMapList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMapList)
 		if err != nil {
 			return
 		}
@@ -1152,12 +1152,12 @@ func (codeEngine *CodeEngineV2) ListConfigmapsWithContext(ctx context.Context, l
 
 // CreateConfigmap : Create a configmap
 // Create a configmap.
-func (codeEngine *CodeEngineV2) CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateConfigmapWithContext(context.Background(), createConfigmapOptions)
 }
 
 // CreateConfigmapWithContext is an alternate form of the CreateConfigmap method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, createConfigmapOptions *CreateConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, createConfigmapOptions *CreateConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createConfigmapOptions, "createConfigmapOptions cannot be nil")
 	if err != nil {
 		return
@@ -1174,7 +1174,7 @@ func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/configmaps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1216,7 +1216,7 @@ func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, 
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ConfigMap)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
 			return
 		}
@@ -1228,12 +1228,12 @@ func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, 
 
 // GetConfigmap : Get a configmap
 // Display the details of a configmap.
-func (codeEngine *CodeEngineV2) GetConfigmap(getConfigmapOptions *GetConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetConfigmap(getConfigmapOptions *GetConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	return codeEngine.GetConfigmapWithContext(context.Background(), getConfigmapOptions)
 }
 
 // GetConfigmapWithContext is an alternate form of the GetConfigmap method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetConfigmapWithContext(ctx context.Context, getConfigmapOptions *GetConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetConfigmapWithContext(ctx context.Context, getConfigmapOptions *GetConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getConfigmapOptions, "getConfigmapOptions cannot be nil")
 	if err != nil {
 		return
@@ -1245,13 +1245,13 @@ func (codeEngine *CodeEngineV2) GetConfigmapWithContext(ctx context.Context, get
 
 	pathParamsMap := map[string]string{
 		"project_guid": *getConfigmapOptions.ProjectGuid,
-		"configmap_name": *getConfigmapOptions.ConfigmapName,
+		"config_map_name": *getConfigmapOptions.ConfigMapName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/configmaps/{configmap_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{config_map_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1277,7 +1277,7 @@ func (codeEngine *CodeEngineV2) GetConfigmapWithContext(ctx context.Context, get
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ConfigMap)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
 			return
 		}
@@ -1306,13 +1306,13 @@ func (codeEngine *CodeEngineV2) DeleteConfigmapWithContext(ctx context.Context, 
 
 	pathParamsMap := map[string]string{
 		"project_guid": *deleteConfigmapOptions.ProjectGuid,
-		"configmap_name": *deleteConfigmapOptions.ConfigmapName,
+		"config_map_name": *deleteConfigmapOptions.ConfigMapName,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/configmaps/{configmap_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{config_map_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1338,12 +1338,12 @@ func (codeEngine *CodeEngineV2) DeleteConfigmapWithContext(ctx context.Context, 
 
 // UpdateConfigmap : Update a configmap
 // Update a configmap.
-func (codeEngine *CodeEngineV2) UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	return codeEngine.UpdateConfigmapWithContext(context.Background(), updateConfigmapOptions)
 }
 
 // UpdateConfigmapWithContext is an alternate form of the UpdateConfigmap method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, updateConfigmapOptions *UpdateConfigmapOptions) (result *V2ConfigMap, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, updateConfigmapOptions *UpdateConfigmapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateConfigmapOptions, "updateConfigmapOptions cannot be nil")
 	if err != nil {
 		return
@@ -1355,13 +1355,13 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 
 	pathParamsMap := map[string]string{
 		"project_guid": *updateConfigmapOptions.ProjectGuid,
-		"configmap_name": *updateConfigmapOptions.ConfigmapName,
+		"config_map_name": *updateConfigmapOptions.ConfigMapName,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/configmaps/{configmap_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{config_map_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1403,7 +1403,7 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ConfigMap)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
 			return
 		}
@@ -1415,12 +1415,12 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 
 // ListSecrets : List secret
 // List all secrets in a project.
-func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *V2SecretList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *SecretList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
 }
 
 // ListSecretsWithContext is an alternate form of the ListSecrets method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, listSecretsOptions *ListSecretsOptions) (result *V2SecretList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, listSecretsOptions *ListSecretsOptions) (result *SecretList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listSecretsOptions, "listSecretsOptions cannot be nil")
 	if err != nil {
 		return
@@ -1466,7 +1466,7 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2SecretList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecretList)
 		if err != nil {
 			return
 		}
@@ -1478,12 +1478,12 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 
 // CreateSecret : Create a secret
 // Create a secret.
-func (codeEngine *CodeEngineV2) CreateSecret(createSecretOptions *CreateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateSecret(createSecretOptions *CreateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateSecretWithContext(context.Background(), createSecretOptions)
 }
 
 // CreateSecretWithContext is an alternate form of the CreateSecret method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, createSecretOptions *CreateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, createSecretOptions *CreateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createSecretOptions, "createSecretOptions cannot be nil")
 	if err != nil {
 		return
@@ -1569,7 +1569,7 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
 			return
 		}
@@ -1581,12 +1581,12 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 
 // GetSecret : Get a secret
 // Get a secret.
-func (codeEngine *CodeEngineV2) GetSecret(getSecretOptions *GetSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetSecret(getSecretOptions *GetSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	return codeEngine.GetSecretWithContext(context.Background(), getSecretOptions)
 }
 
 // GetSecretWithContext is an alternate form of the GetSecret method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSecretOptions *GetSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSecretOptions *GetSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getSecretOptions, "getSecretOptions cannot be nil")
 	if err != nil {
 		return
@@ -1630,7 +1630,7 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
 			return
 		}
@@ -1691,12 +1691,12 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 
 // UpdateSecret : Update a secret
 // Update a secret.
-func (codeEngine *CodeEngineV2) UpdateSecret(updateSecretOptions *UpdateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateSecret(updateSecretOptions *UpdateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	return codeEngine.UpdateSecretWithContext(context.Background(), updateSecretOptions)
 }
 
 // UpdateSecretWithContext is an alternate form of the UpdateSecret method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, updateSecretOptions *UpdateSecretOptions) (result *V2Secret, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, updateSecretOptions *UpdateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateSecretOptions, "updateSecretOptions cannot be nil")
 	if err != nil {
 		return
@@ -1783,7 +1783,7 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Secret)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
 			return
 		}
@@ -1795,12 +1795,12 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 
 // ListReclamations : List all reclamations
 // List all project reclamations.
-func (codeEngine *CodeEngineV2) ListReclamations(listReclamationsOptions *ListReclamationsOptions) (result *V2ReclamationList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListReclamations(listReclamationsOptions *ListReclamationsOptions) (result *ReclamationList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListReclamationsWithContext(context.Background(), listReclamationsOptions)
 }
 
 // ListReclamationsWithContext is an alternate form of the ListReclamations method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListReclamationsWithContext(ctx context.Context, listReclamationsOptions *ListReclamationsOptions) (result *V2ReclamationList, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ListReclamationsWithContext(ctx context.Context, listReclamationsOptions *ListReclamationsOptions) (result *ReclamationList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listReclamationsOptions, "listReclamationsOptions")
 	if err != nil {
 		return
@@ -1842,7 +1842,7 @@ func (codeEngine *CodeEngineV2) ListReclamationsWithContext(ctx context.Context,
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2ReclamationList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReclamationList)
 		if err != nil {
 			return
 		}
@@ -1854,12 +1854,12 @@ func (codeEngine *CodeEngineV2) ListReclamationsWithContext(ctx context.Context,
 
 // GetReclamation : Get a reclamation
 // Get a reclamation.
-func (codeEngine *CodeEngineV2) GetReclamation(getReclamationOptions *GetReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetReclamation(getReclamationOptions *GetReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	return codeEngine.GetReclamationWithContext(context.Background(), getReclamationOptions)
 }
 
 // GetReclamationWithContext is an alternate form of the GetReclamation method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetReclamationWithContext(ctx context.Context, getReclamationOptions *GetReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) GetReclamationWithContext(ctx context.Context, getReclamationOptions *GetReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getReclamationOptions, "getReclamationOptions cannot be nil")
 	if err != nil {
 		return
@@ -1902,7 +1902,7 @@ func (codeEngine *CodeEngineV2) GetReclamationWithContext(ctx context.Context, g
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Reclamation)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReclamation)
 		if err != nil {
 			return
 		}
@@ -1914,12 +1914,12 @@ func (codeEngine *CodeEngineV2) GetReclamationWithContext(ctx context.Context, g
 
 // ReclaimReclamation : Delete a reclamation
 // Delete a project reclamation to permanently delete the project.
-func (codeEngine *CodeEngineV2) ReclaimReclamation(reclaimReclamationOptions *ReclaimReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ReclaimReclamation(reclaimReclamationOptions *ReclaimReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	return codeEngine.ReclaimReclamationWithContext(context.Background(), reclaimReclamationOptions)
 }
 
 // ReclaimReclamationWithContext is an alternate form of the ReclaimReclamation method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ReclaimReclamationWithContext(ctx context.Context, reclaimReclamationOptions *ReclaimReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) ReclaimReclamationWithContext(ctx context.Context, reclaimReclamationOptions *ReclaimReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(reclaimReclamationOptions, "reclaimReclamationOptions cannot be nil")
 	if err != nil {
 		return
@@ -1962,7 +1962,7 @@ func (codeEngine *CodeEngineV2) ReclaimReclamationWithContext(ctx context.Contex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Reclamation)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReclamation)
 		if err != nil {
 			return
 		}
@@ -1974,12 +1974,12 @@ func (codeEngine *CodeEngineV2) ReclaimReclamationWithContext(ctx context.Contex
 
 // RestoreReclamation : Restore a project reclamation
 // Restore a project reclamation. Projects that are soft-deleted can be restored within 7 days.
-func (codeEngine *CodeEngineV2) RestoreReclamation(restoreReclamationOptions *RestoreReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) RestoreReclamation(restoreReclamationOptions *RestoreReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	return codeEngine.RestoreReclamationWithContext(context.Background(), restoreReclamationOptions)
 }
 
 // RestoreReclamationWithContext is an alternate form of the RestoreReclamation method which supports a Context parameter
-func (codeEngine *CodeEngineV2) RestoreReclamationWithContext(ctx context.Context, restoreReclamationOptions *RestoreReclamationOptions) (result *V2Reclamation, response *core.DetailedResponse, err error) {
+func (codeEngine *CodeEngineV2) RestoreReclamationWithContext(ctx context.Context, restoreReclamationOptions *RestoreReclamationOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(restoreReclamationOptions, "restoreReclamationOptions cannot be nil")
 	if err != nil {
 		return
@@ -2022,7 +2022,7 @@ func (codeEngine *CodeEngineV2) RestoreReclamationWithContext(ctx context.Contex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Reclamation)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReclamation)
 		if err != nil {
 			return
 		}
@@ -2030,6 +2030,519 @@ func (codeEngine *CodeEngineV2) RestoreReclamationWithContext(ctx context.Contex
 	}
 
 	return
+}
+
+// Build : Response model for build definitions.
+type Build struct {
+	// The resource that owns this build, such as a Code Engine application or job.
+	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The path to the Dockerfile that is used for build strategies for building an image.
+	Dockerfile *string `json:"dockerfile,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The name of the image.
+	OutputImage *string `json:"output_image,omitempty"`
+
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
+	SourceContextDir *string `json:"source_context_dir,omitempty"`
+
+	// The commit, tag, or branch in the source repository to pull.
+	SourceRevision *string `json:"source_revision,omitempty"`
+
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+	SourceType *string `json:"source_type,omitempty"`
+
+	// The URL of the repository.
+	SourceURL *string `json:"source_url,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The strategy to use for building the image.
+	StrategyName *string `json:"strategy_name,omitempty"`
+
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
+	StrategySize *string `json:"strategy_size,omitempty"`
+
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
+	Timeout *int64 `json:"timeout,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalBuild unmarshals an instance of Build from the specified map of raw messages.
+func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Build)
+	err = core.UnmarshalPrimitive(m, "ce_owner_reference", &obj.CeOwnerReference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_name", &obj.StrategyName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BuildList : Contains a list of builds and pagination information.
+type BuildList struct {
+	// List of all builds.
+	Builds []Build `json:"builds,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalBuildList unmarshals an instance of BuildList from the specified map of raw messages.
+func UnmarshalBuildList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildList)
+	err = core.UnmarshalModel(m, "builds", &obj.Builds, UnmarshalBuild)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *BuildList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// BuildRun : BuildRun struct
+type BuildRun struct {
+	// The name of the app revision with which this build run is associated.
+	AppRevision *string `json:"app_revision,omitempty"`
+
+	// The name of the build on which this build run is associated.
+	Build *string `json:"build,omitempty"`
+
+	// The resource that owns this build, such as a Code Engine application or job.
+	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// The path to the Dockerfile that is used for build strategies for building an image.
+	Dockerfile *string `json:"dockerfile,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The name of the image.
+	OutputImage *string `json:"output_image,omitempty"`
+
+	// The secret that is required to access the image registry.
+	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// ServiceAccount refers to the serviceaccount which is used for resource control.
+	ServiceAccount *string `json:"service_account,omitempty"`
+
+	// The directory in the repository that contains the buildpacks file or the Dockerfile.
+	SourceContextDir *string `json:"source_context_dir,omitempty"`
+
+	// The commit, tag, or branch in the source repository to pull.
+	SourceRevision *string `json:"source_revision,omitempty"`
+
+	// The name of the secret that is required to access the repository source.
+	SourceSecret *string `json:"source_secret,omitempty"`
+
+	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+	SourceType *string `json:"source_type,omitempty"`
+
+	// The URL of the repository.
+	SourceURL *string `json:"source_url,omitempty"`
+
+	// Describes the current status condition of a build run.
+	Status *BuildRunStatus `json:"status,omitempty"`
+
+	// The strategy to use for building the image.
+	StrategyName *string `json:"strategy_name,omitempty"`
+
+	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
+	// `large`,`xlarge`.
+	StrategySize *string `json:"strategy_size,omitempty"`
+
+	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
+	Timeout *int64 `json:"timeout,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalBuildRun unmarshals an instance of BuildRun from the specified map of raw messages.
+func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildRun)
+	err = core.UnmarshalPrimitive(m, "app_revision", &obj.AppRevision)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ce_owner_reference", &obj.CeOwnerReference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "status", &obj.Status, UnmarshalBuildRunStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_name", &obj.StrategyName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BuildRunList : Contains a list of build runs and pagination information.
+type BuildRunList struct {
+	// List of all build runs.
+	Buildruns []BuildRun `json:"buildruns,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalBuildRunList unmarshals an instance of BuildRunList from the specified map of raw messages.
+func UnmarshalBuildRunList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildRunList)
+	err = core.UnmarshalModel(m, "buildruns", &obj.Buildruns, UnmarshalBuildRun)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *BuildRunList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// BuildRunStatus : Describes the current status condition of a build run.
+type BuildRunStatus struct {
+	// Describes the time the build run completed.
+	CompletionTime *string `json:"completion_time,omitempty"`
+
+	// Describes the name of the task run responsible for executing this build run.
+	LastTaskRun *string `json:"last_task_run,omitempty"`
+
+	// Describes the time the build run started.
+	StartTime *string `json:"start_time,omitempty"`
+}
+
+// UnmarshalBuildRunStatus unmarshals an instance of BuildRunStatus from the specified map of raw messages.
+func UnmarshalBuildRunStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildRunStatus)
+	err = core.UnmarshalPrimitive(m, "completion_time", &obj.CompletionTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_task_run", &obj.LastTaskRun)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ConfigMap : Describes the model of a configmap.
+type ConfigMap struct {
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
+	Data map[string]string `json:"data,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Specifies that the key-value pair cannot be edited.
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalConfigMap unmarshals an instance of ConfigMap from the specified map of raw messages.
+func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigMap)
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ConfigMapList : Contains a list of configmaps and pagination information.
+type ConfigMapList struct {
+	// List of all configmaps.
+	Configmaps []ConfigMap `json:"configmaps,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalConfigMapList unmarshals an instance of ConfigMapList from the specified map of raw messages.
+func UnmarshalConfigMapList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigMapList)
+	err = core.UnmarshalModel(m, "configmaps", &obj.Configmaps, UnmarshalConfigMap)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ConfigMapList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // CreateBuildOptions : The CreateBuild options.
@@ -2639,17 +3152,17 @@ type DeleteBuildrunOptions struct {
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
 	// The name of your build run.
-	BuildrunName *string `json:"buildrun_name" validate:"required,ne="`
+	BuildRunName *string `json:"build_run_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteBuildrunOptions : Instantiate DeleteBuildrunOptions
-func (*CodeEngineV2) NewDeleteBuildrunOptions(projectGuid string, buildrunName string) *DeleteBuildrunOptions {
+func (*CodeEngineV2) NewDeleteBuildrunOptions(projectGuid string, buildRunName string) *DeleteBuildrunOptions {
 	return &DeleteBuildrunOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
-		BuildrunName: core.StringPtr(buildrunName),
+		BuildRunName: core.StringPtr(buildRunName),
 	}
 }
 
@@ -2659,9 +3172,9 @@ func (_options *DeleteBuildrunOptions) SetProjectGuid(projectGuid string) *Delet
 	return _options
 }
 
-// SetBuildrunName : Allow user to set BuildrunName
-func (_options *DeleteBuildrunOptions) SetBuildrunName(buildrunName string) *DeleteBuildrunOptions {
-	_options.BuildrunName = core.StringPtr(buildrunName)
+// SetBuildRunName : Allow user to set BuildRunName
+func (_options *DeleteBuildrunOptions) SetBuildRunName(buildRunName string) *DeleteBuildrunOptions {
+	_options.BuildRunName = core.StringPtr(buildRunName)
 	return _options
 }
 
@@ -2676,18 +3189,18 @@ type DeleteConfigmapOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// The name of your configmap.
-	ConfigmapName *string `json:"configmap_name" validate:"required,ne="`
+	// The name of your config map.
+	ConfigMapName *string `json:"config_map_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteConfigmapOptions : Instantiate DeleteConfigmapOptions
-func (*CodeEngineV2) NewDeleteConfigmapOptions(projectGuid string, configmapName string) *DeleteConfigmapOptions {
+func (*CodeEngineV2) NewDeleteConfigmapOptions(projectGuid string, configMapName string) *DeleteConfigmapOptions {
 	return &DeleteConfigmapOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
-		ConfigmapName: core.StringPtr(configmapName),
+		ConfigMapName: core.StringPtr(configMapName),
 	}
 }
 
@@ -2697,9 +3210,9 @@ func (_options *DeleteConfigmapOptions) SetProjectGuid(projectGuid string) *Dele
 	return _options
 }
 
-// SetConfigmapName : Allow user to set ConfigmapName
-func (_options *DeleteConfigmapOptions) SetConfigmapName(configmapName string) *DeleteConfigmapOptions {
-	_options.ConfigmapName = core.StringPtr(configmapName)
+// SetConfigMapName : Allow user to set ConfigMapName
+func (_options *DeleteConfigmapOptions) SetConfigMapName(configMapName string) *DeleteConfigmapOptions {
+	_options.ConfigMapName = core.StringPtr(configMapName)
 	return _options
 }
 
@@ -2819,17 +3332,17 @@ type GetBuildrunOptions struct {
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
 	// The name of your build run.
-	BuildrunName *string `json:"buildrun_name" validate:"required,ne="`
+	BuildRunName *string `json:"build_run_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetBuildrunOptions : Instantiate GetBuildrunOptions
-func (*CodeEngineV2) NewGetBuildrunOptions(projectGuid string, buildrunName string) *GetBuildrunOptions {
+func (*CodeEngineV2) NewGetBuildrunOptions(projectGuid string, buildRunName string) *GetBuildrunOptions {
 	return &GetBuildrunOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
-		BuildrunName: core.StringPtr(buildrunName),
+		BuildRunName: core.StringPtr(buildRunName),
 	}
 }
 
@@ -2839,9 +3352,9 @@ func (_options *GetBuildrunOptions) SetProjectGuid(projectGuid string) *GetBuild
 	return _options
 }
 
-// SetBuildrunName : Allow user to set BuildrunName
-func (_options *GetBuildrunOptions) SetBuildrunName(buildrunName string) *GetBuildrunOptions {
-	_options.BuildrunName = core.StringPtr(buildrunName)
+// SetBuildRunName : Allow user to set BuildRunName
+func (_options *GetBuildrunOptions) SetBuildRunName(buildRunName string) *GetBuildrunOptions {
+	_options.BuildRunName = core.StringPtr(buildRunName)
 	return _options
 }
 
@@ -2856,18 +3369,18 @@ type GetConfigmapOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// The name of your configmap.
-	ConfigmapName *string `json:"configmap_name" validate:"required,ne="`
+	// The name of your config map.
+	ConfigMapName *string `json:"config_map_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetConfigmapOptions : Instantiate GetConfigmapOptions
-func (*CodeEngineV2) NewGetConfigmapOptions(projectGuid string, configmapName string) *GetConfigmapOptions {
+func (*CodeEngineV2) NewGetConfigmapOptions(projectGuid string, configMapName string) *GetConfigmapOptions {
 	return &GetConfigmapOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
-		ConfigmapName: core.StringPtr(configmapName),
+		ConfigMapName: core.StringPtr(configMapName),
 	}
 }
 
@@ -2877,9 +3390,9 @@ func (_options *GetConfigmapOptions) SetProjectGuid(projectGuid string) *GetConf
 	return _options
 }
 
-// SetConfigmapName : Allow user to set ConfigmapName
-func (_options *GetConfigmapOptions) SetConfigmapName(configmapName string) *GetConfigmapOptions {
-	_options.ConfigmapName = core.StringPtr(configmapName)
+// SetConfigMapName : Allow user to set ConfigMapName
+func (_options *GetConfigmapOptions) SetConfigMapName(configMapName string) *GetConfigmapOptions {
+	_options.ConfigMapName = core.StringPtr(configMapName)
 	return _options
 }
 
@@ -2983,6 +3496,28 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 	return options
 }
 
+// Link : Link struct
+type Link struct {
+	Href *string `json:"href,omitempty"`
+
+	Method *string `json:"method,omitempty"`
+}
+
+// UnmarshalLink unmarshals an instance of Link from the specified map of raw messages.
+func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Link)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ListBuildrunsOptions : The ListBuildruns options.
 type ListBuildrunsOptions struct {
 	// The ID of the project.
@@ -3083,7 +3618,7 @@ type ListConfigmapsOptions struct {
 	// The maximum number of configmaps per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of configmaps.
+	// Token to continue traversing paginated list of config maps.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3229,6 +3764,138 @@ func (options *ListSecretsOptions) SetHeaders(param map[string]string) *ListSecr
 	return options
 }
 
+// Project : Describes the model of a project.
+type Project struct {
+	// An alphanumeric value identifying the account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The date when the project was created.
+	Created *string `json:"created,omitempty"`
+
+	// The ID associated with the project.
+	Crn *string `json:"crn,omitempty"`
+
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The ID of the project.
+	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The name of the project.
+	Name *string `json:"name,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// The region for your project deployment.
+	Region *string `json:"region,omitempty"`
+
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The type of the project.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
+func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Project)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectList : Contains a list of projects and pagination information.
+type ProjectList struct {
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	// List of projects.
+	Projects []Project `json:"projects,omitempty"`
+}
+
+// UnmarshalProjectList unmarshals an instance of ProjectList from the specified map of raw messages.
+func UnmarshalProjectList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectList)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProject)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ProjectList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
 // ReclaimReclamationOptions : The ReclaimReclamation options.
 type ReclaimReclamationOptions struct {
 	// The ID of the project.
@@ -3257,6 +3924,124 @@ func (options *ReclaimReclamationOptions) SetHeaders(param map[string]string) *R
 	return options
 }
 
+// Reclamation : Describes the model of a reclamation.
+type Reclamation struct {
+	// An alphanumeric value identifying the account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The ID of the reclamation.
+	ID *string `json:"id,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The ID of the Code Engine project resource instance.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The target time that the reclamation retention period end.
+	TargetTime *string `json:"target_time,omitempty"`
+
+	// The type of the reclamation.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalReclamation unmarshals an instance of Reclamation from the specified map of raw messages.
+func UnmarshalReclamation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Reclamation)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_time", &obj.TargetTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ReclamationList : Contains a list of reclamations and pagination information.
+type ReclamationList struct {
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	// List of all project reclamations.
+	Reclamations []Reclamation `json:"reclamations,omitempty"`
+}
+
+// UnmarshalReclamationList unmarshals an instance of ReclamationList from the specified map of raw messages.
+func UnmarshalReclamationList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ReclamationList)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "reclamations", &obj.Reclamations, UnmarshalReclamation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ReclamationList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
 // RestoreReclamationOptions : The RestoreReclamation options.
 type RestoreReclamationOptions struct {
 	// The ID of the project.
@@ -3283,6 +4068,158 @@ func (_options *RestoreReclamationOptions) SetProjectGuid(projectGuid string) *R
 func (options *RestoreReclamationOptions) SetHeaders(param map[string]string) *RestoreReclamationOptions {
 	options.Headers = param
 	return options
+}
+
+// Secret : Describes the model of a secret.
+type Secret struct {
+	// Name of the secret.
+	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
+
+	// List of bound Code Engine components.
+	CeComponents []string `json:"ce_components,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map.
+	Data map[string]string `json:"data,omitempty"`
+
+	// Specify the format of the secret.
+	Format *string `json:"format,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Specifies that the key-value pair cannot be edited.
+	Immutable *bool `json:"immutable,omitempty"`
+
+	// Contains a list of references to related resources and links to obtaining their information.
+	Links map[string]Link `json:"links,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// Type of IBM Cloud service associated with the secret.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// ID of the service credential associated with the secret.
+	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
+
+	// Role of the service credential.
+	Role *string `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential.
+	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+
+	// Specify the target of the secret.
+	Target *string `json:"target,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalSecret unmarshals an instance of Secret from the specified map of raw messages.
+func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Secret)
+	err = core.UnmarshalPrimitive(m, "binding_secret_ref", &obj.BindingSecretRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ce_components", &obj.CeComponents)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "format", &obj.Format)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resourcekey_id", &obj.ResourcekeyID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretList : List of secret resources.
+type SecretList struct {
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	// List of Secrets.
+	Secrets []Secret `json:"secrets,omitempty"`
+}
+
+// UnmarshalSecretList unmarshals an instance of SecretList from the specified map of raw messages.
+func UnmarshalSecretList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretList)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "secrets", &obj.Secrets, UnmarshalSecret)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // UpdateBuildOptions : The UpdateBuild options.
@@ -3447,7 +4384,7 @@ type UpdateConfigmapOptions struct {
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
 	// The name of your configmap.
-	ConfigmapName *string `json:"configmap_name" validate:"required,ne="`
+	ConfigMapName *string `json:"config_map_name" validate:"required,ne="`
 
 	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
@@ -3463,10 +4400,10 @@ type UpdateConfigmapOptions struct {
 }
 
 // NewUpdateConfigmapOptions : Instantiate UpdateConfigmapOptions
-func (*CodeEngineV2) NewUpdateConfigmapOptions(projectGuid string, configmapName string) *UpdateConfigmapOptions {
+func (*CodeEngineV2) NewUpdateConfigmapOptions(projectGuid string, configMapName string) *UpdateConfigmapOptions {
 	return &UpdateConfigmapOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
-		ConfigmapName: core.StringPtr(configmapName),
+		ConfigMapName: core.StringPtr(configMapName),
 	}
 }
 
@@ -3476,9 +4413,9 @@ func (_options *UpdateConfigmapOptions) SetProjectGuid(projectGuid string) *Upda
 	return _options
 }
 
-// SetConfigmapName : Allow user to set ConfigmapName
-func (_options *UpdateConfigmapOptions) SetConfigmapName(configmapName string) *UpdateConfigmapOptions {
-	_options.ConfigmapName = core.StringPtr(configmapName)
+// SetConfigMapName : Allow user to set ConfigMapName
+func (_options *UpdateConfigmapOptions) SetConfigMapName(configMapName string) *UpdateConfigmapOptions {
+	_options.ConfigMapName = core.StringPtr(configMapName)
 	return _options
 }
 
@@ -3676,943 +4613,6 @@ func UnmarshalPaginationListNextMetadata(m map[string]json.RawMessage, result in
 	return
 }
 
-// V2Build : Response model for build definitions.
-type V2Build struct {
-	// The resource that owns this build, such as a Code Engine application or job.
-	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
-
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
-
-	// Detailed information on the status.
-	Details *string `json:"details,omitempty"`
-
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The name of the resource.
-	Name *string `json:"name,omitempty"`
-
-	// The name of the image.
-	OutputImage *string `json:"output_image,omitempty"`
-
-	// The secret that is required to access the image registry.
-	OutputSecret *string `json:"output_secret,omitempty"`
-
-	// The reason to provide more context for the status.
-	Reason *string `json:"reason,omitempty"`
-
-	// The directory in the repository that contains the buildpacks file or the Dockerfile.
-	SourceContextDir *string `json:"source_context_dir,omitempty"`
-
-	// The commit, tag, or branch in the source repository to pull.
-	SourceRevision *string `json:"source_revision,omitempty"`
-
-	// The name of the secret that is required to access the repository source.
-	SourceSecret *string `json:"source_secret,omitempty"`
-
-	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
-	SourceType *string `json:"source_type,omitempty"`
-
-	// The URL of the repository.
-	SourceURL *string `json:"source_url,omitempty"`
-
-	// The current state of the Code Engine resource.
-	Status *string `json:"status,omitempty"`
-
-	// The strategy to use for building the image.
-	StrategyName *string `json:"strategy_name,omitempty"`
-
-	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
-	// `large`,`xlarge`.
-	StrategySize *string `json:"strategy_size,omitempty"`
-
-	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
-	Timeout *int64 `json:"timeout,omitempty"`
-
-	// The type of the resource.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2Build unmarshals an instance of V2Build from the specified map of raw messages.
-func UnmarshalV2Build(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2Build)
-	err = core.UnmarshalPrimitive(m, "ce_owner_reference", &obj.CeOwnerReference)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "strategy_name", &obj.StrategyName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2BuildList : Contains a list of builds and pagination information.
-type V2BuildList struct {
-	// List of all builds.
-	Builds []V2Build `json:"builds,omitempty"`
-
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-}
-
-// UnmarshalV2BuildList unmarshals an instance of V2BuildList from the specified map of raw messages.
-func UnmarshalV2BuildList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2BuildList)
-	err = core.UnmarshalModel(m, "builds", &obj.Builds, UnmarshalV2Build)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *V2BuildList) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// V2BuildRun : V2BuildRun struct
-type V2BuildRun struct {
-	// The name of the app revision with which this build run is associated.
-	AppRevision *string `json:"app_revision,omitempty"`
-
-	// The name of the build on which this build run is associated.
-	Build *string `json:"build,omitempty"`
-
-	// The resource that owns this build, such as a Code Engine application or job.
-	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
-
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
-
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The name of the resource.
-	Name *string `json:"name,omitempty"`
-
-	// The name of the image.
-	OutputImage *string `json:"output_image,omitempty"`
-
-	// The secret that is required to access the image registry.
-	OutputSecret *string `json:"output_secret,omitempty"`
-
-	// ServiceAccount refers to the serviceaccount which is used for resource control.
-	ServiceAccount *string `json:"service_account,omitempty"`
-
-	// The directory in the repository that contains the buildpacks file or the Dockerfile.
-	SourceContextDir *string `json:"source_context_dir,omitempty"`
-
-	// The commit, tag, or branch in the source repository to pull.
-	SourceRevision *string `json:"source_revision,omitempty"`
-
-	// The name of the secret that is required to access the repository source.
-	SourceSecret *string `json:"source_secret,omitempty"`
-
-	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
-	SourceType *string `json:"source_type,omitempty"`
-
-	// The URL of the repository.
-	SourceURL *string `json:"source_url,omitempty"`
-
-	// Describes the current status condition of a build run.
-	Status *V2BuildRunStatus `json:"status,omitempty"`
-
-	// The strategy to use for building the image.
-	StrategyName *string `json:"strategy_name,omitempty"`
-
-	// The size for the build, which determines the amount of resources used.  Build sizes are `small`, `medium`,
-	// `large`,`xlarge`.
-	StrategySize *string `json:"strategy_size,omitempty"`
-
-	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
-	Timeout *int64 `json:"timeout,omitempty"`
-
-	// The type of the resource.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2BuildRun unmarshals an instance of V2BuildRun from the specified map of raw messages.
-func UnmarshalV2BuildRun(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2BuildRun)
-	err = core.UnmarshalPrimitive(m, "app_revision", &obj.AppRevision)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ce_owner_reference", &obj.CeOwnerReference)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "status", &obj.Status, UnmarshalV2BuildRunStatus)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "strategy_name", &obj.StrategyName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2BuildRunList : Contains a list of build runs and pagination information.
-type V2BuildRunList struct {
-	// List of all build runs.
-	Buildruns []V2BuildRun `json:"buildruns,omitempty"`
-
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-}
-
-// UnmarshalV2BuildRunList unmarshals an instance of V2BuildRunList from the specified map of raw messages.
-func UnmarshalV2BuildRunList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2BuildRunList)
-	err = core.UnmarshalModel(m, "buildruns", &obj.Buildruns, UnmarshalV2BuildRun)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *V2BuildRunList) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// V2BuildRunStatus : Describes the current status condition of a build run.
-type V2BuildRunStatus struct {
-	// Describes the time the build run completed.
-	CompletionTime *string `json:"completion_time,omitempty"`
-
-	// Describes the name of the task run responsible for executing this build run.
-	LastTaskRun *string `json:"last_task_run,omitempty"`
-
-	// Describes the time the build run started.
-	StartTime *string `json:"start_time,omitempty"`
-}
-
-// UnmarshalV2BuildRunStatus unmarshals an instance of V2BuildRunStatus from the specified map of raw messages.
-func UnmarshalV2BuildRunStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2BuildRunStatus)
-	err = core.UnmarshalPrimitive(m, "completion_time", &obj.CompletionTime)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_task_run", &obj.LastTaskRun)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2ConfigMap : Describes the model of a configmap.
-type V2ConfigMap struct {
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
-
-	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
-	Data map[string]string `json:"data,omitempty"`
-
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Specifies that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The name of the resource.
-	Name *string `json:"name,omitempty"`
-
-	// The type of the resource.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2ConfigMap unmarshals an instance of V2ConfigMap from the specified map of raw messages.
-func UnmarshalV2ConfigMap(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2ConfigMap)
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2ConfigMapList : Contains a list of configmaps and pagination information.
-type V2ConfigMapList struct {
-	// List of all configmaps.
-	Configmaps []V2ConfigMap `json:"configmaps,omitempty"`
-
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-}
-
-// UnmarshalV2ConfigMapList unmarshals an instance of V2ConfigMapList from the specified map of raw messages.
-func UnmarshalV2ConfigMapList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2ConfigMapList)
-	err = core.UnmarshalModel(m, "configmaps", &obj.Configmaps, UnmarshalV2ConfigMap)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *V2ConfigMapList) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// V2Link : V2Link struct
-type V2Link struct {
-	Href *string `json:"href,omitempty"`
-
-	Method *string `json:"method,omitempty"`
-}
-
-// UnmarshalV2Link unmarshals an instance of V2Link from the specified map of raw messages.
-func UnmarshalV2Link(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2Link)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2Project : Describes the model of a project.
-type V2Project struct {
-	// An alphanumeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The date when the project was created.
-	Created *string `json:"created,omitempty"`
-
-	// The ID associated with the project.
-	Crn *string `json:"crn,omitempty"`
-
-	// Detailed information on the status.
-	Details *string `json:"details,omitempty"`
-
-	// The ID of the project.
-	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The name of the project.
-	Name *string `json:"name,omitempty"`
-
-	// The reason to provide more context for the status.
-	Reason *string `json:"reason,omitempty"`
-
-	// The region for your project deployment.
-	Region *string `json:"region,omitempty"`
-
-	// The ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The current state of the Code Engine resource.
-	Status *string `json:"status,omitempty"`
-
-	// The type of the project.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2Project unmarshals an instance of V2Project from the specified map of raw messages.
-func UnmarshalV2Project(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2Project)
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2ProjectList : Contains a list of projects and pagination information.
-type V2ProjectList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-
-	// List of projects.
-	Projects []V2Project `json:"projects,omitempty"`
-}
-
-// UnmarshalV2ProjectList unmarshals an instance of V2ProjectList from the specified map of raw messages.
-func UnmarshalV2ProjectList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2ProjectList)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalV2Project)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *V2ProjectList) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// V2Reclamation : Describes the model of a reclamation.
-type V2Reclamation struct {
-	// An alphanumeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// Detailed information on the status.
-	Details *string `json:"details,omitempty"`
-
-	// The ID of the reclamation.
-	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The ID of the Code Engine project resource instance.
-	ProjectID *string `json:"project_id,omitempty"`
-
-	// The reason to provide more context for the status.
-	Reason *string `json:"reason,omitempty"`
-
-	// The ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The current state of the Code Engine resource.
-	Status *string `json:"status,omitempty"`
-
-	// The target time that the reclamation retention period end.
-	TargetTime *string `json:"target_time,omitempty"`
-
-	// The type of the reclamation.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2Reclamation unmarshals an instance of V2Reclamation from the specified map of raw messages.
-func UnmarshalV2Reclamation(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2Reclamation)
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_time", &obj.TargetTime)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2ReclamationList : Contains a list of reclamations and pagination information.
-type V2ReclamationList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-
-	// List of all project reclamations.
-	Reclamations []V2Reclamation `json:"reclamations,omitempty"`
-}
-
-// UnmarshalV2ReclamationList unmarshals an instance of V2ReclamationList from the specified map of raw messages.
-func UnmarshalV2ReclamationList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2ReclamationList)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "reclamations", &obj.Reclamations, UnmarshalV2Reclamation)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *V2ReclamationList) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// V2Secret : Describes the model of a secret.
-type V2Secret struct {
-	// Name of the secret.
-	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
-
-	// List of bound Code Engine components.
-	CeComponents []string `json:"ce_components,omitempty"`
-
-	// The date when the resource was created.
-	Created *string `json:"created,omitempty"`
-
-	// Data container that allows to specify config parameters and their values as a key-value map.
-	Data map[string]string `json:"data,omitempty"`
-
-	// Specify the format of the secret.
-	Format *string `json:"format,omitempty"`
-
-	// The identifier of the resource.
-	ID *string `json:"id,omitempty"`
-
-	// Specifies that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]V2Link `json:"links,omitempty"`
-
-	// The name of the resource.
-	Name *string `json:"name,omitempty"`
-
-	// ID of the IBM Cloud service instance associated with the secret.
-	ResourceID *string `json:"resource_id,omitempty"`
-
-	// Type of IBM Cloud service associated with the secret.
-	ResourceType *string `json:"resource_type,omitempty"`
-
-	// ID of the service credential associated with the secret.
-	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
-
-	// Role of the service credential.
-	Role *string `json:"role,omitempty"`
-
-	// CRN of a Service ID used to create the service credential.
-	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
-
-	// Specify the target of the secret.
-	Target *string `json:"target,omitempty"`
-
-	// The type of the resource.
-	Type *string `json:"type,omitempty"`
-}
-
-// UnmarshalV2Secret unmarshals an instance of V2Secret from the specified map of raw messages.
-func UnmarshalV2Secret(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2Secret)
-	err = core.UnmarshalPrimitive(m, "binding_secret_ref", &obj.BindingSecretRef)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ce_components", &obj.CeComponents)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "format", &obj.Format)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalV2Link)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resourcekey_id", &obj.ResourcekeyID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// V2SecretList : List of secret resources.
-type V2SecretList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
-
-	Next *PaginationListNextMetadata `json:"next,omitempty"`
-
-	// List of Secrets.
-	Secrets []V2Secret `json:"secrets,omitempty"`
-}
-
-// UnmarshalV2SecretList unmarshals an instance of V2SecretList from the specified map of raw messages.
-func UnmarshalV2SecretList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2SecretList)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "secrets", &obj.Secrets, UnmarshalV2Secret)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 //
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
 //
@@ -4647,7 +4647,7 @@ func (pager *ProjectsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []V2Project, err error) {
+func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Project, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -4672,9 +4672,9 @@ func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []V2Pr
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []V2Project, err error) {
+func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []Project, err error) {
 	for pager.HasNext() {
-		var nextPage []V2Project
+		var nextPage []Project
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -4685,12 +4685,12 @@ func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []V
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetNext() (page []V2Project, err error) {
+func (pager *ProjectsPager) GetNext() (page []Project, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetAll() (allItems []V2Project, err error) {
+func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
@@ -4728,7 +4728,7 @@ func (pager *BuildsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []V2Build, err error) {
+func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []Build, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -4753,9 +4753,9 @@ func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []V2Buil
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []V2Build, err error) {
+func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []Build, err error) {
 	for pager.HasNext() {
-		var nextPage []V2Build
+		var nextPage []Build
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -4766,12 +4766,12 @@ func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []V2B
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *BuildsPager) GetNext() (page []V2Build, err error) {
+func (pager *BuildsPager) GetNext() (page []Build, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *BuildsPager) GetAll() (allItems []V2Build, err error) {
+func (pager *BuildsPager) GetAll() (allItems []Build, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
@@ -4809,7 +4809,7 @@ func (pager *BuildrunsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *BuildrunsPager) GetNextWithContext(ctx context.Context) (page []V2BuildRun, err error) {
+func (pager *BuildrunsPager) GetNextWithContext(ctx context.Context) (page []BuildRun, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -4834,9 +4834,9 @@ func (pager *BuildrunsPager) GetNextWithContext(ctx context.Context) (page []V2B
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *BuildrunsPager) GetAllWithContext(ctx context.Context) (allItems []V2BuildRun, err error) {
+func (pager *BuildrunsPager) GetAllWithContext(ctx context.Context) (allItems []BuildRun, err error) {
 	for pager.HasNext() {
-		var nextPage []V2BuildRun
+		var nextPage []BuildRun
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -4847,12 +4847,12 @@ func (pager *BuildrunsPager) GetAllWithContext(ctx context.Context) (allItems []
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *BuildrunsPager) GetNext() (page []V2BuildRun, err error) {
+func (pager *BuildrunsPager) GetNext() (page []BuildRun, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *BuildrunsPager) GetAll() (allItems []V2BuildRun, err error) {
+func (pager *BuildrunsPager) GetAll() (allItems []BuildRun, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
@@ -4890,7 +4890,7 @@ func (pager *ConfigmapsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *ConfigmapsPager) GetNextWithContext(ctx context.Context) (page []V2ConfigMap, err error) {
+func (pager *ConfigmapsPager) GetNextWithContext(ctx context.Context) (page []ConfigMap, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -4915,9 +4915,9 @@ func (pager *ConfigmapsPager) GetNextWithContext(ctx context.Context) (page []V2
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *ConfigmapsPager) GetAllWithContext(ctx context.Context) (allItems []V2ConfigMap, err error) {
+func (pager *ConfigmapsPager) GetAllWithContext(ctx context.Context) (allItems []ConfigMap, err error) {
 	for pager.HasNext() {
-		var nextPage []V2ConfigMap
+		var nextPage []ConfigMap
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -4928,12 +4928,12 @@ func (pager *ConfigmapsPager) GetAllWithContext(ctx context.Context) (allItems [
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *ConfigmapsPager) GetNext() (page []V2ConfigMap, err error) {
+func (pager *ConfigmapsPager) GetNext() (page []ConfigMap, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *ConfigmapsPager) GetAll() (allItems []V2ConfigMap, err error) {
+func (pager *ConfigmapsPager) GetAll() (allItems []ConfigMap, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
@@ -4971,7 +4971,7 @@ func (pager *ReclamationsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *ReclamationsPager) GetNextWithContext(ctx context.Context) (page []V2Reclamation, err error) {
+func (pager *ReclamationsPager) GetNextWithContext(ctx context.Context) (page []Reclamation, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -4996,9 +4996,9 @@ func (pager *ReclamationsPager) GetNextWithContext(ctx context.Context) (page []
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *ReclamationsPager) GetAllWithContext(ctx context.Context) (allItems []V2Reclamation, err error) {
+func (pager *ReclamationsPager) GetAllWithContext(ctx context.Context) (allItems []Reclamation, err error) {
 	for pager.HasNext() {
-		var nextPage []V2Reclamation
+		var nextPage []Reclamation
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -5009,11 +5009,11 @@ func (pager *ReclamationsPager) GetAllWithContext(ctx context.Context) (allItems
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *ReclamationsPager) GetNext() (page []V2Reclamation, err error) {
+func (pager *ReclamationsPager) GetNext() (page []Reclamation, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *ReclamationsPager) GetAll() (allItems []V2Reclamation, err error) {
+func (pager *ReclamationsPager) GetAll() (allItems []Reclamation, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
