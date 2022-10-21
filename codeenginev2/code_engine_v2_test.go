@@ -1069,7 +1069,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully with retries`, func() {
@@ -1127,7 +1127,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully`, func() {
@@ -1262,9 +1262,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1346,9 +1346,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
 				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1358,6 +1357,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1411,7 +1411,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully with retries`, func() {
@@ -1426,9 +1426,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
 				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1438,6 +1437,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1494,7 +1494,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully`, func() {
@@ -1514,9 +1514,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
 				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1526,6 +1525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1547,9 +1547,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
 				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1559,6 +1558,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1601,9 +1601,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
 				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1613,6 +1612,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1692,7 +1692,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully with retries`, func() {
@@ -1747,7 +1747,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully`, func() {
@@ -1943,9 +1943,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
 				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -1955,6 +1954,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2008,7 +2008,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully with retries`, func() {
@@ -2024,9 +2024,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
 				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -2036,6 +2035,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2092,7 +2092,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully`, func() {
@@ -2113,9 +2113,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
 				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -2125,6 +2124,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2147,9 +2147,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
 				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -2159,6 +2158,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2202,9 +2202,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
 				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
 				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
@@ -2214,6 +2213,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2298,7 +2298,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildruns successfully with retries`, func() {
@@ -2356,7 +2356,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"buildruns": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildruns successfully`, func() {
@@ -2491,9 +2491,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","dockerfile":"Dockerfile","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","timeout":600,"type":"Type"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"buildruns":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","links":{"mapKey":{"href":"Href","method":"Method"}},"name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","service_account":"ServiceAccount","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":{"completion_time":"2022-09-22T17:40:00Z","last_task_run":"LastTaskRun","start_time":"2022-09-22T17:34:00Z"},"strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2575,11 +2575,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
 				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
 				createBuildrunOptionsModel.Build = core.StringPtr("testString")
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
@@ -2590,6 +2589,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2643,7 +2643,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuildrun successfully with retries`, func() {
@@ -2658,11 +2658,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
 				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
 				createBuildrunOptionsModel.Build = core.StringPtr("testString")
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
@@ -2673,6 +2672,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2729,7 +2729,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke CreateBuildrun successfully`, func() {
@@ -2749,11 +2749,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
 				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
 				createBuildrunOptionsModel.Build = core.StringPtr("testString")
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
@@ -2764,6 +2763,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2785,11 +2785,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
 				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
 				createBuildrunOptionsModel.Build = core.StringPtr("testString")
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
@@ -2800,6 +2799,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2842,11 +2842,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
 				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
 				createBuildrunOptionsModel.Build = core.StringPtr("testString")
 				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.Dockerfile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
 				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
 				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("testString")
@@ -2857,6 +2856,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
 				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
 				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
 				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2936,7 +2936,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuildrun successfully with retries`, func() {
@@ -2991,7 +2991,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "dockerfile": "Dockerfile", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "timeout": 600, "type": "Type"}`)
+					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "links": {"mapKey": {"href": "Href", "method": "Method"}}, "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "service_account": "ServiceAccount", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": {"completion_time": "2022-09-22T17:40:00Z", "last_task_run": "LastTaskRun", "start_time": "2022-09-22T17:34:00Z"}, "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type"}`)
 				}))
 			})
 			It(`Invoke GetBuildrun successfully`, func() {
@@ -3505,9 +3505,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
 				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Data = make(map[string]string)
 				createConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
@@ -3575,9 +3575,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
 				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Data = make(map[string]string)
 				createConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3653,9 +3653,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
 				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Data = make(map[string]string)
 				createConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3676,9 +3676,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
 				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Data = make(map[string]string)
 				createConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3720,9 +3720,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
 				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Data = make(map[string]string)
 				createConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4052,9 +4052,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
+				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
@@ -4123,9 +4123,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
+				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4202,9 +4202,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
+				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4226,9 +4226,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
+				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -4271,9 +4271,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
 				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
+				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Data = make(map[string]string)
 				updateConfigmapOptionsModel.Immutable = core.BoolPtr(false)
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
 				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4538,12 +4538,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				createSecretOptionsModel.CeComponents = []string{"testString"}
 				createSecretOptionsModel.Data = make(map[string]string)
 				createSecretOptionsModel.Format = core.StringPtr("testString")
 				createSecretOptionsModel.Immutable = core.BoolPtr(true)
-				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -4617,12 +4617,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				createSecretOptionsModel.CeComponents = []string{"testString"}
 				createSecretOptionsModel.Data = make(map[string]string)
 				createSecretOptionsModel.Format = core.StringPtr("testString")
 				createSecretOptionsModel.Immutable = core.BoolPtr(true)
-				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -4704,12 +4704,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				createSecretOptionsModel.CeComponents = []string{"testString"}
 				createSecretOptionsModel.Data = make(map[string]string)
 				createSecretOptionsModel.Format = core.StringPtr("testString")
 				createSecretOptionsModel.Immutable = core.BoolPtr(true)
-				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -4736,12 +4736,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				createSecretOptionsModel.CeComponents = []string{"testString"}
 				createSecretOptionsModel.Data = make(map[string]string)
 				createSecretOptionsModel.Format = core.StringPtr("testString")
 				createSecretOptionsModel.Immutable = core.BoolPtr(true)
-				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -4789,12 +4789,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				createSecretOptionsModel.CeComponents = []string{"testString"}
 				createSecretOptionsModel.Data = make(map[string]string)
 				createSecretOptionsModel.Format = core.StringPtr("testString")
 				createSecretOptionsModel.Immutable = core.BoolPtr(true)
-				createSecretOptionsModel.Name = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -5130,12 +5130,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
 				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				updateSecretOptionsModel.CeComponents = []string{"testString"}
 				updateSecretOptionsModel.Data = make(map[string]string)
 				updateSecretOptionsModel.Format = core.StringPtr("testString")
 				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -5210,12 +5210,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
 				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				updateSecretOptionsModel.CeComponents = []string{"testString"}
 				updateSecretOptionsModel.Data = make(map[string]string)
 				updateSecretOptionsModel.Format = core.StringPtr("testString")
 				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -5298,12 +5298,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
 				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				updateSecretOptionsModel.CeComponents = []string{"testString"}
 				updateSecretOptionsModel.Data = make(map[string]string)
 				updateSecretOptionsModel.Format = core.StringPtr("testString")
 				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -5331,12 +5331,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
 				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				updateSecretOptionsModel.CeComponents = []string{"testString"}
 				updateSecretOptionsModel.Data = make(map[string]string)
 				updateSecretOptionsModel.Format = core.StringPtr("testString")
 				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -5385,12 +5385,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
 				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
+				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.BindingSecretRef = core.StringPtr("testString")
 				updateSecretOptionsModel.CeComponents = []string{"testString"}
 				updateSecretOptionsModel.Data = make(map[string]string)
 				updateSecretOptionsModel.Format = core.StringPtr("testString")
 				updateSecretOptionsModel.Immutable = core.BoolPtr(true)
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
 				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
@@ -6362,11 +6362,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewCreateBuildOptions successfully`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectGuid)
+				createBuildOptionsName := "my-build"
+				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectGuid, createBuildOptionsName)
 				createBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.SetCeOwnerReference("testString")
-				createBuildOptionsModel.SetDockerfile("Dockerfile")
 				createBuildOptionsModel.SetName("my-build")
+				createBuildOptionsModel.SetCeOwnerReference("testString")
 				createBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				createBuildOptionsModel.SetSourceContextDir("testString")
@@ -6376,13 +6376,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				createBuildOptionsModel.SetStrategyName("dockerfile")
 				createBuildOptionsModel.SetStrategySize("medium")
+				createBuildOptionsModel.SetStrategySpecFile("Dockerfile")
 				createBuildOptionsModel.SetTimeout(int64(600))
 				createBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createBuildOptionsModel).ToNot(BeNil())
 				Expect(createBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
+				Expect(createBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
 				Expect(createBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
@@ -6392,19 +6392,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(createBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
 				Expect(createBuildOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
+				Expect(createBuildOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
 				Expect(createBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateBuildrunOptions successfully`, func() {
 				// Construct an instance of the CreateBuildrunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createBuildrunOptionsModel := codeEngineService.NewCreateBuildrunOptions(projectGuid)
+				createBuildrunOptionsName := "testString"
+				createBuildrunOptionsModel := codeEngineService.NewCreateBuildrunOptions(projectGuid, createBuildrunOptionsName)
 				createBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildrunOptionsModel.SetName("testString")
 				createBuildrunOptionsModel.SetAppRevision("testString")
 				createBuildrunOptionsModel.SetBuild("testString")
 				createBuildrunOptionsModel.SetCeOwnerReference("testString")
-				createBuildrunOptionsModel.SetDockerfile("Dockerfile")
-				createBuildrunOptionsModel.SetName("testString")
 				createBuildrunOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
 				createBuildrunOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				createBuildrunOptionsModel.SetServiceAccount("testString")
@@ -6415,15 +6416,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildrunOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				createBuildrunOptionsModel.SetStrategyName("dockerfile")
 				createBuildrunOptionsModel.SetStrategySize("medium")
+				createBuildrunOptionsModel.SetStrategySpecFile("Dockerfile")
 				createBuildrunOptionsModel.SetTimeout(int64(600))
 				createBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createBuildrunOptionsModel).ToNot(BeNil())
 				Expect(createBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createBuildrunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.AppRevision).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.Build).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
-				Expect(createBuildrunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildrunOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
 				Expect(createBuildrunOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(createBuildrunOptionsModel.ServiceAccount).To(Equal(core.StringPtr("testString")))
@@ -6434,23 +6435,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createBuildrunOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(createBuildrunOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
 				Expect(createBuildrunOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
+				Expect(createBuildrunOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildrunOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
 				Expect(createBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateConfigmapOptions successfully`, func() {
 				// Construct an instance of the CreateConfigmapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createConfigmapOptionsModel := codeEngineService.NewCreateConfigmapOptions(projectGuid)
+				createConfigmapOptionsName := "my-configmap"
+				createConfigmapOptionsModel := codeEngineService.NewCreateConfigmapOptions(projectGuid, createConfigmapOptionsName)
 				createConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigmapOptionsModel.SetName("my-configmap")
 				createConfigmapOptionsModel.SetData(make(map[string]string))
 				createConfigmapOptionsModel.SetImmutable(false)
-				createConfigmapOptionsModel.SetName("my-configmap")
 				createConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigmapOptionsModel).ToNot(BeNil())
 				Expect(createConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(createConfigmapOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createConfigmapOptionsModel.Immutable).To(Equal(core.BoolPtr(false)))
-				Expect(createConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(createConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
@@ -6471,14 +6474,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewCreateSecretOptions successfully`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid)
+				createSecretOptionsName := "testString"
+				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid, createSecretOptionsName)
 				createSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.SetName("testString")
 				createSecretOptionsModel.SetBindingSecretRef("testString")
 				createSecretOptionsModel.SetCeComponents([]string{"testString"})
 				createSecretOptionsModel.SetData(make(map[string]string))
 				createSecretOptionsModel.SetFormat("testString")
 				createSecretOptionsModel.SetImmutable(true)
-				createSecretOptionsModel.SetName("testString")
 				createSecretOptionsModel.SetResourceID("testString")
 				createSecretOptionsModel.SetResourceType("testString")
 				createSecretOptionsModel.SetResourcekeyID("testString")
@@ -6488,12 +6492,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
 				Expect(createSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.BindingSecretRef).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
 				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.Immutable).To(Equal(core.BoolPtr(true)))
-				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))
@@ -6737,12 +6741,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				buildName := "my-build"
-				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectGuid, buildName)
+				updateBuildOptionsName := "my-build"
+				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectGuid, buildName, updateBuildOptionsName)
 				updateBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.SetBuildName("my-build")
-				updateBuildOptionsModel.SetCeOwnerReference("testString")
-				updateBuildOptionsModel.SetDockerfile("Dockerfile")
 				updateBuildOptionsModel.SetName("my-build")
+				updateBuildOptionsModel.SetCeOwnerReference("testString")
 				updateBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
 				updateBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
 				updateBuildOptionsModel.SetSourceContextDir("testString")
@@ -6752,14 +6756,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				updateBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
 				updateBuildOptionsModel.SetStrategyName("dockerfile")
 				updateBuildOptionsModel.SetStrategySize("medium")
+				updateBuildOptionsModel.SetStrategySpecFile("Dockerfile")
 				updateBuildOptionsModel.SetTimeout(int64(600))
 				updateBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateBuildOptionsModel).ToNot(BeNil())
 				Expect(updateBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateBuildOptionsModel.BuildName).To(Equal(core.StringPtr("my-build")))
-				Expect(updateBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(updateBuildOptionsModel.Dockerfile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(updateBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
+				Expect(updateBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
 				Expect(updateBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
 				Expect(updateBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
@@ -6769,6 +6773,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
 				Expect(updateBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
 				Expect(updateBuildOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
+				Expect(updateBuildOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(updateBuildOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
 				Expect(updateBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -6776,34 +6781,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the UpdateConfigmapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				configMapName := "my-config-map"
-				updateConfigmapOptionsModel := codeEngineService.NewUpdateConfigmapOptions(projectGuid, configMapName)
+				updateConfigmapOptionsName := "my-configmap"
+				updateConfigmapOptionsModel := codeEngineService.NewUpdateConfigmapOptions(projectGuid, configMapName, updateConfigmapOptionsName)
 				updateConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateConfigmapOptionsModel.SetConfigMapName("my-config-map")
+				updateConfigmapOptionsModel.SetName("my-configmap")
 				updateConfigmapOptionsModel.SetData(make(map[string]string))
 				updateConfigmapOptionsModel.SetImmutable(false)
-				updateConfigmapOptionsModel.SetName("my-configmap")
 				updateConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateConfigmapOptionsModel).ToNot(BeNil())
 				Expect(updateConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
+				Expect(updateConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(updateConfigmapOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(updateConfigmapOptionsModel.Immutable).To(Equal(core.BoolPtr(false)))
-				Expect(updateConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(updateConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateSecretOptions successfully`, func() {
 				// Construct an instance of the UpdateSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				secretName := "my-secret"
-				updateSecretOptionsModel := codeEngineService.NewUpdateSecretOptions(projectGuid, secretName)
+				updateSecretOptionsName := "testString"
+				updateSecretOptionsModel := codeEngineService.NewUpdateSecretOptions(projectGuid, secretName, updateSecretOptionsName)
 				updateSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateSecretOptionsModel.SetSecretName("my-secret")
+				updateSecretOptionsModel.SetName("testString")
 				updateSecretOptionsModel.SetBindingSecretRef("testString")
 				updateSecretOptionsModel.SetCeComponents([]string{"testString"})
 				updateSecretOptionsModel.SetData(make(map[string]string))
 				updateSecretOptionsModel.SetFormat("testString")
 				updateSecretOptionsModel.SetImmutable(true)
-				updateSecretOptionsModel.SetName("testString")
 				updateSecretOptionsModel.SetResourceID("testString")
 				updateSecretOptionsModel.SetResourceType("testString")
 				updateSecretOptionsModel.SetResourcekeyID("testString")
@@ -6814,12 +6821,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateSecretOptionsModel).ToNot(BeNil())
 				Expect(updateSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateSecretOptionsModel.SecretName).To(Equal(core.StringPtr("my-secret")))
+				Expect(updateSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.BindingSecretRef).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
 				Expect(updateSecretOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(updateSecretOptionsModel.Format).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.Immutable).To(Equal(core.BoolPtr(true)))
-				Expect(updateSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
 				Expect(updateSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))

@@ -509,14 +509,11 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createBuildOptions.CeOwnerReference != nil {
-		body["ce_owner_reference"] = createBuildOptions.CeOwnerReference
-	}
-	if createBuildOptions.Dockerfile != nil {
-		body["dockerfile"] = createBuildOptions.Dockerfile
-	}
 	if createBuildOptions.Name != nil {
 		body["name"] = createBuildOptions.Name
+	}
+	if createBuildOptions.CeOwnerReference != nil {
+		body["ce_owner_reference"] = createBuildOptions.CeOwnerReference
 	}
 	if createBuildOptions.OutputImage != nil {
 		body["output_image"] = createBuildOptions.OutputImage
@@ -544,6 +541,9 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	}
 	if createBuildOptions.StrategySize != nil {
 		body["strategy_size"] = createBuildOptions.StrategySize
+	}
+	if createBuildOptions.StrategySpecFile != nil {
+		body["strategy_spec_file"] = createBuildOptions.StrategySpecFile
 	}
 	if createBuildOptions.Timeout != nil {
 		body["timeout"] = createBuildOptions.Timeout
@@ -726,14 +726,11 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateBuildOptions.CeOwnerReference != nil {
-		body["ce_owner_reference"] = updateBuildOptions.CeOwnerReference
-	}
-	if updateBuildOptions.Dockerfile != nil {
-		body["dockerfile"] = updateBuildOptions.Dockerfile
-	}
 	if updateBuildOptions.Name != nil {
 		body["name"] = updateBuildOptions.Name
+	}
+	if updateBuildOptions.CeOwnerReference != nil {
+		body["ce_owner_reference"] = updateBuildOptions.CeOwnerReference
 	}
 	if updateBuildOptions.OutputImage != nil {
 		body["output_image"] = updateBuildOptions.OutputImage
@@ -761,6 +758,9 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	}
 	if updateBuildOptions.StrategySize != nil {
 		body["strategy_size"] = updateBuildOptions.StrategySize
+	}
+	if updateBuildOptions.StrategySpecFile != nil {
+		body["strategy_spec_file"] = updateBuildOptions.StrategySpecFile
 	}
 	if updateBuildOptions.Timeout != nil {
 		body["timeout"] = updateBuildOptions.Timeout
@@ -899,6 +899,9 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createBuildrunOptions.Name != nil {
+		body["name"] = createBuildrunOptions.Name
+	}
 	if createBuildrunOptions.AppRevision != nil {
 		body["app_revision"] = createBuildrunOptions.AppRevision
 	}
@@ -907,12 +910,6 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	}
 	if createBuildrunOptions.CeOwnerReference != nil {
 		body["ce_owner_reference"] = createBuildrunOptions.CeOwnerReference
-	}
-	if createBuildrunOptions.Dockerfile != nil {
-		body["dockerfile"] = createBuildrunOptions.Dockerfile
-	}
-	if createBuildrunOptions.Name != nil {
-		body["name"] = createBuildrunOptions.Name
 	}
 	if createBuildrunOptions.OutputImage != nil {
 		body["output_image"] = createBuildrunOptions.OutputImage
@@ -943,6 +940,9 @@ func (codeEngine *CodeEngineV2) CreateBuildrunWithContext(ctx context.Context, c
 	}
 	if createBuildrunOptions.StrategySize != nil {
 		body["strategy_size"] = createBuildrunOptions.StrategySize
+	}
+	if createBuildrunOptions.StrategySpecFile != nil {
+		body["strategy_spec_file"] = createBuildrunOptions.StrategySpecFile
 	}
 	if createBuildrunOptions.Timeout != nil {
 		body["timeout"] = createBuildrunOptions.Timeout
@@ -1191,14 +1191,14 @@ func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createConfigmapOptions.Name != nil {
+		body["name"] = createConfigmapOptions.Name
+	}
 	if createConfigmapOptions.Data != nil {
 		body["data"] = createConfigmapOptions.Data
 	}
 	if createConfigmapOptions.Immutable != nil {
 		body["immutable"] = createConfigmapOptions.Immutable
-	}
-	if createConfigmapOptions.Name != nil {
-		body["name"] = createConfigmapOptions.Name
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1378,14 +1378,14 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if updateConfigmapOptions.Name != nil {
+		body["name"] = updateConfigmapOptions.Name
+	}
 	if updateConfigmapOptions.Data != nil {
 		body["data"] = updateConfigmapOptions.Data
 	}
 	if updateConfigmapOptions.Immutable != nil {
 		body["immutable"] = updateConfigmapOptions.Immutable
-	}
-	if updateConfigmapOptions.Name != nil {
-		body["name"] = updateConfigmapOptions.Name
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1517,6 +1517,9 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createSecretOptions.Name != nil {
+		body["name"] = createSecretOptions.Name
+	}
 	if createSecretOptions.BindingSecretRef != nil {
 		body["binding_secret_ref"] = createSecretOptions.BindingSecretRef
 	}
@@ -1531,9 +1534,6 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	if createSecretOptions.Immutable != nil {
 		body["immutable"] = createSecretOptions.Immutable
-	}
-	if createSecretOptions.Name != nil {
-		body["name"] = createSecretOptions.Name
 	}
 	if createSecretOptions.ResourceID != nil {
 		body["resource_id"] = createSecretOptions.ResourceID
@@ -1731,6 +1731,9 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if updateSecretOptions.Name != nil {
+		body["name"] = updateSecretOptions.Name
+	}
 	if updateSecretOptions.BindingSecretRef != nil {
 		body["binding_secret_ref"] = updateSecretOptions.BindingSecretRef
 	}
@@ -1745,9 +1748,6 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	}
 	if updateSecretOptions.Immutable != nil {
 		body["immutable"] = updateSecretOptions.Immutable
-	}
-	if updateSecretOptions.Name != nil {
-		body["name"] = updateSecretOptions.Name
 	}
 	if updateSecretOptions.ResourceID != nil {
 		body["resource_id"] = updateSecretOptions.ResourceID
@@ -2043,9 +2043,6 @@ type Build struct {
 	// Detailed information on the status.
 	Details *string `json:"details,omitempty"`
 
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
@@ -2089,6 +2086,9 @@ type Build struct {
 	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
+	// The path to the specification file that is used for build strategies for building an image.
+	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
+
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
@@ -2108,10 +2108,6 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
 	if err != nil {
 		return
 	}
@@ -2168,6 +2164,10 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_spec_file", &obj.StrategySpecFile)
 	if err != nil {
 		return
 	}
@@ -2235,9 +2235,6 @@ type BuildRun struct {
 	// The date when the resource was created.
 	Created *string `json:"created,omitempty"`
 
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
@@ -2281,6 +2278,9 @@ type BuildRun struct {
 	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
+	// The path to the specification file that is used for build strategies for building an image.
+	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
+
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
@@ -2304,10 +2304,6 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "dockerfile", &obj.Dockerfile)
 	if err != nil {
 		return
 	}
@@ -2364,6 +2360,10 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "strategy_spec_file", &obj.StrategySpecFile)
 	if err != nil {
 		return
 	}
@@ -2550,14 +2550,11 @@ type CreateBuildOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
+	// The name of the build. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
 	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
-
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
-	// The name of the build. Use a name that is unique within the project.
-	Name *string `json:"name,omitempty"`
 
 	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
@@ -2587,6 +2584,9 @@ type CreateBuildOptions struct {
 	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
+	// The path to the specification file that is used for build strategies for building an image.
+	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
+
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
@@ -2595,9 +2595,10 @@ type CreateBuildOptions struct {
 }
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
-func (*CodeEngineV2) NewCreateBuildOptions(projectGuid string) *CreateBuildOptions {
+func (*CodeEngineV2) NewCreateBuildOptions(projectGuid string, name string) *CreateBuildOptions {
 	return &CreateBuildOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -2607,21 +2608,15 @@ func (_options *CreateBuildOptions) SetProjectGuid(projectGuid string) *CreateBu
 	return _options
 }
 
-// SetCeOwnerReference : Allow user to set CeOwnerReference
-func (_options *CreateBuildOptions) SetCeOwnerReference(ceOwnerReference string) *CreateBuildOptions {
-	_options.CeOwnerReference = core.StringPtr(ceOwnerReference)
-	return _options
-}
-
-// SetDockerfile : Allow user to set Dockerfile
-func (_options *CreateBuildOptions) SetDockerfile(dockerfile string) *CreateBuildOptions {
-	_options.Dockerfile = core.StringPtr(dockerfile)
-	return _options
-}
-
 // SetName : Allow user to set Name
 func (_options *CreateBuildOptions) SetName(name string) *CreateBuildOptions {
 	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetCeOwnerReference : Allow user to set CeOwnerReference
+func (_options *CreateBuildOptions) SetCeOwnerReference(ceOwnerReference string) *CreateBuildOptions {
+	_options.CeOwnerReference = core.StringPtr(ceOwnerReference)
 	return _options
 }
 
@@ -2679,6 +2674,12 @@ func (_options *CreateBuildOptions) SetStrategySize(strategySize string) *Create
 	return _options
 }
 
+// SetStrategySpecFile : Allow user to set StrategySpecFile
+func (_options *CreateBuildOptions) SetStrategySpecFile(strategySpecFile string) *CreateBuildOptions {
+	_options.StrategySpecFile = core.StringPtr(strategySpecFile)
+	return _options
+}
+
 // SetTimeout : Allow user to set Timeout
 func (_options *CreateBuildOptions) SetTimeout(timeout int64) *CreateBuildOptions {
 	_options.Timeout = core.Int64Ptr(timeout)
@@ -2696,6 +2697,9 @@ type CreateBuildrunOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
+	// Name of the build run.
+	Name *string `json:"name" validate:"required"`
+
 	// The name of the app revision with which this build run is associated.
 	AppRevision *string `json:"app_revision,omitempty"`
 
@@ -2704,12 +2708,6 @@ type CreateBuildrunOptions struct {
 
 	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
-
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
-	// Name of the build run.
-	Name *string `json:"name,omitempty"`
 
 	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
@@ -2742,6 +2740,9 @@ type CreateBuildrunOptions struct {
 	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
+	// The path to the specification file that is used for build strategies for building an image.
+	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
+
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
@@ -2750,15 +2751,22 @@ type CreateBuildrunOptions struct {
 }
 
 // NewCreateBuildrunOptions : Instantiate CreateBuildrunOptions
-func (*CodeEngineV2) NewCreateBuildrunOptions(projectGuid string) *CreateBuildrunOptions {
+func (*CodeEngineV2) NewCreateBuildrunOptions(projectGuid string, name string) *CreateBuildrunOptions {
 	return &CreateBuildrunOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
+		Name: core.StringPtr(name),
 	}
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
 func (_options *CreateBuildrunOptions) SetProjectGuid(projectGuid string) *CreateBuildrunOptions {
 	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateBuildrunOptions) SetName(name string) *CreateBuildrunOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -2777,18 +2785,6 @@ func (_options *CreateBuildrunOptions) SetBuild(build string) *CreateBuildrunOpt
 // SetCeOwnerReference : Allow user to set CeOwnerReference
 func (_options *CreateBuildrunOptions) SetCeOwnerReference(ceOwnerReference string) *CreateBuildrunOptions {
 	_options.CeOwnerReference = core.StringPtr(ceOwnerReference)
-	return _options
-}
-
-// SetDockerfile : Allow user to set Dockerfile
-func (_options *CreateBuildrunOptions) SetDockerfile(dockerfile string) *CreateBuildrunOptions {
-	_options.Dockerfile = core.StringPtr(dockerfile)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *CreateBuildrunOptions) SetName(name string) *CreateBuildrunOptions {
-	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -2852,6 +2848,12 @@ func (_options *CreateBuildrunOptions) SetStrategySize(strategySize string) *Cre
 	return _options
 }
 
+// SetStrategySpecFile : Allow user to set StrategySpecFile
+func (_options *CreateBuildrunOptions) SetStrategySpecFile(strategySpecFile string) *CreateBuildrunOptions {
+	_options.StrategySpecFile = core.StringPtr(strategySpecFile)
+	return _options
+}
+
 // SetTimeout : Allow user to set Timeout
 func (_options *CreateBuildrunOptions) SetTimeout(timeout int64) *CreateBuildrunOptions {
 	_options.Timeout = core.Int64Ptr(timeout)
@@ -2869,29 +2871,36 @@ type CreateConfigmapOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
+	// The name of the configmap. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
 	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
 
 	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the configmap. Use a name that is unique within the project.
-	Name *string `json:"name,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCreateConfigmapOptions : Instantiate CreateConfigmapOptions
-func (*CodeEngineV2) NewCreateConfigmapOptions(projectGuid string) *CreateConfigmapOptions {
+func (*CodeEngineV2) NewCreateConfigmapOptions(projectGuid string, name string) *CreateConfigmapOptions {
 	return &CreateConfigmapOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
+		Name: core.StringPtr(name),
 	}
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
 func (_options *CreateConfigmapOptions) SetProjectGuid(projectGuid string) *CreateConfigmapOptions {
 	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateConfigmapOptions) SetName(name string) *CreateConfigmapOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -2904,12 +2913,6 @@ func (_options *CreateConfigmapOptions) SetData(data map[string]string) *CreateC
 // SetImmutable : Allow user to set Immutable
 func (_options *CreateConfigmapOptions) SetImmutable(immutable bool) *CreateConfigmapOptions {
 	_options.Immutable = core.BoolPtr(immutable)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *CreateConfigmapOptions) SetName(name string) *CreateConfigmapOptions {
-	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -2977,6 +2980,9 @@ type CreateSecretOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
+	// The name of the secret.
+	Name *string `json:"name" validate:"required"`
+
 	// Name of the secret.
 	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
 
@@ -2991,9 +2997,6 @@ type CreateSecretOptions struct {
 
 	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
-
-	// The name of the secret.
-	Name *string `json:"name,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
@@ -3018,15 +3021,22 @@ type CreateSecretOptions struct {
 }
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
-func (*CodeEngineV2) NewCreateSecretOptions(projectGuid string) *CreateSecretOptions {
+func (*CodeEngineV2) NewCreateSecretOptions(projectGuid string, name string) *CreateSecretOptions {
 	return &CreateSecretOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
+		Name: core.StringPtr(name),
 	}
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
 func (_options *CreateSecretOptions) SetProjectGuid(projectGuid string) *CreateSecretOptions {
 	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -3057,12 +3067,6 @@ func (_options *CreateSecretOptions) SetFormat(format string) *CreateSecretOptio
 // SetImmutable : Allow user to set Immutable
 func (_options *CreateSecretOptions) SetImmutable(immutable bool) *CreateSecretOptions {
 	_options.Immutable = core.BoolPtr(immutable)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
-	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -4230,14 +4234,11 @@ type UpdateBuildOptions struct {
 	// The name of your build.
 	BuildName *string `json:"build_name" validate:"required,ne="`
 
+	// The name of the build. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
 	// The resource that owns this build, such as a Code Engine application or job.
 	CeOwnerReference *string `json:"ce_owner_reference,omitempty"`
-
-	// The path to the Dockerfile that is used for build strategies for building an image.
-	Dockerfile *string `json:"dockerfile,omitempty"`
-
-	// The name of the build. Use a name that is unique within the project.
-	Name *string `json:"name,omitempty"`
 
 	// The name of the image.
 	OutputImage *string `json:"output_image,omitempty"`
@@ -4267,6 +4268,9 @@ type UpdateBuildOptions struct {
 	// `large`,`xlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
+	// The path to the specification file that is used for build strategies for building an image.
+	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
+
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
@@ -4275,10 +4279,11 @@ type UpdateBuildOptions struct {
 }
 
 // NewUpdateBuildOptions : Instantiate UpdateBuildOptions
-func (*CodeEngineV2) NewUpdateBuildOptions(projectGuid string, buildName string) *UpdateBuildOptions {
+func (*CodeEngineV2) NewUpdateBuildOptions(projectGuid string, buildName string, name string) *UpdateBuildOptions {
 	return &UpdateBuildOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
 		BuildName: core.StringPtr(buildName),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -4294,21 +4299,15 @@ func (_options *UpdateBuildOptions) SetBuildName(buildName string) *UpdateBuildO
 	return _options
 }
 
-// SetCeOwnerReference : Allow user to set CeOwnerReference
-func (_options *UpdateBuildOptions) SetCeOwnerReference(ceOwnerReference string) *UpdateBuildOptions {
-	_options.CeOwnerReference = core.StringPtr(ceOwnerReference)
-	return _options
-}
-
-// SetDockerfile : Allow user to set Dockerfile
-func (_options *UpdateBuildOptions) SetDockerfile(dockerfile string) *UpdateBuildOptions {
-	_options.Dockerfile = core.StringPtr(dockerfile)
-	return _options
-}
-
 // SetName : Allow user to set Name
 func (_options *UpdateBuildOptions) SetName(name string) *UpdateBuildOptions {
 	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetCeOwnerReference : Allow user to set CeOwnerReference
+func (_options *UpdateBuildOptions) SetCeOwnerReference(ceOwnerReference string) *UpdateBuildOptions {
+	_options.CeOwnerReference = core.StringPtr(ceOwnerReference)
 	return _options
 }
 
@@ -4366,6 +4365,12 @@ func (_options *UpdateBuildOptions) SetStrategySize(strategySize string) *Update
 	return _options
 }
 
+// SetStrategySpecFile : Allow user to set StrategySpecFile
+func (_options *UpdateBuildOptions) SetStrategySpecFile(strategySpecFile string) *UpdateBuildOptions {
+	_options.StrategySpecFile = core.StringPtr(strategySpecFile)
+	return _options
+}
+
 // SetTimeout : Allow user to set Timeout
 func (_options *UpdateBuildOptions) SetTimeout(timeout int64) *UpdateBuildOptions {
 	_options.Timeout = core.Int64Ptr(timeout)
@@ -4386,24 +4391,25 @@ type UpdateConfigmapOptions struct {
 	// The name of your configmap.
 	ConfigMapName *string `json:"config_map_name" validate:"required,ne="`
 
+	// The name of the configmap. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
 	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
 
 	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
 
-	// The name of the configmap. Use a name that is unique within the project.
-	Name *string `json:"name,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateConfigmapOptions : Instantiate UpdateConfigmapOptions
-func (*CodeEngineV2) NewUpdateConfigmapOptions(projectGuid string, configMapName string) *UpdateConfigmapOptions {
+func (*CodeEngineV2) NewUpdateConfigmapOptions(projectGuid string, configMapName string, name string) *UpdateConfigmapOptions {
 	return &UpdateConfigmapOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
 		ConfigMapName: core.StringPtr(configMapName),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -4419,6 +4425,12 @@ func (_options *UpdateConfigmapOptions) SetConfigMapName(configMapName string) *
 	return _options
 }
 
+// SetName : Allow user to set Name
+func (_options *UpdateConfigmapOptions) SetName(name string) *UpdateConfigmapOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
 // SetData : Allow user to set Data
 func (_options *UpdateConfigmapOptions) SetData(data map[string]string) *UpdateConfigmapOptions {
 	_options.Data = data
@@ -4428,12 +4440,6 @@ func (_options *UpdateConfigmapOptions) SetData(data map[string]string) *UpdateC
 // SetImmutable : Allow user to set Immutable
 func (_options *UpdateConfigmapOptions) SetImmutable(immutable bool) *UpdateConfigmapOptions {
 	_options.Immutable = core.BoolPtr(immutable)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *UpdateConfigmapOptions) SetName(name string) *UpdateConfigmapOptions {
-	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -4451,6 +4457,9 @@ type UpdateSecretOptions struct {
 	// The name of your secret.
 	SecretName *string `json:"secret_name" validate:"required,ne="`
 
+	// The name of the secret.
+	Name *string `json:"name" validate:"required"`
+
 	// Name of the secret.
 	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
 
@@ -4465,9 +4474,6 @@ type UpdateSecretOptions struct {
 
 	// Indicates that the key-value pair cannot be edited.
 	Immutable *bool `json:"immutable,omitempty"`
-
-	// The name of the secret.
-	Name *string `json:"name,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
@@ -4492,10 +4498,11 @@ type UpdateSecretOptions struct {
 }
 
 // NewUpdateSecretOptions : Instantiate UpdateSecretOptions
-func (*CodeEngineV2) NewUpdateSecretOptions(projectGuid string, secretName string) *UpdateSecretOptions {
+func (*CodeEngineV2) NewUpdateSecretOptions(projectGuid string, secretName string, name string) *UpdateSecretOptions {
 	return &UpdateSecretOptions{
 		ProjectGuid: core.StringPtr(projectGuid),
 		SecretName: core.StringPtr(secretName),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -4508,6 +4515,12 @@ func (_options *UpdateSecretOptions) SetProjectGuid(projectGuid string) *UpdateS
 // SetSecretName : Allow user to set SecretName
 func (_options *UpdateSecretOptions) SetSecretName(secretName string) *UpdateSecretOptions {
 	_options.SecretName = core.StringPtr(secretName)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateSecretOptions) SetName(name string) *UpdateSecretOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -4538,12 +4551,6 @@ func (_options *UpdateSecretOptions) SetFormat(format string) *UpdateSecretOptio
 // SetImmutable : Allow user to set Immutable
 func (_options *UpdateSecretOptions) SetImmutable(immutable bool) *UpdateSecretOptions {
 	_options.Immutable = core.BoolPtr(immutable)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *UpdateSecretOptions) SetName(name string) *UpdateSecretOptions {
-	_options.Name = core.StringPtr(name)
 	return _options
 }
 
