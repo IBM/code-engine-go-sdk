@@ -4290,7 +4290,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
-		listSecretsPath := "/projects/testString/secrets"
+		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4299,8 +4299,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4316,8 +4314,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
@@ -4338,7 +4335,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
-		listSecretsPath := "/projects/testString/secrets"
+		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4348,8 +4345,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4370,8 +4365,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4408,8 +4402,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.Header["Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4432,8 +4424,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4453,8 +4444,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -4495,8 +4485,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.RefreshToken = core.StringPtr("testString")
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("testString")
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6706,15 +6695,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewListSecretsOptions successfully`, func() {
 				// Construct an instance of the ListSecretsOptions model
-				refreshToken := "testString"
-				projectGuid := "testString"
-				listSecretsOptionsModel := codeEngineService.NewListSecretsOptions(refreshToken, projectGuid)
-				listSecretsOptionsModel.SetRefreshToken("testString")
-				listSecretsOptionsModel.SetProjectGuid("testString")
+				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listSecretsOptionsModel := codeEngineService.NewListSecretsOptions(projectGuid)
+				listSecretsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listSecretsOptionsModel).ToNot(BeNil())
-				Expect(listSecretsOptionsModel.RefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(listSecretsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("testString")))
+				Expect(listSecretsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listSecretsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReclaimReclamationOptions successfully`, func() {

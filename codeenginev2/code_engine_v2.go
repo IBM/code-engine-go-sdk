@@ -1451,9 +1451,6 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	if listSecretsOptions.RefreshToken != nil {
-		builder.AddHeader("Refresh-Token", fmt.Sprint(*listSecretsOptions.RefreshToken))
-	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -3732,10 +3729,7 @@ func (options *ListReclamationsOptions) SetHeaders(param map[string]string) *Lis
 
 // ListSecretsOptions : The ListSecrets options.
 type ListSecretsOptions struct {
-	// Refresh Token.
-	RefreshToken *string `json:"Refresh-Token" validate:"required"`
-
-	// Project GUID.
+	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -3743,17 +3737,10 @@ type ListSecretsOptions struct {
 }
 
 // NewListSecretsOptions : Instantiate ListSecretsOptions
-func (*CodeEngineV2) NewListSecretsOptions(refreshToken string, projectGuid string) *ListSecretsOptions {
+func (*CodeEngineV2) NewListSecretsOptions(projectGuid string) *ListSecretsOptions {
 	return &ListSecretsOptions{
-		RefreshToken: core.StringPtr(refreshToken),
 		ProjectGuid: core.StringPtr(projectGuid),
 	}
-}
-
-// SetRefreshToken : Allow user to set RefreshToken
-func (_options *ListSecretsOptions) SetRefreshToken(refreshToken string) *ListSecretsOptions {
-	_options.RefreshToken = core.StringPtr(refreshToken)
-	return _options
 }
 
 // SetProjectGuid : Allow user to set ProjectGuid
@@ -4388,7 +4375,7 @@ type UpdateConfigmapOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
-	// The name of your configmap.
+	// The name of your config map.
 	ConfigMapName *string `json:"config_map_name" validate:"required,ne="`
 
 	// The name of the configmap. Use a name that is unique within the project.
