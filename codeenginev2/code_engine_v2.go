@@ -160,7 +160,7 @@ func (codeEngine *CodeEngineV2) DisableRetries() {
 }
 
 // ListProjects : List all projects
-// List all projects in the current resource group.
+// List all projects in the current account.
 func (codeEngine *CodeEngineV2) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListProjectsWithContext(context.Background(), listProjectsOptions)
 }
@@ -1084,7 +1084,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildrunWithContext(ctx context.Context, d
 }
 
 // ListConfigmaps : List configmaps
-// List all configmaps in a project.
+// List all config maps in a project.
 func (codeEngine *CodeEngineV2) ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListConfigmapsWithContext(context.Background(), listConfigmapsOptions)
 }
@@ -1196,9 +1196,6 @@ func (codeEngine *CodeEngineV2) CreateConfigmapWithContext(ctx context.Context, 
 	}
 	if createConfigmapOptions.Data != nil {
 		body["data"] = createConfigmapOptions.Data
-	}
-	if createConfigmapOptions.Immutable != nil {
-		body["immutable"] = createConfigmapOptions.Immutable
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1384,9 +1381,6 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 	if updateConfigmapOptions.Data != nil {
 		body["data"] = updateConfigmapOptions.Data
 	}
-	if updateConfigmapOptions.Immutable != nil {
-		body["immutable"] = updateConfigmapOptions.Immutable
-	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -1413,7 +1407,7 @@ func (codeEngine *CodeEngineV2) UpdateConfigmapWithContext(ctx context.Context, 
 	return
 }
 
-// ListSecrets : List secret
+// ListSecrets : List secrets
 // List all secrets in a project.
 func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *SecretList, response *core.DetailedResponse, err error) {
 	return codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
@@ -1451,6 +1445,13 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+
+	if listSecretsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listSecretsOptions.Limit))
+	}
+	if listSecretsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listSecretsOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1517,9 +1518,6 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.Name != nil {
 		body["name"] = createSecretOptions.Name
 	}
-	if createSecretOptions.BindingSecretRef != nil {
-		body["binding_secret_ref"] = createSecretOptions.BindingSecretRef
-	}
 	if createSecretOptions.CeComponents != nil {
 		body["ce_components"] = createSecretOptions.CeComponents
 	}
@@ -1528,9 +1526,6 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	if createSecretOptions.Format != nil {
 		body["format"] = createSecretOptions.Format
-	}
-	if createSecretOptions.Immutable != nil {
-		body["immutable"] = createSecretOptions.Immutable
 	}
 	if createSecretOptions.ResourceID != nil {
 		body["resource_id"] = createSecretOptions.ResourceID
@@ -1541,14 +1536,14 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.ResourcekeyID != nil {
 		body["resourcekey_id"] = createSecretOptions.ResourcekeyID
 	}
+	if createSecretOptions.ResourcekeyName != nil {
+		body["resourcekey_name"] = createSecretOptions.ResourcekeyName
+	}
 	if createSecretOptions.Role != nil {
 		body["role"] = createSecretOptions.Role
 	}
 	if createSecretOptions.ServiceidCrn != nil {
 		body["serviceid_crn"] = createSecretOptions.ServiceidCrn
-	}
-	if createSecretOptions.Target != nil {
-		body["target"] = createSecretOptions.Target
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1731,9 +1726,6 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	if updateSecretOptions.Name != nil {
 		body["name"] = updateSecretOptions.Name
 	}
-	if updateSecretOptions.BindingSecretRef != nil {
-		body["binding_secret_ref"] = updateSecretOptions.BindingSecretRef
-	}
 	if updateSecretOptions.CeComponents != nil {
 		body["ce_components"] = updateSecretOptions.CeComponents
 	}
@@ -1742,9 +1734,6 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	}
 	if updateSecretOptions.Format != nil {
 		body["format"] = updateSecretOptions.Format
-	}
-	if updateSecretOptions.Immutable != nil {
-		body["immutable"] = updateSecretOptions.Immutable
 	}
 	if updateSecretOptions.ResourceID != nil {
 		body["resource_id"] = updateSecretOptions.ResourceID
@@ -1755,14 +1744,14 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	if updateSecretOptions.ResourcekeyID != nil {
 		body["resourcekey_id"] = updateSecretOptions.ResourcekeyID
 	}
+	if updateSecretOptions.ResourcekeyName != nil {
+		body["resourcekey_name"] = updateSecretOptions.ResourcekeyName
+	}
 	if updateSecretOptions.Role != nil {
 		body["role"] = updateSecretOptions.Role
 	}
 	if updateSecretOptions.ServiceidCrn != nil {
 		body["serviceid_crn"] = updateSecretOptions.ServiceidCrn
-	}
-	if updateSecretOptions.Target != nil {
-		body["target"] = updateSecretOptions.Target
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1781,6 +1770,1050 @@ func (codeEngine *CodeEngineV2) UpdateSecretWithContext(ctx context.Context, upd
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListApps : List applications
+// List all applications in a project.
+func (codeEngine *CodeEngineV2) ListApps(listAppsOptions *ListAppsOptions) (result *AppList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListAppsWithContext(context.Background(), listAppsOptions)
+}
+
+// ListAppsWithContext is an alternate form of the ListApps method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listAppsOptions *ListAppsOptions) (result *AppList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAppsOptions, "listAppsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listAppsOptions, "listAppsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *listAppsOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listAppsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListApps")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listAppsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAppsOptions.Limit))
+	}
+	if listAppsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAppsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateApp : Create an application
+// Create an application.
+func (codeEngine *CodeEngineV2) CreateApp(createAppOptions *CreateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateAppWithContext(context.Background(), createAppOptions)
+}
+
+// CreateAppWithContext is an alternate form of the CreateApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, createAppOptions *CreateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createAppOptions, "createAppOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createAppOptions, "createAppOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *createAppOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createAppOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateApp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createAppOptions.Name != nil {
+		body["name"] = createAppOptions.Name
+	}
+	if createAppOptions.CeManagedDomainMappings != nil {
+		body["ce_managed_domain_mappings"] = createAppOptions.CeManagedDomainMappings
+	}
+	if createAppOptions.ImagePort != nil {
+		body["image_port"] = createAppOptions.ImagePort
+	}
+	if createAppOptions.ImageProtocol != nil {
+		body["image_protocol"] = createAppOptions.ImageProtocol
+	}
+	if createAppOptions.ImageRef != nil {
+		body["image_ref"] = createAppOptions.ImageRef
+	}
+	if createAppOptions.ImageSecret != nil {
+		body["image_secret"] = createAppOptions.ImageSecret
+	}
+	if createAppOptions.RevisionSuffix != nil {
+		body["revision_suffix"] = createAppOptions.RevisionSuffix
+	}
+	if createAppOptions.RunArgs != nil {
+		body["run_args"] = createAppOptions.RunArgs
+	}
+	if createAppOptions.RunAsUser != nil {
+		body["run_as_user"] = createAppOptions.RunAsUser
+	}
+	if createAppOptions.RunCommands != nil {
+		body["run_commands"] = createAppOptions.RunCommands
+	}
+	if createAppOptions.RunEnvVars != nil {
+		body["run_env_vars"] = createAppOptions.RunEnvVars
+	}
+	if createAppOptions.RunServiceAccount != nil {
+		body["run_service_account"] = createAppOptions.RunServiceAccount
+	}
+	if createAppOptions.RunVolumeMounts != nil {
+		body["run_volume_mounts"] = createAppOptions.RunVolumeMounts
+	}
+	if createAppOptions.ScaleConcurrency != nil {
+		body["scale_concurrency"] = createAppOptions.ScaleConcurrency
+	}
+	if createAppOptions.ScaleConcurrencyTarget != nil {
+		body["scale_concurrency_target"] = createAppOptions.ScaleConcurrencyTarget
+	}
+	if createAppOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = createAppOptions.ScaleCpuLimit
+	}
+	if createAppOptions.ScaleEphemeralStorageLimit != nil {
+		body["scale_ephemeral_storage_limit"] = createAppOptions.ScaleEphemeralStorageLimit
+	}
+	if createAppOptions.ScaleInitialInstances != nil {
+		body["scale_initial_instances"] = createAppOptions.ScaleInitialInstances
+	}
+	if createAppOptions.ScaleMaxInstances != nil {
+		body["scale_max_instances"] = createAppOptions.ScaleMaxInstances
+	}
+	if createAppOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = createAppOptions.ScaleMemoryLimit
+	}
+	if createAppOptions.ScaleMinInstances != nil {
+		body["scale_min_instances"] = createAppOptions.ScaleMinInstances
+	}
+	if createAppOptions.ScaleRequestTimeout != nil {
+		body["scale_request_timeout"] = createAppOptions.ScaleRequestTimeout
+	}
+	if createAppOptions.Version != nil {
+		body["version"] = createAppOptions.Version
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetApp : Get an application
+// Display the details of an application.
+func (codeEngine *CodeEngineV2) GetApp(getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	return codeEngine.GetAppWithContext(context.Background(), getAppOptions)
+}
+
+// GetAppWithContext is an alternate form of the GetApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAppOptions, "getAppOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getAppOptions, "getAppOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *getAppOptions.ProjectGuid,
+		"app_name": *getAppOptions.AppName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getAppOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetApp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteApp : Delete an application
+// Delete an application.
+func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
+}
+
+// DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *deleteAppOptions.ProjectGuid,
+		"app_name": *deleteAppOptions.AppName,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteAppOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteApp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateApp : Update an application
+// Update the given application.
+func (codeEngine *CodeEngineV2) UpdateApp(updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateAppWithContext(context.Background(), updateAppOptions)
+}
+
+// UpdateAppWithContext is an alternate form of the UpdateApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAppOptions, "updateAppOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateAppOptions, "updateAppOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *updateAppOptions.ProjectGuid,
+		"app_name": *updateAppOptions.AppName,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateAppOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateApp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateAppOptions.Name != nil {
+		body["name"] = updateAppOptions.Name
+	}
+	if updateAppOptions.CeManagedDomainMappings != nil {
+		body["ce_managed_domain_mappings"] = updateAppOptions.CeManagedDomainMappings
+	}
+	if updateAppOptions.ImagePort != nil {
+		body["image_port"] = updateAppOptions.ImagePort
+	}
+	if updateAppOptions.ImageProtocol != nil {
+		body["image_protocol"] = updateAppOptions.ImageProtocol
+	}
+	if updateAppOptions.ImageRef != nil {
+		body["image_ref"] = updateAppOptions.ImageRef
+	}
+	if updateAppOptions.ImageSecret != nil {
+		body["image_secret"] = updateAppOptions.ImageSecret
+	}
+	if updateAppOptions.RevisionSuffix != nil {
+		body["revision_suffix"] = updateAppOptions.RevisionSuffix
+	}
+	if updateAppOptions.RunArgs != nil {
+		body["run_args"] = updateAppOptions.RunArgs
+	}
+	if updateAppOptions.RunAsUser != nil {
+		body["run_as_user"] = updateAppOptions.RunAsUser
+	}
+	if updateAppOptions.RunCommands != nil {
+		body["run_commands"] = updateAppOptions.RunCommands
+	}
+	if updateAppOptions.RunEnvVars != nil {
+		body["run_env_vars"] = updateAppOptions.RunEnvVars
+	}
+	if updateAppOptions.RunServiceAccount != nil {
+		body["run_service_account"] = updateAppOptions.RunServiceAccount
+	}
+	if updateAppOptions.RunVolumeMounts != nil {
+		body["run_volume_mounts"] = updateAppOptions.RunVolumeMounts
+	}
+	if updateAppOptions.ScaleConcurrency != nil {
+		body["scale_concurrency"] = updateAppOptions.ScaleConcurrency
+	}
+	if updateAppOptions.ScaleConcurrencyTarget != nil {
+		body["scale_concurrency_target"] = updateAppOptions.ScaleConcurrencyTarget
+	}
+	if updateAppOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = updateAppOptions.ScaleCpuLimit
+	}
+	if updateAppOptions.ScaleEphemeralStorageLimit != nil {
+		body["scale_ephemeral_storage_limit"] = updateAppOptions.ScaleEphemeralStorageLimit
+	}
+	if updateAppOptions.ScaleInitialInstances != nil {
+		body["scale_initial_instances"] = updateAppOptions.ScaleInitialInstances
+	}
+	if updateAppOptions.ScaleMaxInstances != nil {
+		body["scale_max_instances"] = updateAppOptions.ScaleMaxInstances
+	}
+	if updateAppOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = updateAppOptions.ScaleMemoryLimit
+	}
+	if updateAppOptions.ScaleMinInstances != nil {
+		body["scale_min_instances"] = updateAppOptions.ScaleMinInstances
+	}
+	if updateAppOptions.ScaleRequestTimeout != nil {
+		body["scale_request_timeout"] = updateAppOptions.ScaleRequestTimeout
+	}
+	if updateAppOptions.Version != nil {
+		body["version"] = updateAppOptions.Version
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListAppRevisions : List application revisions
+// List all application revisions in a particular application.
+func (codeEngine *CodeEngineV2) ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) (result *AppRevisionList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListAppRevisionsWithContext(context.Background(), listAppRevisionsOptions)
+}
+
+// ListAppRevisionsWithContext is an alternate form of the ListAppRevisions method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context, listAppRevisionsOptions *ListAppRevisionsOptions) (result *AppRevisionList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAppRevisionsOptions, "listAppRevisionsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listAppRevisionsOptions, "listAppRevisionsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *listAppRevisionsOptions.ProjectGuid,
+		"app_name": *listAppRevisionsOptions.AppName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listAppRevisionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAppRevisions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listAppRevisionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAppRevisionsOptions.Limit))
+	}
+	if listAppRevisionsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAppRevisionsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppRevisionList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetAppRevision : Get an application revision
+// Display the details of an application revision.
+func (codeEngine *CodeEngineV2) GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) (result *AppRevision, response *core.DetailedResponse, err error) {
+	return codeEngine.GetAppRevisionWithContext(context.Background(), getAppRevisionOptions)
+}
+
+// GetAppRevisionWithContext is an alternate form of the GetAppRevision method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, getAppRevisionOptions *GetAppRevisionOptions) (result *AppRevision, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAppRevisionOptions, "getAppRevisionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getAppRevisionOptions, "getAppRevisionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *getAppRevisionOptions.ProjectGuid,
+		"app_name": *getAppRevisionOptions.AppName,
+		"revision_name": *getAppRevisionOptions.RevisionName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions/{revision_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getAppRevisionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetAppRevision")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppRevision)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteAppRevision : Delete an application revision
+// Delete an application revision.
+func (codeEngine *CodeEngineV2) DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteAppRevisionWithContext(context.Background(), deleteAppRevisionOptions)
+}
+
+// DeleteAppRevisionWithContext is an alternate form of the DeleteAppRevision method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context, deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAppRevisionOptions, "deleteAppRevisionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteAppRevisionOptions, "deleteAppRevisionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *deleteAppRevisionOptions.ProjectGuid,
+		"app_name": *deleteAppRevisionOptions.AppName,
+		"revision_name": *deleteAppRevisionOptions.RevisionName,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions/{revision_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteAppRevisionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAppRevision")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// ListJobs : List jobs
+// List all jobs in a project.
+func (codeEngine *CodeEngineV2) ListJobs(listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListJobsWithContext(context.Background(), listJobsOptions)
+}
+
+// ListJobsWithContext is an alternate form of the ListJobs method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listJobsOptions, "listJobsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listJobsOptions, "listJobsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *listJobsOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listJobsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListJobs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listJobsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listJobsOptions.Limit))
+	}
+	if listJobsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listJobsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateJob : Create an job
+// Create an job.
+func (codeEngine *CodeEngineV2) CreateJob(createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateJobWithContext(context.Background(), createJobOptions)
+}
+
+// CreateJobWithContext is an alternate form of the CreateJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createJobOptions, "createJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createJobOptions, "createJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *createJobOptions.ProjectGuid,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createJobOptions.ImageRef != nil {
+		body["image_ref"] = createJobOptions.ImageRef
+	}
+	if createJobOptions.ImageSecret != nil {
+		body["image_secret"] = createJobOptions.ImageSecret
+	}
+	if createJobOptions.Name != nil {
+		body["name"] = createJobOptions.Name
+	}
+	if createJobOptions.RunArgs != nil {
+		body["run_args"] = createJobOptions.RunArgs
+	}
+	if createJobOptions.RunAsUser != nil {
+		body["run_as_user"] = createJobOptions.RunAsUser
+	}
+	if createJobOptions.RunCommands != nil {
+		body["run_commands"] = createJobOptions.RunCommands
+	}
+	if createJobOptions.RunEnvVars != nil {
+		body["run_env_vars"] = createJobOptions.RunEnvVars
+	}
+	if createJobOptions.RunMode != nil {
+		body["run_mode"] = createJobOptions.RunMode
+	}
+	if createJobOptions.RunServiceAccount != nil {
+		body["run_service_account"] = createJobOptions.RunServiceAccount
+	}
+	if createJobOptions.RunVolumeMounts != nil {
+		body["run_volume_mounts"] = createJobOptions.RunVolumeMounts
+	}
+	if createJobOptions.ScaleArraySpec != nil {
+		body["scale_array_spec"] = createJobOptions.ScaleArraySpec
+	}
+	if createJobOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = createJobOptions.ScaleCpuLimit
+	}
+	if createJobOptions.ScaleEphemeralStorageLimit != nil {
+		body["scale_ephemeral_storage_limit"] = createJobOptions.ScaleEphemeralStorageLimit
+	}
+	if createJobOptions.ScaleMaxExecutionTime != nil {
+		body["scale_max_execution_time"] = createJobOptions.ScaleMaxExecutionTime
+	}
+	if createJobOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = createJobOptions.ScaleMemoryLimit
+	}
+	if createJobOptions.ScaleRetryLimit != nil {
+		body["scale_retry_limit"] = createJobOptions.ScaleRetryLimit
+	}
+	if createJobOptions.Version != nil {
+		body["version"] = createJobOptions.Version
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetJob : Get an job
+// Display the details of an job.
+func (codeEngine *CodeEngineV2) GetJob(getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	return codeEngine.GetJobWithContext(context.Background(), getJobOptions)
+}
+
+// GetJobWithContext is an alternate form of the GetJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getJobOptions, "getJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getJobOptions, "getJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *getJobOptions.ProjectGuid,
+		"job_name": *getJobOptions.JobName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{job_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteJob : Delete an job
+// Delete an job.
+func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
+}
+
+// DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *deleteJobOptions.ProjectGuid,
+		"job_name": *deleteJobOptions.JobName,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{job_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateJob : Update an job
+// Update the given job.
+func (codeEngine *CodeEngineV2) UpdateJob(updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateJobWithContext(context.Background(), updateJobOptions)
+}
+
+// UpdateJobWithContext is an alternate form of the UpdateJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateJobOptions, "updateJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateJobOptions, "updateJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_guid": *updateJobOptions.ProjectGuid,
+		"job_name": *updateJobOptions.JobName,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{job_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateJobOptions.ImageRef != nil {
+		body["image_ref"] = updateJobOptions.ImageRef
+	}
+	if updateJobOptions.ImageSecret != nil {
+		body["image_secret"] = updateJobOptions.ImageSecret
+	}
+	if updateJobOptions.Name != nil {
+		body["name"] = updateJobOptions.Name
+	}
+	if updateJobOptions.RunArgs != nil {
+		body["run_args"] = updateJobOptions.RunArgs
+	}
+	if updateJobOptions.RunAsUser != nil {
+		body["run_as_user"] = updateJobOptions.RunAsUser
+	}
+	if updateJobOptions.RunCommands != nil {
+		body["run_commands"] = updateJobOptions.RunCommands
+	}
+	if updateJobOptions.RunEnvVars != nil {
+		body["run_env_vars"] = updateJobOptions.RunEnvVars
+	}
+	if updateJobOptions.RunMode != nil {
+		body["run_mode"] = updateJobOptions.RunMode
+	}
+	if updateJobOptions.RunServiceAccount != nil {
+		body["run_service_account"] = updateJobOptions.RunServiceAccount
+	}
+	if updateJobOptions.RunVolumeMounts != nil {
+		body["run_volume_mounts"] = updateJobOptions.RunVolumeMounts
+	}
+	if updateJobOptions.ScaleArraySpec != nil {
+		body["scale_array_spec"] = updateJobOptions.ScaleArraySpec
+	}
+	if updateJobOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = updateJobOptions.ScaleCpuLimit
+	}
+	if updateJobOptions.ScaleEphemeralStorageLimit != nil {
+		body["scale_ephemeral_storage_limit"] = updateJobOptions.ScaleEphemeralStorageLimit
+	}
+	if updateJobOptions.ScaleMaxExecutionTime != nil {
+		body["scale_max_execution_time"] = updateJobOptions.ScaleMaxExecutionTime
+	}
+	if updateJobOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = updateJobOptions.ScaleMemoryLimit
+	}
+	if updateJobOptions.ScaleRetryLimit != nil {
+		body["scale_retry_limit"] = updateJobOptions.ScaleRetryLimit
+	}
+	if updateJobOptions.Version != nil {
+		body["version"] = updateJobOptions.Version
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
 		if err != nil {
 			return
 		}
@@ -2029,6 +3062,582 @@ func (codeEngine *CodeEngineV2) RestoreReclamationWithContext(ctx context.Contex
 	return
 }
 
+// App : App is the response model for app resources.
+type App struct {
+	// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+	// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// application private visibility.
+	CeManagedDomainMappings *string `json:"ce_managed_domain_mappings,omitempty"`
+
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The port where the application listens.
+	ImagePort *int64 `json:"image_port,omitempty"`
+
+	// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses
+	// unencrypted HTTP 2.
+	ImageProtocol *string `json:"image_protocol,omitempty"`
+
+	// The name of the image that is used for this application. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where
+	// 'REGISTRY' and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not
+	// specified, the default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// Set arguments for the application.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the application.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// The maximum number of requests that can be processed concurrently per instance.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// The threshold of concurrent requests per instance at which one or more additional instances are created. Use this
+	// value to scale up instances based on concurrent number of requests. This option defaults to the value of the
+	// 'concurrency' option, if not specified.
+	ScaleConcurrencyTarget *int64 `json:"scale_concurrency_target,omitempty"`
+
+	// The amount of CPU set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the application.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The initial number of instances that are created upon app creation or app update.
+	ScaleInitialInstances *int64 `json:"scale_initial_instances,omitempty"`
+
+	// The maximum number of instances that can be used for this application. If you set this value to '0', the application
+	// scales as needed. The application scaling is limited only by the instances per the resource quota for the project of
+	// your application. See https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits.
+	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
+
+	// The amount of memory set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The minimum number of instances that can be used for this application.
+	ScaleMinInstances *int64 `json:"scale_min_instances,omitempty"`
+
+	// The amount of time in seconds that is allowed for a running application to respond to a request.
+	ScaleRequestTimeout *int64 `json:"scale_request_timeout,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
+
+	// The internal version of the app instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
+}
+
+// Constants associated with the App.CeManagedDomainMappings property.
+// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// application private visibility.
+const (
+	App_CeManagedDomainMappings_Local = "local"
+	App_CeManagedDomainMappings_LocalPrivate = "local_private"
+	App_CeManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// Constants associated with the App.ImageProtocol property.
+// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses unencrypted
+// HTTP 2.
+const (
+	App_ImageProtocol_H2c = "h2c"
+	App_ImageProtocol_Http1 = "http1"
+)
+
+// Constants associated with the App.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	App_RunServiceAccount_Default = "default"
+	App_RunServiceAccount_Manager = "manager"
+	App_RunServiceAccount_None = "none"
+	App_RunServiceAccount_Reader = "reader"
+	App_RunServiceAccount_Writer = "writer"
+)
+
+// UnmarshalApp unmarshals an instance of App from the specified map of raw messages.
+func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(App)
+	err = core.UnmarshalPrimitive(m, "ce_managed_domain_mappings", &obj.CeManagedDomainMappings)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_port", &obj.ImagePort)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_protocol", &obj.ImageProtocol)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_ref", &obj.ImageRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_args", &obj.RunArgs)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_env_vars", &obj.RunEnvVars, UnmarshalEnvVar)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency_target", &obj.ScaleConcurrencyTarget)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_initial_instances", &obj.ScaleInitialInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_max_instances", &obj.ScaleMaxInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_min_instances", &obj.ScaleMinInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_request_timeout", &obj.ScaleRequestTimeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AppList : Contains a list of apps and pagination information.
+type AppList struct {
+	// List of all apps.
+	Apps []App `json:"apps,omitempty"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalAppList unmarshals an instance of AppList from the specified map of raw messages.
+func UnmarshalAppList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppList)
+	err = core.UnmarshalModel(m, "apps", &obj.Apps, UnmarshalApp)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *AppList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// AppRevision : AppRevision is the response model for app revision resources.
+type AppRevision struct {
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
+
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The port where the application listens.
+	ImagePort *int64 `json:"image_port,omitempty"`
+
+	// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses
+	// unencrypted HTTP 2.
+	ImageProtocol *string `json:"image_protocol,omitempty"`
+
+	// The name of the image that is used for this application. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where
+	// 'REGISTRY' and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not
+	// specified, the default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// Set arguments for the application.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the application.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// The maximum number of requests that can be processed concurrently per instance.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// The threshold of concurrent requests per instance at which one or more additional instances are created. Use this
+	// value to scale up instances based on concurrent number of requests. This option defaults to the value of the
+	// 'concurrency' option, if not specified.
+	ScaleConcurrencyTarget *int64 `json:"scale_concurrency_target,omitempty"`
+
+	// The amount of CPU set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the application.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The initial number of instances that are created upon app creation or app update.
+	ScaleInitialInstances *int64 `json:"scale_initial_instances,omitempty"`
+
+	// The maximum number of instances that can be used for this application. If you set this value to '0', the application
+	// scales as needed. The application scaling is limited only by the instances per the resource quota for the project of
+	// your application. See https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits.
+	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
+
+	// The amount of memory set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The minimum number of instances that can be used for this application.
+	ScaleMinInstances *int64 `json:"scale_min_instances,omitempty"`
+
+	// The amount of time in seconds that is allowed for a running application to respond to a request.
+	ScaleRequestTimeout *int64 `json:"scale_request_timeout,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
+}
+
+// Constants associated with the AppRevision.ImageProtocol property.
+// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses unencrypted
+// HTTP 2.
+const (
+	AppRevision_ImageProtocol_H2c = "h2c"
+	AppRevision_ImageProtocol_Http1 = "http1"
+)
+
+// Constants associated with the AppRevision.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	AppRevision_RunServiceAccount_Default = "default"
+	AppRevision_RunServiceAccount_Manager = "manager"
+	AppRevision_RunServiceAccount_None = "none"
+	AppRevision_RunServiceAccount_Reader = "reader"
+	AppRevision_RunServiceAccount_Writer = "writer"
+)
+
+// UnmarshalAppRevision unmarshals an instance of AppRevision from the specified map of raw messages.
+func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppRevision)
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_port", &obj.ImagePort)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_protocol", &obj.ImageProtocol)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_ref", &obj.ImageRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_args", &obj.RunArgs)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_env_vars", &obj.RunEnvVars, UnmarshalEnvVar)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency_target", &obj.ScaleConcurrencyTarget)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_initial_instances", &obj.ScaleInitialInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_max_instances", &obj.ScaleMaxInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_min_instances", &obj.ScaleMinInstances)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_request_timeout", &obj.ScaleRequestTimeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AppRevisionList : Contains a list of app revisions and pagination information.
+type AppRevisionList struct {
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+
+	// List of all app revisions.
+	Revisions []AppRevision `json:"revisions,omitempty"`
+}
+
+// UnmarshalAppRevisionList unmarshals an instance of AppRevisionList from the specified map of raw messages.
+func UnmarshalAppRevisionList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppRevisionList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "revisions", &obj.Revisions, UnmarshalAppRevision)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *AppRevisionList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
 // Build : Response model for build definitions.
 type Build struct {
 	// The resource that owns this build, such as a Code Engine application or job.
@@ -2042,9 +3651,6 @@ type Build struct {
 
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
 
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
@@ -2091,7 +3697,17 @@ type Build struct {
 
 	// The type of the resource.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
+
+// Constants associated with the Build.SourceType property.
+// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+const (
+	Build_SourceType_Git = "git"
+	Build_SourceType_Local = "local"
+)
 
 // UnmarshalBuild unmarshals an instance of Build from the specified map of raw messages.
 func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2109,10 +3725,6 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
 	if err != nil {
 		return
 	}
@@ -2176,6 +3788,10 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2185,9 +3801,13 @@ type BuildList struct {
 	// List of all builds.
 	Builds []Build `json:"builds,omitempty"`
 
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 }
 
@@ -2195,6 +3815,10 @@ type BuildList struct {
 func UnmarshalBuildList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(BuildList)
 	err = core.UnmarshalModel(m, "builds", &obj.Builds, UnmarshalBuild)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
 	if err != nil {
 		return
 	}
@@ -2218,7 +3842,7 @@ func (resp *BuildList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// BuildRun : BuildRun struct
+// BuildRun : Response model for build run objects.
 type BuildRun struct {
 	// The name of the app revision with which this build run is associated.
 	AppRevision *string `json:"app_revision,omitempty"`
@@ -2232,11 +3856,11 @@ type BuildRun struct {
 	// The date when the resource was created.
 	Created *string `json:"created,omitempty"`
 
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
 
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
@@ -2246,6 +3870,9 @@ type BuildRun struct {
 
 	// The secret that is required to access the image registry.
 	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
 
 	// ServiceAccount refers to the serviceaccount which is used for resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
@@ -2265,8 +3892,8 @@ type BuildRun struct {
 	// The URL of the repository.
 	SourceURL *string `json:"source_url,omitempty"`
 
-	// Describes the current status condition of a build run.
-	Status *BuildRunStatus `json:"status,omitempty"`
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
 
 	// The strategy to use for building the image.
 	StrategyName *string `json:"strategy_name,omitempty"`
@@ -2283,7 +3910,27 @@ type BuildRun struct {
 
 	// The type of the resource.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
+
+// Constants associated with the BuildRun.ServiceAccount property.
+// ServiceAccount refers to the serviceaccount which is used for resource control.
+const (
+	BuildRun_ServiceAccount_Default = "default"
+	BuildRun_ServiceAccount_Manager = "manager"
+	BuildRun_ServiceAccount_None = "none"
+	BuildRun_ServiceAccount_Reader = "reader"
+	BuildRun_ServiceAccount_Writer = "writer"
+)
+
+// Constants associated with the BuildRun.SourceType property.
+// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+const (
+	BuildRun_SourceType_Git = "git"
+	BuildRun_SourceType_Local = "local"
+)
 
 // UnmarshalBuildRun unmarshals an instance of BuildRun from the specified map of raw messages.
 func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2304,11 +3951,11 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -2321,6 +3968,10 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
 		return
 	}
@@ -2348,7 +3999,7 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "status", &obj.Status, UnmarshalBuildRunStatus)
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		return
 	}
@@ -2372,6 +4023,10 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2379,18 +4034,26 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 // BuildRunList : Contains a list of build runs and pagination information.
 type BuildRunList struct {
 	// List of all build runs.
-	Buildruns []BuildRun `json:"buildruns,omitempty"`
+	BuildRuns []BuildRun `json:"build_runs,omitempty"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
 	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit" validate:"required"`
 
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 }
 
 // UnmarshalBuildRunList unmarshals an instance of BuildRunList from the specified map of raw messages.
 func UnmarshalBuildRunList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(BuildRunList)
-	err = core.UnmarshalModel(m, "buildruns", &obj.Buildruns, UnmarshalBuildRun)
+	err = core.UnmarshalModel(m, "build_runs", &obj.BuildRuns, UnmarshalBuildRun)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
 	if err != nil {
 		return
 	}
@@ -2414,37 +4077,6 @@ func (resp *BuildRunList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// BuildRunStatus : Describes the current status condition of a build run.
-type BuildRunStatus struct {
-	// Describes the time the build run completed.
-	CompletionTime *string `json:"completion_time,omitempty"`
-
-	// Describes the name of the task run responsible for executing this build run.
-	LastTaskRun *string `json:"last_task_run,omitempty"`
-
-	// Describes the time the build run started.
-	StartTime *string `json:"start_time,omitempty"`
-}
-
-// UnmarshalBuildRunStatus unmarshals an instance of BuildRunStatus from the specified map of raw messages.
-func UnmarshalBuildRunStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(BuildRunStatus)
-	err = core.UnmarshalPrimitive(m, "completion_time", &obj.CompletionTime)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_task_run", &obj.LastTaskRun)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // ConfigMap : Describes the model of a configmap.
 type ConfigMap struct {
 	// The date when the resource was created.
@@ -2456,17 +4088,14 @@ type ConfigMap struct {
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// Specifies that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
-
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
 	// The type of the resource.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
 
 // UnmarshalConfigMap unmarshals an instance of ConfigMap from the specified map of raw messages.
@@ -2484,19 +4113,15 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
@@ -2507,18 +4132,26 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 // ConfigMapList : Contains a list of configmaps and pagination information.
 type ConfigMapList struct {
 	// List of all configmaps.
-	Configmaps []ConfigMap `json:"configmaps,omitempty"`
+	ConfigMaps []ConfigMap `json:"config_maps,omitempty"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
 	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit" validate:"required"`
 
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 }
 
 // UnmarshalConfigMapList unmarshals an instance of ConfigMapList from the specified map of raw messages.
 func UnmarshalConfigMapList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ConfigMapList)
-	err = core.UnmarshalModel(m, "configmaps", &obj.Configmaps, UnmarshalConfigMap)
+	err = core.UnmarshalModel(m, "config_maps", &obj.ConfigMaps, UnmarshalConfigMap)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
 	if err != nil {
 		return
 	}
@@ -2540,6 +4173,284 @@ func (resp *ConfigMapList) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	return resp.Next.Start, nil
+}
+
+// CreateAppOptions : The CreateApp options.
+type CreateAppOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of the app. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
+	// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+	// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// application private visibility.
+	CeManagedDomainMappings *string `json:"ce_managed_domain_mappings,omitempty"`
+
+	// The port where the application listens.
+	ImagePort *int64 `json:"image_port,omitempty"`
+
+	// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses
+	// unencrypted HTTP 2.
+	ImageProtocol *string `json:"image_protocol,omitempty"`
+
+	// The name of the image that is used for this application. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where
+	// 'REGISTRY' and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not
+	// specified, the default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The suffix of the new revision. Use a suffix that is unique for this application.
+	RevisionSuffix *string `json:"revision_suffix,omitempty"`
+
+	// Set arguments for the application.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the application.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// The maximum number of requests that can be processed concurrently per instance.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// The threshold of concurrent requests per instance at which one or more additional instances are created. Use this
+	// value to scale up instances based on concurrent number of requests. This option defaults to the value of the
+	// 'concurrency' option, if not specified.
+	ScaleConcurrencyTarget *int64 `json:"scale_concurrency_target,omitempty"`
+
+	// The amount of CPU set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the application.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The initial number of instances that are created upon app creation or app update.
+	ScaleInitialInstances *int64 `json:"scale_initial_instances,omitempty"`
+
+	// The maximum number of instances that can be used for this application. If you set this value to '0', the application
+	// scales as needed. The application scaling is limited only by the instances per the resource quota for the project of
+	// your application. See https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits.
+	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
+
+	// The amount of memory set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The minimum number of instances that can be used for this application.
+	ScaleMinInstances *int64 `json:"scale_min_instances,omitempty"`
+
+	// The amount of time in seconds that is allowed for a running application to respond to a request.
+	ScaleRequestTimeout *int64 `json:"scale_request_timeout,omitempty"`
+
+	// The internal version of the app instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreateAppOptions.CeManagedDomainMappings property.
+// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// application private visibility.
+const (
+	CreateAppOptions_CeManagedDomainMappings_Local = "local"
+	CreateAppOptions_CeManagedDomainMappings_LocalPrivate = "local_private"
+	CreateAppOptions_CeManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// Constants associated with the CreateAppOptions.ImageProtocol property.
+// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses unencrypted
+// HTTP 2.
+const (
+	CreateAppOptions_ImageProtocol_H2c = "h2c"
+	CreateAppOptions_ImageProtocol_Http1 = "http1"
+)
+
+// Constants associated with the CreateAppOptions.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	CreateAppOptions_RunServiceAccount_Default = "default"
+	CreateAppOptions_RunServiceAccount_Manager = "manager"
+	CreateAppOptions_RunServiceAccount_None = "none"
+	CreateAppOptions_RunServiceAccount_Reader = "reader"
+	CreateAppOptions_RunServiceAccount_Writer = "writer"
+)
+
+// NewCreateAppOptions : Instantiate CreateAppOptions
+func (*CodeEngineV2) NewCreateAppOptions(projectGuid string, name string) *CreateAppOptions {
+	return &CreateAppOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *CreateAppOptions) SetProjectGuid(projectGuid string) *CreateAppOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateAppOptions) SetName(name string) *CreateAppOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetCeManagedDomainMappings : Allow user to set CeManagedDomainMappings
+func (_options *CreateAppOptions) SetCeManagedDomainMappings(ceManagedDomainMappings string) *CreateAppOptions {
+	_options.CeManagedDomainMappings = core.StringPtr(ceManagedDomainMappings)
+	return _options
+}
+
+// SetImagePort : Allow user to set ImagePort
+func (_options *CreateAppOptions) SetImagePort(imagePort int64) *CreateAppOptions {
+	_options.ImagePort = core.Int64Ptr(imagePort)
+	return _options
+}
+
+// SetImageProtocol : Allow user to set ImageProtocol
+func (_options *CreateAppOptions) SetImageProtocol(imageProtocol string) *CreateAppOptions {
+	_options.ImageProtocol = core.StringPtr(imageProtocol)
+	return _options
+}
+
+// SetImageRef : Allow user to set ImageRef
+func (_options *CreateAppOptions) SetImageRef(imageRef string) *CreateAppOptions {
+	_options.ImageRef = core.StringPtr(imageRef)
+	return _options
+}
+
+// SetImageSecret : Allow user to set ImageSecret
+func (_options *CreateAppOptions) SetImageSecret(imageSecret string) *CreateAppOptions {
+	_options.ImageSecret = core.StringPtr(imageSecret)
+	return _options
+}
+
+// SetRevisionSuffix : Allow user to set RevisionSuffix
+func (_options *CreateAppOptions) SetRevisionSuffix(revisionSuffix string) *CreateAppOptions {
+	_options.RevisionSuffix = core.StringPtr(revisionSuffix)
+	return _options
+}
+
+// SetRunArgs : Allow user to set RunArgs
+func (_options *CreateAppOptions) SetRunArgs(runArgs []string) *CreateAppOptions {
+	_options.RunArgs = runArgs
+	return _options
+}
+
+// SetRunAsUser : Allow user to set RunAsUser
+func (_options *CreateAppOptions) SetRunAsUser(runAsUser int64) *CreateAppOptions {
+	_options.RunAsUser = core.Int64Ptr(runAsUser)
+	return _options
+}
+
+// SetRunCommands : Allow user to set RunCommands
+func (_options *CreateAppOptions) SetRunCommands(runCommands []string) *CreateAppOptions {
+	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunEnvVars : Allow user to set RunEnvVars
+func (_options *CreateAppOptions) SetRunEnvVars(runEnvVars []EnvVar) *CreateAppOptions {
+	_options.RunEnvVars = runEnvVars
+	return _options
+}
+
+// SetRunServiceAccount : Allow user to set RunServiceAccount
+func (_options *CreateAppOptions) SetRunServiceAccount(runServiceAccount string) *CreateAppOptions {
+	_options.RunServiceAccount = core.StringPtr(runServiceAccount)
+	return _options
+}
+
+// SetRunVolumeMounts : Allow user to set RunVolumeMounts
+func (_options *CreateAppOptions) SetRunVolumeMounts(runVolumeMounts []VolumeMount) *CreateAppOptions {
+	_options.RunVolumeMounts = runVolumeMounts
+	return _options
+}
+
+// SetScaleConcurrency : Allow user to set ScaleConcurrency
+func (_options *CreateAppOptions) SetScaleConcurrency(scaleConcurrency int64) *CreateAppOptions {
+	_options.ScaleConcurrency = core.Int64Ptr(scaleConcurrency)
+	return _options
+}
+
+// SetScaleConcurrencyTarget : Allow user to set ScaleConcurrencyTarget
+func (_options *CreateAppOptions) SetScaleConcurrencyTarget(scaleConcurrencyTarget int64) *CreateAppOptions {
+	_options.ScaleConcurrencyTarget = core.Int64Ptr(scaleConcurrencyTarget)
+	return _options
+}
+
+// SetScaleCpuLimit : Allow user to set ScaleCpuLimit
+func (_options *CreateAppOptions) SetScaleCpuLimit(scaleCpuLimit string) *CreateAppOptions {
+	_options.ScaleCpuLimit = core.StringPtr(scaleCpuLimit)
+	return _options
+}
+
+// SetScaleEphemeralStorageLimit : Allow user to set ScaleEphemeralStorageLimit
+func (_options *CreateAppOptions) SetScaleEphemeralStorageLimit(scaleEphemeralStorageLimit string) *CreateAppOptions {
+	_options.ScaleEphemeralStorageLimit = core.StringPtr(scaleEphemeralStorageLimit)
+	return _options
+}
+
+// SetScaleInitialInstances : Allow user to set ScaleInitialInstances
+func (_options *CreateAppOptions) SetScaleInitialInstances(scaleInitialInstances int64) *CreateAppOptions {
+	_options.ScaleInitialInstances = core.Int64Ptr(scaleInitialInstances)
+	return _options
+}
+
+// SetScaleMaxInstances : Allow user to set ScaleMaxInstances
+func (_options *CreateAppOptions) SetScaleMaxInstances(scaleMaxInstances int64) *CreateAppOptions {
+	_options.ScaleMaxInstances = core.Int64Ptr(scaleMaxInstances)
+	return _options
+}
+
+// SetScaleMemoryLimit : Allow user to set ScaleMemoryLimit
+func (_options *CreateAppOptions) SetScaleMemoryLimit(scaleMemoryLimit string) *CreateAppOptions {
+	_options.ScaleMemoryLimit = core.StringPtr(scaleMemoryLimit)
+	return _options
+}
+
+// SetScaleMinInstances : Allow user to set ScaleMinInstances
+func (_options *CreateAppOptions) SetScaleMinInstances(scaleMinInstances int64) *CreateAppOptions {
+	_options.ScaleMinInstances = core.Int64Ptr(scaleMinInstances)
+	return _options
+}
+
+// SetScaleRequestTimeout : Allow user to set ScaleRequestTimeout
+func (_options *CreateAppOptions) SetScaleRequestTimeout(scaleRequestTimeout int64) *CreateAppOptions {
+	_options.ScaleRequestTimeout = core.Int64Ptr(scaleRequestTimeout)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *CreateAppOptions) SetVersion(version string) *CreateAppOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateAppOptions) SetHeaders(param map[string]string) *CreateAppOptions {
+	options.Headers = param
+	return options
 }
 
 // CreateBuildOptions : The CreateBuild options.
@@ -2590,6 +4501,13 @@ type CreateBuildOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the CreateBuildOptions.SourceType property.
+// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+const (
+	CreateBuildOptions_SourceType_Git = "git"
+	CreateBuildOptions_SourceType_Local = "local"
+)
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
 func (*CodeEngineV2) NewCreateBuildOptions(projectGuid string, name string) *CreateBuildOptions {
@@ -2747,6 +4665,23 @@ type CreateBuildrunOptions struct {
 	Headers map[string]string
 }
 
+// Constants associated with the CreateBuildrunOptions.ServiceAccount property.
+// ServiceAccount refers to the serviceaccount which is used for resource control.
+const (
+	CreateBuildrunOptions_ServiceAccount_Default = "default"
+	CreateBuildrunOptions_ServiceAccount_Manager = "manager"
+	CreateBuildrunOptions_ServiceAccount_None = "none"
+	CreateBuildrunOptions_ServiceAccount_Reader = "reader"
+	CreateBuildrunOptions_ServiceAccount_Writer = "writer"
+)
+
+// Constants associated with the CreateBuildrunOptions.SourceType property.
+// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+const (
+	CreateBuildrunOptions_SourceType_Git = "git"
+	CreateBuildrunOptions_SourceType_Local = "local"
+)
+
 // NewCreateBuildrunOptions : Instantiate CreateBuildrunOptions
 func (*CodeEngineV2) NewCreateBuildrunOptions(projectGuid string, name string) *CreateBuildrunOptions {
 	return &CreateBuildrunOptions{
@@ -2874,9 +4809,6 @@ type CreateConfigmapOptions struct {
 	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
 
-	// Indicates that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2907,14 +4839,220 @@ func (_options *CreateConfigmapOptions) SetData(data map[string]string) *CreateC
 	return _options
 }
 
-// SetImmutable : Allow user to set Immutable
-func (_options *CreateConfigmapOptions) SetImmutable(immutable bool) *CreateConfigmapOptions {
-	_options.Immutable = core.BoolPtr(immutable)
+// SetHeaders : Allow user to set Headers
+func (options *CreateConfigmapOptions) SetHeaders(param map[string]string) *CreateConfigmapOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateJobOptions : The CreateJob options.
+type CreateJobOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of the image that is used for this job. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where 'REGISTRY'
+	// and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not specified, the
+	// default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The name of the job. Use a name that is unique within the project.
+	Name *string `json:"name,omitempty"`
+
+	// Set arguments for the job.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the job.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+	// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+	RunMode *string `json:"run_mode,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
+	// like "5,12-14,23,27". Each instance can pick up its array index via environment variable JOB_INDEX. The number of
+	// unique array indices specified here determines the number of job instances to run.
+	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
+
+	// The amount of CPU set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the job.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The maximum execution time in seconds for runs of the job. This option can only be specified if 'mode' is 'task'.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
+
+	// The amount of memory set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
+	// specified if 'mode' is 'task'.
+	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
+
+	// The internal version of the job instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreateJobOptions.RunMode property.
+// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+const (
+	CreateJobOptions_RunMode_Daemon = "daemon"
+	CreateJobOptions_RunMode_Task = "task"
+)
+
+// Constants associated with the CreateJobOptions.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	CreateJobOptions_RunServiceAccount_Default = "default"
+	CreateJobOptions_RunServiceAccount_Manager = "manager"
+	CreateJobOptions_RunServiceAccount_None = "none"
+	CreateJobOptions_RunServiceAccount_Reader = "reader"
+	CreateJobOptions_RunServiceAccount_Writer = "writer"
+)
+
+// NewCreateJobOptions : Instantiate CreateJobOptions
+func (*CodeEngineV2) NewCreateJobOptions(projectGuid string) *CreateJobOptions {
+	return &CreateJobOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *CreateJobOptions) SetProjectGuid(projectGuid string) *CreateJobOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetImageRef : Allow user to set ImageRef
+func (_options *CreateJobOptions) SetImageRef(imageRef string) *CreateJobOptions {
+	_options.ImageRef = core.StringPtr(imageRef)
+	return _options
+}
+
+// SetImageSecret : Allow user to set ImageSecret
+func (_options *CreateJobOptions) SetImageSecret(imageSecret string) *CreateJobOptions {
+	_options.ImageSecret = core.StringPtr(imageSecret)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateJobOptions) SetName(name string) *CreateJobOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRunArgs : Allow user to set RunArgs
+func (_options *CreateJobOptions) SetRunArgs(runArgs []string) *CreateJobOptions {
+	_options.RunArgs = runArgs
+	return _options
+}
+
+// SetRunAsUser : Allow user to set RunAsUser
+func (_options *CreateJobOptions) SetRunAsUser(runAsUser int64) *CreateJobOptions {
+	_options.RunAsUser = core.Int64Ptr(runAsUser)
+	return _options
+}
+
+// SetRunCommands : Allow user to set RunCommands
+func (_options *CreateJobOptions) SetRunCommands(runCommands []string) *CreateJobOptions {
+	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunEnvVars : Allow user to set RunEnvVars
+func (_options *CreateJobOptions) SetRunEnvVars(runEnvVars []EnvVar) *CreateJobOptions {
+	_options.RunEnvVars = runEnvVars
+	return _options
+}
+
+// SetRunMode : Allow user to set RunMode
+func (_options *CreateJobOptions) SetRunMode(runMode string) *CreateJobOptions {
+	_options.RunMode = core.StringPtr(runMode)
+	return _options
+}
+
+// SetRunServiceAccount : Allow user to set RunServiceAccount
+func (_options *CreateJobOptions) SetRunServiceAccount(runServiceAccount string) *CreateJobOptions {
+	_options.RunServiceAccount = core.StringPtr(runServiceAccount)
+	return _options
+}
+
+// SetRunVolumeMounts : Allow user to set RunVolumeMounts
+func (_options *CreateJobOptions) SetRunVolumeMounts(runVolumeMounts []VolumeMount) *CreateJobOptions {
+	_options.RunVolumeMounts = runVolumeMounts
+	return _options
+}
+
+// SetScaleArraySpec : Allow user to set ScaleArraySpec
+func (_options *CreateJobOptions) SetScaleArraySpec(scaleArraySpec string) *CreateJobOptions {
+	_options.ScaleArraySpec = core.StringPtr(scaleArraySpec)
+	return _options
+}
+
+// SetScaleCpuLimit : Allow user to set ScaleCpuLimit
+func (_options *CreateJobOptions) SetScaleCpuLimit(scaleCpuLimit string) *CreateJobOptions {
+	_options.ScaleCpuLimit = core.StringPtr(scaleCpuLimit)
+	return _options
+}
+
+// SetScaleEphemeralStorageLimit : Allow user to set ScaleEphemeralStorageLimit
+func (_options *CreateJobOptions) SetScaleEphemeralStorageLimit(scaleEphemeralStorageLimit string) *CreateJobOptions {
+	_options.ScaleEphemeralStorageLimit = core.StringPtr(scaleEphemeralStorageLimit)
+	return _options
+}
+
+// SetScaleMaxExecutionTime : Allow user to set ScaleMaxExecutionTime
+func (_options *CreateJobOptions) SetScaleMaxExecutionTime(scaleMaxExecutionTime int64) *CreateJobOptions {
+	_options.ScaleMaxExecutionTime = core.Int64Ptr(scaleMaxExecutionTime)
+	return _options
+}
+
+// SetScaleMemoryLimit : Allow user to set ScaleMemoryLimit
+func (_options *CreateJobOptions) SetScaleMemoryLimit(scaleMemoryLimit string) *CreateJobOptions {
+	_options.ScaleMemoryLimit = core.StringPtr(scaleMemoryLimit)
+	return _options
+}
+
+// SetScaleRetryLimit : Allow user to set ScaleRetryLimit
+func (_options *CreateJobOptions) SetScaleRetryLimit(scaleRetryLimit int64) *CreateJobOptions {
+	_options.ScaleRetryLimit = core.Int64Ptr(scaleRetryLimit)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *CreateJobOptions) SetVersion(version string) *CreateJobOptions {
+	_options.Version = core.StringPtr(version)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateConfigmapOptions) SetHeaders(param map[string]string) *CreateConfigmapOptions {
+func (options *CreateJobOptions) SetHeaders(param map[string]string) *CreateJobOptions {
 	options.Headers = param
 	return options
 }
@@ -2980,9 +5118,6 @@ type CreateSecretOptions struct {
 	// The name of the secret.
 	Name *string `json:"name" validate:"required"`
 
-	// Name of the secret.
-	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
-
 	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
 
@@ -2991,9 +5126,6 @@ type CreateSecretOptions struct {
 
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
-
-	// Indicates that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
@@ -3004,18 +5136,30 @@ type CreateSecretOptions struct {
 	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
+	// Name of the service credential associated with the secret.
+	ResourcekeyName *string `json:"resourcekey_name,omitempty"`
+
 	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
 	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret.
-	Target *string `json:"target,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the CreateSecretOptions.Format property.
+// Specify the format of the secret.
+const (
+	CreateSecretOptions_Format_BasicAuth = "basic_auth"
+	CreateSecretOptions_Format_Generic = "generic"
+	CreateSecretOptions_Format_Other = "other"
+	CreateSecretOptions_Format_Registry = "registry"
+	CreateSecretOptions_Format_ServiceAccess = "service_access"
+	CreateSecretOptions_Format_SshAuth = "ssh_auth"
+	CreateSecretOptions_Format_Tls = "tls"
+)
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
 func (*CodeEngineV2) NewCreateSecretOptions(projectGuid string, name string) *CreateSecretOptions {
@@ -3037,12 +5181,6 @@ func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
 	return _options
 }
 
-// SetBindingSecretRef : Allow user to set BindingSecretRef
-func (_options *CreateSecretOptions) SetBindingSecretRef(bindingSecretRef string) *CreateSecretOptions {
-	_options.BindingSecretRef = core.StringPtr(bindingSecretRef)
-	return _options
-}
-
 // SetCeComponents : Allow user to set CeComponents
 func (_options *CreateSecretOptions) SetCeComponents(ceComponents []string) *CreateSecretOptions {
 	_options.CeComponents = ceComponents
@@ -3058,12 +5196,6 @@ func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecr
 // SetFormat : Allow user to set Format
 func (_options *CreateSecretOptions) SetFormat(format string) *CreateSecretOptions {
 	_options.Format = core.StringPtr(format)
-	return _options
-}
-
-// SetImmutable : Allow user to set Immutable
-func (_options *CreateSecretOptions) SetImmutable(immutable bool) *CreateSecretOptions {
-	_options.Immutable = core.BoolPtr(immutable)
 	return _options
 }
 
@@ -3085,6 +5217,12 @@ func (_options *CreateSecretOptions) SetResourcekeyID(resourcekeyID string) *Cre
 	return _options
 }
 
+// SetResourcekeyName : Allow user to set ResourcekeyName
+func (_options *CreateSecretOptions) SetResourcekeyName(resourcekeyName string) *CreateSecretOptions {
+	_options.ResourcekeyName = core.StringPtr(resourcekeyName)
+	return _options
+}
+
 // SetRole : Allow user to set Role
 func (_options *CreateSecretOptions) SetRole(role string) *CreateSecretOptions {
 	_options.Role = core.StringPtr(role)
@@ -3097,14 +5235,94 @@ func (_options *CreateSecretOptions) SetServiceidCrn(serviceidCrn string) *Creat
 	return _options
 }
 
-// SetTarget : Allow user to set Target
-func (_options *CreateSecretOptions) SetTarget(target string) *CreateSecretOptions {
-	_options.Target = core.StringPtr(target)
+// SetHeaders : Allow user to set Headers
+func (options *CreateSecretOptions) SetHeaders(param map[string]string) *CreateSecretOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteAppOptions : The DeleteApp options.
+type DeleteAppOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteAppOptions : Instantiate DeleteAppOptions
+func (*CodeEngineV2) NewDeleteAppOptions(projectGuid string, appName string) *DeleteAppOptions {
+	return &DeleteAppOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *DeleteAppOptions) SetProjectGuid(projectGuid string) *DeleteAppOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *DeleteAppOptions) SetAppName(appName string) *DeleteAppOptions {
+	_options.AppName = core.StringPtr(appName)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateSecretOptions) SetHeaders(param map[string]string) *CreateSecretOptions {
+func (options *DeleteAppOptions) SetHeaders(param map[string]string) *DeleteAppOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteAppRevisionOptions : The DeleteAppRevision options.
+type DeleteAppRevisionOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// The name of your application revision.
+	RevisionName *string `json:"revision_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteAppRevisionOptions : Instantiate DeleteAppRevisionOptions
+func (*CodeEngineV2) NewDeleteAppRevisionOptions(projectGuid string, appName string, revisionName string) *DeleteAppRevisionOptions {
+	return &DeleteAppRevisionOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+		RevisionName: core.StringPtr(revisionName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *DeleteAppRevisionOptions) SetProjectGuid(projectGuid string) *DeleteAppRevisionOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *DeleteAppRevisionOptions) SetAppName(appName string) *DeleteAppRevisionOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetRevisionName : Allow user to set RevisionName
+func (_options *DeleteAppRevisionOptions) SetRevisionName(revisionName string) *DeleteAppRevisionOptions {
+	_options.RevisionName = core.StringPtr(revisionName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteAppRevisionOptions) SetHeaders(param map[string]string) *DeleteAppRevisionOptions {
 	options.Headers = param
 	return options
 }
@@ -3223,6 +5441,44 @@ func (options *DeleteConfigmapOptions) SetHeaders(param map[string]string) *Dele
 	return options
 }
 
+// DeleteJobOptions : The DeleteJob options.
+type DeleteJobOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your job.
+	JobName *string `json:"job_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteJobOptions : Instantiate DeleteJobOptions
+func (*CodeEngineV2) NewDeleteJobOptions(projectGuid string, jobName string) *DeleteJobOptions {
+	return &DeleteJobOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		JobName: core.StringPtr(jobName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *DeleteJobOptions) SetProjectGuid(projectGuid string) *DeleteJobOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetJobName : Allow user to set JobName
+func (_options *DeleteJobOptions) SetJobName(jobName string) *DeleteJobOptions {
+	_options.JobName = core.StringPtr(jobName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteJobOptions) SetHeaders(param map[string]string) *DeleteJobOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteProjectOptions : The DeleteProject options.
 type DeleteProjectOptions struct {
 	// The ID of the project.
@@ -3285,6 +5541,156 @@ func (_options *DeleteSecretOptions) SetSecretName(secretName string) *DeleteSec
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteSecretOptions) SetHeaders(param map[string]string) *DeleteSecretOptions {
+	options.Headers = param
+	return options
+}
+
+// EnvVar : EnvVar described an environent variable.
+type EnvVar struct {
+	// The key to reference as environment variable.
+	Key *string `json:"key,omitempty"`
+
+	// The name of the environment variable.
+	Name *string `json:"name,omitempty"`
+
+	// A prefix that can be added to all keys of a full secret or config map reference.
+	Prefix *string `json:"prefix,omitempty"`
+
+	// The name of the secret or config map.
+	Ref *string `json:"ref,omitempty"`
+
+	// Specify the type of the environment variable. Allowed types are: 'literal', 'config_map_key_ref',
+	// 'config_map_full_ref', 'secret_key_ref', 'secret_full_ref'.
+	Type *string `json:"type,omitempty"`
+
+	// The literal value of the environment variable.
+	Value *string `json:"value,omitempty"`
+}
+
+// Constants associated with the EnvVar.Type property.
+// Specify the type of the environment variable. Allowed types are: 'literal', 'config_map_key_ref',
+// 'config_map_full_ref', 'secret_key_ref', 'secret_full_ref'.
+const (
+	EnvVar_Type_ConfigMapFullRef = "config_map_full_ref"
+	EnvVar_Type_ConfigMapKeyRef = "config_map_key_ref"
+	EnvVar_Type_Literal = "literal"
+	EnvVar_Type_SecretFullRef = "secret_full_ref"
+	EnvVar_Type_SecretKeyRef = "secret_key_ref"
+)
+
+// UnmarshalEnvVar unmarshals an instance of EnvVar from the specified map of raw messages.
+func UnmarshalEnvVar(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EnvVar)
+	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prefix", &obj.Prefix)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ref", &obj.Ref)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetAppOptions : The GetApp options.
+type GetAppOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetAppOptions : Instantiate GetAppOptions
+func (*CodeEngineV2) NewGetAppOptions(projectGuid string, appName string) *GetAppOptions {
+	return &GetAppOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *GetAppOptions) SetProjectGuid(projectGuid string) *GetAppOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *GetAppOptions) SetAppName(appName string) *GetAppOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetAppOptions) SetHeaders(param map[string]string) *GetAppOptions {
+	options.Headers = param
+	return options
+}
+
+// GetAppRevisionOptions : The GetAppRevision options.
+type GetAppRevisionOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// The name of your application revision.
+	RevisionName *string `json:"revision_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetAppRevisionOptions : Instantiate GetAppRevisionOptions
+func (*CodeEngineV2) NewGetAppRevisionOptions(projectGuid string, appName string, revisionName string) *GetAppRevisionOptions {
+	return &GetAppRevisionOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+		RevisionName: core.StringPtr(revisionName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *GetAppRevisionOptions) SetProjectGuid(projectGuid string) *GetAppRevisionOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *GetAppRevisionOptions) SetAppName(appName string) *GetAppRevisionOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetRevisionName : Allow user to set RevisionName
+func (_options *GetAppRevisionOptions) SetRevisionName(revisionName string) *GetAppRevisionOptions {
+	_options.RevisionName = core.StringPtr(revisionName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetAppRevisionOptions) SetHeaders(param map[string]string) *GetAppRevisionOptions {
 	options.Headers = param
 	return options
 }
@@ -3403,6 +5809,44 @@ func (options *GetConfigmapOptions) SetHeaders(param map[string]string) *GetConf
 	return options
 }
 
+// GetJobOptions : The GetJob options.
+type GetJobOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your job.
+	JobName *string `json:"job_name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetJobOptions : Instantiate GetJobOptions
+func (*CodeEngineV2) NewGetJobOptions(projectGuid string, jobName string) *GetJobOptions {
+	return &GetJobOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		JobName: core.StringPtr(jobName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *GetJobOptions) SetProjectGuid(projectGuid string) *GetJobOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetJobName : Allow user to set JobName
+func (_options *GetJobOptions) SetJobName(jobName string) *GetJobOptions {
+	_options.JobName = core.StringPtr(jobName)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetJobOptions) SetHeaders(param map[string]string) *GetJobOptions {
+	options.Headers = param
+	return options
+}
+
 // GetProjectOptions : The GetProject options.
 type GetProjectOptions struct {
 	// The ID of the project.
@@ -3497,26 +5941,365 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 	return options
 }
 
-// Link : Link struct
-type Link struct {
-	Href *string `json:"href,omitempty"`
+// Job : Job is the response model for job resources.
+type Job struct {
+	// The date when the resource was created.
+	Created *string `json:"created,omitempty"`
 
-	Method *string `json:"method,omitempty"`
+	// Detailed information on the status.
+	Details *string `json:"details,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the image that is used for this job. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where 'REGISTRY'
+	// and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not specified, the
+	// default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The name of the resource.
+	Name *string `json:"name,omitempty"`
+
+	// The reason to provide more context for the status.
+	Reason *string `json:"reason,omitempty"`
+
+	// Set arguments for the job.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the job.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+	// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+	RunMode *string `json:"run_mode,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
+	// like "5,12-14,23,27". Each instance can pick up its array index via environment variable JOB_INDEX. The number of
+	// unique array indices specified here determines the number of job instances to run.
+	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
+
+	// The amount of CPU set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the job.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The maximum execution time in seconds for runs of the job. This option can only be specified if 'mode' is 'task'.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
+
+	// The amount of memory set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
+	// specified if 'mode' is 'task'.
+	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
+
+	// The current state of the Code Engine resource.
+	Status *string `json:"status,omitempty"`
+
+	// The type of the resource.
+	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
+
+	// The internal version of the job instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
 }
 
-// UnmarshalLink unmarshals an instance of Link from the specified map of raw messages.
-func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Link)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+// Constants associated with the Job.RunMode property.
+// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+const (
+	Job_RunMode_Daemon = "daemon"
+	Job_RunMode_Task = "task"
+)
+
+// Constants associated with the Job.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	Job_RunServiceAccount_Default = "default"
+	Job_RunServiceAccount_Manager = "manager"
+	Job_RunServiceAccount_None = "none"
+	Job_RunServiceAccount_Reader = "reader"
+	Job_RunServiceAccount_Writer = "writer"
+)
+
+// UnmarshalJob unmarshals an instance of Job from the specified map of raw messages.
+func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Job)
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
+	err = core.UnmarshalPrimitive(m, "details", &obj.Details)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_ref", &obj.ImageRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_args", &obj.RunArgs)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_env_vars", &obj.RunEnvVars, UnmarshalEnvVar)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_mode", &obj.RunMode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_array_spec", &obj.ScaleArraySpec)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_retry_limit", &obj.ScaleRetryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// JobList : Contains a list of jobs and pagination information.
+type JobList struct {
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
+
+	// List of all jobs.
+	Jobs []Job `json:"jobs,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *PaginationListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalJobList unmarshals an instance of JobList from the specified map of raw messages.
+func UnmarshalJobList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(JobList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "jobs", &obj.Jobs, UnmarshalJob)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *JobList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// ListAppRevisionsOptions : The ListAppRevisions options.
+type ListAppRevisionsOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// The maximum number of apps per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListAppRevisionsOptions : Instantiate ListAppRevisionsOptions
+func (*CodeEngineV2) NewListAppRevisionsOptions(projectGuid string, appName string) *ListAppRevisionsOptions {
+	return &ListAppRevisionsOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *ListAppRevisionsOptions) SetProjectGuid(projectGuid string) *ListAppRevisionsOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *ListAppRevisionsOptions) SetAppName(appName string) *ListAppRevisionsOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListAppRevisionsOptions) SetLimit(limit int64) *ListAppRevisionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListAppRevisionsOptions) SetStart(start string) *ListAppRevisionsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListAppRevisionsOptions) SetHeaders(param map[string]string) *ListAppRevisionsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListAppsOptions : The ListApps options.
+type ListAppsOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The maximum number of apps per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListAppsOptions : Instantiate ListAppsOptions
+func (*CodeEngineV2) NewListAppsOptions(projectGuid string) *ListAppsOptions {
+	return &ListAppsOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *ListAppsOptions) SetProjectGuid(projectGuid string) *ListAppsOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListAppsOptions) SetLimit(limit int64) *ListAppsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListAppsOptions) SetStart(start string) *ListAppsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListAppsOptions) SetHeaders(param map[string]string) *ListAppsOptions {
+	options.Headers = param
+	return options
 }
 
 // ListBuildrunsOptions : The ListBuildruns options.
@@ -3527,7 +6310,9 @@ type ListBuildrunsOptions struct {
 	// The maximum number of build runs per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of build runs.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3573,7 +6358,9 @@ type ListBuildsOptions struct {
 	// The maximum number of builds per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The token to continue traversing paginated list of builds.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3619,7 +6406,9 @@ type ListConfigmapsOptions struct {
 	// The maximum number of configmaps per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of config maps.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3657,12 +6446,62 @@ func (options *ListConfigmapsOptions) SetHeaders(param map[string]string) *ListC
 	return options
 }
 
+// ListJobsOptions : The ListJobs options.
+type ListJobsOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The maximum number of jobs per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListJobsOptions : Instantiate ListJobsOptions
+func (*CodeEngineV2) NewListJobsOptions(projectGuid string) *ListJobsOptions {
+	return &ListJobsOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *ListJobsOptions) SetProjectGuid(projectGuid string) *ListJobsOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListJobsOptions) SetLimit(limit int64) *ListJobsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListJobsOptions) SetStart(start string) *ListJobsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListJobsOptions) SetHeaders(param map[string]string) *ListJobsOptions {
+	options.Headers = param
+	return options
+}
+
 // ListProjectsOptions : The ListProjects options.
 type ListProjectsOptions struct {
 	// The maximum number of projects per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of projects.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3697,7 +6536,9 @@ type ListReclamationsOptions struct {
 	// The maximum number of reclamations per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Token to continue traversing paginated list of reclamations.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3732,6 +6573,14 @@ type ListSecretsOptions struct {
 	// The ID of the project.
 	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
 
+	// The maximum number of configmaps per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -3746,6 +6595,18 @@ func (*CodeEngineV2) NewListSecretsOptions(projectGuid string) *ListSecretsOptio
 // SetProjectGuid : Allow user to set ProjectGuid
 func (_options *ListSecretsOptions) SetProjectGuid(projectGuid string) *ListSecretsOptions {
 	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListSecretsOptions) SetLimit(limit int64) *ListSecretsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListSecretsOptions) SetStart(start string) *ListSecretsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -3772,9 +6633,6 @@ type Project struct {
 	// The ID of the project.
 	ID *string `json:"id,omitempty"`
 
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
-
 	// The name of the project.
 	Name *string `json:"name,omitempty"`
 
@@ -3792,6 +6650,9 @@ type Project struct {
 
 	// The type of the project.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
 
 // UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
@@ -3814,10 +6675,6 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
 	if err != nil {
 		return
 	}
@@ -3845,15 +6702,23 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // ProjectList : Contains a list of projects and pagination information.
 type ProjectList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 
 	// List of projects.
@@ -3863,6 +6728,10 @@ type ProjectList struct {
 // UnmarshalProjectList unmarshals an instance of ProjectList from the specified map of raw messages.
 func UnmarshalProjectList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ProjectList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
@@ -3926,9 +6795,6 @@ type Reclamation struct {
 	// The ID of the reclamation.
 	ID *string `json:"id,omitempty"`
 
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
-
 	// The ID of the Code Engine project resource instance.
 	ProjectID *string `json:"project_id,omitempty"`
 
@@ -3946,6 +6812,9 @@ type Reclamation struct {
 
 	// The type of the reclamation.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
 
 // UnmarshalReclamation unmarshals an instance of Reclamation from the specified map of raw messages.
@@ -3960,10 +6829,6 @@ func UnmarshalReclamation(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
 	if err != nil {
 		return
 	}
@@ -3991,15 +6856,23 @@ func UnmarshalReclamation(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // ReclamationList : Contains a list of reclamations and pagination information.
 type ReclamationList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 
 	// List of all project reclamations.
@@ -4009,6 +6882,10 @@ type ReclamationList struct {
 // UnmarshalReclamationList unmarshals an instance of ReclamationList from the specified map of raw messages.
 func UnmarshalReclamationList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ReclamationList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
@@ -4063,9 +6940,6 @@ func (options *RestoreReclamationOptions) SetHeaders(param map[string]string) *R
 
 // Secret : Describes the model of a secret.
 type Secret struct {
-	// Name of the secret.
-	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
-
 	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
 
@@ -4081,12 +6955,6 @@ type Secret struct {
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
-	// Specifies that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
-	// Contains a list of references to related resources and links to obtaining their information.
-	Links map[string]Link `json:"links,omitempty"`
-
 	// The name of the resource.
 	Name *string `json:"name,omitempty"`
 
@@ -4099,26 +6967,37 @@ type Secret struct {
 	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
+	// Name of the service credential associated with the secret.
+	ResourcekeyName *string `json:"resourcekey_name,omitempty"`
+
 	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
 	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret.
-	Target *string `json:"target,omitempty"`
-
 	// The type of the resource.
 	Type *string `json:"type,omitempty"`
+
+	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
+	URL *string `json:"url,omitempty"`
 }
+
+// Constants associated with the Secret.Format property.
+// Specify the format of the secret.
+const (
+	Secret_Format_BasicAuth = "basic_auth"
+	Secret_Format_Generic = "generic"
+	Secret_Format_Other = "other"
+	Secret_Format_Registry = "registry"
+	Secret_Format_ServiceAccess = "service_access"
+	Secret_Format_SshAuth = "ssh_auth"
+	Secret_Format_Tls = "tls"
+)
 
 // UnmarshalSecret unmarshals an instance of Secret from the specified map of raw messages.
 func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Secret)
-	err = core.UnmarshalPrimitive(m, "binding_secret_ref", &obj.BindingSecretRef)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "ce_components", &obj.CeComponents)
 	if err != nil {
 		return
@@ -4139,14 +7018,6 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "immutable", &obj.Immutable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalLink)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -4163,6 +7034,10 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "resourcekey_name", &obj.ResourcekeyName)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
 	if err != nil {
 		return
@@ -4171,11 +7046,11 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
@@ -4185,9 +7060,13 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 
 // SecretList : List of secret resources.
 type SecretList struct {
-	// Maximum number of resources per page.
-	Limit *int64 `json:"limit,omitempty"`
+	// Describes properties needed to retrieve the first page of a result list.
+	First *PaginationListFirstMetadata `json:"first,omitempty"`
 
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
 	Next *PaginationListNextMetadata `json:"next,omitempty"`
 
 	// List of Secrets.
@@ -4197,6 +7076,10 @@ type SecretList struct {
 // UnmarshalSecretList unmarshals an instance of SecretList from the specified map of raw messages.
 func UnmarshalSecretList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationListFirstMetadata)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
@@ -4211,6 +7094,302 @@ func UnmarshalSecretList(m map[string]json.RawMessage, result interface{}) (err 
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *SecretList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// UpdateAppOptions : The UpdateApp options.
+type UpdateAppOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// The name of the app. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
+	// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+	// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// application private visibility.
+	CeManagedDomainMappings *string `json:"ce_managed_domain_mappings,omitempty"`
+
+	// The port where the application listens.
+	ImagePort *int64 `json:"image_port,omitempty"`
+
+	// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses
+	// unencrypted HTTP 2.
+	ImageProtocol *string `json:"image_protocol,omitempty"`
+
+	// The name of the image that is used for this application. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where
+	// 'REGISTRY' and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not
+	// specified, the default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The suffix of the new revision. Use a suffix that is unique for this application.
+	RevisionSuffix *string `json:"revision_suffix,omitempty"`
+
+	// Set arguments for the application.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the application.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// The maximum number of requests that can be processed concurrently per instance.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// The threshold of concurrent requests per instance at which one or more additional instances are created. Use this
+	// value to scale up instances based on concurrent number of requests. This option defaults to the value of the
+	// 'concurrency' option, if not specified.
+	ScaleConcurrencyTarget *int64 `json:"scale_concurrency_target,omitempty"`
+
+	// The amount of CPU set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the application.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The initial number of instances that are created upon app creation or app update.
+	ScaleInitialInstances *int64 `json:"scale_initial_instances,omitempty"`
+
+	// The maximum number of instances that can be used for this application. If you set this value to '0', the application
+	// scales as needed. The application scaling is limited only by the instances per the resource quota for the project of
+	// your application. See https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits.
+	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
+
+	// The amount of memory set for the instance of the application. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The minimum number of instances that can be used for this application.
+	ScaleMinInstances *int64 `json:"scale_min_instances,omitempty"`
+
+	// The amount of time in seconds that is allowed for a running application to respond to a request.
+	ScaleRequestTimeout *int64 `json:"scale_request_timeout,omitempty"`
+
+	// The internal version of the app instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the UpdateAppOptions.CeManagedDomainMappings property.
+// Controls which of the system managed domain mappings will be setup for the application. Valid values are
+// 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// application private visibility.
+const (
+	UpdateAppOptions_CeManagedDomainMappings_Local = "local"
+	UpdateAppOptions_CeManagedDomainMappings_LocalPrivate = "local_private"
+	UpdateAppOptions_CeManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// Constants associated with the UpdateAppOptions.ImageProtocol property.
+// Specifies the protocol that the image uses. For 'http1' the image uses HTTP 1.1. For 'h2c' the image uses unencrypted
+// HTTP 2.
+const (
+	UpdateAppOptions_ImageProtocol_H2c = "h2c"
+	UpdateAppOptions_ImageProtocol_Http1 = "http1"
+)
+
+// Constants associated with the UpdateAppOptions.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	UpdateAppOptions_RunServiceAccount_Default = "default"
+	UpdateAppOptions_RunServiceAccount_Manager = "manager"
+	UpdateAppOptions_RunServiceAccount_None = "none"
+	UpdateAppOptions_RunServiceAccount_Reader = "reader"
+	UpdateAppOptions_RunServiceAccount_Writer = "writer"
+)
+
+// NewUpdateAppOptions : Instantiate UpdateAppOptions
+func (*CodeEngineV2) NewUpdateAppOptions(projectGuid string, appName string, name string) *UpdateAppOptions {
+	return &UpdateAppOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		AppName: core.StringPtr(appName),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *UpdateAppOptions) SetProjectGuid(projectGuid string) *UpdateAppOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *UpdateAppOptions) SetAppName(appName string) *UpdateAppOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateAppOptions) SetName(name string) *UpdateAppOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetCeManagedDomainMappings : Allow user to set CeManagedDomainMappings
+func (_options *UpdateAppOptions) SetCeManagedDomainMappings(ceManagedDomainMappings string) *UpdateAppOptions {
+	_options.CeManagedDomainMappings = core.StringPtr(ceManagedDomainMappings)
+	return _options
+}
+
+// SetImagePort : Allow user to set ImagePort
+func (_options *UpdateAppOptions) SetImagePort(imagePort int64) *UpdateAppOptions {
+	_options.ImagePort = core.Int64Ptr(imagePort)
+	return _options
+}
+
+// SetImageProtocol : Allow user to set ImageProtocol
+func (_options *UpdateAppOptions) SetImageProtocol(imageProtocol string) *UpdateAppOptions {
+	_options.ImageProtocol = core.StringPtr(imageProtocol)
+	return _options
+}
+
+// SetImageRef : Allow user to set ImageRef
+func (_options *UpdateAppOptions) SetImageRef(imageRef string) *UpdateAppOptions {
+	_options.ImageRef = core.StringPtr(imageRef)
+	return _options
+}
+
+// SetImageSecret : Allow user to set ImageSecret
+func (_options *UpdateAppOptions) SetImageSecret(imageSecret string) *UpdateAppOptions {
+	_options.ImageSecret = core.StringPtr(imageSecret)
+	return _options
+}
+
+// SetRevisionSuffix : Allow user to set RevisionSuffix
+func (_options *UpdateAppOptions) SetRevisionSuffix(revisionSuffix string) *UpdateAppOptions {
+	_options.RevisionSuffix = core.StringPtr(revisionSuffix)
+	return _options
+}
+
+// SetRunArgs : Allow user to set RunArgs
+func (_options *UpdateAppOptions) SetRunArgs(runArgs []string) *UpdateAppOptions {
+	_options.RunArgs = runArgs
+	return _options
+}
+
+// SetRunAsUser : Allow user to set RunAsUser
+func (_options *UpdateAppOptions) SetRunAsUser(runAsUser int64) *UpdateAppOptions {
+	_options.RunAsUser = core.Int64Ptr(runAsUser)
+	return _options
+}
+
+// SetRunCommands : Allow user to set RunCommands
+func (_options *UpdateAppOptions) SetRunCommands(runCommands []string) *UpdateAppOptions {
+	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunEnvVars : Allow user to set RunEnvVars
+func (_options *UpdateAppOptions) SetRunEnvVars(runEnvVars []EnvVar) *UpdateAppOptions {
+	_options.RunEnvVars = runEnvVars
+	return _options
+}
+
+// SetRunServiceAccount : Allow user to set RunServiceAccount
+func (_options *UpdateAppOptions) SetRunServiceAccount(runServiceAccount string) *UpdateAppOptions {
+	_options.RunServiceAccount = core.StringPtr(runServiceAccount)
+	return _options
+}
+
+// SetRunVolumeMounts : Allow user to set RunVolumeMounts
+func (_options *UpdateAppOptions) SetRunVolumeMounts(runVolumeMounts []VolumeMount) *UpdateAppOptions {
+	_options.RunVolumeMounts = runVolumeMounts
+	return _options
+}
+
+// SetScaleConcurrency : Allow user to set ScaleConcurrency
+func (_options *UpdateAppOptions) SetScaleConcurrency(scaleConcurrency int64) *UpdateAppOptions {
+	_options.ScaleConcurrency = core.Int64Ptr(scaleConcurrency)
+	return _options
+}
+
+// SetScaleConcurrencyTarget : Allow user to set ScaleConcurrencyTarget
+func (_options *UpdateAppOptions) SetScaleConcurrencyTarget(scaleConcurrencyTarget int64) *UpdateAppOptions {
+	_options.ScaleConcurrencyTarget = core.Int64Ptr(scaleConcurrencyTarget)
+	return _options
+}
+
+// SetScaleCpuLimit : Allow user to set ScaleCpuLimit
+func (_options *UpdateAppOptions) SetScaleCpuLimit(scaleCpuLimit string) *UpdateAppOptions {
+	_options.ScaleCpuLimit = core.StringPtr(scaleCpuLimit)
+	return _options
+}
+
+// SetScaleEphemeralStorageLimit : Allow user to set ScaleEphemeralStorageLimit
+func (_options *UpdateAppOptions) SetScaleEphemeralStorageLimit(scaleEphemeralStorageLimit string) *UpdateAppOptions {
+	_options.ScaleEphemeralStorageLimit = core.StringPtr(scaleEphemeralStorageLimit)
+	return _options
+}
+
+// SetScaleInitialInstances : Allow user to set ScaleInitialInstances
+func (_options *UpdateAppOptions) SetScaleInitialInstances(scaleInitialInstances int64) *UpdateAppOptions {
+	_options.ScaleInitialInstances = core.Int64Ptr(scaleInitialInstances)
+	return _options
+}
+
+// SetScaleMaxInstances : Allow user to set ScaleMaxInstances
+func (_options *UpdateAppOptions) SetScaleMaxInstances(scaleMaxInstances int64) *UpdateAppOptions {
+	_options.ScaleMaxInstances = core.Int64Ptr(scaleMaxInstances)
+	return _options
+}
+
+// SetScaleMemoryLimit : Allow user to set ScaleMemoryLimit
+func (_options *UpdateAppOptions) SetScaleMemoryLimit(scaleMemoryLimit string) *UpdateAppOptions {
+	_options.ScaleMemoryLimit = core.StringPtr(scaleMemoryLimit)
+	return _options
+}
+
+// SetScaleMinInstances : Allow user to set ScaleMinInstances
+func (_options *UpdateAppOptions) SetScaleMinInstances(scaleMinInstances int64) *UpdateAppOptions {
+	_options.ScaleMinInstances = core.Int64Ptr(scaleMinInstances)
+	return _options
+}
+
+// SetScaleRequestTimeout : Allow user to set ScaleRequestTimeout
+func (_options *UpdateAppOptions) SetScaleRequestTimeout(scaleRequestTimeout int64) *UpdateAppOptions {
+	_options.ScaleRequestTimeout = core.Int64Ptr(scaleRequestTimeout)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *UpdateAppOptions) SetVersion(version string) *UpdateAppOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateAppOptions) SetHeaders(param map[string]string) *UpdateAppOptions {
+	options.Headers = param
+	return options
 }
 
 // UpdateBuildOptions : The UpdateBuild options.
@@ -4264,6 +7443,13 @@ type UpdateBuildOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the UpdateBuildOptions.SourceType property.
+// Specifies the type of source to determine if your build source is in a repository or based on local source code.
+const (
+	UpdateBuildOptions_SourceType_Git = "git"
+	UpdateBuildOptions_SourceType_Local = "local"
+)
 
 // NewUpdateBuildOptions : Instantiate UpdateBuildOptions
 func (*CodeEngineV2) NewUpdateBuildOptions(projectGuid string, buildName string, name string) *UpdateBuildOptions {
@@ -4384,9 +7570,6 @@ type UpdateConfigmapOptions struct {
 	// The key-value pair for the configmap. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
 
-	// Indicates that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4424,14 +7607,230 @@ func (_options *UpdateConfigmapOptions) SetData(data map[string]string) *UpdateC
 	return _options
 }
 
-// SetImmutable : Allow user to set Immutable
-func (_options *UpdateConfigmapOptions) SetImmutable(immutable bool) *UpdateConfigmapOptions {
-	_options.Immutable = core.BoolPtr(immutable)
+// SetHeaders : Allow user to set Headers
+func (options *UpdateConfigmapOptions) SetHeaders(param map[string]string) *UpdateConfigmapOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateJobOptions : The UpdateJob options.
+type UpdateJobOptions struct {
+	// The ID of the project.
+	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+
+	// The name of your job.
+	JobName *string `json:"job_name" validate:"required,ne="`
+
+	// The name of the image that is used for this job. The format is 'REGISTRY/NAMESPACE/REPOSITORY:TAG' where 'REGISTRY'
+	// and 'TAG' are optional. If 'REGISTRY' is not specified, the default is 'docker.io'. If 'TAG' is not specified, the
+	// default is 'latest'.
+	ImageRef *string `json:"image_ref,omitempty"`
+
+	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
+	// private registry when you download the container image.
+	ImageSecret *string `json:"image_secret,omitempty"`
+
+	// The name of the job. Use a name that is unique within the project.
+	Name *string `json:"name,omitempty"`
+
+	// Set arguments for the job.
+	RunArgs []string `json:"run_args,omitempty"`
+
+	// The user ID (UID) to run the application (e.g., 1001).
+	RunAsUser *int64 `json:"run_as_user,omitempty"`
+
+	// Set commands for the job.
+	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunEnvVars []EnvVar `json:"run_env_vars,omitempty"`
+
+	// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+	// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+	RunMode *string `json:"run_mode,omitempty"`
+
+	// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+	// 'reader', and 'writer'.
+	RunServiceAccount *string `json:"run_service_account,omitempty"`
+
+	// Mount a configmap or a secret.
+	RunVolumeMounts []VolumeMount `json:"run_volume_mounts,omitempty"`
+
+	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
+	// like "5,12-14,23,27". Each instance can pick up its array index via environment variable JOB_INDEX. The number of
+	// unique array indices specified here determines the number of job instances to run.
+	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
+
+	// The amount of CPU set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// The amount of ephemeral storage to set for the instance of the job.
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
+
+	// The maximum execution time in seconds for runs of the job. This option can only be specified if 'mode' is 'task'.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
+
+	// The amount of memory set for the instance of the job. For valid values see
+	// https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo.
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
+	// specified if 'mode' is 'task'.
+	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
+
+	// The internal version of the job instance, which is used to achieve optimistic concurrency.
+	Version *string `json:"version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the UpdateJobOptions.RunMode property.
+// The mode for runs of the job. Valid values are 'task' and 'daemon'. In 'task' mode, the 'max_execution_time' and
+// 'retry_limit' options apply. In 'daemon' mode, since there is no timeout and failed instances are restarted
+// indefinitely, the 'max_execution_time' and 'retry_limit' options are not allowed.
+const (
+	UpdateJobOptions_RunMode_Daemon = "daemon"
+	UpdateJobOptions_RunMode_Task = "task"
+)
+
+// Constants associated with the UpdateJobOptions.RunServiceAccount property.
+// The name of the service account. For built-in service accounts, you can use the shortened names 'manager', 'none',
+// 'reader', and 'writer'.
+const (
+	UpdateJobOptions_RunServiceAccount_Default = "default"
+	UpdateJobOptions_RunServiceAccount_Manager = "manager"
+	UpdateJobOptions_RunServiceAccount_None = "none"
+	UpdateJobOptions_RunServiceAccount_Reader = "reader"
+	UpdateJobOptions_RunServiceAccount_Writer = "writer"
+)
+
+// NewUpdateJobOptions : Instantiate UpdateJobOptions
+func (*CodeEngineV2) NewUpdateJobOptions(projectGuid string, jobName string) *UpdateJobOptions {
+	return &UpdateJobOptions{
+		ProjectGuid: core.StringPtr(projectGuid),
+		JobName: core.StringPtr(jobName),
+	}
+}
+
+// SetProjectGuid : Allow user to set ProjectGuid
+func (_options *UpdateJobOptions) SetProjectGuid(projectGuid string) *UpdateJobOptions {
+	_options.ProjectGuid = core.StringPtr(projectGuid)
+	return _options
+}
+
+// SetJobName : Allow user to set JobName
+func (_options *UpdateJobOptions) SetJobName(jobName string) *UpdateJobOptions {
+	_options.JobName = core.StringPtr(jobName)
+	return _options
+}
+
+// SetImageRef : Allow user to set ImageRef
+func (_options *UpdateJobOptions) SetImageRef(imageRef string) *UpdateJobOptions {
+	_options.ImageRef = core.StringPtr(imageRef)
+	return _options
+}
+
+// SetImageSecret : Allow user to set ImageSecret
+func (_options *UpdateJobOptions) SetImageSecret(imageSecret string) *UpdateJobOptions {
+	_options.ImageSecret = core.StringPtr(imageSecret)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateJobOptions) SetName(name string) *UpdateJobOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRunArgs : Allow user to set RunArgs
+func (_options *UpdateJobOptions) SetRunArgs(runArgs []string) *UpdateJobOptions {
+	_options.RunArgs = runArgs
+	return _options
+}
+
+// SetRunAsUser : Allow user to set RunAsUser
+func (_options *UpdateJobOptions) SetRunAsUser(runAsUser int64) *UpdateJobOptions {
+	_options.RunAsUser = core.Int64Ptr(runAsUser)
+	return _options
+}
+
+// SetRunCommands : Allow user to set RunCommands
+func (_options *UpdateJobOptions) SetRunCommands(runCommands []string) *UpdateJobOptions {
+	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunEnvVars : Allow user to set RunEnvVars
+func (_options *UpdateJobOptions) SetRunEnvVars(runEnvVars []EnvVar) *UpdateJobOptions {
+	_options.RunEnvVars = runEnvVars
+	return _options
+}
+
+// SetRunMode : Allow user to set RunMode
+func (_options *UpdateJobOptions) SetRunMode(runMode string) *UpdateJobOptions {
+	_options.RunMode = core.StringPtr(runMode)
+	return _options
+}
+
+// SetRunServiceAccount : Allow user to set RunServiceAccount
+func (_options *UpdateJobOptions) SetRunServiceAccount(runServiceAccount string) *UpdateJobOptions {
+	_options.RunServiceAccount = core.StringPtr(runServiceAccount)
+	return _options
+}
+
+// SetRunVolumeMounts : Allow user to set RunVolumeMounts
+func (_options *UpdateJobOptions) SetRunVolumeMounts(runVolumeMounts []VolumeMount) *UpdateJobOptions {
+	_options.RunVolumeMounts = runVolumeMounts
+	return _options
+}
+
+// SetScaleArraySpec : Allow user to set ScaleArraySpec
+func (_options *UpdateJobOptions) SetScaleArraySpec(scaleArraySpec string) *UpdateJobOptions {
+	_options.ScaleArraySpec = core.StringPtr(scaleArraySpec)
+	return _options
+}
+
+// SetScaleCpuLimit : Allow user to set ScaleCpuLimit
+func (_options *UpdateJobOptions) SetScaleCpuLimit(scaleCpuLimit string) *UpdateJobOptions {
+	_options.ScaleCpuLimit = core.StringPtr(scaleCpuLimit)
+	return _options
+}
+
+// SetScaleEphemeralStorageLimit : Allow user to set ScaleEphemeralStorageLimit
+func (_options *UpdateJobOptions) SetScaleEphemeralStorageLimit(scaleEphemeralStorageLimit string) *UpdateJobOptions {
+	_options.ScaleEphemeralStorageLimit = core.StringPtr(scaleEphemeralStorageLimit)
+	return _options
+}
+
+// SetScaleMaxExecutionTime : Allow user to set ScaleMaxExecutionTime
+func (_options *UpdateJobOptions) SetScaleMaxExecutionTime(scaleMaxExecutionTime int64) *UpdateJobOptions {
+	_options.ScaleMaxExecutionTime = core.Int64Ptr(scaleMaxExecutionTime)
+	return _options
+}
+
+// SetScaleMemoryLimit : Allow user to set ScaleMemoryLimit
+func (_options *UpdateJobOptions) SetScaleMemoryLimit(scaleMemoryLimit string) *UpdateJobOptions {
+	_options.ScaleMemoryLimit = core.StringPtr(scaleMemoryLimit)
+	return _options
+}
+
+// SetScaleRetryLimit : Allow user to set ScaleRetryLimit
+func (_options *UpdateJobOptions) SetScaleRetryLimit(scaleRetryLimit int64) *UpdateJobOptions {
+	_options.ScaleRetryLimit = core.Int64Ptr(scaleRetryLimit)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *UpdateJobOptions) SetVersion(version string) *UpdateJobOptions {
+	_options.Version = core.StringPtr(version)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UpdateConfigmapOptions) SetHeaders(param map[string]string) *UpdateConfigmapOptions {
+func (options *UpdateJobOptions) SetHeaders(param map[string]string) *UpdateJobOptions {
 	options.Headers = param
 	return options
 }
@@ -4447,9 +7846,6 @@ type UpdateSecretOptions struct {
 	// The name of the secret.
 	Name *string `json:"name" validate:"required"`
 
-	// Name of the secret.
-	BindingSecretRef *string `json:"binding_secret_ref,omitempty"`
-
 	// List of bound Code Engine components.
 	CeComponents []string `json:"ce_components,omitempty"`
 
@@ -4458,9 +7854,6 @@ type UpdateSecretOptions struct {
 
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
-
-	// Indicates that the key-value pair cannot be edited.
-	Immutable *bool `json:"immutable,omitempty"`
 
 	// ID of the IBM Cloud service instance associated with the secret.
 	ResourceID *string `json:"resource_id,omitempty"`
@@ -4471,18 +7864,30 @@ type UpdateSecretOptions struct {
 	// ID of the service credential associated with the secret.
 	ResourcekeyID *string `json:"resourcekey_id,omitempty"`
 
+	// Name of the service credential associated with the secret.
+	ResourcekeyName *string `json:"resourcekey_name,omitempty"`
+
 	// Role of the service credential.
 	Role *string `json:"role,omitempty"`
 
 	// CRN of a Service ID used to create the service credential.
 	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
 
-	// Specify the target of the secret.
-	Target *string `json:"target,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the UpdateSecretOptions.Format property.
+// Specify the format of the secret.
+const (
+	UpdateSecretOptions_Format_BasicAuth = "basic_auth"
+	UpdateSecretOptions_Format_Generic = "generic"
+	UpdateSecretOptions_Format_Other = "other"
+	UpdateSecretOptions_Format_Registry = "registry"
+	UpdateSecretOptions_Format_ServiceAccess = "service_access"
+	UpdateSecretOptions_Format_SshAuth = "ssh_auth"
+	UpdateSecretOptions_Format_Tls = "tls"
+)
 
 // NewUpdateSecretOptions : Instantiate UpdateSecretOptions
 func (*CodeEngineV2) NewUpdateSecretOptions(projectGuid string, secretName string, name string) *UpdateSecretOptions {
@@ -4511,12 +7916,6 @@ func (_options *UpdateSecretOptions) SetName(name string) *UpdateSecretOptions {
 	return _options
 }
 
-// SetBindingSecretRef : Allow user to set BindingSecretRef
-func (_options *UpdateSecretOptions) SetBindingSecretRef(bindingSecretRef string) *UpdateSecretOptions {
-	_options.BindingSecretRef = core.StringPtr(bindingSecretRef)
-	return _options
-}
-
 // SetCeComponents : Allow user to set CeComponents
 func (_options *UpdateSecretOptions) SetCeComponents(ceComponents []string) *UpdateSecretOptions {
 	_options.CeComponents = ceComponents
@@ -4532,12 +7931,6 @@ func (_options *UpdateSecretOptions) SetData(data map[string]string) *UpdateSecr
 // SetFormat : Allow user to set Format
 func (_options *UpdateSecretOptions) SetFormat(format string) *UpdateSecretOptions {
 	_options.Format = core.StringPtr(format)
-	return _options
-}
-
-// SetImmutable : Allow user to set Immutable
-func (_options *UpdateSecretOptions) SetImmutable(immutable bool) *UpdateSecretOptions {
-	_options.Immutable = core.BoolPtr(immutable)
 	return _options
 }
 
@@ -4559,6 +7952,12 @@ func (_options *UpdateSecretOptions) SetResourcekeyID(resourcekeyID string) *Upd
 	return _options
 }
 
+// SetResourcekeyName : Allow user to set ResourcekeyName
+func (_options *UpdateSecretOptions) SetResourcekeyName(resourcekeyName string) *UpdateSecretOptions {
+	_options.ResourcekeyName = core.StringPtr(resourcekeyName)
+	return _options
+}
+
 // SetRole : Allow user to set Role
 func (_options *UpdateSecretOptions) SetRole(role string) *UpdateSecretOptions {
 	_options.Role = core.StringPtr(role)
@@ -4571,21 +7970,77 @@ func (_options *UpdateSecretOptions) SetServiceidCrn(serviceidCrn string) *Updat
 	return _options
 }
 
-// SetTarget : Allow user to set Target
-func (_options *UpdateSecretOptions) SetTarget(target string) *UpdateSecretOptions {
-	_options.Target = core.StringPtr(target)
-	return _options
-}
-
 // SetHeaders : Allow user to set Headers
 func (options *UpdateSecretOptions) SetHeaders(param map[string]string) *UpdateSecretOptions {
 	options.Headers = param
 	return options
 }
 
-// PaginationListNextMetadata : PaginationListNextMetadata struct
+// VolumeMount : VolumeMount described a volume mount.
+type VolumeMount struct {
+	// The path that should be mounted.
+	MountPath *string `json:"mount_path,omitempty"`
+
+	// The name of the mount.
+	Name *string `json:"name,omitempty"`
+
+	// The name of the referenced secret or config map.
+	Ref *string `json:"ref,omitempty"`
+
+	// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the VolumeMount.Type property.
+// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+const (
+	VolumeMount_Type_ConfigMap = "config_map"
+	VolumeMount_Type_Secret = "secret"
+)
+
+// UnmarshalVolumeMount unmarshals an instance of VolumeMount from the specified map of raw messages.
+func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VolumeMount)
+	err = core.UnmarshalPrimitive(m, "mount_path", &obj.MountPath)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ref", &obj.Ref)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PaginationListFirstMetadata : Describes properties needed to retrieve the first page of a result list.
+type PaginationListFirstMetadata struct {
+	// Href that points to the first page.
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalPaginationListFirstMetadata unmarshals an instance of PaginationListFirstMetadata from the specified map of raw messages.
+func UnmarshalPaginationListFirstMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PaginationListFirstMetadata)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PaginationListNextMetadata : Describes properties needed to retrieve the next page of a result list.
 type PaginationListNextMetadata struct {
-	// URL that points to the next page.
+	// Href that points to the next page.
 	Href *string `json:"href,omitempty"`
 
 	// Token.
@@ -4821,7 +8276,7 @@ func (pager *BuildrunsPager) GetNextWithContext(ctx context.Context) (page []Bui
 	}
 	pager.pageContext.next = next
 	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Buildruns
+	page = result.BuildRuns
 
 	return
 }
@@ -4902,7 +8357,7 @@ func (pager *ConfigmapsPager) GetNextWithContext(ctx context.Context) (page []Co
 	}
 	pager.pageContext.next = next
 	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Configmaps
+	page = result.ConfigMaps
 
 	return
 }
@@ -4928,6 +8383,330 @@ func (pager *ConfigmapsPager) GetNext() (page []ConfigMap, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ConfigmapsPager) GetAll() (allItems []ConfigMap, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// SecretsPager can be used to simplify the use of the "ListSecrets" method.
+//
+type SecretsPager struct {
+	hasNext bool
+	options *ListSecretsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewSecretsPager returns a new SecretsPager instance.
+func (codeEngine *CodeEngineV2) NewSecretsPager(options *ListSecretsOptions) (pager *SecretsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListSecretsOptions = *options
+	pager = &SecretsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *SecretsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *SecretsPager) GetNextWithContext(ctx context.Context) (page []Secret, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListSecretsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Secrets
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *SecretsPager) GetAllWithContext(ctx context.Context) (allItems []Secret, err error) {
+	for pager.HasNext() {
+		var nextPage []Secret
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *SecretsPager) GetNext() (page []Secret, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// AppsPager can be used to simplify the use of the "ListApps" method.
+//
+type AppsPager struct {
+	hasNext bool
+	options *ListAppsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewAppsPager returns a new AppsPager instance.
+func (codeEngine *CodeEngineV2) NewAppsPager(options *ListAppsOptions) (pager *AppsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListAppsOptions = *options
+	pager = &AppsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *AppsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *AppsPager) GetNextWithContext(ctx context.Context) (page []App, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListAppsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Apps
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *AppsPager) GetAllWithContext(ctx context.Context) (allItems []App, err error) {
+	for pager.HasNext() {
+		var nextPage []App
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *AppsPager) GetNext() (page []App, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *AppsPager) GetAll() (allItems []App, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// AppRevisionsPager can be used to simplify the use of the "ListAppRevisions" method.
+//
+type AppRevisionsPager struct {
+	hasNext bool
+	options *ListAppRevisionsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewAppRevisionsPager returns a new AppRevisionsPager instance.
+func (codeEngine *CodeEngineV2) NewAppRevisionsPager(options *ListAppRevisionsOptions) (pager *AppRevisionsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListAppRevisionsOptions = *options
+	pager = &AppRevisionsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *AppRevisionsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *AppRevisionsPager) GetNextWithContext(ctx context.Context) (page []AppRevision, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListAppRevisionsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Revisions
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *AppRevisionsPager) GetAllWithContext(ctx context.Context) (allItems []AppRevision, err error) {
+	for pager.HasNext() {
+		var nextPage []AppRevision
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *AppRevisionsPager) GetNext() (page []AppRevision, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// JobsPager can be used to simplify the use of the "ListJobs" method.
+//
+type JobsPager struct {
+	hasNext bool
+	options *ListJobsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewJobsPager returns a new JobsPager instance.
+func (codeEngine *CodeEngineV2) NewJobsPager(options *ListJobsOptions) (pager *JobsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListJobsOptions = *options
+	pager = &JobsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *JobsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *JobsPager) GetNextWithContext(ctx context.Context) (page []Job, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListJobsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Jobs
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, err error) {
+	for pager.HasNext() {
+		var nextPage []Job
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *JobsPager) GetNext() (page []Job, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *JobsPager) GetAll() (allItems []Job, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
