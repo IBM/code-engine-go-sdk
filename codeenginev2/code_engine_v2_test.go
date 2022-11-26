@@ -21,7 +21,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -231,7 +230,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -288,7 +287,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -382,7 +381,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(codeenginev2.ProjectList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
+				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 	
@@ -413,9 +412,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::","details":"succeeded","id":"15314cc3-85b4-4338-903f-c28cdee6d005","name":"project-name","reason":"create","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","status":"active","type":"project/v2","url":"URL"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::","details":"succeeded","id":"15314cc3-85b4-4338-903f-c28cdee6d005","name":"project-name","reason":"create","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","status":"active","type":"project/v2","url":"URL"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -550,7 +549,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -623,7 +622,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -655,7 +654,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CreateProject with error: Operation request error`, func() {
+			It(`Invoke CreateProject with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -676,6 +675,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				result, response, operationErr := codeEngineService.CreateProject(createProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateProjectOptions model with no property values
+				createProjectOptionsModelNew := new(codeenginev2.CreateProjectOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateProject(createProjectOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -746,7 +752,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetProject(getProjectOptionsModel)
@@ -783,7 +789,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -797,7 +803,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -837,7 +843,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:15314cc3-85b4-4338-903f-c28cdee6d005::", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "name": "project-name", "reason": "create", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "status": "active", "type": "project/v2", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -856,7 +862,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -876,7 +882,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -917,7 +923,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -962,7 +968,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(codeenginev2.DeleteProjectOptions)
-				deleteProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -980,7 +986,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(codeenginev2.DeleteProjectOptions)
-				deleteProjectOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -995,4483 +1001,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				response, operationErr = codeEngineService.DeleteProject(deleteProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions) - Operation response error`, func() {
-		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListBuilds with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildsOptions model
-				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildsOptionsModel.Start = core.StringPtr("testString")
-				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions)`, func() {
-		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBuilds successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListBuildsOptions model
-				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildsOptionsModel.Start = core.StringPtr("testString")
-				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListBuildsWithContext(ctx, listBuildsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListBuildsWithContext(ctx, listBuildsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBuilds successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListBuilds(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListBuildsOptions model
-				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildsOptionsModel.Start = core.StringPtr("testString")
-				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListBuilds with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildsOptions model
-				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildsOptionsModel.Start = core.StringPtr("testString")
-				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListBuildsOptions model with no property values
-				listBuildsOptionsModelNew := new(codeenginev2.ListBuildsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListBuilds successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildsOptions model
-				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildsOptionsModel.Start = core.StringPtr("testString")
-				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.BuildList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.BuildList)
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type","url":"URL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type","url":"URL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use BuildsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.Build
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use BuildsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions) - Operation response error`, func() {
-		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateBuild with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildOptions model
-				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildOptionsModel.SourceType = core.StringPtr("git")
-				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
-		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateBuild successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateBuildOptions model
-				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildOptionsModel.SourceType = core.StringPtr("git")
-				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateBuildWithContext(ctx, createBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateBuildWithContext(ctx, createBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateBuild(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateBuildOptions model
-				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildOptionsModel.SourceType = core.StringPtr("git")
-				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateBuild with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildOptions model
-				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildOptionsModel.SourceType = core.StringPtr("git")
-				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateBuildOptions model with no property values
-				createBuildOptionsModelNew := new(codeenginev2.CreateBuildOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildOptions model
-				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildOptionsModel.Name = core.StringPtr("my-build")
-				createBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildOptionsModel.SourceType = core.StringPtr("git")
-				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBuild(getBuildOptions *GetBuildOptions) - Operation response error`, func() {
-		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetBuild with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildOptions model
-				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
-		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetBuild successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetBuildOptions model
-				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetBuildWithContext(ctx, getBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetBuildWithContext(ctx, getBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetBuild(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetBuildOptions model
-				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetBuild with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildOptions model
-				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetBuildOptions model with no property values
-				getBuildOptionsModelNew := new(codeenginev2.GetBuildOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildOptions model
-				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
-		deleteBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteBuildPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteBuild(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteBuildOptions model
-				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
-				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteBuild(deleteBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteBuild with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteBuildOptions model
-				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
-				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteBuild(deleteBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteBuildOptions model with no property values
-				deleteBuildOptionsModelNew := new(codeenginev2.DeleteBuildOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteBuild(deleteBuildOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions) - Operation response error`, func() {
-		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateBuild with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateBuildOptions model
-				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceType = core.StringPtr("git")
-				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
-		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateBuild successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateBuildOptions model
-				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceType = core.StringPtr("git")
-				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.UpdateBuildWithContext(ctx, updateBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.UpdateBuildWithContext(ctx, updateBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.UpdateBuild(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateBuildOptions model
-				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceType = core.StringPtr("git")
-				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateBuild with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateBuildOptions model
-				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceType = core.StringPtr("git")
-				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateBuildOptions model with no property values
-				updateBuildOptionsModelNew := new(codeenginev2.UpdateBuildOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateBuild successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateBuildOptions model
-				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.BuildName = core.StringPtr("my-build")
-				updateBuildOptionsModel.Name = core.StringPtr("my-build")
-				updateBuildOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				updateBuildOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				updateBuildOptionsModel.SourceContextDir = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceRevision = core.StringPtr("main")
-				updateBuildOptionsModel.SourceSecret = core.StringPtr("testString")
-				updateBuildOptionsModel.SourceType = core.StringPtr("git")
-				updateBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				updateBuildOptionsModel.StrategySize = core.StringPtr("medium")
-				updateBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				updateBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions) - Operation response error`, func() {
-		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildrunsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListBuildruns with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildrunsOptions model
-				listBuildrunsOptionsModel := new(codeenginev2.ListBuildrunsOptions)
-				listBuildrunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildrunsOptionsModel.Start = core.StringPtr("testString")
-				listBuildrunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListBuildruns(listBuildrunsOptions *ListBuildrunsOptions)`, func() {
-		listBuildrunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildrunsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_runs": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBuildruns successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListBuildrunsOptions model
-				listBuildrunsOptionsModel := new(codeenginev2.ListBuildrunsOptions)
-				listBuildrunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildrunsOptionsModel.Start = core.StringPtr("testString")
-				listBuildrunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListBuildrunsWithContext(ctx, listBuildrunsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListBuildrunsWithContext(ctx, listBuildrunsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildrunsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_runs": [{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBuildruns successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListBuildruns(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListBuildrunsOptions model
-				listBuildrunsOptionsModel := new(codeenginev2.ListBuildrunsOptions)
-				listBuildrunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildrunsOptionsModel.Start = core.StringPtr("testString")
-				listBuildrunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListBuildruns with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildrunsOptions model
-				listBuildrunsOptionsModel := new(codeenginev2.ListBuildrunsOptions)
-				listBuildrunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildrunsOptionsModel.Start = core.StringPtr("testString")
-				listBuildrunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListBuildrunsOptions model with no property values
-				listBuildrunsOptionsModelNew := new(codeenginev2.ListBuildrunsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListBuildruns(listBuildrunsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListBuildruns successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBuildrunsOptions model
-				listBuildrunsOptionsModel := new(codeenginev2.ListBuildrunsOptions)
-				listBuildrunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBuildrunsOptionsModel.Start = core.StringPtr("testString")
-				listBuildrunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListBuildruns(listBuildrunsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.BuildRunList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.BuildRunList)
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBuildrunsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","service_account":"default","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type","url":"URL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"build_runs":[{"app_revision":"AppRevision","build":"Build","ce_owner_reference":"CeOwnerReference","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","output_image":"stg.icr.io/icr_namespace/image-name","output_secret":"ce-default-icr-us-south","reason":"create","service_account":"default","source_context_dir":"SourceContextDir","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"active","strategy_name":"dockerfile","strategy_size":"medium","strategy_spec_file":"Dockerfile","timeout":600,"type":"Type","url":"URL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use BuildrunsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBuildrunsOptionsModel := &codeenginev2.ListBuildrunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBuildrunsPager(listBuildrunsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.BuildRun
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use BuildrunsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBuildrunsOptionsModel := &codeenginev2.ListBuildrunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBuildrunsPager(listBuildrunsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions) - Operation response error`, func() {
-		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildrunPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateBuildrun with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildrunOptions model
-				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
-				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
-				createBuildrunOptionsModel.Build = core.StringPtr("testString")
-				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("default")
-				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
-				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateBuildrun(createBuildrunOptions *CreateBuildrunOptions)`, func() {
-		createBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildrunPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateBuildrun successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateBuildrunOptions model
-				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
-				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
-				createBuildrunOptionsModel.Build = core.StringPtr("testString")
-				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("default")
-				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
-				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateBuildrunWithContext(ctx, createBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateBuildrunWithContext(ctx, createBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBuildrunPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateBuildrun successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateBuildrun(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateBuildrunOptions model
-				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
-				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
-				createBuildrunOptionsModel.Build = core.StringPtr("testString")
-				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("default")
-				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
-				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateBuildrun with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildrunOptions model
-				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
-				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
-				createBuildrunOptionsModel.Build = core.StringPtr("testString")
-				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("default")
-				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
-				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateBuildrunOptions model with no property values
-				createBuildrunOptionsModelNew := new(codeenginev2.CreateBuildrunOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateBuildrun(createBuildrunOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke CreateBuildrun successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateBuildrunOptions model
-				createBuildrunOptionsModel := new(codeenginev2.CreateBuildrunOptions)
-				createBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.Name = core.StringPtr("testString")
-				createBuildrunOptionsModel.AppRevision = core.StringPtr("testString")
-				createBuildrunOptionsModel.Build = core.StringPtr("testString")
-				createBuildrunOptionsModel.CeOwnerReference = core.StringPtr("testString")
-				createBuildrunOptionsModel.OutputImage = core.StringPtr("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.OutputSecret = core.StringPtr("ce-default-icr-us-south")
-				createBuildrunOptionsModel.ServiceAccount = core.StringPtr("default")
-				createBuildrunOptionsModel.SourceContextDir = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceRevision = core.StringPtr("main")
-				createBuildrunOptionsModel.SourceSecret = core.StringPtr("testString")
-				createBuildrunOptionsModel.SourceType = core.StringPtr("git")
-				createBuildrunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.StrategyName = core.StringPtr("dockerfile")
-				createBuildrunOptionsModel.StrategySize = core.StringPtr("medium")
-				createBuildrunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
-				createBuildrunOptionsModel.Timeout = core.Int64Ptr(int64(600))
-				createBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateBuildrun(createBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBuildrun(getBuildrunOptions *GetBuildrunOptions) - Operation response error`, func() {
-		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildrunPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetBuildrun with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildrunOptions model
-				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
-				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBuildrun(getBuildrunOptions *GetBuildrunOptions)`, func() {
-		getBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildrunPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetBuildrun successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetBuildrunOptions model
-				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
-				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetBuildrunWithContext(ctx, getBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetBuildrunWithContext(ctx, getBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBuildrunPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_revision": "AppRevision", "build": "Build", "ce_owner_reference": "CeOwnerReference", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "output_image": "stg.icr.io/icr_namespace/image-name", "output_secret": "ce-default-icr-us-south", "reason": "create", "service_account": "default", "source_context_dir": "SourceContextDir", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "active", "strategy_name": "dockerfile", "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "timeout": 600, "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetBuildrun successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetBuildrun(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetBuildrunOptions model
-				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
-				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetBuildrun with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildrunOptions model
-				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
-				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetBuildrunOptions model with no property values
-				getBuildrunOptionsModelNew := new(codeenginev2.GetBuildrunOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetBuildrun(getBuildrunOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetBuildrun successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBuildrunOptions model
-				getBuildrunOptionsModel := new(codeenginev2.GetBuildrunOptions)
-				getBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				getBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetBuildrun(getBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteBuildrun(deleteBuildrunOptions *DeleteBuildrunOptions)`, func() {
-		deleteBuildrunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteBuildrunPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteBuildrun successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteBuildrun(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteBuildrunOptions model
-				deleteBuildrunOptionsModel := new(codeenginev2.DeleteBuildrunOptions)
-				deleteBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				deleteBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteBuildrun(deleteBuildrunOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteBuildrun with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteBuildrunOptions model
-				deleteBuildrunOptionsModel := new(codeenginev2.DeleteBuildrunOptions)
-				deleteBuildrunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.BuildRunName = core.StringPtr("my-build-run")
-				deleteBuildrunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteBuildrun(deleteBuildrunOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteBuildrunOptions model with no property values
-				deleteBuildrunOptionsModelNew := new(codeenginev2.DeleteBuildrunOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteBuildrun(deleteBuildrunOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions) - Operation response error`, func() {
-		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigmapsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListConfigmaps with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigmapsOptions model
-				listConfigmapsOptionsModel := new(codeenginev2.ListConfigmapsOptions)
-				listConfigmapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listConfigmapsOptionsModel.Start = core.StringPtr("testString")
-				listConfigmapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListConfigmaps(listConfigmapsOptions *ListConfigmapsOptions)`, func() {
-		listConfigmapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigmapsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"config_maps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListConfigmaps successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListConfigmapsOptions model
-				listConfigmapsOptionsModel := new(codeenginev2.ListConfigmapsOptions)
-				listConfigmapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listConfigmapsOptionsModel.Start = core.StringPtr("testString")
-				listConfigmapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListConfigmapsWithContext(ctx, listConfigmapsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListConfigmapsWithContext(ctx, listConfigmapsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigmapsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"config_maps": [{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListConfigmaps successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListConfigmaps(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListConfigmapsOptions model
-				listConfigmapsOptionsModel := new(codeenginev2.ListConfigmapsOptions)
-				listConfigmapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listConfigmapsOptionsModel.Start = core.StringPtr("testString")
-				listConfigmapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListConfigmaps with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigmapsOptions model
-				listConfigmapsOptionsModel := new(codeenginev2.ListConfigmapsOptions)
-				listConfigmapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listConfigmapsOptionsModel.Start = core.StringPtr("testString")
-				listConfigmapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListConfigmapsOptions model with no property values
-				listConfigmapsOptionsModelNew := new(codeenginev2.ListConfigmapsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListConfigmaps(listConfigmapsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListConfigmaps successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigmapsOptions model
-				listConfigmapsOptionsModel := new(codeenginev2.ListConfigmapsOptions)
-				listConfigmapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listConfigmapsOptionsModel.Start = core.StringPtr("testString")
-				listConfigmapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListConfigmaps(listConfigmapsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.ConfigMapList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.ConfigMapList)
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigmapsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"config_maps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","type":"Type","url":"URL"}],"total_count":2,"limit":1}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"config_maps":[{"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","type":"Type","url":"URL"}],"total_count":2,"limit":1}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use ConfigmapsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listConfigmapsOptionsModel := &codeenginev2.ListConfigmapsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewConfigmapsPager(listConfigmapsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.ConfigMap
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use ConfigmapsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listConfigmapsOptionsModel := &codeenginev2.ListConfigmapsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewConfigmapsPager(listConfigmapsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions) - Operation response error`, func() {
-		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createConfigmapPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateConfigmap with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateConfigmapOptions model
-				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
-				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				createConfigmapOptionsModel.Data = make(map[string]string)
-				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateConfigmap(createConfigmapOptions *CreateConfigmapOptions)`, func() {
-		createConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createConfigmapPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateConfigmap successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateConfigmapOptions model
-				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
-				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				createConfigmapOptionsModel.Data = make(map[string]string)
-				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateConfigmapWithContext(ctx, createConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateConfigmapWithContext(ctx, createConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createConfigmapPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateConfigmap(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateConfigmapOptions model
-				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
-				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				createConfigmapOptionsModel.Data = make(map[string]string)
-				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateConfigmap with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateConfigmapOptions model
-				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
-				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				createConfigmapOptionsModel.Data = make(map[string]string)
-				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateConfigmapOptions model with no property values
-				createConfigmapOptionsModelNew := new(codeenginev2.CreateConfigmapOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateConfigmap(createConfigmapOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateConfigmapOptions model
-				createConfigmapOptionsModel := new(codeenginev2.CreateConfigmapOptions)
-				createConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				createConfigmapOptionsModel.Data = make(map[string]string)
-				createConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateConfigmap(createConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetConfigmap(getConfigmapOptions *GetConfigmapOptions) - Operation response error`, func() {
-		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getConfigmapPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetConfigmap with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetConfigmapOptions model
-				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
-				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetConfigmap(getConfigmapOptions *GetConfigmapOptions)`, func() {
-		getConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getConfigmapPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetConfigmap successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetConfigmapOptions model
-				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
-				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetConfigmapWithContext(ctx, getConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetConfigmapWithContext(ctx, getConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getConfigmapPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetConfigmap(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetConfigmapOptions model
-				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
-				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetConfigmap with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetConfigmapOptions model
-				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
-				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetConfigmapOptions model with no property values
-				getConfigmapOptionsModelNew := new(codeenginev2.GetConfigmapOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetConfigmap(getConfigmapOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetConfigmapOptions model
-				getConfigmapOptionsModel := new(codeenginev2.GetConfigmapOptions)
-				getConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				getConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetConfigmap(getConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteConfigmap(deleteConfigmapOptions *DeleteConfigmapOptions)`, func() {
-		deleteConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigmapPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteConfigmap(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteConfigmapOptions model
-				deleteConfigmapOptionsModel := new(codeenginev2.DeleteConfigmapOptions)
-				deleteConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				deleteConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteConfigmap(deleteConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteConfigmap with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteConfigmapOptions model
-				deleteConfigmapOptionsModel := new(codeenginev2.DeleteConfigmapOptions)
-				deleteConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				deleteConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteConfigmap(deleteConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteConfigmapOptions model with no property values
-				deleteConfigmapOptionsModelNew := new(codeenginev2.DeleteConfigmapOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteConfigmap(deleteConfigmapOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions) - Operation response error`, func() {
-		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateConfigmapPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateConfigmap with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateConfigmapOptions model
-				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
-				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				updateConfigmapOptionsModel.Data = make(map[string]string)
-				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateConfigmap(updateConfigmapOptions *UpdateConfigmapOptions)`, func() {
-		updateConfigmapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateConfigmapPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateConfigmap successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateConfigmapOptions model
-				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
-				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				updateConfigmapOptionsModel.Data = make(map[string]string)
-				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.UpdateConfigmapWithContext(ctx, updateConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.UpdateConfigmapWithContext(ctx, updateConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateConfigmapPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.UpdateConfigmap(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateConfigmapOptions model
-				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
-				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				updateConfigmapOptionsModel.Data = make(map[string]string)
-				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateConfigmap with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateConfigmapOptions model
-				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
-				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				updateConfigmapOptionsModel.Data = make(map[string]string)
-				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateConfigmapOptions model with no property values
-				updateConfigmapOptionsModelNew := new(codeenginev2.UpdateConfigmapOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.UpdateConfigmap(updateConfigmapOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateConfigmap successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateConfigmapOptions model
-				updateConfigmapOptionsModel := new(codeenginev2.UpdateConfigmapOptions)
-				updateConfigmapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.ConfigMapName = core.StringPtr("my-config-map")
-				updateConfigmapOptionsModel.Name = core.StringPtr("my-configmap")
-				updateConfigmapOptionsModel.Data = make(map[string]string)
-				updateConfigmapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.UpdateConfigmap(updateConfigmapOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
-		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListSecrets with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListSecretsOptions model
-				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listSecretsOptionsModel.Start = core.StringPtr("testString")
-				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
-		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}]}`)
-				}))
-			})
-			It(`Invoke ListSecrets successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListSecretsOptions model
-				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listSecretsOptionsModel.Start = core.StringPtr("testString")
-				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}]}`)
-				}))
-			})
-			It(`Invoke ListSecrets successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListSecrets(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListSecretsOptions model
-				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listSecretsOptionsModel.Start = core.StringPtr("testString")
-				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListSecrets with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListSecretsOptions model
-				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listSecretsOptionsModel.Start = core.StringPtr("testString")
-				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListSecretsOptions model with no property values
-				listSecretsOptionsModelNew := new(codeenginev2.ListSecretsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListSecrets successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListSecretsOptions model
-				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listSecretsOptionsModel.Start = core.StringPtr("testString")
-				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.SecretList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.SecretList)
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"ce_components":["CeComponents"],"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"format":"generic","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","resource_id":"ResourceID","resource_type":"ResourceType","resourcekey_id":"ResourcekeyID","resourcekey_name":"ResourcekeyName","role":"Role","serviceid_crn":"ServiceidCrn","type":"Type","url":"URL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"ce_components":["CeComponents"],"created":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"format":"generic","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"resource-example","resource_id":"ResourceID","resource_type":"ResourceType","resourcekey_id":"ResourcekeyID","resourcekey_name":"ResourcekeyName","role":"Role","serviceid_crn":"ServiceidCrn","type":"Type","url":"URL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use SecretsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.Secret
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use SecretsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions) - Operation response error`, func() {
-		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateSecret with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateSecretOptions model
-				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
-				createSecretOptionsModel.CeComponents = []string{"testString"}
-				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
-				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
-		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateSecret successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateSecretOptions model
-				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
-				createSecretOptionsModel.CeComponents = []string{"testString"}
-				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
-				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke CreateSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateSecret(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateSecretOptions model
-				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
-				createSecretOptionsModel.CeComponents = []string{"testString"}
-				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
-				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateSecret with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateSecretOptions model
-				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
-				createSecretOptionsModel.CeComponents = []string{"testString"}
-				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
-				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateSecretOptions model with no property values
-				createSecretOptionsModelNew := new(codeenginev2.CreateSecretOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the CreateSecretOptions model
-				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
-				createSecretOptionsModel.CeComponents = []string{"testString"}
-				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
-				createSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetSecret(getSecretOptions *GetSecretOptions) - Operation response error`, func() {
-		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetSecret with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetSecretOptions model
-				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
-		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetSecret successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetSecretOptions model
-				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke GetSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetSecret(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetSecretOptions model
-				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetSecret with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetSecretOptions model
-				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetSecretOptions model with no property values
-				getSecretOptionsModelNew := new(codeenginev2.GetSecretOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetSecretOptions model
-				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
-		deleteSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteSecretPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteSecret(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteSecretOptions model
-				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
-				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteSecret with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteSecretOptions model
-				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
-				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteSecret(deleteSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteSecretOptions model with no property values
-				deleteSecretOptionsModelNew := new(codeenginev2.DeleteSecretOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateSecret(updateSecretOptions *UpdateSecretOptions) - Operation response error`, func() {
-		updateSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateSecret with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateSecretOptions model
-				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
-				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
-				updateSecretOptionsModel.CeComponents = []string{"testString"}
-				updateSecretOptionsModel.Data = make(map[string]string)
-				updateSecretOptionsModel.Format = core.StringPtr("generic")
-				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				updateSecretOptionsModel.Role = core.StringPtr("testString")
-				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateSecret(updateSecretOptions *UpdateSecretOptions)`, func() {
-		updateSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateSecret successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateSecretOptions model
-				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
-				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
-				updateSecretOptionsModel.CeComponents = []string{"testString"}
-				updateSecretOptionsModel.Data = make(map[string]string)
-				updateSecretOptionsModel.Format = core.StringPtr("generic")
-				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				updateSecretOptionsModel.Role = core.StringPtr("testString")
-				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.UpdateSecretWithContext(ctx, updateSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.UpdateSecretWithContext(ctx, updateSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateSecretPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_components": ["CeComponents"], "created": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "format": "generic", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "resource-example", "resource_id": "ResourceID", "resource_type": "ResourceType", "resourcekey_id": "ResourcekeyID", "resourcekey_name": "ResourcekeyName", "role": "Role", "serviceid_crn": "ServiceidCrn", "type": "Type", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke UpdateSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.UpdateSecret(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateSecretOptions model
-				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
-				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
-				updateSecretOptionsModel.CeComponents = []string{"testString"}
-				updateSecretOptionsModel.Data = make(map[string]string)
-				updateSecretOptionsModel.Format = core.StringPtr("generic")
-				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				updateSecretOptionsModel.Role = core.StringPtr("testString")
-				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateSecret with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateSecretOptions model
-				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
-				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
-				updateSecretOptionsModel.CeComponents = []string{"testString"}
-				updateSecretOptionsModel.Data = make(map[string]string)
-				updateSecretOptionsModel.Format = core.StringPtr("generic")
-				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				updateSecretOptionsModel.Role = core.StringPtr("testString")
-				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateSecretOptions model with no property values
-				updateSecretOptionsModelNew := new(codeenginev2.UpdateSecretOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.UpdateSecret(updateSecretOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateSecret successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateSecretOptions model
-				updateSecretOptionsModel := new(codeenginev2.UpdateSecretOptions)
-				updateSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SecretName = core.StringPtr("my-secret")
-				updateSecretOptionsModel.Name = core.StringPtr("testString")
-				updateSecretOptionsModel.CeComponents = []string{"testString"}
-				updateSecretOptionsModel.Data = make(map[string]string)
-				updateSecretOptionsModel.Format = core.StringPtr("generic")
-				updateSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourceType = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyID = core.StringPtr("testString")
-				updateSecretOptionsModel.ResourcekeyName = core.StringPtr("testString")
-				updateSecretOptionsModel.Role = core.StringPtr("testString")
-				updateSecretOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				updateSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.UpdateSecret(updateSecretOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -5546,7 +1075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully with retries`, func() {
@@ -5604,7 +1133,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully`, func() {
@@ -5708,7 +1237,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(codeenginev2.AppList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
+				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 	
@@ -5739,9 +1268,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"ce_managed_domain_mappings":"local_public","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_protocol":"http1","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"active","type":"Type","url":"URL","version":"1"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"ce_managed_domain_mappings":"local_public","created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_protocol":"http1","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"active","type":"Type","url":"URL","version":"1"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -5820,38 +1349,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
 				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
-				createAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				createAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				createAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				createAppOptionsModel.RunArgs = []string{"testString"}
+				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
-				createAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createAppOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
@@ -5861,7 +1388,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				createAppOptionsModel.Version = core.StringPtr("1")
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateApp(createAppOptionsModel)
@@ -5914,7 +1440,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully with retries`, func() {
@@ -5926,38 +1452,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
 				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
-				createAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				createAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				createAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				createAppOptionsModel.RunArgs = []string{"testString"}
+				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
-				createAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createAppOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
@@ -5967,7 +1491,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				createAppOptionsModel.Version = core.StringPtr("1")
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6023,7 +1546,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully`, func() {
@@ -6040,38 +1563,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
 				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
-				createAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				createAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				createAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				createAppOptionsModel.RunArgs = []string{"testString"}
+				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
-				createAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createAppOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
@@ -6081,7 +1602,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				createAppOptionsModel.Version = core.StringPtr("1")
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6099,38 +1619,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
 				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
-				createAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				createAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				createAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				createAppOptionsModel.RunArgs = []string{"testString"}
+				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
-				createAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createAppOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
@@ -6140,7 +1658,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				createAppOptionsModel.Version = core.StringPtr("1")
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -6179,38 +1696,36 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
 				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
-				createAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				createAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				createAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				createAppOptionsModel.RunArgs = []string{"testString"}
+				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
-				createAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createAppOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
@@ -6220,7 +1735,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				createAppOptionsModel.Version = core.StringPtr("1")
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6262,7 +1776,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
 				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.AppName = core.StringPtr("my-app")
+				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetApp(getAppOptionsModel)
@@ -6299,7 +1813,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully with retries`, func() {
@@ -6314,7 +1828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
 				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.AppName = core.StringPtr("my-app")
+				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6354,7 +1868,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully`, func() {
@@ -6374,7 +1888,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
 				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.AppName = core.StringPtr("my-app")
+				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6395,7 +1909,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
 				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.AppName = core.StringPtr("my-app")
+				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -6437,7 +1951,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
 				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.AppName = core.StringPtr("my-app")
+				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6483,7 +1997,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteAppOptions model
 				deleteAppOptionsModel := new(codeenginev2.DeleteAppOptions)
 				deleteAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteAppOptionsModel.AppName = core.StringPtr("my-app")
+				deleteAppOptionsModel.Name = core.StringPtr("my-app")
 				deleteAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6502,7 +2016,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteAppOptions model
 				deleteAppOptionsModel := new(codeenginev2.DeleteAppOptions)
 				deleteAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteAppOptionsModel.AppName = core.StringPtr("my-app")
+				deleteAppOptionsModel.Name = core.StringPtr("my-app")
 				deleteAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -6533,6 +2047,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAppPath))
 					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6546,49 +2062,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the AppPatch model
+				appPatchModel := new(codeenginev2.AppPatch)
+				appPatchModel.ImagePort = core.Int64Ptr(int64(8080))
+				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				appPatchModel.ImageSecret = core.StringPtr("my-secret")
+				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.RunArguments = []string{"testString"}
+				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				appPatchModel.RunCommands = []string{"testString"}
+				appPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				appPatchModel.RunServiceAccount = core.StringPtr("default")
+				appPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
+				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
 				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.AppName = core.StringPtr("my-app")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
-				updateAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
-				updateAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				updateAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				updateAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				updateAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				updateAppOptionsModel.RunArgs = []string{"testString"}
-				updateAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateAppOptionsModel.RunCommands = []string{"testString"}
-				updateAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
-				updateAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
-				updateAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				updateAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				updateAppOptionsModel.Version = core.StringPtr("1")
+				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAppOptionsModel.App = appPatchModelAsPatch
 				updateAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.UpdateApp(updateAppOptionsModel)
@@ -6635,13 +2154,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully with retries`, func() {
@@ -6653,49 +2174,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the AppPatch model
+				appPatchModel := new(codeenginev2.AppPatch)
+				appPatchModel.ImagePort = core.Int64Ptr(int64(8080))
+				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				appPatchModel.ImageSecret = core.StringPtr("my-secret")
+				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.RunArguments = []string{"testString"}
+				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				appPatchModel.RunCommands = []string{"testString"}
+				appPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				appPatchModel.RunServiceAccount = core.StringPtr("default")
+				appPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
+				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
 				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.AppName = core.StringPtr("my-app")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
-				updateAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
-				updateAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				updateAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				updateAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				updateAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				updateAppOptionsModel.RunArgs = []string{"testString"}
-				updateAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateAppOptionsModel.RunCommands = []string{"testString"}
-				updateAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
-				updateAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
-				updateAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				updateAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				updateAppOptionsModel.Version = core.StringPtr("1")
+				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAppOptionsModel.App = appPatchModelAsPatch
 				updateAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6748,10 +2272,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"ce_managed_domain_mappings": "local_public", "created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully`, func() {
@@ -6768,49 +2294,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the AppPatch model
+				appPatchModel := new(codeenginev2.AppPatch)
+				appPatchModel.ImagePort = core.Int64Ptr(int64(8080))
+				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				appPatchModel.ImageSecret = core.StringPtr("my-secret")
+				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.RunArguments = []string{"testString"}
+				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				appPatchModel.RunCommands = []string{"testString"}
+				appPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				appPatchModel.RunServiceAccount = core.StringPtr("default")
+				appPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
+				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
 				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.AppName = core.StringPtr("my-app")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
-				updateAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
-				updateAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				updateAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				updateAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				updateAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				updateAppOptionsModel.RunArgs = []string{"testString"}
-				updateAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateAppOptionsModel.RunCommands = []string{"testString"}
-				updateAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
-				updateAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
-				updateAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				updateAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				updateAppOptionsModel.Version = core.StringPtr("1")
+				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAppOptionsModel.App = appPatchModelAsPatch
 				updateAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6828,49 +2357,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the AppPatch model
+				appPatchModel := new(codeenginev2.AppPatch)
+				appPatchModel.ImagePort = core.Int64Ptr(int64(8080))
+				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				appPatchModel.ImageSecret = core.StringPtr("my-secret")
+				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.RunArguments = []string{"testString"}
+				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				appPatchModel.RunCommands = []string{"testString"}
+				appPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				appPatchModel.RunServiceAccount = core.StringPtr("default")
+				appPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
+				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
 				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.AppName = core.StringPtr("my-app")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
-				updateAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
-				updateAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				updateAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				updateAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				updateAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				updateAppOptionsModel.RunArgs = []string{"testString"}
-				updateAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateAppOptionsModel.RunCommands = []string{"testString"}
-				updateAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
-				updateAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
-				updateAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				updateAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				updateAppOptionsModel.Version = core.StringPtr("1")
+				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAppOptionsModel.App = appPatchModelAsPatch
 				updateAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -6909,49 +2441,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the AppPatch model
+				appPatchModel := new(codeenginev2.AppPatch)
+				appPatchModel.ImagePort = core.Int64Ptr(int64(8080))
+				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				appPatchModel.ImageSecret = core.StringPtr("my-secret")
+				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.RunArguments = []string{"testString"}
+				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				appPatchModel.RunCommands = []string{"testString"}
+				appPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				appPatchModel.RunServiceAccount = core.StringPtr("default")
+				appPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
+				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
+				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
 				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.AppName = core.StringPtr("my-app")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
-				updateAppOptionsModel.CeManagedDomainMappings = core.StringPtr("local_public")
-				updateAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
-				updateAppOptionsModel.ImageProtocol = core.StringPtr("http1")
-				updateAppOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				updateAppOptionsModel.RevisionSuffix = core.StringPtr("rev-0001")
-				updateAppOptionsModel.RunArgs = []string{"testString"}
-				updateAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateAppOptionsModel.RunCommands = []string{"testString"}
-				updateAppOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateAppOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateAppOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
-				updateAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
-				updateAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				updateAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
-				updateAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
-				updateAppOptionsModel.Version = core.StringPtr("1")
+				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAppOptionsModel.App = appPatchModelAsPatch
 				updateAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7036,7 +2571,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully with retries`, func() {
@@ -7095,7 +2630,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully`, func() {
@@ -7202,7 +2737,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(codeenginev2.AppRevisionList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
+				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 	
@@ -7233,9 +2768,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_protocol":"http1","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"active","type":"Type","url":"URL"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_protocol":"http1","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"active","type":"Type","url":"URL"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -7320,7 +2855,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetAppRevision(getAppRevisionOptionsModel)
@@ -7357,7 +2892,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully with retries`, func() {
@@ -7373,7 +2908,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -7413,7 +2948,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_protocol": "http1", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "active", "type": "Type", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully`, func() {
@@ -7434,7 +2969,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -7456,7 +2991,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -7499,7 +3034,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7546,7 +3081,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
 				deleteAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				deleteAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -7566,7 +3101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
 				deleteAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				deleteAppRevisionOptionsModel.RevisionName = core.StringPtr("my-app-001")
+				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -7655,7 +3190,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully with retries`, func() {
@@ -7713,7 +3248,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully`, func() {
@@ -7817,7 +3352,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(codeenginev2.JobList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
+				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 	
@@ -7848,9 +3383,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"active","type":"Type","url":"URL","version":"1"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created":"2022-09-13T11:41:35+02:00","details":"succeeded","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_ref":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"resource-example","reason":"create","run_args":["RunArgs"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_vars":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"active","type":"Type","url":"URL","version":"1"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -7929,42 +3464,41 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
 				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
-				createJobOptionsModel.RunArgs = []string{"testString"}
+				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.RunArguments = []string{"testString"}
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
-				createJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createJobOptionsModel.RunMode = core.StringPtr("daemon")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
 				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
 				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				createJobOptionsModel.Version = core.StringPtr("1")
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateJob(createJobOptionsModel)
@@ -8017,7 +3551,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully with retries`, func() {
@@ -8029,42 +3563,41 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
 				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
-				createJobOptionsModel.RunArgs = []string{"testString"}
+				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.RunArguments = []string{"testString"}
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
-				createJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createJobOptionsModel.RunMode = core.StringPtr("daemon")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
 				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
 				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				createJobOptionsModel.Version = core.StringPtr("1")
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -8120,7 +3653,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully`, func() {
@@ -8137,42 +3670,41 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
 				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
-				createJobOptionsModel.RunArgs = []string{"testString"}
+				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.RunArguments = []string{"testString"}
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
-				createJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createJobOptionsModel.RunMode = core.StringPtr("daemon")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
 				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
 				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				createJobOptionsModel.Version = core.StringPtr("1")
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8190,42 +3722,41 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
 				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
-				createJobOptionsModel.RunArgs = []string{"testString"}
+				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.RunArguments = []string{"testString"}
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
-				createJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createJobOptionsModel.RunMode = core.StringPtr("daemon")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
 				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
 				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				createJobOptionsModel.Version = core.StringPtr("1")
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -8264,42 +3795,41 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
 				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
-				createJobOptionsModel.RunArgs = []string{"testString"}
+				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobOptionsModel.RunArguments = []string{"testString"}
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
-				createJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
+				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
 				createJobOptionsModel.RunMode = core.StringPtr("daemon")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
+				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
 				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
 				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				createJobOptionsModel.Version = core.StringPtr("1")
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -8341,7 +3871,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
 				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.JobName = core.StringPtr("my-job")
+				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetJob(getJobOptionsModel)
@@ -8378,7 +3908,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully with retries`, func() {
@@ -8393,7 +3923,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
 				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.JobName = core.StringPtr("my-job")
+				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -8433,7 +3963,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully`, func() {
@@ -8453,7 +3983,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
 				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.JobName = core.StringPtr("my-job")
+				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8474,7 +4004,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
 				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.JobName = core.StringPtr("my-job")
+				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -8516,7 +4046,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
 				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.JobName = core.StringPtr("my-job")
+				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -8562,7 +4092,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteJobOptions model
 				deleteJobOptionsModel := new(codeenginev2.DeleteJobOptions)
 				deleteJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobOptionsModel.JobName = core.StringPtr("my-job")
+				deleteJobOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8581,7 +4111,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteJobOptions model
 				deleteJobOptionsModel := new(codeenginev2.DeleteJobOptions)
 				deleteJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobOptionsModel.JobName = core.StringPtr("my-job")
+				deleteJobOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -8612,6 +4142,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateJobPath))
 					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -8625,43 +4157,48 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the JobPatch model
+				jobPatchModel := new(codeenginev2.JobPatch)
+				jobPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				jobPatchModel.ImageSecret = core.StringPtr("my-secret")
+				jobPatchModel.RunArguments = []string{"testString"}
+				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				jobPatchModel.RunCommands = []string{"testString"}
+				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunServiceAccount = core.StringPtr("default")
+				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
 				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.JobName = core.StringPtr("my-job")
-				updateJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
-				updateJobOptionsModel.RunArgs = []string{"testString"}
-				updateJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateJobOptionsModel.RunCommands = []string{"testString"}
-				updateJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateJobOptionsModel.RunMode = core.StringPtr("daemon")
-				updateJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
-				updateJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				updateJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				updateJobOptionsModel.Version = core.StringPtr("1")
+				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
+				updateJobOptionsModel.Job = jobPatchModelAsPatch
 				updateJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.UpdateJob(updateJobOptionsModel)
@@ -8708,13 +4245,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully with retries`, func() {
@@ -8726,43 +4265,48 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the JobPatch model
+				jobPatchModel := new(codeenginev2.JobPatch)
+				jobPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				jobPatchModel.ImageSecret = core.StringPtr("my-secret")
+				jobPatchModel.RunArguments = []string{"testString"}
+				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				jobPatchModel.RunCommands = []string{"testString"}
+				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunServiceAccount = core.StringPtr("default")
+				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
 				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.JobName = core.StringPtr("my-job")
-				updateJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
-				updateJobOptionsModel.RunArgs = []string{"testString"}
-				updateJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateJobOptionsModel.RunCommands = []string{"testString"}
-				updateJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateJobOptionsModel.RunMode = core.StringPtr("daemon")
-				updateJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
-				updateJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				updateJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				updateJobOptionsModel.Version = core.StringPtr("1")
+				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
+				updateJobOptionsModel.Job = jobPatchModelAsPatch
 				updateJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -8815,10 +4359,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created": "2022-09-13T11:41:35+02:00", "details": "succeeded", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_ref": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "resource-example", "reason": "create", "run_args": ["RunArgs"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_vars": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "active", "type": "Type", "url": "URL", "version": "1"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully`, func() {
@@ -8835,43 +4381,48 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the JobPatch model
+				jobPatchModel := new(codeenginev2.JobPatch)
+				jobPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				jobPatchModel.ImageSecret = core.StringPtr("my-secret")
+				jobPatchModel.RunArguments = []string{"testString"}
+				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				jobPatchModel.RunCommands = []string{"testString"}
+				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunServiceAccount = core.StringPtr("default")
+				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
 				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.JobName = core.StringPtr("my-job")
-				updateJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
-				updateJobOptionsModel.RunArgs = []string{"testString"}
-				updateJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateJobOptionsModel.RunCommands = []string{"testString"}
-				updateJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateJobOptionsModel.RunMode = core.StringPtr("daemon")
-				updateJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
-				updateJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				updateJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				updateJobOptionsModel.Version = core.StringPtr("1")
+				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
+				updateJobOptionsModel.Job = jobPatchModelAsPatch
 				updateJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8889,43 +4440,48 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the JobPatch model
+				jobPatchModel := new(codeenginev2.JobPatch)
+				jobPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				jobPatchModel.ImageSecret = core.StringPtr("my-secret")
+				jobPatchModel.RunArguments = []string{"testString"}
+				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				jobPatchModel.RunCommands = []string{"testString"}
+				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunServiceAccount = core.StringPtr("default")
+				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
 				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.JobName = core.StringPtr("my-job")
-				updateJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
-				updateJobOptionsModel.RunArgs = []string{"testString"}
-				updateJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateJobOptionsModel.RunCommands = []string{"testString"}
-				updateJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateJobOptionsModel.RunMode = core.StringPtr("daemon")
-				updateJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
-				updateJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				updateJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				updateJobOptionsModel.Version = core.StringPtr("1")
+				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
+				updateJobOptionsModel.Job = jobPatchModelAsPatch
 				updateJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -8964,43 +4520,48 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the JobPatch model
+				jobPatchModel := new(codeenginev2.JobPatch)
+				jobPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				jobPatchModel.ImageSecret = core.StringPtr("my-secret")
+				jobPatchModel.RunArguments = []string{"testString"}
+				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
+				jobPatchModel.RunCommands = []string{"testString"}
+				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunServiceAccount = core.StringPtr("default")
+				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
 				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.JobName = core.StringPtr("my-job")
-				updateJobOptionsModel.ImageRef = core.StringPtr("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
-				updateJobOptionsModel.RunArgs = []string{"testString"}
-				updateJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
-				updateJobOptionsModel.RunCommands = []string{"testString"}
-				updateJobOptionsModel.RunEnvVars = []codeenginev2.EnvVar{*envVarModel}
-				updateJobOptionsModel.RunMode = core.StringPtr("daemon")
-				updateJobOptionsModel.RunServiceAccount = core.StringPtr("default")
-				updateJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMount{*volumeMountModel}
-				updateJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
-				updateJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				updateJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				updateJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
-				updateJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
-				updateJobOptionsModel.Version = core.StringPtr("1")
+				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
+				updateJobOptionsModel.Job = jobPatchModelAsPatch
 				updateJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -9016,15 +4577,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions) - Operation response error`, func() {
-		listReclamationsPath := "/reclamations"
+	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) - Operation response error`, func() {
+		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -9033,7 +4594,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListReclamations with error: Operation response processing error`, func() {
+			It(`Invoke ListJobRuns with error: Operation response processing error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9041,20 +4602,21 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := new(codeenginev2.ListReclamationsOptions)
-				listReclamationsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listReclamationsOptionsModel.Start = core.StringPtr("testString")
-				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListJobRunsOptions model
+				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
+				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listJobRunsOptionsModel.Start = core.StringPtr("testString")
+				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr = codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -9064,15 +4626,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions)`, func() {
-		listReclamationsPath := "/reclamations"
+	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions)`, func() {
+		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
@@ -9083,10 +4645,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
-			It(`Invoke ListReclamations successfully with retries`, func() {
+			It(`Invoke ListJobRuns successfully with retries`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9095,22 +4657,23 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := new(codeenginev2.ListReclamationsOptions)
-				listReclamationsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listReclamationsOptionsModel.Start = core.StringPtr("testString")
-				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListJobRunsOptions model
+				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
+				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listJobRunsOptionsModel.Start = core.StringPtr("testString")
+				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
+				_, _, operationErr := codeEngineService.ListJobRunsWithContext(ctx, listJobRunsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -9118,7 +4681,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
+				_, _, operationErr = codeEngineService.ListJobRunsWithContext(ctx, listJobRunsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -9132,7 +4695,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
@@ -9140,10 +4703,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "reclamations": [{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
-			It(`Invoke ListReclamations successfully`, func() {
+			It(`Invoke ListJobRuns successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9152,25 +4715,26 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListReclamations(nil)
+				result, response, operationErr := codeEngineService.ListJobRuns(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := new(codeenginev2.ListReclamationsOptions)
-				listReclamationsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listReclamationsOptionsModel.Start = core.StringPtr("testString")
-				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListJobRunsOptions model
+				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
+				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listJobRunsOptionsModel.Start = core.StringPtr("testString")
+				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr = codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListReclamations with error: Operation request error`, func() {
+			It(`Invoke ListJobRuns with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9178,17 +4742,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := new(codeenginev2.ListReclamationsOptions)
-				listReclamationsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listReclamationsOptionsModel.Start = core.StringPtr("testString")
-				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListJobRunsOptions model
+				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
+				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listJobRunsOptionsModel.Start = core.StringPtr("testString")
+				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListJobRunsOptions model with no property values
+				listJobRunsOptionsModelNew := new(codeenginev2.ListJobRunsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListJobRuns(listJobRunsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -9205,7 +4777,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ListReclamations successfully`, func() {
+			It(`Invoke ListJobRuns successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9213,14 +4785,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := new(codeenginev2.ListReclamationsOptions)
-				listReclamationsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listReclamationsOptionsModel.Start = core.StringPtr("testString")
-				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListJobRunsOptions model
+				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
+				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listJobRunsOptionsModel.Start = core.StringPtr("testString")
+				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := codeEngineService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := codeEngineService.ListJobRuns(listJobRunsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -9233,8 +4806,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.ReclamationList)
-				nextObject := new(codeenginev2.PaginationListNextMetadata)
+				responseObject := new(codeenginev2.JobRunList)
+				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 	
@@ -9243,7 +4816,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.ReclamationList)
+				responseObject := new(codeenginev2.JobRunList)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -9257,7 +4830,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -9265,15 +4838,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"reclamations":[{"account_id":"4329073d16d2f3663f74bfa955259139","details":"succeeded","id":"15314cc3-85b4-4338-903f-c28cdee6d005","project_id":"15314cc3-85b4-4338-903f-c28cdee6d005","reason":"create","resource_group_id":"b91e849cedb04e7e92bd68c040c672dc","status":"active","target_time":"2022-09-22T17:40:56Z","type":"reclamation/v2","url":"URL"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"reclamations":[{"account_id":"4329073d16d2f3663f74bfa955259139","details":"succeeded","id":"15314cc3-85b4-4338-903f-c28cdee6d005","project_id":"15314cc3-85b4-4338-903f-c28cdee6d005","reason":"create","resource_group_id":"b91e849cedb04e7e92bd68c040c672dc","status":"active","target_time":"2022-09-22T17:40:56Z","type":"reclamation/v2","url":"URL"}]}`)
+						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
 				}))
 			})
-			It(`Use ReclamationsPager.GetNext successfully`, func() {
+			It(`Use JobRunsPager.GetNext successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9281,15 +4854,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listReclamationsOptionsModel := &codeenginev2.ListReclamationsOptions{
+				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewReclamationsPager(listReclamationsOptionsModel)
+				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []codeenginev2.Reclamation
+				var allResults []codeenginev2.JobRun
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -9298,7 +4872,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				}
 				Expect(len(allResults)).To(Equal(2))
 			})
-			It(`Use ReclamationsPager.GetAll successfully`, func() {
+			It(`Use JobRunsPager.GetAll successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9306,11 +4880,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listReclamationsOptionsModel := &codeenginev2.ListReclamationsOptions{
+				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewReclamationsPager(listReclamationsOptionsModel)
+				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -9321,22 +4896,22 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`GetReclamation(getReclamationOptions *GetReclamationOptions) - Operation response error`, func() {
-		getReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005"
+	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions) - Operation response error`, func() {
+		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getReclamationPath))
-					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.EscapedPath()).To(Equal(createJobRunPath))
+					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
+					res.WriteHeader(202)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetReclamation with error: Operation response processing error`, func() {
+			It(`Invoke CreateJobRun with error: Operation response processing error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9344,19 +4919,52 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the GetReclamationOptions model
-				getReclamationOptionsModel := new(codeenginev2.GetReclamationOptions)
-				getReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the CreateJobRunOptions model
+				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
+				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
+				createJobRunOptionsModel.RunArguments = []string{"testString"}
+				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
+				createJobRunOptionsModel.RunCommands = []string{"testString"}
+				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
+				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetReclamation(getReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetReclamation(getReclamationOptionsModel)
+				result, response, operationErr = codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -9366,27 +4974,43 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`GetReclamation(getReclamationOptions *GetReclamationOptions)`, func() {
-		getReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005"
+	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions)`, func() {
+		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getReclamationPath))
-					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.EscapedPath()).To(Equal(createJobRunPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
-			It(`Invoke GetReclamation successfully with retries`, func() {
+			It(`Invoke CreateJobRun successfully with retries`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9395,21 +5019,54 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetReclamationOptions model
-				getReclamationOptionsModel := new(codeenginev2.GetReclamationOptions)
-				getReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the CreateJobRunOptions model
+				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
+				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
+				createJobRunOptionsModel.RunArguments = []string{"testString"}
+				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
+				createJobRunOptionsModel.RunCommands = []string{"testString"}
+				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
+				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetReclamationWithContext(ctx, getReclamationOptionsModel)
+				_, _, operationErr := codeEngineService.CreateJobRunWithContext(ctx, createJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetReclamation(getReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -9417,7 +5074,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetReclamationWithContext(ctx, getReclamationOptionsModel)
+				_, _, operationErr = codeEngineService.CreateJobRunWithContext(ctx, createJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -9431,16 +5088,32 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getReclamationPath))
-					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.EscapedPath()).To(Equal(createJobRunPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
-			It(`Invoke GetReclamation successfully`, func() {
+			It(`Invoke CreateJobRun successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9449,24 +5122,57 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetReclamation(nil)
+				result, response, operationErr := codeEngineService.CreateJobRun(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetReclamationOptions model
-				getReclamationOptionsModel := new(codeenginev2.GetReclamationOptions)
-				getReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the CreateJobRunOptions model
+				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
+				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
+				createJobRunOptionsModel.RunArguments = []string{"testString"}
+				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
+				createJobRunOptionsModel.RunCommands = []string{"testString"}
+				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
+				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetReclamation(getReclamationOptionsModel)
+				result, response, operationErr = codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetReclamation with error: Operation validation and request error`, func() {
+			It(`Invoke CreateJobRun with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9474,234 +5180,55 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the GetReclamationOptions model
-				getReclamationOptionsModel := new(codeenginev2.GetReclamationOptions)
-				getReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the CreateJobRunOptions model
+				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
+				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
+				createJobRunOptionsModel.RunArguments = []string{"testString"}
+				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
+				createJobRunOptionsModel.RunCommands = []string{"testString"}
+				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
+				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetReclamation(getReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetReclamationOptions model with no property values
-				getReclamationOptionsModelNew := new(codeenginev2.GetReclamationOptions)
+				// Construct a second instance of the CreateJobRunOptions model with no property values
+				createJobRunOptionsModelNew := new(codeenginev2.CreateJobRunOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetReclamation(getReclamationOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetReclamation successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetReclamationOptions model
-				getReclamationOptionsModel := new(codeenginev2.GetReclamationOptions)
-				getReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetReclamation(getReclamationOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReclaimReclamation(reclaimReclamationOptions *ReclaimReclamationOptions) - Operation response error`, func() {
-		reclaimReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005/reclaim"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(reclaimReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ReclaimReclamation with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ReclaimReclamationOptions model
-				reclaimReclamationOptionsModel := new(codeenginev2.ReclaimReclamationOptions)
-				reclaimReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReclaimReclamation(reclaimReclamationOptions *ReclaimReclamationOptions)`, func() {
-		reclaimReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005/reclaim"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(reclaimReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke ReclaimReclamation successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ReclaimReclamationOptions model
-				reclaimReclamationOptionsModel := new(codeenginev2.ReclaimReclamationOptions)
-				reclaimReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ReclaimReclamationWithContext(ctx, reclaimReclamationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ReclaimReclamationWithContext(ctx, reclaimReclamationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(reclaimReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
-				}))
-			})
-			It(`Invoke ReclaimReclamation successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ReclaimReclamation(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ReclaimReclamationOptions model
-				reclaimReclamationOptionsModel := new(codeenginev2.ReclaimReclamationOptions)
-				reclaimReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ReclaimReclamation with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ReclaimReclamationOptions model
-				reclaimReclamationOptionsModel := new(codeenginev2.ReclaimReclamationOptions)
-				reclaimReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ReclaimReclamationOptions model with no property values
-				reclaimReclamationOptionsModelNew := new(codeenginev2.ReclaimReclamationOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModelNew)
+				result, response, operationErr = codeEngineService.CreateJobRun(createJobRunOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -9719,7 +5246,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(202)
 				}))
 			})
-			It(`Invoke ReclaimReclamation successfully`, func() {
+			It(`Invoke CreateJobRun successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9727,13 +5254,46 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ReclaimReclamationOptions model
-				reclaimReclamationOptionsModel := new(codeenginev2.ReclaimReclamationOptions)
-				reclaimReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+
+				// Construct an instance of the CreateJobRunOptions model
+				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
+				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
+				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
+				createJobRunOptionsModel.RunArguments = []string{"testString"}
+				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
+				createJobRunOptionsModel.RunCommands = []string{"testString"}
+				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
+				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
+				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
+				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := codeEngineService.ReclaimReclamation(reclaimReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.CreateJobRun(createJobRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -9745,22 +5305,22 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`RestoreReclamation(restoreReclamationOptions *RestoreReclamationOptions) - Operation response error`, func() {
-		restoreReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005/restore"
+	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions) - Operation response error`, func() {
+		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(restoreReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
+					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
+					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke RestoreReclamation with error: Operation response processing error`, func() {
+			It(`Invoke GetJobRun with error: Operation response processing error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9768,19 +5328,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the RestoreReclamationOptions model
-				restoreReclamationOptionsModel := new(codeenginev2.RestoreReclamationOptions)
-				restoreReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetJobRunOptions model
+				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
+				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.GetJobRun(getJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr = codeEngineService.GetJobRun(getJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -9790,27 +5351,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`RestoreReclamation(restoreReclamationOptions *RestoreReclamationOptions)`, func() {
-		restoreReclamationPath := "/reclamations/15314cc3-85b4-4338-903f-c28cdee6d005/restore"
+	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions)`, func() {
+		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(restoreReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
-			It(`Invoke RestoreReclamation successfully with retries`, func() {
+			It(`Invoke GetJobRun successfully with retries`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9819,21 +5380,22 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the RestoreReclamationOptions model
-				restoreReclamationOptionsModel := new(codeenginev2.RestoreReclamationOptions)
-				restoreReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetJobRunOptions model
+				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
+				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := codeEngineService.RestoreReclamationWithContext(ctx, restoreReclamationOptionsModel)
+				_, _, operationErr := codeEngineService.GetJobRunWithContext(ctx, getJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.GetJobRun(getJobRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -9841,7 +5403,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.RestoreReclamationWithContext(ctx, restoreReclamationOptionsModel)
+				_, _, operationErr = codeEngineService.GetJobRunWithContext(ctx, getJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -9855,16 +5417,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(restoreReclamationPath))
-					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "details": "succeeded", "id": "15314cc3-85b4-4338-903f-c28cdee6d005", "project_id": "15314cc3-85b4-4338-903f-c28cdee6d005", "reason": "create", "resource_group_id": "b91e849cedb04e7e92bd68c040c672dc", "status": "active", "target_time": "2022-09-22T17:40:56Z", "type": "reclamation/v2", "url": "URL"}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
-			It(`Invoke RestoreReclamation successfully`, func() {
+			It(`Invoke GetJobRun successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9873,24 +5435,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.RestoreReclamation(nil)
+				result, response, operationErr := codeEngineService.GetJobRun(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the RestoreReclamationOptions model
-				restoreReclamationOptionsModel := new(codeenginev2.RestoreReclamationOptions)
-				restoreReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetJobRunOptions model
+				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
+				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr = codeEngineService.GetJobRun(getJobRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke RestoreReclamation with error: Operation validation and request error`, func() {
+			It(`Invoke GetJobRun with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9898,22 +5461,1968 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the RestoreReclamationOptions model
-				restoreReclamationOptionsModel := new(codeenginev2.RestoreReclamationOptions)
-				restoreReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetJobRunOptions model
+				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
+				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.GetJobRun(getJobRunOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the RestoreReclamationOptions model with no property values
-				restoreReclamationOptionsModelNew := new(codeenginev2.RestoreReclamationOptions)
+				// Construct a second instance of the GetJobRunOptions model with no property values
+				getJobRunOptionsModelNew := new(codeenginev2.GetJobRunOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.RestoreReclamation(restoreReclamationOptionsModelNew)
+				result, response, operationErr = codeEngineService.GetJobRun(getJobRunOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetJobRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetJobRunOptions model
+				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
+				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetJobRun(getJobRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions)`, func() {
+		deleteJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteJobRunPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteJobRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteJobRun(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteJobRunOptions model
+				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
+				deleteJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
+				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteJobRun(deleteJobRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteJobRun with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteJobRunOptions model
+				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
+				deleteJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
+				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteJobRun(deleteJobRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteJobRunOptions model with no property values
+				deleteJobRunOptionsModelNew := new(codeenginev2.DeleteJobRunOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteJobRun(deleteJobRunOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions) - Operation response error`, func() {
+		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListBuilds with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildsOptions model
+				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
+				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildsOptionsModel.Start = core.StringPtr("testString")
+				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions)`, func() {
+		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBuilds successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListBuildsOptions model
+				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
+				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildsOptionsModel.Start = core.StringPtr("testString")
+				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListBuildsWithContext(ctx, listBuildsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListBuildsWithContext(ctx, listBuildsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBuilds successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListBuilds(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListBuildsOptions model
+				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
+				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildsOptionsModel.Start = core.StringPtr("testString")
+				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListBuilds with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildsOptions model
+				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
+				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildsOptionsModel.Start = core.StringPtr("testString")
+				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListBuildsOptions model with no property values
+				listBuildsOptionsModelNew := new(codeenginev2.ListBuildsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListBuilds(listBuildsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListBuilds successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildsOptions model
+				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
+				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildsOptionsModel.Start = core.StringPtr("testString")
+				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListBuilds(listBuildsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.BuildList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.BuildList)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use BuildsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.Build
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use BuildsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions) - Operation response error`, func() {
+		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateBuild with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateBuildOptions model
+				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
+				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildOptionsModel.SourceType = core.StringPtr("git")
+				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
+		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke CreateBuild successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateBuildOptions model
+				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
+				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildOptionsModel.SourceType = core.StringPtr("git")
+				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateBuildWithContext(ctx, createBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateBuildWithContext(ctx, createBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke CreateBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateBuild(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateBuildOptions model
+				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
+				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildOptionsModel.SourceType = core.StringPtr("git")
+				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateBuild with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateBuildOptions model
+				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
+				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildOptionsModel.SourceType = core.StringPtr("git")
+				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateBuildOptions model with no property values
+				createBuildOptionsModelNew := new(codeenginev2.CreateBuildOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateBuild(createBuildOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateBuildOptions model
+				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
+				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.Name = core.StringPtr("my-build")
+				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildOptionsModel.SourceType = core.StringPtr("git")
+				createBuildOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateBuild(createBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBuild(getBuildOptions *GetBuildOptions) - Operation response error`, func() {
+		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetBuild with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildOptions model
+				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
+				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.Name = core.StringPtr("my-build")
+				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
+		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke GetBuild successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetBuildOptions model
+				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
+				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.Name = core.StringPtr("my-build")
+				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetBuildWithContext(ctx, getBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetBuildWithContext(ctx, getBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke GetBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetBuild(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetBuildOptions model
+				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
+				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.Name = core.StringPtr("my-build")
+				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetBuild with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildOptions model
+				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
+				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.Name = core.StringPtr("my-build")
+				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetBuildOptions model with no property values
+				getBuildOptionsModelNew := new(codeenginev2.GetBuildOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetBuild(getBuildOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildOptions model
+				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
+				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.Name = core.StringPtr("my-build")
+				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetBuild(getBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
+		deleteBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteBuildPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteBuild(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteBuildOptions model
+				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
+				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildOptionsModel.Name = core.StringPtr("my-build")
+				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteBuild(deleteBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteBuild with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteBuildOptions model
+				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
+				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildOptionsModel.Name = core.StringPtr("my-build")
+				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteBuild(deleteBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteBuildOptions model with no property values
+				deleteBuildOptionsModelNew := new(codeenginev2.DeleteBuildOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteBuild(deleteBuildOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions) - Operation response error`, func() {
+		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateBuild with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the BuildPatch model
+				buildPatchModel := new(codeenginev2.BuildPatch)
+				buildPatchModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				buildPatchModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				buildPatchModel.SourceContextDir = core.StringPtr("some/subfolder")
+				buildPatchModel.SourceRevision = core.StringPtr("main")
+				buildPatchModel.SourceSecret = core.StringPtr("testString")
+				buildPatchModel.SourceType = core.StringPtr("git")
+				buildPatchModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				buildPatchModel.StrategySize = core.StringPtr("medium")
+				buildPatchModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				buildPatchModel.StrategyType = core.StringPtr("dockerfile")
+				buildPatchModel.Timeout = core.Int64Ptr(int64(600))
+				buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateBuildOptions model
+				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
+				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
+				updateBuildOptionsModel.Build = buildPatchModelAsPatch
+				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
+		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke UpdateBuild successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the BuildPatch model
+				buildPatchModel := new(codeenginev2.BuildPatch)
+				buildPatchModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				buildPatchModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				buildPatchModel.SourceContextDir = core.StringPtr("some/subfolder")
+				buildPatchModel.SourceRevision = core.StringPtr("main")
+				buildPatchModel.SourceSecret = core.StringPtr("testString")
+				buildPatchModel.SourceType = core.StringPtr("git")
+				buildPatchModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				buildPatchModel.StrategySize = core.StringPtr("medium")
+				buildPatchModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				buildPatchModel.StrategyType = core.StringPtr("dockerfile")
+				buildPatchModel.Timeout = core.Int64Ptr(int64(600))
+				buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateBuildOptions model
+				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
+				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
+				updateBuildOptionsModel.Build = buildPatchModelAsPatch
+				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateBuildWithContext(ctx, updateBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateBuildWithContext(ctx, updateBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateBuildPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke UpdateBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateBuild(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the BuildPatch model
+				buildPatchModel := new(codeenginev2.BuildPatch)
+				buildPatchModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				buildPatchModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				buildPatchModel.SourceContextDir = core.StringPtr("some/subfolder")
+				buildPatchModel.SourceRevision = core.StringPtr("main")
+				buildPatchModel.SourceSecret = core.StringPtr("testString")
+				buildPatchModel.SourceType = core.StringPtr("git")
+				buildPatchModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				buildPatchModel.StrategySize = core.StringPtr("medium")
+				buildPatchModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				buildPatchModel.StrategyType = core.StringPtr("dockerfile")
+				buildPatchModel.Timeout = core.Int64Ptr(int64(600))
+				buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateBuildOptions model
+				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
+				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
+				updateBuildOptionsModel.Build = buildPatchModelAsPatch
+				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateBuild with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the BuildPatch model
+				buildPatchModel := new(codeenginev2.BuildPatch)
+				buildPatchModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				buildPatchModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				buildPatchModel.SourceContextDir = core.StringPtr("some/subfolder")
+				buildPatchModel.SourceRevision = core.StringPtr("main")
+				buildPatchModel.SourceSecret = core.StringPtr("testString")
+				buildPatchModel.SourceType = core.StringPtr("git")
+				buildPatchModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				buildPatchModel.StrategySize = core.StringPtr("medium")
+				buildPatchModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				buildPatchModel.StrategyType = core.StringPtr("dockerfile")
+				buildPatchModel.Timeout = core.Int64Ptr(int64(600))
+				buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateBuildOptions model
+				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
+				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
+				updateBuildOptionsModel.Build = buildPatchModelAsPatch
+				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateBuildOptions model with no property values
+				updateBuildOptionsModelNew := new(codeenginev2.UpdateBuildOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateBuild(updateBuildOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateBuild successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the BuildPatch model
+				buildPatchModel := new(codeenginev2.BuildPatch)
+				buildPatchModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				buildPatchModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				buildPatchModel.SourceContextDir = core.StringPtr("some/subfolder")
+				buildPatchModel.SourceRevision = core.StringPtr("main")
+				buildPatchModel.SourceSecret = core.StringPtr("testString")
+				buildPatchModel.SourceType = core.StringPtr("git")
+				buildPatchModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				buildPatchModel.StrategySize = core.StringPtr("medium")
+				buildPatchModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				buildPatchModel.StrategyType = core.StringPtr("dockerfile")
+				buildPatchModel.Timeout = core.Int64Ptr(int64(600))
+				buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateBuildOptions model
+				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
+				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.Name = core.StringPtr("my-build")
+				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
+				updateBuildOptionsModel.Build = buildPatchModelAsPatch
+				updateBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateBuild(updateBuildOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) - Operation response error`, func() {
+		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListBuildRuns with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildRunsOptions model
+				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
+				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
+				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions)`, func() {
+		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBuildRuns successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListBuildRunsOptions model
+				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
+				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
+				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListBuildRunsWithContext(ctx, listBuildRunsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListBuildRunsWithContext(ctx, listBuildRunsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBuildRuns successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListBuildRuns(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListBuildRunsOptions model
+				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
+				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
+				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListBuildRuns with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildRunsOptions model
+				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
+				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
+				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListBuildRunsOptions model with no property values
+				listBuildRunsOptionsModelNew := new(codeenginev2.ListBuildRunsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListBuildRuns(listBuildRunsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListBuildRuns successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBuildRunsOptions model
+				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
+				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
+				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListBuildRuns(listBuildRunsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.BuildRunList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.BuildRunList)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use BuildRunsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.BuildRun
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use BuildRunsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions) - Operation response error`, func() {
+		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildRunPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateBuildRun with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateBuildRunOptions model
+				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
+				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
+				createBuildRunOptionsModel.Name = core.StringPtr("testString")
+				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.ServiceAccount = core.StringPtr("default")
+				createBuildRunOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildRunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildRunOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildRunOptionsModel.SourceType = core.StringPtr("git")
+				createBuildRunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildRunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildRunOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildRunOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions)`, func() {
+		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildRunPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke CreateBuildRun successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateBuildRunOptions model
+				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
+				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
+				createBuildRunOptionsModel.Name = core.StringPtr("testString")
+				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.ServiceAccount = core.StringPtr("default")
+				createBuildRunOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildRunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildRunOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildRunOptionsModel.SourceType = core.StringPtr("git")
+				createBuildRunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildRunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildRunOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildRunOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateBuildRunWithContext(ctx, createBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateBuildRunWithContext(ctx, createBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBuildRunPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke CreateBuildRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateBuildRun(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateBuildRunOptions model
+				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
+				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
+				createBuildRunOptionsModel.Name = core.StringPtr("testString")
+				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.ServiceAccount = core.StringPtr("default")
+				createBuildRunOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildRunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildRunOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildRunOptionsModel.SourceType = core.StringPtr("git")
+				createBuildRunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildRunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildRunOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildRunOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateBuildRun with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateBuildRunOptions model
+				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
+				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
+				createBuildRunOptionsModel.Name = core.StringPtr("testString")
+				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.ServiceAccount = core.StringPtr("default")
+				createBuildRunOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildRunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildRunOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildRunOptionsModel.SourceType = core.StringPtr("git")
+				createBuildRunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildRunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildRunOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildRunOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateBuildRunOptions model with no property values
+				createBuildRunOptionsModelNew := new(codeenginev2.CreateBuildRunOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateBuildRun(createBuildRunOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -9931,7 +7440,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(202)
 				}))
 			})
-			It(`Invoke RestoreReclamation successfully`, func() {
+			It(`Invoke CreateBuildRun successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -9939,18 +7448,2629 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the RestoreReclamationOptions model
-				restoreReclamationOptionsModel := new(codeenginev2.RestoreReclamationOptions)
-				restoreReclamationOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateBuildRunOptions model
+				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
+				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
+				createBuildRunOptionsModel.Name = core.StringPtr("testString")
+				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.ServiceAccount = core.StringPtr("default")
+				createBuildRunOptionsModel.SourceContextDir = core.StringPtr("some/subfolder")
+				createBuildRunOptionsModel.SourceRevision = core.StringPtr("main")
+				createBuildRunOptionsModel.SourceSecret = core.StringPtr("testString")
+				createBuildRunOptionsModel.SourceType = core.StringPtr("git")
+				createBuildRunOptionsModel.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.StrategySize = core.StringPtr("medium")
+				createBuildRunOptionsModel.StrategySpecFile = core.StringPtr("Dockerfile")
+				createBuildRunOptionsModel.StrategyType = core.StringPtr("dockerfile")
+				createBuildRunOptionsModel.Timeout = core.Int64Ptr(int64(600))
+				createBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := codeEngineService.RestoreReclamation(restoreReclamationOptionsModel)
+				result, response, operationErr := codeEngineService.CreateBuildRun(createBuildRunOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
 				// Verify a nil result
 				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions) - Operation response error`, func() {
+		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildRunPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetBuildRun with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildRunOptions model
+				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
+				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions)`, func() {
+		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildRunPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke GetBuildRun successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetBuildRunOptions model
+				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
+				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetBuildRunWithContext(ctx, getBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetBuildRunWithContext(ctx, getBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBuildRunPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+				}))
+			})
+			It(`Invoke GetBuildRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetBuildRun(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetBuildRunOptions model
+				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
+				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetBuildRun with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildRunOptions model
+				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
+				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetBuildRunOptions model with no property values
+				getBuildRunOptionsModelNew := new(codeenginev2.GetBuildRunOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetBuildRun(getBuildRunOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetBuildRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBuildRunOptions model
+				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
+				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetBuildRun(getBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions)`, func() {
+		deleteBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteBuildRunPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteBuildRun successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteBuildRun(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteBuildRunOptions model
+				deleteBuildRunOptionsModel := new(codeenginev2.DeleteBuildRunOptions)
+				deleteBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				deleteBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteBuildRun(deleteBuildRunOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteBuildRun with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteBuildRunOptions model
+				deleteBuildRunOptionsModel := new(codeenginev2.DeleteBuildRunOptions)
+				deleteBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
+				deleteBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteBuildRun(deleteBuildRunOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteBuildRunOptions model with no property values
+				deleteBuildRunOptionsModelNew := new(codeenginev2.DeleteBuildRunOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteBuildRun(deleteBuildRunOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) - Operation response error`, func() {
+		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigMapsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListConfigMaps with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigMapsOptions model
+				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
+				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
+				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions)`, func() {
+		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigMapsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListConfigMaps successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListConfigMapsOptions model
+				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
+				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
+				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListConfigMapsWithContext(ctx, listConfigMapsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListConfigMapsWithContext(ctx, listConfigMapsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigMapsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListConfigMaps successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListConfigMaps(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListConfigMapsOptions model
+				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
+				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
+				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListConfigMaps with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigMapsOptions model
+				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
+				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
+				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListConfigMapsOptions model with no property values
+				listConfigMapsOptionsModelNew := new(codeenginev2.ListConfigMapsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListConfigMaps(listConfigMapsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListConfigMaps successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigMapsOptions model
+				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
+				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
+				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListConfigMaps(listConfigMapsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.ConfigMapList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.ConfigMapList)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigMapsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ConfigMapsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.ConfigMap
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ConfigMapsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions) - Operation response error`, func() {
+		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createConfigMapPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateConfigMap with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateConfigMapOptions model
+				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
+				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions)`, func() {
+		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createConfigMapPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke CreateConfigMap successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateConfigMapOptions model
+				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
+				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateConfigMapWithContext(ctx, createConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateConfigMapWithContext(ctx, createConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createConfigMapPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke CreateConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateConfigMap(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateConfigMapOptions model
+				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
+				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateConfigMap with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateConfigMapOptions model
+				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
+				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateConfigMapOptions model with no property values
+				createConfigMapOptionsModelNew := new(codeenginev2.CreateConfigMapOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateConfigMap(createConfigMapOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateConfigMapOptions model
+				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
+				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions) - Operation response error`, func() {
+		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getConfigMapPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetConfigMap with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetConfigMapOptions model
+				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
+				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions)`, func() {
+		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getConfigMapPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke GetConfigMap successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetConfigMapOptions model
+				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
+				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetConfigMapWithContext(ctx, getConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetConfigMapWithContext(ctx, getConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getConfigMapPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke GetConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetConfigMap(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetConfigMapOptions model
+				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
+				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetConfigMap with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetConfigMapOptions model
+				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
+				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetConfigMapOptions model with no property values
+				getConfigMapOptionsModelNew := new(codeenginev2.GetConfigMapOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetConfigMap(getConfigMapOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetConfigMapOptions model
+				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
+				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetConfigMap(getConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions) - Operation response error`, func() {
+		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceConfigMapPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceConfigMap with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceConfigMapOptions model
+				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
+				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions)`, func() {
+		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceConfigMapPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke ReplaceConfigMap successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ReplaceConfigMapOptions model
+				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
+				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ReplaceConfigMapWithContext(ctx, replaceConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ReplaceConfigMapWithContext(ctx, replaceConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceConfigMapPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+				}))
+			})
+			It(`Invoke ReplaceConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ReplaceConfigMap(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ReplaceConfigMapOptions model
+				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
+				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ReplaceConfigMap with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceConfigMapOptions model
+				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
+				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceConfigMapOptions model with no property values
+				replaceConfigMapOptionsModelNew := new(codeenginev2.ReplaceConfigMapOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceConfigMapOptions model
+				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
+				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions)`, func() {
+		deleteConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigMapPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteConfigMap successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteConfigMap(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteConfigMapOptions model
+				deleteConfigMapOptionsModel := new(codeenginev2.DeleteConfigMapOptions)
+				deleteConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				deleteConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteConfigMap(deleteConfigMapOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteConfigMap with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteConfigMapOptions model
+				deleteConfigMapOptionsModel := new(codeenginev2.DeleteConfigMapOptions)
+				deleteConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
+				deleteConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteConfigMap(deleteConfigMapOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteConfigMapOptions model with no property values
+				deleteConfigMapOptionsModelNew := new(codeenginev2.DeleteConfigMapOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteConfigMap(deleteConfigMapOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
+		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListSecrets with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listSecretsOptionsModel.Start = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
+		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}]}`)
+				}))
+			})
+			It(`Invoke ListSecrets successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listSecretsOptionsModel.Start = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListSecretsWithContext(ctx, listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}]}`)
+				}))
+			})
+			It(`Invoke ListSecrets successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListSecrets(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listSecretsOptionsModel.Start = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListSecrets with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listSecretsOptionsModel.Start = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListSecretsOptions model with no property values
+				listSecretsOptionsModelNew := new(codeenginev2.ListSecretsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListSecrets(listSecretsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListSecrets successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListSecretsOptions model
+				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
+				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listSecretsOptionsModel.Start = core.StringPtr("testString")
+				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListSecrets(listSecretsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.SecretList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.SecretList)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listSecretsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"ResourceKeyID","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Role","service_id_crn":"ServiceIdCrn","service_instance_id":"ServiceInstanceID","service_instance_type":"ServiceInstanceType"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"ResourceKeyID","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Role","service_id_crn":"ServiceIdCrn","service_instance_id":"ServiceInstanceID","service_instance_type":"ServiceInstanceType"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use SecretsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.Secret
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use SecretsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
+					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions) - Operation response error`, func() {
+		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Format = core.StringPtr("generic")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
+		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke CreateSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Format = core.StringPtr("generic")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateSecretWithContext(ctx, createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createSecretPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke CreateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Format = core.StringPtr("generic")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Format = core.StringPtr("generic")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateSecretOptions model with no property values
+				createSecretOptionsModelNew := new(codeenginev2.CreateSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateSecret(createSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the CreateSecretOptions model
+				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
+				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.Format = core.StringPtr("generic")
+				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSecret(getSecretOptions *GetSecretOptions) - Operation response error`, func() {
+		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.Name = core.StringPtr("my-secret")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
+		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke GetSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.Name = core.StringPtr("my-secret")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetSecretWithContext(ctx, getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSecretPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke GetSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.Name = core.StringPtr("my-secret")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.Name = core.StringPtr("my-secret")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetSecretOptions model with no property values
+				getSecretOptionsModelNew := new(codeenginev2.GetSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetSecret(getSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetSecretOptions model
+				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
+				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.Name = core.StringPtr("my-secret")
+				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetSecret(getSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions) - Operation response error`, func() {
+		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceSecretPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceSecret with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceSecretOptions model
+				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
+				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
+				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions)`, func() {
+		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceSecretPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke ReplaceSecret successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ReplaceSecretOptions model
+				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
+				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
+				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ReplaceSecretWithContext(ctx, replaceSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ReplaceSecretWithContext(ctx, replaceSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(replaceSecretPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+				}))
+			})
+			It(`Invoke ReplaceSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ReplaceSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ReplaceSecretOptions model
+				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
+				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
+				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ReplaceSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceSecretOptions model
+				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
+				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
+				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceSecretOptions model with no property values
+				replaceSecretOptionsModelNew := new(codeenginev2.ReplaceSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ReplaceSecret(replaceSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceSecretOptions model
+				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
+				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
+				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
+		deleteSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteSecretPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteSecret successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteSecret(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteSecretOptions model
+				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
+				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteSecretOptionsModel.Name = core.StringPtr("my-secret")
+				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteSecret with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteSecretOptions model
+				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
+				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteSecretOptionsModel.Name = core.StringPtr("my-secret")
+				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteSecret(deleteSecretOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteSecretOptions model with no property values
+				deleteSecretOptionsModelNew := new(codeenginev2.DeleteSecretOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteSecret(deleteSecretOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -9964,52 +10084,51 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCreateAppOptions successfully`, func() {
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				Expect(envVarModel).ToNot(BeNil())
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
-				Expect(envVarModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
-				Expect(envVarModel.Name).To(Equal(core.StringPtr("SOME")))
-				Expect(envVarModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
-				Expect(envVarModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(envVarModel.Type).To(Equal(core.StringPtr("literal")))
-				Expect(envVarModel.Value).To(Equal(core.StringPtr("VALUE")))
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				Expect(envVarPrototypeModel).ToNot(BeNil())
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+				Expect(envVarPrototypeModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
+				Expect(envVarPrototypeModel.Name).To(Equal(core.StringPtr("SOME")))
+				Expect(envVarPrototypeModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
+				Expect(envVarPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(envVarPrototypeModel.Type).To(Equal(core.StringPtr("literal")))
+				Expect(envVarPrototypeModel.Value).To(Equal(core.StringPtr("VALUE")))
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				Expect(volumeMountModel).ToNot(BeNil())
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
-				Expect(volumeMountModel.MountPath).To(Equal(core.StringPtr("/app")))
-				Expect(volumeMountModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
-				Expect(volumeMountModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(volumeMountModel.Type).To(Equal(core.StringPtr("secret")))
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				Expect(volumeMountPrototypeModel).ToNot(BeNil())
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+				Expect(volumeMountPrototypeModel.MountPath).To(Equal(core.StringPtr("/app")))
+				Expect(volumeMountPrototypeModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
+				Expect(volumeMountPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
 
 				// Construct an instance of the CreateAppOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createAppOptionsImageReference := "icr.io/codeengine/helloworld"
 				createAppOptionsName := "my-app"
-				createAppOptionsModel := codeEngineService.NewCreateAppOptions(projectGuid, createAppOptionsName)
+				createAppOptionsModel := codeEngineService.NewCreateAppOptions(projectGuid, createAppOptionsImageReference, createAppOptionsName)
 				createAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createAppOptionsModel.SetName("my-app")
-				createAppOptionsModel.SetCeManagedDomainMappings("local_public")
 				createAppOptionsModel.SetImagePort(int64(8080))
-				createAppOptionsModel.SetImageProtocol("http1")
-				createAppOptionsModel.SetImageRef("icr.io/codeengine/helloworld")
 				createAppOptionsModel.SetImageSecret("my-secret")
-				createAppOptionsModel.SetRevisionSuffix("rev-0001")
-				createAppOptionsModel.SetRunArgs([]string{"testString"})
+				createAppOptionsModel.SetManagedDomainMappings("local_public")
+				createAppOptionsModel.SetRunArguments([]string{"testString"})
 				createAppOptionsModel.SetRunAsUser(int64(1001))
 				createAppOptionsModel.SetRunCommands([]string{"testString"})
-				createAppOptionsModel.SetRunEnvVars([]codeenginev2.EnvVar{*envVarModel})
+				createAppOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
 				createAppOptionsModel.SetRunServiceAccount("default")
-				createAppOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMount{*volumeMountModel})
+				createAppOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createAppOptionsModel.SetScaleConcurrency(int64(100))
 				createAppOptionsModel.SetScaleConcurrencyTarget(int64(80))
 				createAppOptionsModel.SetScaleCpuLimit("1")
@@ -10019,23 +10138,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.SetScaleMemoryLimit("4G")
 				createAppOptionsModel.SetScaleMinInstances(int64(1))
 				createAppOptionsModel.SetScaleRequestTimeout(int64(300))
-				createAppOptionsModel.SetVersion("1")
 				createAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAppOptionsModel).ToNot(BeNil())
 				Expect(createAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createAppOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
-				Expect(createAppOptionsModel.CeManagedDomainMappings).To(Equal(core.StringPtr("local_public")))
 				Expect(createAppOptionsModel.ImagePort).To(Equal(core.Int64Ptr(int64(8080))))
-				Expect(createAppOptionsModel.ImageProtocol).To(Equal(core.StringPtr("http1")))
-				Expect(createAppOptionsModel.ImageRef).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createAppOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
-				Expect(createAppOptionsModel.RevisionSuffix).To(Equal(core.StringPtr("rev-0001")))
-				Expect(createAppOptionsModel.RunArgs).To(Equal([]string{"testString"}))
+				Expect(createAppOptionsModel.ManagedDomainMappings).To(Equal(core.StringPtr("local_public")))
+				Expect(createAppOptionsModel.RunArguments).To(Equal([]string{"testString"}))
 				Expect(createAppOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
 				Expect(createAppOptionsModel.RunCommands).To(Equal([]string{"testString"}))
-				Expect(createAppOptionsModel.RunEnvVars).To(Equal([]codeenginev2.EnvVar{*envVarModel}))
+				Expect(createAppOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
 				Expect(createAppOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
-				Expect(createAppOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMount{*volumeMountModel}))
+				Expect(createAppOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createAppOptionsModel.ScaleConcurrency).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(createAppOptionsModel.ScaleConcurrencyTarget).To(Equal(core.Int64Ptr(int64(80))))
 				Expect(createAppOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
@@ -10045,25 +10161,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createAppOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
 				Expect(createAppOptionsModel.ScaleMinInstances).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(createAppOptionsModel.ScaleRequestTimeout).To(Equal(core.Int64Ptr(int64(300))))
-				Expect(createAppOptionsModel.Version).To(Equal(core.StringPtr("1")))
 				Expect(createAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateBuildOptions successfully`, func() {
 				// Construct an instance of the CreateBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createBuildOptionsName := "my-build"
-				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectGuid, createBuildOptionsName)
+				createBuildOptionsOutputImage := "private.de.icr.io/icr_namespace/image-name"
+				createBuildOptionsOutputSecret := "ce-auto-icr-private-eu-de"
+				createBuildOptionsSourceURL := "https://github.com/IBM/CodeEngine"
+				createBuildOptionsStrategyType := "dockerfile"
+				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectGuid, createBuildOptionsName, createBuildOptionsOutputImage, createBuildOptionsOutputSecret, createBuildOptionsSourceURL, createBuildOptionsStrategyType)
 				createBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.SetName("my-build")
-				createBuildOptionsModel.SetCeOwnerReference("testString")
-				createBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
-				createBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
-				createBuildOptionsModel.SetSourceContextDir("testString")
+				createBuildOptionsModel.SetOutputImage("private.de.icr.io/icr_namespace/image-name")
+				createBuildOptionsModel.SetOutputSecret("ce-auto-icr-private-eu-de")
+				createBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
+				createBuildOptionsModel.SetStrategyType("dockerfile")
+				createBuildOptionsModel.SetSourceContextDir("some/subfolder")
 				createBuildOptionsModel.SetSourceRevision("main")
 				createBuildOptionsModel.SetSourceSecret("testString")
 				createBuildOptionsModel.SetSourceType("git")
-				createBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
-				createBuildOptionsModel.SetStrategyName("dockerfile")
 				createBuildOptionsModel.SetStrategySize("medium")
 				createBuildOptionsModel.SetStrategySpecFile("Dockerfile")
 				createBuildOptionsModel.SetTimeout(int64(600))
@@ -10071,153 +10189,221 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createBuildOptionsModel).ToNot(BeNil())
 				Expect(createBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
-				Expect(createBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
-				Expect(createBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
-				Expect(createBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
+				Expect(createBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("private.de.icr.io/icr_namespace/image-name")))
+				Expect(createBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-auto-icr-private-eu-de")))
+				Expect(createBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
+				Expect(createBuildOptionsModel.StrategyType).To(Equal(core.StringPtr("dockerfile")))
+				Expect(createBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("some/subfolder")))
 				Expect(createBuildOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
 				Expect(createBuildOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
-				Expect(createBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
-				Expect(createBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
 				Expect(createBuildOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
 				Expect(createBuildOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
 				Expect(createBuildOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
 				Expect(createBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateBuildrunOptions successfully`, func() {
-				// Construct an instance of the CreateBuildrunOptions model
+			It(`Invoke NewCreateBuildRunOptions successfully`, func() {
+				// Construct an instance of the CreateBuildRunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createBuildrunOptionsName := "testString"
-				createBuildrunOptionsModel := codeEngineService.NewCreateBuildrunOptions(projectGuid, createBuildrunOptionsName)
-				createBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBuildrunOptionsModel.SetName("testString")
-				createBuildrunOptionsModel.SetAppRevision("testString")
-				createBuildrunOptionsModel.SetBuild("testString")
-				createBuildrunOptionsModel.SetCeOwnerReference("testString")
-				createBuildrunOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
-				createBuildrunOptionsModel.SetOutputSecret("ce-default-icr-us-south")
-				createBuildrunOptionsModel.SetServiceAccount("default")
-				createBuildrunOptionsModel.SetSourceContextDir("testString")
-				createBuildrunOptionsModel.SetSourceRevision("main")
-				createBuildrunOptionsModel.SetSourceSecret("testString")
-				createBuildrunOptionsModel.SetSourceType("git")
-				createBuildrunOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
-				createBuildrunOptionsModel.SetStrategyName("dockerfile")
-				createBuildrunOptionsModel.SetStrategySize("medium")
-				createBuildrunOptionsModel.SetStrategySpecFile("Dockerfile")
-				createBuildrunOptionsModel.SetTimeout(int64(600))
-				createBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createBuildrunOptionsModel).ToNot(BeNil())
-				Expect(createBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createBuildrunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.AppRevision).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.Build).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
-				Expect(createBuildrunOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
-				Expect(createBuildrunOptionsModel.ServiceAccount).To(Equal(core.StringPtr("default")))
-				Expect(createBuildrunOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
-				Expect(createBuildrunOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
-				Expect(createBuildrunOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
-				Expect(createBuildrunOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
-				Expect(createBuildrunOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
-				Expect(createBuildrunOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
-				Expect(createBuildrunOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
-				Expect(createBuildrunOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
-				Expect(createBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				createBuildRunOptionsModel := codeEngineService.NewCreateBuildRunOptions(projectGuid)
+				createBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.SetBuildName("testString")
+				createBuildRunOptionsModel.SetName("testString")
+				createBuildRunOptionsModel.SetOutputImage("private.de.icr.io/icr_namespace/image-name")
+				createBuildRunOptionsModel.SetOutputSecret("ce-auto-icr-private-eu-de")
+				createBuildRunOptionsModel.SetServiceAccount("default")
+				createBuildRunOptionsModel.SetSourceContextDir("some/subfolder")
+				createBuildRunOptionsModel.SetSourceRevision("main")
+				createBuildRunOptionsModel.SetSourceSecret("testString")
+				createBuildRunOptionsModel.SetSourceType("git")
+				createBuildRunOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
+				createBuildRunOptionsModel.SetStrategySize("medium")
+				createBuildRunOptionsModel.SetStrategySpecFile("Dockerfile")
+				createBuildRunOptionsModel.SetStrategyType("dockerfile")
+				createBuildRunOptionsModel.SetTimeout(int64(600))
+				createBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createBuildRunOptionsModel).ToNot(BeNil())
+				Expect(createBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createBuildRunOptionsModel.BuildName).To(Equal(core.StringPtr("testString")))
+				Expect(createBuildRunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createBuildRunOptionsModel.OutputImage).To(Equal(core.StringPtr("private.de.icr.io/icr_namespace/image-name")))
+				Expect(createBuildRunOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-auto-icr-private-eu-de")))
+				Expect(createBuildRunOptionsModel.ServiceAccount).To(Equal(core.StringPtr("default")))
+				Expect(createBuildRunOptionsModel.SourceContextDir).To(Equal(core.StringPtr("some/subfolder")))
+				Expect(createBuildRunOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
+				Expect(createBuildRunOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
+				Expect(createBuildRunOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
+				Expect(createBuildRunOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
+				Expect(createBuildRunOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
+				Expect(createBuildRunOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
+				Expect(createBuildRunOptionsModel.StrategyType).To(Equal(core.StringPtr("dockerfile")))
+				Expect(createBuildRunOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
+				Expect(createBuildRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateConfigmapOptions successfully`, func() {
-				// Construct an instance of the CreateConfigmapOptions model
+			It(`Invoke NewCreateConfigMapOptions successfully`, func() {
+				// Construct an instance of the CreateConfigMapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createConfigmapOptionsName := "my-configmap"
-				createConfigmapOptionsModel := codeEngineService.NewCreateConfigmapOptions(projectGuid, createConfigmapOptionsName)
-				createConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigmapOptionsModel.SetName("my-configmap")
-				createConfigmapOptionsModel.SetData(make(map[string]string))
-				createConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createConfigmapOptionsModel).ToNot(BeNil())
-				Expect(createConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
-				Expect(createConfigmapOptionsModel.Data).To(Equal(make(map[string]string)))
-				Expect(createConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				createConfigMapOptionsName := "my-configmap"
+				createConfigMapOptionsModel := codeEngineService.NewCreateConfigMapOptions(projectGuid, createConfigMapOptionsName)
+				createConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.SetName("my-configmap")
+				createConfigMapOptionsModel.SetData(make(map[string]string))
+				createConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createConfigMapOptionsModel).ToNot(BeNil())
+				Expect(createConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
+				Expect(createConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(createConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateJobOptions successfully`, func() {
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				Expect(envVarModel).ToNot(BeNil())
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
-				Expect(envVarModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
-				Expect(envVarModel.Name).To(Equal(core.StringPtr("SOME")))
-				Expect(envVarModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
-				Expect(envVarModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(envVarModel.Type).To(Equal(core.StringPtr("literal")))
-				Expect(envVarModel.Value).To(Equal(core.StringPtr("VALUE")))
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				Expect(envVarPrototypeModel).ToNot(BeNil())
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+				Expect(envVarPrototypeModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
+				Expect(envVarPrototypeModel.Name).To(Equal(core.StringPtr("SOME")))
+				Expect(envVarPrototypeModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
+				Expect(envVarPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(envVarPrototypeModel.Type).To(Equal(core.StringPtr("literal")))
+				Expect(envVarPrototypeModel.Value).To(Equal(core.StringPtr("VALUE")))
 
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				Expect(volumeMountModel).ToNot(BeNil())
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
-				Expect(volumeMountModel.MountPath).To(Equal(core.StringPtr("/app")))
-				Expect(volumeMountModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
-				Expect(volumeMountModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(volumeMountModel.Type).To(Equal(core.StringPtr("secret")))
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				Expect(volumeMountPrototypeModel).ToNot(BeNil())
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+				Expect(volumeMountPrototypeModel.MountPath).To(Equal(core.StringPtr("/app")))
+				Expect(volumeMountPrototypeModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
+				Expect(volumeMountPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
 
 				// Construct an instance of the CreateJobOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createJobOptionsModel := codeEngineService.NewCreateJobOptions(projectGuid)
+				createJobOptionsImageReference := "icr.io/codeengine/helloworld"
+				createJobOptionsName := "my-job"
+				createJobOptionsModel := codeEngineService.NewCreateJobOptions(projectGuid, createJobOptionsImageReference, createJobOptionsName)
 				createJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createJobOptionsModel.SetImageRef("icr.io/codeengine/helloworld")
-				createJobOptionsModel.SetImageSecret("my-secret")
+				createJobOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createJobOptionsModel.SetName("my-job")
-				createJobOptionsModel.SetRunArgs([]string{"testString"})
+				createJobOptionsModel.SetImageSecret("my-secret")
+				createJobOptionsModel.SetRunArguments([]string{"testString"})
 				createJobOptionsModel.SetRunAsUser(int64(1001))
 				createJobOptionsModel.SetRunCommands([]string{"testString"})
-				createJobOptionsModel.SetRunEnvVars([]codeenginev2.EnvVar{*envVarModel})
+				createJobOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
 				createJobOptionsModel.SetRunMode("daemon")
 				createJobOptionsModel.SetRunServiceAccount("default")
-				createJobOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMount{*volumeMountModel})
+				createJobOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createJobOptionsModel.SetScaleArraySpec("1-5,7-8,10")
 				createJobOptionsModel.SetScaleCpuLimit("1")
 				createJobOptionsModel.SetScaleEphemeralStorageLimit("4G")
 				createJobOptionsModel.SetScaleMaxExecutionTime(int64(7200))
 				createJobOptionsModel.SetScaleMemoryLimit("4G")
 				createJobOptionsModel.SetScaleRetryLimit(int64(3))
-				createJobOptionsModel.SetVersion("1")
 				createJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createJobOptionsModel).ToNot(BeNil())
 				Expect(createJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createJobOptionsModel.ImageRef).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
-				Expect(createJobOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
+				Expect(createJobOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
-				Expect(createJobOptionsModel.RunArgs).To(Equal([]string{"testString"}))
+				Expect(createJobOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
+				Expect(createJobOptionsModel.RunArguments).To(Equal([]string{"testString"}))
 				Expect(createJobOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
 				Expect(createJobOptionsModel.RunCommands).To(Equal([]string{"testString"}))
-				Expect(createJobOptionsModel.RunEnvVars).To(Equal([]codeenginev2.EnvVar{*envVarModel}))
+				Expect(createJobOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
 				Expect(createJobOptionsModel.RunMode).To(Equal(core.StringPtr("daemon")))
 				Expect(createJobOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
-				Expect(createJobOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMount{*volumeMountModel}))
+				Expect(createJobOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createJobOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
 				Expect(createJobOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
 				Expect(createJobOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
 				Expect(createJobOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(7200))))
 				Expect(createJobOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
 				Expect(createJobOptionsModel.ScaleRetryLimit).To(Equal(core.Int64Ptr(int64(3))))
-				Expect(createJobOptionsModel.Version).To(Equal(core.StringPtr("1")))
 				Expect(createJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateJobRunOptions successfully`, func() {
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				Expect(envVarPrototypeModel).ToNot(BeNil())
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Ref = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+				Expect(envVarPrototypeModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
+				Expect(envVarPrototypeModel.Name).To(Equal(core.StringPtr("SOME")))
+				Expect(envVarPrototypeModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
+				Expect(envVarPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(envVarPrototypeModel.Type).To(Equal(core.StringPtr("literal")))
+				Expect(envVarPrototypeModel.Value).To(Equal(core.StringPtr("VALUE")))
+
+				// Construct an instance of the VolumeMountPrototype model
+				volumeMountPrototypeModel := new(codeenginev2.VolumeMountPrototype)
+				Expect(volumeMountPrototypeModel).ToNot(BeNil())
+				volumeMountPrototypeModel.MountPath = core.StringPtr("/app")
+				volumeMountPrototypeModel.Name = core.StringPtr("codeengine-mount-b69u90")
+				volumeMountPrototypeModel.Ref = core.StringPtr("my-secret")
+				volumeMountPrototypeModel.Type = core.StringPtr("secret")
+				Expect(volumeMountPrototypeModel.MountPath).To(Equal(core.StringPtr("/app")))
+				Expect(volumeMountPrototypeModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
+				Expect(volumeMountPrototypeModel.Ref).To(Equal(core.StringPtr("my-secret")))
+				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
+
+				// Construct an instance of the CreateJobRunOptions model
+				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createJobRunOptionsModel := codeEngineService.NewCreateJobRunOptions(projectGuid)
+				createJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
+				createJobRunOptionsModel.SetImageSecret("my-secret")
+				createJobRunOptionsModel.SetJob("my-job")
+				createJobRunOptionsModel.SetName("my-job-run")
+				createJobRunOptionsModel.SetRunArguments([]string{"testString"})
+				createJobRunOptionsModel.SetRunAsUser(int64(1001))
+				createJobRunOptionsModel.SetRunCommands([]string{"testString"})
+				createJobRunOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
+				createJobRunOptionsModel.SetRunMode("daemon")
+				createJobRunOptionsModel.SetRunServiceAccount("default")
+				createJobRunOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
+				createJobRunOptionsModel.SetScaleArraySpec("1-5,7-8,10")
+				createJobRunOptionsModel.SetScaleCpuLimit("1")
+				createJobRunOptionsModel.SetScaleEphemeralStorageLimit("4G")
+				createJobRunOptionsModel.SetScaleMaxExecutionTime(int64(7200))
+				createJobRunOptionsModel.SetScaleMemoryLimit("4G")
+				createJobRunOptionsModel.SetScaleRetryLimit(int64(3))
+				createJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createJobRunOptionsModel).ToNot(BeNil())
+				Expect(createJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createJobRunOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
+				Expect(createJobRunOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
+				Expect(createJobRunOptionsModel.Job).To(Equal(core.StringPtr("my-job")))
+				Expect(createJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job-run")))
+				Expect(createJobRunOptionsModel.RunArguments).To(Equal([]string{"testString"}))
+				Expect(createJobRunOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
+				Expect(createJobRunOptionsModel.RunCommands).To(Equal([]string{"testString"}))
+				Expect(createJobRunOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
+				Expect(createJobRunOptionsModel.RunMode).To(Equal(core.StringPtr("daemon")))
+				Expect(createJobRunOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
+				Expect(createJobRunOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
+				Expect(createJobRunOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
+				Expect(createJobRunOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
+				Expect(createJobRunOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobRunOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(7200))))
+				Expect(createJobRunOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobRunOptionsModel.ScaleRetryLimit).To(Equal(core.Int64Ptr(int64(3))))
+				Expect(createJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
 				// Construct an instance of the CreateProjectOptions model
-				createProjectOptionsModel := codeEngineService.NewCreateProjectOptions()
+				createProjectOptionsName := "my-project"
+				createProjectOptionsRegion := "us-east"
+				createProjectOptionsModel := codeEngineService.NewCreateProjectOptions(createProjectOptionsName, createProjectOptionsRegion)
 				createProjectOptionsModel.SetName("my-project")
 				createProjectOptionsModel.SetRegion("us-east")
 				createProjectOptionsModel.SetResourceGroupID("b91e849cedb04e7e92bd68c040c672dc")
@@ -10233,250 +10419,263 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewCreateSecretOptions successfully`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createSecretOptionsFormat := "generic"
 				createSecretOptionsName := "testString"
-				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid, createSecretOptionsName)
+				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid, createSecretOptionsFormat, createSecretOptionsName)
 				createSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createSecretOptionsModel.SetName("testString")
-				createSecretOptionsModel.SetCeComponents([]string{"testString"})
-				createSecretOptionsModel.SetData(make(map[string]string))
 				createSecretOptionsModel.SetFormat("generic")
+				createSecretOptionsModel.SetName("testString")
+				createSecretOptionsModel.SetData(make(map[string]string))
 				createSecretOptionsModel.SetResourceID("testString")
-				createSecretOptionsModel.SetResourceType("testString")
-				createSecretOptionsModel.SetResourcekeyID("testString")
-				createSecretOptionsModel.SetResourcekeyName("testString")
+				createSecretOptionsModel.SetResourceKeyID("testString")
+				createSecretOptionsModel.SetResourceKeyName("testString")
 				createSecretOptionsModel.SetRole("testString")
-				createSecretOptionsModel.SetServiceidCrn("testString")
+				createSecretOptionsModel.SetServiceIdCrn("testString")
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
 				Expect(createSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
-				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
+				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.ResourcekeyName).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourceKeyName).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.ServiceidCrn).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ServiceIdCrn).To(Equal(core.StringPtr("testString")))
 				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
 				// Construct an instance of the DeleteAppOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				appName := "my-app"
-				deleteAppOptionsModel := codeEngineService.NewDeleteAppOptions(projectGuid, appName)
+				name := "my-app"
+				deleteAppOptionsModel := codeEngineService.NewDeleteAppOptions(projectGuid, name)
 				deleteAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteAppOptionsModel.SetAppName("my-app")
+				deleteAppOptionsModel.SetName("my-app")
 				deleteAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAppOptionsModel).ToNot(BeNil())
 				Expect(deleteAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteAppOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
+				Expect(deleteAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(deleteAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppRevisionOptions successfully`, func() {
 				// Construct an instance of the DeleteAppRevisionOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
-				revisionName := "my-app-001"
-				deleteAppRevisionOptionsModel := codeEngineService.NewDeleteAppRevisionOptions(projectGuid, appName, revisionName)
+				name := "my-app-001"
+				deleteAppRevisionOptionsModel := codeEngineService.NewDeleteAppRevisionOptions(projectGuid, appName, name)
 				deleteAppRevisionOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.SetAppName("my-app")
-				deleteAppRevisionOptionsModel.SetRevisionName("my-app-001")
+				deleteAppRevisionOptionsModel.SetName("my-app-001")
 				deleteAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAppRevisionOptionsModel).ToNot(BeNil())
 				Expect(deleteAppRevisionOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
-				Expect(deleteAppRevisionOptionsModel.RevisionName).To(Equal(core.StringPtr("my-app-001")))
+				Expect(deleteAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
 				Expect(deleteAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteBuildOptions successfully`, func() {
 				// Construct an instance of the DeleteBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildName := "my-build"
-				deleteBuildOptionsModel := codeEngineService.NewDeleteBuildOptions(projectGuid, buildName)
+				name := "my-build"
+				deleteBuildOptionsModel := codeEngineService.NewDeleteBuildOptions(projectGuid, name)
 				deleteBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildOptionsModel.SetBuildName("my-build")
+				deleteBuildOptionsModel.SetName("my-build")
 				deleteBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteBuildOptionsModel).ToNot(BeNil())
 				Expect(deleteBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteBuildOptionsModel.BuildName).To(Equal(core.StringPtr("my-build")))
+				Expect(deleteBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(deleteBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteBuildrunOptions successfully`, func() {
-				// Construct an instance of the DeleteBuildrunOptions model
+			It(`Invoke NewDeleteBuildRunOptions successfully`, func() {
+				// Construct an instance of the DeleteBuildRunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildRunName := "my-build-run"
-				deleteBuildrunOptionsModel := codeEngineService.NewDeleteBuildrunOptions(projectGuid, buildRunName)
-				deleteBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBuildrunOptionsModel.SetBuildRunName("my-build-run")
-				deleteBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteBuildrunOptionsModel).ToNot(BeNil())
-				Expect(deleteBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteBuildrunOptionsModel.BuildRunName).To(Equal(core.StringPtr("my-build-run")))
-				Expect(deleteBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-build-run"
+				deleteBuildRunOptionsModel := codeEngineService.NewDeleteBuildRunOptions(projectGuid, name)
+				deleteBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel.SetName("my-build-run")
+				deleteBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteBuildRunOptionsModel).ToNot(BeNil())
+				Expect(deleteBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteBuildRunOptionsModel.Name).To(Equal(core.StringPtr("my-build-run")))
+				Expect(deleteBuildRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteConfigmapOptions successfully`, func() {
-				// Construct an instance of the DeleteConfigmapOptions model
+			It(`Invoke NewDeleteConfigMapOptions successfully`, func() {
+				// Construct an instance of the DeleteConfigMapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configMapName := "my-config-map"
-				deleteConfigmapOptionsModel := codeEngineService.NewDeleteConfigmapOptions(projectGuid, configMapName)
-				deleteConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteConfigmapOptionsModel.SetConfigMapName("my-config-map")
-				deleteConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteConfigmapOptionsModel).ToNot(BeNil())
-				Expect(deleteConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
-				Expect(deleteConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-config-map"
+				deleteConfigMapOptionsModel := codeEngineService.NewDeleteConfigMapOptions(projectGuid, name)
+				deleteConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel.SetName("my-config-map")
+				deleteConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteConfigMapOptionsModel).ToNot(BeNil())
+				Expect(deleteConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
+				Expect(deleteConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteJobOptions successfully`, func() {
 				// Construct an instance of the DeleteJobOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				jobName := "my-job"
-				deleteJobOptionsModel := codeEngineService.NewDeleteJobOptions(projectGuid, jobName)
+				name := "my-job"
+				deleteJobOptionsModel := codeEngineService.NewDeleteJobOptions(projectGuid, name)
 				deleteJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobOptionsModel.SetJobName("my-job")
+				deleteJobOptionsModel.SetName("my-job")
 				deleteJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteJobOptionsModel).ToNot(BeNil())
 				Expect(deleteJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteJobOptionsModel.JobName).To(Equal(core.StringPtr("my-job")))
+				Expect(deleteJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(deleteJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteJobRunOptions successfully`, func() {
+				// Construct an instance of the DeleteJobRunOptions model
+				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-job"
+				deleteJobRunOptionsModel := codeEngineService.NewDeleteJobRunOptions(projectGuid, name)
+				deleteJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel.SetName("my-job")
+				deleteJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteJobRunOptionsModel).ToNot(BeNil())
+				Expect(deleteJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
+				Expect(deleteJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
 				// Construct an instance of the DeleteProjectOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				deleteProjectOptionsModel := codeEngineService.NewDeleteProjectOptions(projectGuid)
-				deleteProjectOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				guid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				deleteProjectOptionsModel := codeEngineService.NewDeleteProjectOptions(guid)
+				deleteProjectOptionsModel.SetGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteProjectOptionsModel).ToNot(BeNil())
-				Expect(deleteProjectOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteProjectOptionsModel.Guid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteSecretOptions successfully`, func() {
 				// Construct an instance of the DeleteSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				secretName := "my-secret"
-				deleteSecretOptionsModel := codeEngineService.NewDeleteSecretOptions(projectGuid, secretName)
+				name := "my-secret"
+				deleteSecretOptionsModel := codeEngineService.NewDeleteSecretOptions(projectGuid, name)
 				deleteSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteSecretOptionsModel.SetSecretName("my-secret")
+				deleteSecretOptionsModel.SetName("my-secret")
 				deleteSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteSecretOptionsModel).ToNot(BeNil())
 				Expect(deleteSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteSecretOptionsModel.SecretName).To(Equal(core.StringPtr("my-secret")))
+				Expect(deleteSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(deleteSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAppOptions successfully`, func() {
 				// Construct an instance of the GetAppOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				appName := "my-app"
-				getAppOptionsModel := codeEngineService.NewGetAppOptions(projectGuid, appName)
+				name := "my-app"
+				getAppOptionsModel := codeEngineService.NewGetAppOptions(projectGuid, name)
 				getAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getAppOptionsModel.SetAppName("my-app")
+				getAppOptionsModel.SetName("my-app")
 				getAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAppOptionsModel).ToNot(BeNil())
 				Expect(getAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getAppOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
+				Expect(getAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(getAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAppRevisionOptions successfully`, func() {
 				// Construct an instance of the GetAppRevisionOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
-				revisionName := "my-app-001"
-				getAppRevisionOptionsModel := codeEngineService.NewGetAppRevisionOptions(projectGuid, appName, revisionName)
+				name := "my-app-001"
+				getAppRevisionOptionsModel := codeEngineService.NewGetAppRevisionOptions(projectGuid, appName, name)
 				getAppRevisionOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.SetAppName("my-app")
-				getAppRevisionOptionsModel.SetRevisionName("my-app-001")
+				getAppRevisionOptionsModel.SetName("my-app-001")
 				getAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAppRevisionOptionsModel).ToNot(BeNil())
 				Expect(getAppRevisionOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
-				Expect(getAppRevisionOptionsModel.RevisionName).To(Equal(core.StringPtr("my-app-001")))
+				Expect(getAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
 				Expect(getAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBuildOptions successfully`, func() {
 				// Construct an instance of the GetBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildName := "my-build"
-				getBuildOptionsModel := codeEngineService.NewGetBuildOptions(projectGuid, buildName)
+				name := "my-build"
+				getBuildOptionsModel := codeEngineService.NewGetBuildOptions(projectGuid, name)
 				getBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildOptionsModel.SetBuildName("my-build")
+				getBuildOptionsModel.SetName("my-build")
 				getBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getBuildOptionsModel).ToNot(BeNil())
 				Expect(getBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getBuildOptionsModel.BuildName).To(Equal(core.StringPtr("my-build")))
+				Expect(getBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(getBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetBuildrunOptions successfully`, func() {
-				// Construct an instance of the GetBuildrunOptions model
+			It(`Invoke NewGetBuildRunOptions successfully`, func() {
+				// Construct an instance of the GetBuildRunOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildRunName := "my-build-run"
-				getBuildrunOptionsModel := codeEngineService.NewGetBuildrunOptions(projectGuid, buildRunName)
-				getBuildrunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBuildrunOptionsModel.SetBuildRunName("my-build-run")
-				getBuildrunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getBuildrunOptionsModel).ToNot(BeNil())
-				Expect(getBuildrunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getBuildrunOptionsModel.BuildRunName).To(Equal(core.StringPtr("my-build-run")))
-				Expect(getBuildrunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-build-run"
+				getBuildRunOptionsModel := codeEngineService.NewGetBuildRunOptions(projectGuid, name)
+				getBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.SetName("my-build-run")
+				getBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getBuildRunOptionsModel).ToNot(BeNil())
+				Expect(getBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getBuildRunOptionsModel.Name).To(Equal(core.StringPtr("my-build-run")))
+				Expect(getBuildRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetConfigmapOptions successfully`, func() {
-				// Construct an instance of the GetConfigmapOptions model
+			It(`Invoke NewGetConfigMapOptions successfully`, func() {
+				// Construct an instance of the GetConfigMapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configMapName := "my-config-map"
-				getConfigmapOptionsModel := codeEngineService.NewGetConfigmapOptions(projectGuid, configMapName)
-				getConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getConfigmapOptionsModel.SetConfigMapName("my-config-map")
-				getConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getConfigmapOptionsModel).ToNot(BeNil())
-				Expect(getConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
-				Expect(getConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-config-map"
+				getConfigMapOptionsModel := codeEngineService.NewGetConfigMapOptions(projectGuid, name)
+				getConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.SetName("my-config-map")
+				getConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getConfigMapOptionsModel).ToNot(BeNil())
+				Expect(getConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
+				Expect(getConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetJobOptions successfully`, func() {
 				// Construct an instance of the GetJobOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				jobName := "my-job"
-				getJobOptionsModel := codeEngineService.NewGetJobOptions(projectGuid, jobName)
+				name := "my-job"
+				getJobOptionsModel := codeEngineService.NewGetJobOptions(projectGuid, name)
 				getJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobOptionsModel.SetJobName("my-job")
+				getJobOptionsModel.SetName("my-job")
 				getJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getJobOptionsModel).ToNot(BeNil())
 				Expect(getJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getJobOptionsModel.JobName).To(Equal(core.StringPtr("my-job")))
+				Expect(getJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(getJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetJobRunOptions successfully`, func() {
+				// Construct an instance of the GetJobRunOptions model
+				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-job"
+				getJobRunOptionsModel := codeEngineService.NewGetJobRunOptions(projectGuid, name)
+				getJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.SetName("my-job")
+				getJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getJobRunOptionsModel).ToNot(BeNil())
+				Expect(getJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
+				Expect(getJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetProjectOptions successfully`, func() {
 				// Construct an instance of the GetProjectOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				getProjectOptionsModel := codeEngineService.NewGetProjectOptions(projectGuid)
-				getProjectOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				guid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				getProjectOptionsModel := codeEngineService.NewGetProjectOptions(guid)
+				getProjectOptionsModel.SetGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getProjectOptionsModel).ToNot(BeNil())
-				Expect(getProjectOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getProjectOptionsModel.Guid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetReclamationOptions successfully`, func() {
-				// Construct an instance of the GetReclamationOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				getReclamationOptionsModel := codeEngineService.NewGetReclamationOptions(projectGuid)
-				getReclamationOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getReclamationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getReclamationOptionsModel).ToNot(BeNil())
-				Expect(getReclamationOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getReclamationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetSecretOptions successfully`, func() {
 				// Construct an instance of the GetSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				secretName := "my-secret"
-				getSecretOptionsModel := codeEngineService.NewGetSecretOptions(projectGuid, secretName)
+				name := "my-secret"
+				getSecretOptionsModel := codeEngineService.NewGetSecretOptions(projectGuid, name)
 				getSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getSecretOptionsModel.SetSecretName("my-secret")
+				getSecretOptionsModel.SetName("my-secret")
 				getSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getSecretOptionsModel).ToNot(BeNil())
 				Expect(getSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getSecretOptionsModel.SecretName).To(Equal(core.StringPtr("my-secret")))
+				Expect(getSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAppRevisionsOptions successfully`, func() {
@@ -10510,19 +10709,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listAppsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listAppsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListBuildrunsOptions successfully`, func() {
-				// Construct an instance of the ListBuildrunsOptions model
+			It(`Invoke NewListBuildRunsOptions successfully`, func() {
+				// Construct an instance of the ListBuildRunsOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listBuildrunsOptionsModel := codeEngineService.NewListBuildrunsOptions(projectGuid)
-				listBuildrunsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBuildrunsOptionsModel.SetLimit(int64(100))
-				listBuildrunsOptionsModel.SetStart("testString")
-				listBuildrunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listBuildrunsOptionsModel).ToNot(BeNil())
-				Expect(listBuildrunsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(listBuildrunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(listBuildrunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listBuildrunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listBuildRunsOptionsModel := codeEngineService.NewListBuildRunsOptions(projectGuid)
+				listBuildRunsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.SetLimit(int64(100))
+				listBuildRunsOptionsModel.SetStart("testString")
+				listBuildRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listBuildRunsOptionsModel).ToNot(BeNil())
+				Expect(listBuildRunsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listBuildRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listBuildRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listBuildRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBuildsOptions successfully`, func() {
 				// Construct an instance of the ListBuildsOptions model
@@ -10538,19 +10737,33 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listBuildsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBuildsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListConfigmapsOptions successfully`, func() {
-				// Construct an instance of the ListConfigmapsOptions model
+			It(`Invoke NewListConfigMapsOptions successfully`, func() {
+				// Construct an instance of the ListConfigMapsOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listConfigmapsOptionsModel := codeEngineService.NewListConfigmapsOptions(projectGuid)
-				listConfigmapsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listConfigmapsOptionsModel.SetLimit(int64(100))
-				listConfigmapsOptionsModel.SetStart("testString")
-				listConfigmapsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listConfigmapsOptionsModel).ToNot(BeNil())
-				Expect(listConfigmapsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(listConfigmapsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(listConfigmapsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listConfigmapsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listConfigMapsOptionsModel := codeEngineService.NewListConfigMapsOptions(projectGuid)
+				listConfigMapsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.SetLimit(int64(100))
+				listConfigMapsOptionsModel.SetStart("testString")
+				listConfigMapsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listConfigMapsOptionsModel).ToNot(BeNil())
+				Expect(listConfigMapsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listConfigMapsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listConfigMapsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listConfigMapsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListJobRunsOptions successfully`, func() {
+				// Construct an instance of the ListJobRunsOptions model
+				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listJobRunsOptionsModel := codeEngineService.NewListJobRunsOptions(projectGuid)
+				listJobRunsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.SetLimit(int64(100))
+				listJobRunsOptionsModel.SetStart("testString")
+				listJobRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listJobRunsOptionsModel).ToNot(BeNil())
+				Expect(listJobRunsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listJobRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listJobRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listJobRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListJobsOptions successfully`, func() {
 				// Construct an instance of the ListJobsOptions model
@@ -10577,17 +10790,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listProjectsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listProjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListReclamationsOptions successfully`, func() {
-				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := codeEngineService.NewListReclamationsOptions()
-				listReclamationsOptionsModel.SetLimit(int64(100))
-				listReclamationsOptionsModel.SetStart("testString")
-				listReclamationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listReclamationsOptionsModel).ToNot(BeNil())
-				Expect(listReclamationsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(listReclamationsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listReclamationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewListSecretsOptions successfully`, func() {
 				// Construct an instance of the ListSecretsOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -10602,280 +10804,118 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listSecretsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listSecretsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewReclaimReclamationOptions successfully`, func() {
-				// Construct an instance of the ReclaimReclamationOptions model
+			It(`Invoke NewReplaceConfigMapOptions successfully`, func() {
+				// Construct an instance of the ReplaceConfigMapOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				reclaimReclamationOptionsModel := codeEngineService.NewReclaimReclamationOptions(projectGuid)
-				reclaimReclamationOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				reclaimReclamationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(reclaimReclamationOptionsModel).ToNot(BeNil())
-				Expect(reclaimReclamationOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(reclaimReclamationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-config-map"
+				ifMatch := "testString"
+				replaceConfigMapOptionsModel := codeEngineService.NewReplaceConfigMapOptions(projectGuid, name, ifMatch)
+				replaceConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.SetName("my-config-map")
+				replaceConfigMapOptionsModel.SetIfMatch("testString")
+				replaceConfigMapOptionsModel.SetData(make(map[string]string))
+				replaceConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceConfigMapOptionsModel).ToNot(BeNil())
+				Expect(replaceConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(replaceConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
+				Expect(replaceConfigMapOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(replaceConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewRestoreReclamationOptions successfully`, func() {
-				// Construct an instance of the RestoreReclamationOptions model
+			It(`Invoke NewReplaceSecretOptions successfully`, func() {
+				// Construct an instance of the ReplaceSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				restoreReclamationOptionsModel := codeEngineService.NewRestoreReclamationOptions(projectGuid)
-				restoreReclamationOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				restoreReclamationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(restoreReclamationOptionsModel).ToNot(BeNil())
-				Expect(restoreReclamationOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(restoreReclamationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				name := "my-secret"
+				ifMatch := "testString"
+				replaceSecretOptionsModel := codeEngineService.NewReplaceSecretOptions(projectGuid, name, ifMatch)
+				replaceSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.SetName("my-secret")
+				replaceSecretOptionsModel.SetIfMatch("testString")
+				replaceSecretOptionsModel.SetData(make(map[string]string))
+				replaceSecretOptionsModel.SetFormat("generic")
+				replaceSecretOptionsModel.SetResourceID("testString")
+				replaceSecretOptionsModel.SetResourceKeyID("testString")
+				replaceSecretOptionsModel.SetResourceKeyName("testString")
+				replaceSecretOptionsModel.SetRole("testString")
+				replaceSecretOptionsModel.SetServiceIdCrn("testString")
+				replaceSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceSecretOptionsModel).ToNot(BeNil())
+				Expect(replaceSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(replaceSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
+				Expect(replaceSecretOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(replaceSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
+				Expect(replaceSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.ResourceKeyName).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.ServiceIdCrn).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAppOptions successfully`, func() {
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				Expect(envVarModel).ToNot(BeNil())
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
-				Expect(envVarModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
-				Expect(envVarModel.Name).To(Equal(core.StringPtr("SOME")))
-				Expect(envVarModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
-				Expect(envVarModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(envVarModel.Type).To(Equal(core.StringPtr("literal")))
-				Expect(envVarModel.Value).To(Equal(core.StringPtr("VALUE")))
-
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				Expect(volumeMountModel).ToNot(BeNil())
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
-				Expect(volumeMountModel.MountPath).To(Equal(core.StringPtr("/app")))
-				Expect(volumeMountModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
-				Expect(volumeMountModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(volumeMountModel.Type).To(Equal(core.StringPtr("secret")))
-
 				// Construct an instance of the UpdateAppOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				appName := "my-app"
-				updateAppOptionsName := "my-app"
-				updateAppOptionsModel := codeEngineService.NewUpdateAppOptions(projectGuid, appName, updateAppOptionsName)
+				name := "my-app"
+				ifMatch := "testString"
+				app := map[string]interface{}{"anyKey": "anyValue"}
+				updateAppOptionsModel := codeEngineService.NewUpdateAppOptions(projectGuid, name, ifMatch, app)
 				updateAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateAppOptionsModel.SetAppName("my-app")
 				updateAppOptionsModel.SetName("my-app")
-				updateAppOptionsModel.SetCeManagedDomainMappings("local_public")
-				updateAppOptionsModel.SetImagePort(int64(8080))
-				updateAppOptionsModel.SetImageProtocol("http1")
-				updateAppOptionsModel.SetImageRef("icr.io/codeengine/helloworld")
-				updateAppOptionsModel.SetImageSecret("my-secret")
-				updateAppOptionsModel.SetRevisionSuffix("rev-0001")
-				updateAppOptionsModel.SetRunArgs([]string{"testString"})
-				updateAppOptionsModel.SetRunAsUser(int64(1001))
-				updateAppOptionsModel.SetRunCommands([]string{"testString"})
-				updateAppOptionsModel.SetRunEnvVars([]codeenginev2.EnvVar{*envVarModel})
-				updateAppOptionsModel.SetRunServiceAccount("default")
-				updateAppOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMount{*volumeMountModel})
-				updateAppOptionsModel.SetScaleConcurrency(int64(100))
-				updateAppOptionsModel.SetScaleConcurrencyTarget(int64(80))
-				updateAppOptionsModel.SetScaleCpuLimit("1")
-				updateAppOptionsModel.SetScaleEphemeralStorageLimit("4G")
-				updateAppOptionsModel.SetScaleInitialInstances(int64(1))
-				updateAppOptionsModel.SetScaleMaxInstances(int64(10))
-				updateAppOptionsModel.SetScaleMemoryLimit("4G")
-				updateAppOptionsModel.SetScaleMinInstances(int64(1))
-				updateAppOptionsModel.SetScaleRequestTimeout(int64(300))
-				updateAppOptionsModel.SetVersion("1")
+				updateAppOptionsModel.SetIfMatch("testString")
+				updateAppOptionsModel.SetApp(map[string]interface{}{"anyKey": "anyValue"})
 				updateAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAppOptionsModel).ToNot(BeNil())
 				Expect(updateAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateAppOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
 				Expect(updateAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
-				Expect(updateAppOptionsModel.CeManagedDomainMappings).To(Equal(core.StringPtr("local_public")))
-				Expect(updateAppOptionsModel.ImagePort).To(Equal(core.Int64Ptr(int64(8080))))
-				Expect(updateAppOptionsModel.ImageProtocol).To(Equal(core.StringPtr("http1")))
-				Expect(updateAppOptionsModel.ImageRef).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
-				Expect(updateAppOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
-				Expect(updateAppOptionsModel.RevisionSuffix).To(Equal(core.StringPtr("rev-0001")))
-				Expect(updateAppOptionsModel.RunArgs).To(Equal([]string{"testString"}))
-				Expect(updateAppOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
-				Expect(updateAppOptionsModel.RunCommands).To(Equal([]string{"testString"}))
-				Expect(updateAppOptionsModel.RunEnvVars).To(Equal([]codeenginev2.EnvVar{*envVarModel}))
-				Expect(updateAppOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
-				Expect(updateAppOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMount{*volumeMountModel}))
-				Expect(updateAppOptionsModel.ScaleConcurrency).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(updateAppOptionsModel.ScaleConcurrencyTarget).To(Equal(core.Int64Ptr(int64(80))))
-				Expect(updateAppOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
-				Expect(updateAppOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
-				Expect(updateAppOptionsModel.ScaleInitialInstances).To(Equal(core.Int64Ptr(int64(1))))
-				Expect(updateAppOptionsModel.ScaleMaxInstances).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(updateAppOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
-				Expect(updateAppOptionsModel.ScaleMinInstances).To(Equal(core.Int64Ptr(int64(1))))
-				Expect(updateAppOptionsModel.ScaleRequestTimeout).To(Equal(core.Int64Ptr(int64(300))))
-				Expect(updateAppOptionsModel.Version).To(Equal(core.StringPtr("1")))
+				Expect(updateAppOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateAppOptionsModel.App).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateBuildOptions successfully`, func() {
 				// Construct an instance of the UpdateBuildOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				buildName := "my-build"
-				updateBuildOptionsName := "my-build"
-				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectGuid, buildName, updateBuildOptionsName)
+				name := "my-build"
+				ifMatch := "testString"
+				build := map[string]interface{}{"anyKey": "anyValue"}
+				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectGuid, name, ifMatch, build)
 				updateBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateBuildOptionsModel.SetBuildName("my-build")
 				updateBuildOptionsModel.SetName("my-build")
-				updateBuildOptionsModel.SetCeOwnerReference("testString")
-				updateBuildOptionsModel.SetOutputImage("stg.icr.io/icr_namespace/image-name")
-				updateBuildOptionsModel.SetOutputSecret("ce-default-icr-us-south")
-				updateBuildOptionsModel.SetSourceContextDir("testString")
-				updateBuildOptionsModel.SetSourceRevision("main")
-				updateBuildOptionsModel.SetSourceSecret("testString")
-				updateBuildOptionsModel.SetSourceType("git")
-				updateBuildOptionsModel.SetSourceURL("https://github.com/IBM/CodeEngine")
-				updateBuildOptionsModel.SetStrategyName("dockerfile")
-				updateBuildOptionsModel.SetStrategySize("medium")
-				updateBuildOptionsModel.SetStrategySpecFile("Dockerfile")
-				updateBuildOptionsModel.SetTimeout(int64(600))
+				updateBuildOptionsModel.SetIfMatch("testString")
+				updateBuildOptionsModel.SetBuild(map[string]interface{}{"anyKey": "anyValue"})
 				updateBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateBuildOptionsModel).ToNot(BeNil())
 				Expect(updateBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateBuildOptionsModel.BuildName).To(Equal(core.StringPtr("my-build")))
 				Expect(updateBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
-				Expect(updateBuildOptionsModel.CeOwnerReference).To(Equal(core.StringPtr("testString")))
-				Expect(updateBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("stg.icr.io/icr_namespace/image-name")))
-				Expect(updateBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-default-icr-us-south")))
-				Expect(updateBuildOptionsModel.SourceContextDir).To(Equal(core.StringPtr("testString")))
-				Expect(updateBuildOptionsModel.SourceRevision).To(Equal(core.StringPtr("main")))
-				Expect(updateBuildOptionsModel.SourceSecret).To(Equal(core.StringPtr("testString")))
-				Expect(updateBuildOptionsModel.SourceType).To(Equal(core.StringPtr("git")))
-				Expect(updateBuildOptionsModel.SourceURL).To(Equal(core.StringPtr("https://github.com/IBM/CodeEngine")))
-				Expect(updateBuildOptionsModel.StrategyName).To(Equal(core.StringPtr("dockerfile")))
-				Expect(updateBuildOptionsModel.StrategySize).To(Equal(core.StringPtr("medium")))
-				Expect(updateBuildOptionsModel.StrategySpecFile).To(Equal(core.StringPtr("Dockerfile")))
-				Expect(updateBuildOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(600))))
+				Expect(updateBuildOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateBuildOptionsModel.Build).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateConfigmapOptions successfully`, func() {
-				// Construct an instance of the UpdateConfigmapOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				configMapName := "my-config-map"
-				updateConfigmapOptionsName := "my-configmap"
-				updateConfigmapOptionsModel := codeEngineService.NewUpdateConfigmapOptions(projectGuid, configMapName, updateConfigmapOptionsName)
-				updateConfigmapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateConfigmapOptionsModel.SetConfigMapName("my-config-map")
-				updateConfigmapOptionsModel.SetName("my-configmap")
-				updateConfigmapOptionsModel.SetData(make(map[string]string))
-				updateConfigmapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateConfigmapOptionsModel).ToNot(BeNil())
-				Expect(updateConfigmapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateConfigmapOptionsModel.ConfigMapName).To(Equal(core.StringPtr("my-config-map")))
-				Expect(updateConfigmapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
-				Expect(updateConfigmapOptionsModel.Data).To(Equal(make(map[string]string)))
-				Expect(updateConfigmapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewUpdateJobOptions successfully`, func() {
-				// Construct an instance of the EnvVar model
-				envVarModel := new(codeenginev2.EnvVar)
-				Expect(envVarModel).ToNot(BeNil())
-				envVarModel.Key = core.StringPtr("MY_VARIABLE")
-				envVarModel.Name = core.StringPtr("SOME")
-				envVarModel.Prefix = core.StringPtr("PREFIX_")
-				envVarModel.Ref = core.StringPtr("my-secret")
-				envVarModel.Type = core.StringPtr("literal")
-				envVarModel.Value = core.StringPtr("VALUE")
-				Expect(envVarModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
-				Expect(envVarModel.Name).To(Equal(core.StringPtr("SOME")))
-				Expect(envVarModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
-				Expect(envVarModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(envVarModel.Type).To(Equal(core.StringPtr("literal")))
-				Expect(envVarModel.Value).To(Equal(core.StringPtr("VALUE")))
-
-				// Construct an instance of the VolumeMount model
-				volumeMountModel := new(codeenginev2.VolumeMount)
-				Expect(volumeMountModel).ToNot(BeNil())
-				volumeMountModel.MountPath = core.StringPtr("/app")
-				volumeMountModel.Name = core.StringPtr("codeengine-mount-b69u90")
-				volumeMountModel.Ref = core.StringPtr("my-secret")
-				volumeMountModel.Type = core.StringPtr("secret")
-				Expect(volumeMountModel.MountPath).To(Equal(core.StringPtr("/app")))
-				Expect(volumeMountModel.Name).To(Equal(core.StringPtr("codeengine-mount-b69u90")))
-				Expect(volumeMountModel.Ref).To(Equal(core.StringPtr("my-secret")))
-				Expect(volumeMountModel.Type).To(Equal(core.StringPtr("secret")))
-
 				// Construct an instance of the UpdateJobOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				jobName := "my-job"
-				updateJobOptionsModel := codeEngineService.NewUpdateJobOptions(projectGuid, jobName)
+				name := "my-job"
+				ifMatch := "testString"
+				job := map[string]interface{}{"anyKey": "anyValue"}
+				updateJobOptionsModel := codeEngineService.NewUpdateJobOptions(projectGuid, name, ifMatch, job)
 				updateJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateJobOptionsModel.SetJobName("my-job")
-				updateJobOptionsModel.SetImageRef("icr.io/codeengine/helloworld")
-				updateJobOptionsModel.SetImageSecret("my-secret")
 				updateJobOptionsModel.SetName("my-job")
-				updateJobOptionsModel.SetRunArgs([]string{"testString"})
-				updateJobOptionsModel.SetRunAsUser(int64(1001))
-				updateJobOptionsModel.SetRunCommands([]string{"testString"})
-				updateJobOptionsModel.SetRunEnvVars([]codeenginev2.EnvVar{*envVarModel})
-				updateJobOptionsModel.SetRunMode("daemon")
-				updateJobOptionsModel.SetRunServiceAccount("default")
-				updateJobOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMount{*volumeMountModel})
-				updateJobOptionsModel.SetScaleArraySpec("1-5,7-8,10")
-				updateJobOptionsModel.SetScaleCpuLimit("1")
-				updateJobOptionsModel.SetScaleEphemeralStorageLimit("4G")
-				updateJobOptionsModel.SetScaleMaxExecutionTime(int64(7200))
-				updateJobOptionsModel.SetScaleMemoryLimit("4G")
-				updateJobOptionsModel.SetScaleRetryLimit(int64(3))
-				updateJobOptionsModel.SetVersion("1")
+				updateJobOptionsModel.SetIfMatch("testString")
+				updateJobOptionsModel.SetJob(map[string]interface{}{"anyKey": "anyValue"})
 				updateJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateJobOptionsModel).ToNot(BeNil())
 				Expect(updateJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateJobOptionsModel.JobName).To(Equal(core.StringPtr("my-job")))
-				Expect(updateJobOptionsModel.ImageRef).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
-				Expect(updateJobOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
 				Expect(updateJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
-				Expect(updateJobOptionsModel.RunArgs).To(Equal([]string{"testString"}))
-				Expect(updateJobOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
-				Expect(updateJobOptionsModel.RunCommands).To(Equal([]string{"testString"}))
-				Expect(updateJobOptionsModel.RunEnvVars).To(Equal([]codeenginev2.EnvVar{*envVarModel}))
-				Expect(updateJobOptionsModel.RunMode).To(Equal(core.StringPtr("daemon")))
-				Expect(updateJobOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
-				Expect(updateJobOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMount{*volumeMountModel}))
-				Expect(updateJobOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
-				Expect(updateJobOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
-				Expect(updateJobOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
-				Expect(updateJobOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(7200))))
-				Expect(updateJobOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
-				Expect(updateJobOptionsModel.ScaleRetryLimit).To(Equal(core.Int64Ptr(int64(3))))
-				Expect(updateJobOptionsModel.Version).To(Equal(core.StringPtr("1")))
+				Expect(updateJobOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateJobOptionsModel.Job).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateSecretOptions successfully`, func() {
-				// Construct an instance of the UpdateSecretOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				secretName := "my-secret"
-				updateSecretOptionsName := "testString"
-				updateSecretOptionsModel := codeEngineService.NewUpdateSecretOptions(projectGuid, secretName, updateSecretOptionsName)
-				updateSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateSecretOptionsModel.SetSecretName("my-secret")
-				updateSecretOptionsModel.SetName("testString")
-				updateSecretOptionsModel.SetCeComponents([]string{"testString"})
-				updateSecretOptionsModel.SetData(make(map[string]string))
-				updateSecretOptionsModel.SetFormat("generic")
-				updateSecretOptionsModel.SetResourceID("testString")
-				updateSecretOptionsModel.SetResourceType("testString")
-				updateSecretOptionsModel.SetResourcekeyID("testString")
-				updateSecretOptionsModel.SetResourcekeyName("testString")
-				updateSecretOptionsModel.SetRole("testString")
-				updateSecretOptionsModel.SetServiceidCrn("testString")
-				updateSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateSecretOptionsModel).ToNot(BeNil())
-				Expect(updateSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(updateSecretOptionsModel.SecretName).To(Equal(core.StringPtr("my-secret")))
-				Expect(updateSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.CeComponents).To(Equal([]string{"testString"}))
-				Expect(updateSecretOptionsModel.Data).To(Equal(make(map[string]string)))
-				Expect(updateSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
-				Expect(updateSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.ResourcekeyID).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.ResourcekeyName).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.ServiceidCrn).To(Equal(core.StringPtr("testString")))
-				Expect(updateSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewVolumeMountPrototype successfully`, func() {
+				mountPath := "/app"
+				ref := "my-secret"
+				typeVar := "secret"
+				_model, err := codeEngineService.NewVolumeMountPrototype(mountPath, ref, typeVar)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 		})
 	})
@@ -10919,7 +10959,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {
