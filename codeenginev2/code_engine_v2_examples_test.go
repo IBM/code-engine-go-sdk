@@ -778,7 +778,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			createSecretOptions := codeEngineService.NewCreateSecretOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"generic",
-				"testString",
+				"my-secret",
 			)
 
 			secret, response, err := codeEngineService.CreateSecret(createSecretOptions)

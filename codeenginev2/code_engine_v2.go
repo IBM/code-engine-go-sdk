@@ -2689,9 +2689,6 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.Data != nil {
 		body["data"] = createSecretOptions.Data
 	}
-	if createSecretOptions.ResourceID != nil {
-		body["resource_id"] = createSecretOptions.ResourceID
-	}
 	if createSecretOptions.ResourceKeyID != nil {
 		body["resource_key_id"] = createSecretOptions.ResourceKeyID
 	}
@@ -2703,6 +2700,9 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	if createSecretOptions.ServiceIdCrn != nil {
 		body["service_id_crn"] = createSecretOptions.ServiceIdCrn
+	}
+	if createSecretOptions.ServiceInstanceID != nil {
+		body["service_instance_id"] = createSecretOptions.ServiceInstanceID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2842,9 +2842,6 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	if replaceSecretOptions.Format != nil {
 		body["format"] = replaceSecretOptions.Format
 	}
-	if replaceSecretOptions.ResourceID != nil {
-		body["resource_id"] = replaceSecretOptions.ResourceID
-	}
 	if replaceSecretOptions.ResourceKeyID != nil {
 		body["resource_key_id"] = replaceSecretOptions.ResourceKeyID
 	}
@@ -2856,6 +2853,9 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	}
 	if replaceSecretOptions.ServiceIdCrn != nil {
 		body["service_id_crn"] = replaceSecretOptions.ServiceIdCrn
+	}
+	if replaceSecretOptions.ServiceInstanceID != nil {
+		body["service_instance_id"] = replaceSecretOptions.ServiceInstanceID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -3016,8 +3016,8 @@ type App struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
-	// must not exceed the amount of `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The unit for specifying ephemeral storage
+	// is Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3028,7 +3028,8 @@ type App struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances" validate:"required"`
 
-	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// Optional amount of memory set for the instance of the app. The unit for specifying memory is Gigabyte (GB). For
+	// valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
@@ -3311,8 +3312,8 @@ type AppPatch struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
-	// must not exceed the amount of `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The unit for specifying ephemeral storage
+	// is Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3323,7 +3324,8 @@ type AppPatch struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
 
-	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// Optional amount of memory set for the instance of the app. The unit for specifying memory is Gigabyte (GB). For
+	// valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -3521,8 +3523,8 @@ type AppRevision struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
-	// must not exceed the amount of `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The unit for specifying ephemeral storage
+	// is Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3533,7 +3535,8 @@ type AppRevision struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances" validate:"required"`
 
-	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// Optional amount of memory set for the instance of the app. The unit for specifying memory is Gigabyte (GB). For
+	// valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
@@ -4694,8 +4697,8 @@ type CreateAppOptions struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
-	// must not exceed the amount of `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The unit for specifying ephemeral storage
+	// is Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -4706,7 +4709,8 @@ type CreateAppOptions struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
 
-	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// Optional amount of memory set for the instance of the app. The unit for specifying memory is Gigabyte (GB). For
+	// valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -5335,14 +5339,15 @@ type CreateJobOptions struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage, must
-	// not exceed the amount of `scale_memory_limit`.
+	// The amount of ephemeral storage to set for the instance of the job. The unit for specifying ephemeral storage is
+	// Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// The amount of memory set for the instance of the job. The unit for specifying memory is Gigabyte (GB). For valid
+	// values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -5549,14 +5554,15 @@ type CreateJobRunOptions struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage, must
-	// not exceed the amount of `scale_memory_limit`.
+	// The amount of ephemeral storage to set for the instance of the job. The unit for specifying ephemeral storage is
+	// Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// The amount of memory set for the instance of the job. The unit for specifying memory is Gigabyte (GB). For valid
+	// values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -5784,20 +5790,24 @@ type CreateSecretOptions struct {
 	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
 	Data map[string]string `json:"data,omitempty"`
 
-	// ID of the IBM Cloud service instance associated with the secret.
-	ResourceID *string `json:"resource_id,omitempty"`
-
-	// ID of the service credential associated with the secret.
+	// ID of the service credential associated with the secret. This field can only be set, if the `format` value is set to
+	// `service_access`.
 	ResourceKeyID *string `json:"resource_key_id,omitempty"`
 
-	// Name of the service credential associated with the secret.
+	// Name of the service credential associated with the secret. This field can only be set, if the `format` value is set
+	// to `service_access`.
 	ResourceKeyName *string `json:"resource_key_name,omitempty"`
 
-	// Role of the service credential.
+	// Role of the service credential. This field can only be set, if the `format` value is set to `service_access`.
 	Role *string `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential.
+	// CRN of a Service ID used to create the service credential. This field can only be set, if the `format` value is set
+	// to `service_access`.
 	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret. This field can only be set, if the `format` value
+	// is set to `service_access`.
+	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5848,12 +5858,6 @@ func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecr
 	return _options
 }
 
-// SetResourceID : Allow user to set ResourceID
-func (_options *CreateSecretOptions) SetResourceID(resourceID string) *CreateSecretOptions {
-	_options.ResourceID = core.StringPtr(resourceID)
-	return _options
-}
-
 // SetResourceKeyID : Allow user to set ResourceKeyID
 func (_options *CreateSecretOptions) SetResourceKeyID(resourceKeyID string) *CreateSecretOptions {
 	_options.ResourceKeyID = core.StringPtr(resourceKeyID)
@@ -5875,6 +5879,12 @@ func (_options *CreateSecretOptions) SetRole(role string) *CreateSecretOptions {
 // SetServiceIdCrn : Allow user to set ServiceIdCrn
 func (_options *CreateSecretOptions) SetServiceIdCrn(serviceIdCrn string) *CreateSecretOptions {
 	_options.ServiceIdCrn = core.StringPtr(serviceIdCrn)
+	return _options
+}
+
+// SetServiceInstanceID : Allow user to set ServiceInstanceID
+func (_options *CreateSecretOptions) SetServiceInstanceID(serviceInstanceID string) *CreateSecretOptions {
+	_options.ServiceInstanceID = core.StringPtr(serviceInstanceID)
 	return _options
 }
 
@@ -6762,14 +6772,15 @@ type Job struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage, must
-	// not exceed the amount of `scale_memory_limit`.
+	// The amount of ephemeral storage to set for the instance of the job. The unit for specifying ephemeral storage is
+	// Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// The amount of memory set for the instance of the job. The unit for specifying memory is Gigabyte (GB). For valid
+	// values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
@@ -6995,14 +7006,15 @@ type JobPatch struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage, must
-	// not exceed the amount of `scale_memory_limit`.
+	// The amount of ephemeral storage to set for the instance of the job. The unit for specifying ephemeral storage is
+	// Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// The amount of memory set for the instance of the job. The unit for specifying memory is Gigabyte (GB). For valid
+	// values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -7179,14 +7191,15 @@ type JobRun struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage, must
-	// not exceed the amount of `scale_memory_limit`.
+	// The amount of ephemeral storage to set for the instance of the job. The unit for specifying ephemeral storage is
+	// Gigabyte (GB). The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`.
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// The amount of memory set for the instance of the job. The unit for specifying memory is Gigabyte (GB). For valid
+	// values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
@@ -8150,20 +8163,24 @@ type ReplaceSecretOptions struct {
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
 
-	// ID of the IBM Cloud service instance associated with the secret.
-	ResourceID *string `json:"resource_id,omitempty"`
-
-	// ID of the service credential associated with the secret.
+	// ID of the service credential associated with the secret. This field can only be set, if the `format` value is set to
+	// `service_access`.
 	ResourceKeyID *string `json:"resource_key_id,omitempty"`
 
-	// Name of the service credential associated with the secret.
+	// Name of the service credential associated with the secret. This field can only be set, if the `format` value is set
+	// to `service_access`.
 	ResourceKeyName *string `json:"resource_key_name,omitempty"`
 
-	// Role of the service credential.
+	// Role of the service credential. This field can only be set, if the `format` value is set to `service_access`.
 	Role *string `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential.
+	// CRN of a Service ID used to create the service credential. This field can only be set, if the `format` value is set
+	// to `service_access`.
 	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
+
+	// ID of the IBM Cloud service instance associated with the secret. This field can only be set, if the `format` value
+	// is set to `service_access`.
+	ServiceInstanceID *string `json:"service_instance_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8220,12 +8237,6 @@ func (_options *ReplaceSecretOptions) SetFormat(format string) *ReplaceSecretOpt
 	return _options
 }
 
-// SetResourceID : Allow user to set ResourceID
-func (_options *ReplaceSecretOptions) SetResourceID(resourceID string) *ReplaceSecretOptions {
-	_options.ResourceID = core.StringPtr(resourceID)
-	return _options
-}
-
 // SetResourceKeyID : Allow user to set ResourceKeyID
 func (_options *ReplaceSecretOptions) SetResourceKeyID(resourceKeyID string) *ReplaceSecretOptions {
 	_options.ResourceKeyID = core.StringPtr(resourceKeyID)
@@ -8247,6 +8258,12 @@ func (_options *ReplaceSecretOptions) SetRole(role string) *ReplaceSecretOptions
 // SetServiceIdCrn : Allow user to set ServiceIdCrn
 func (_options *ReplaceSecretOptions) SetServiceIdCrn(serviceIdCrn string) *ReplaceSecretOptions {
 	_options.ServiceIdCrn = core.StringPtr(serviceIdCrn)
+	return _options
+}
+
+// SetServiceInstanceID : Allow user to set ServiceInstanceID
+func (_options *ReplaceSecretOptions) SetServiceInstanceID(serviceInstanceID string) *ReplaceSecretOptions {
+	_options.ServiceInstanceID = core.StringPtr(serviceInstanceID)
 	return _options
 }
 

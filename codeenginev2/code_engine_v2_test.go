@@ -1075,7 +1075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully with retries`, func() {
@@ -1133,7 +1133,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully`, func() {
@@ -1268,9 +1268,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1382,10 +1382,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1440,7 +1440,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully with retries`, func() {
@@ -1485,10 +1485,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1546,7 +1546,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully`, func() {
@@ -1596,10 +1596,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1652,10 +1652,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1729,10 +1729,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				createAppOptionsModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				createAppOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createAppOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createAppOptionsModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				createAppOptionsModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				createAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1813,7 +1813,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully with retries`, func() {
@@ -1868,7 +1868,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully`, func() {
@@ -2093,10 +2093,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
@@ -2162,7 +2162,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully with retries`, func() {
@@ -2205,10 +2205,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
@@ -2277,7 +2277,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully`, func() {
@@ -2325,10 +2325,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
@@ -2388,10 +2388,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
@@ -2472,10 +2472,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ScaleConcurrency = core.Int64Ptr(int64(100))
 				appPatchModel.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
 				appPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				appPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleInitialInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleMaxInstances = core.Int64Ptr(int64(10))
-				appPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				appPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				appPatchModel.ScaleMinInstances = core.Int64Ptr(int64(1))
 				appPatchModel.ScaleRequestTimeout = core.Int64Ptr(int64(300))
 				appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
@@ -2571,7 +2571,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully with retries`, func() {
@@ -2630,7 +2630,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully`, func() {
@@ -2768,9 +2768,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2892,7 +2892,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully with retries`, func() {
@@ -2948,7 +2948,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully`, func() {
@@ -3190,7 +3190,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully with retries`, func() {
@@ -3248,7 +3248,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully`, func() {
@@ -3383,9 +3383,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -3495,9 +3495,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -3551,7 +3551,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully with retries`, func() {
@@ -3594,9 +3594,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3653,7 +3653,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully`, func() {
@@ -3701,9 +3701,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3753,9 +3753,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3826,9 +3826,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3908,7 +3908,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully with retries`, func() {
@@ -3963,7 +3963,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully`, func() {
@@ -4186,9 +4186,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -4253,7 +4253,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully with retries`, func() {
@@ -4294,9 +4294,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -4364,7 +4364,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully`, func() {
@@ -4410,9 +4410,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -4469,9 +4469,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -4549,9 +4549,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				jobPatchModel.ScaleCpuLimit = core.StringPtr("1")
-				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4G")
+				jobPatchModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				jobPatchModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -4645,7 +4645,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully with retries`, func() {
@@ -4703,7 +4703,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully`, func() {
@@ -4838,9 +4838,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -4951,9 +4951,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -5007,7 +5007,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully with retries`, func() {
@@ -5051,9 +5051,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5110,7 +5110,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully`, func() {
@@ -5159,9 +5159,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5212,9 +5212,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -5286,9 +5286,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
 				createJobRunOptionsModel.ScaleCpuLimit = core.StringPtr("1")
-				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleEphemeralStorageLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
-				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4G")
+				createJobRunOptionsModel.ScaleMemoryLimit = core.StringPtr("4GB")
 				createJobRunOptionsModel.ScaleRetryLimit = core.Int64Ptr(int64(3))
 				createJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5368,7 +5368,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully with retries`, func() {
@@ -5423,7 +5423,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully`, func() {
@@ -8960,7 +8960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully with retries`, func() {
@@ -9018,7 +9018,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully`, func() {
@@ -9153,9 +9153,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"ResourceKeyID","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Role","service_id_crn":"ServiceIdCrn","service_instance_id":"ServiceInstanceID","service_instance_type":"ServiceInstanceType"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"ResourceKeyID","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Role","service_id_crn":"ServiceIdCrn","service_instance_id":"ServiceInstanceID","service_instance_type":"ServiceInstanceType"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -9238,13 +9238,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("Manager")
 				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
@@ -9297,7 +9297,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully with retries`, func() {
@@ -9313,13 +9313,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("Manager")
 				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -9375,7 +9375,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully`, func() {
@@ -9396,13 +9396,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("Manager")
 				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -9424,13 +9424,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("Manager")
 				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -9473,13 +9473,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
-				createSecretOptionsModel.Name = core.StringPtr("testString")
+				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
-				createSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				createSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				createSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				createSecretOptionsModel.Role = core.StringPtr("testString")
+				createSecretOptionsModel.Role = core.StringPtr("Manager")
 				createSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				createSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -9558,7 +9558,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully with retries`, func() {
@@ -9613,7 +9613,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully`, func() {
@@ -9744,11 +9744,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
-				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("Manager")
 				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
@@ -9803,7 +9803,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully with retries`, func() {
@@ -9822,11 +9822,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
-				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("Manager")
 				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -9884,7 +9884,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "ResourceKeyID", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Role", "service_id_crn": "ServiceIdCrn", "service_instance_id": "ServiceInstanceID", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully`, func() {
@@ -9908,11 +9908,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
-				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("Manager")
 				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -9937,11 +9937,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
-				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("Manager")
 				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -9987,11 +9987,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
-				replaceSecretOptionsModel.ResourceID = core.StringPtr("testString")
-				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("testString")
+				replaceSecretOptionsModel.ResourceKeyID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.ResourceKeyName = core.StringPtr("testString")
-				replaceSecretOptionsModel.Role = core.StringPtr("testString")
+				replaceSecretOptionsModel.Role = core.StringPtr("Manager")
 				replaceSecretOptionsModel.ServiceIdCrn = core.StringPtr("testString")
+				replaceSecretOptionsModel.ServiceInstanceID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -10132,10 +10132,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.SetScaleConcurrency(int64(100))
 				createAppOptionsModel.SetScaleConcurrencyTarget(int64(80))
 				createAppOptionsModel.SetScaleCpuLimit("1")
-				createAppOptionsModel.SetScaleEphemeralStorageLimit("4G")
+				createAppOptionsModel.SetScaleEphemeralStorageLimit("4GB")
 				createAppOptionsModel.SetScaleInitialInstances(int64(1))
 				createAppOptionsModel.SetScaleMaxInstances(int64(10))
-				createAppOptionsModel.SetScaleMemoryLimit("4G")
+				createAppOptionsModel.SetScaleMemoryLimit("4GB")
 				createAppOptionsModel.SetScaleMinInstances(int64(1))
 				createAppOptionsModel.SetScaleRequestTimeout(int64(300))
 				createAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -10155,10 +10155,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createAppOptionsModel.ScaleConcurrency).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(createAppOptionsModel.ScaleConcurrencyTarget).To(Equal(core.Int64Ptr(int64(80))))
 				Expect(createAppOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
-				Expect(createAppOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createAppOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createAppOptionsModel.ScaleInitialInstances).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(createAppOptionsModel.ScaleMaxInstances).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(createAppOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createAppOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createAppOptionsModel.ScaleMinInstances).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(createAppOptionsModel.ScaleRequestTimeout).To(Equal(core.Int64Ptr(int64(300))))
 				Expect(createAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -10302,9 +10302,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createJobOptionsModel.SetScaleArraySpec("1-5,7-8,10")
 				createJobOptionsModel.SetScaleCpuLimit("1")
-				createJobOptionsModel.SetScaleEphemeralStorageLimit("4G")
+				createJobOptionsModel.SetScaleEphemeralStorageLimit("4GB")
 				createJobOptionsModel.SetScaleMaxExecutionTime(int64(7200))
-				createJobOptionsModel.SetScaleMemoryLimit("4G")
+				createJobOptionsModel.SetScaleMemoryLimit("4GB")
 				createJobOptionsModel.SetScaleRetryLimit(int64(3))
 				createJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createJobOptionsModel).ToNot(BeNil())
@@ -10321,9 +10321,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createJobOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createJobOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
 				Expect(createJobOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
-				Expect(createJobOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createJobOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(7200))))
-				Expect(createJobOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createJobOptionsModel.ScaleRetryLimit).To(Equal(core.Int64Ptr(int64(3))))
 				Expect(createJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -10373,9 +10373,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createJobRunOptionsModel.SetScaleArraySpec("1-5,7-8,10")
 				createJobRunOptionsModel.SetScaleCpuLimit("1")
-				createJobRunOptionsModel.SetScaleEphemeralStorageLimit("4G")
+				createJobRunOptionsModel.SetScaleEphemeralStorageLimit("4GB")
 				createJobRunOptionsModel.SetScaleMaxExecutionTime(int64(7200))
-				createJobRunOptionsModel.SetScaleMemoryLimit("4G")
+				createJobRunOptionsModel.SetScaleMemoryLimit("4GB")
 				createJobRunOptionsModel.SetScaleRetryLimit(int64(3))
 				createJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createJobRunOptionsModel).ToNot(BeNil())
@@ -10393,9 +10393,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createJobRunOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createJobRunOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
 				Expect(createJobRunOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
-				Expect(createJobRunOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobRunOptionsModel.ScaleEphemeralStorageLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createJobRunOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(7200))))
-				Expect(createJobRunOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4G")))
+				Expect(createJobRunOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("4GB")))
 				Expect(createJobRunOptionsModel.ScaleRetryLimit).To(Equal(core.Int64Ptr(int64(3))))
 				Expect(createJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -10420,28 +10420,28 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateSecretOptions model
 				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createSecretOptionsFormat := "generic"
-				createSecretOptionsName := "testString"
+				createSecretOptionsName := "my-secret"
 				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid, createSecretOptionsFormat, createSecretOptionsName)
 				createSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.SetFormat("generic")
-				createSecretOptionsModel.SetName("testString")
+				createSecretOptionsModel.SetName("my-secret")
 				createSecretOptionsModel.SetData(make(map[string]string))
-				createSecretOptionsModel.SetResourceID("testString")
-				createSecretOptionsModel.SetResourceKeyID("testString")
+				createSecretOptionsModel.SetResourceKeyID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.SetResourceKeyName("testString")
-				createSecretOptionsModel.SetRole("testString")
+				createSecretOptionsModel.SetRole("Manager")
 				createSecretOptionsModel.SetServiceIdCrn("testString")
+				createSecretOptionsModel.SetServiceInstanceID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
 				Expect(createSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
-				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
-				Expect(createSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")))
 				Expect(createSecretOptionsModel.ResourceKeyName).To(Equal(core.StringPtr("testString")))
-				Expect(createSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.Role).To(Equal(core.StringPtr("Manager")))
 				Expect(createSecretOptionsModel.ServiceIdCrn).To(Equal(core.StringPtr("testString")))
+				Expect(createSecretOptionsModel.ServiceInstanceID).To(Equal(core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")))
 				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
@@ -10833,11 +10833,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.SetIfMatch("testString")
 				replaceSecretOptionsModel.SetData(make(map[string]string))
 				replaceSecretOptionsModel.SetFormat("generic")
-				replaceSecretOptionsModel.SetResourceID("testString")
-				replaceSecretOptionsModel.SetResourceKeyID("testString")
+				replaceSecretOptionsModel.SetResourceKeyID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.SetResourceKeyName("testString")
-				replaceSecretOptionsModel.SetRole("testString")
+				replaceSecretOptionsModel.SetRole("Manager")
 				replaceSecretOptionsModel.SetServiceIdCrn("testString")
+				replaceSecretOptionsModel.SetServiceInstanceID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceSecretOptionsModel).ToNot(BeNil())
 				Expect(replaceSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
@@ -10845,11 +10845,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(replaceSecretOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(replaceSecretOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(replaceSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
-				Expect(replaceSecretOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.ResourceKeyID).To(Equal(core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")))
 				Expect(replaceSecretOptionsModel.ResourceKeyName).To(Equal(core.StringPtr("testString")))
-				Expect(replaceSecretOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.Role).To(Equal(core.StringPtr("Manager")))
 				Expect(replaceSecretOptionsModel.ServiceIdCrn).To(Equal(core.StringPtr("testString")))
+				Expect(replaceSecretOptionsModel.ServiceInstanceID).To(Equal(core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")))
 				Expect(replaceSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAppOptions successfully`, func() {
