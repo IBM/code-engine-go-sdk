@@ -311,13 +311,13 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 	}
 
 	pathParamsMap := map[string]string{
-		"guid": *getProjectOptions.Guid,
+		"id": *getProjectOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{guid}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -371,13 +371,13 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 	}
 
 	pathParamsMap := map[string]string{
-		"guid": *deleteProjectOptions.Guid,
+		"id": *deleteProjectOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{guid}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -419,13 +419,13 @@ func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listApp
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listAppsOptions.ProjectGuid,
+		"project_id": *listAppsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -486,13 +486,13 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createAppOptions.ProjectGuid,
+		"project_id": *createAppOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -613,14 +613,14 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getAppOptions.ProjectGuid,
+		"project_id": *getAppOptions.ProjectID,
 		"name": *getAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -674,14 +674,14 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteAppOptions.ProjectGuid,
+		"project_id": *deleteAppOptions.ProjectID,
 		"name": *deleteAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -723,14 +723,14 @@ func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, update
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *updateAppOptions.ProjectGuid,
+		"project_id": *updateAppOptions.ProjectID,
 		"name": *updateAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -793,14 +793,14 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listAppRevisionsOptions.ProjectGuid,
+		"project_id": *listAppRevisionsOptions.ProjectID,
 		"app_name": *listAppRevisionsOptions.AppName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -861,7 +861,7 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getAppRevisionOptions.ProjectGuid,
+		"project_id": *getAppRevisionOptions.ProjectID,
 		"app_name": *getAppRevisionOptions.AppName,
 		"name": *getAppRevisionOptions.Name,
 	}
@@ -869,7 +869,7 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -923,7 +923,7 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteAppRevisionOptions.ProjectGuid,
+		"project_id": *deleteAppRevisionOptions.ProjectID,
 		"app_name": *deleteAppRevisionOptions.AppName,
 		"name": *deleteAppRevisionOptions.Name,
 	}
@@ -931,7 +931,7 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/apps/{app_name}/revisions/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -973,13 +973,13 @@ func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJob
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listJobsOptions.ProjectGuid,
+		"project_id": *listJobsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1040,13 +1040,13 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createJobOptions.ProjectGuid,
+		"project_id": *createJobOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1155,14 +1155,14 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getJobOptions.ProjectGuid,
+		"project_id": *getJobOptions.ProjectID,
 		"name": *getJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1216,14 +1216,14 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteJobOptions.ProjectGuid,
+		"project_id": *deleteJobOptions.ProjectID,
 		"name": *deleteJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1265,14 +1265,14 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *updateJobOptions.ProjectGuid,
+		"project_id": *updateJobOptions.ProjectID,
 		"name": *updateJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1335,13 +1335,13 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listJobRunsOptions.ProjectGuid,
+		"project_id": *listJobRunsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/job_runs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1402,13 +1402,13 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createJobRunOptions.ProjectGuid,
+		"project_id": *createJobRunOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/job_runs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1520,14 +1520,14 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getJobRunOptions.ProjectGuid,
+		"project_id": *getJobRunOptions.ProjectID,
 		"name": *getJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/job_runs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1581,14 +1581,14 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteJobRunOptions.ProjectGuid,
+		"project_id": *deleteJobRunOptions.ProjectID,
 		"name": *deleteJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/job_runs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1630,13 +1630,13 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listBuildsOptions.ProjectGuid,
+		"project_id": *listBuildsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1697,13 +1697,13 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createBuildOptions.ProjectGuid,
+		"project_id": *createBuildOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1800,14 +1800,14 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getBuildOptions.ProjectGuid,
+		"project_id": *getBuildOptions.ProjectID,
 		"name": *getBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1861,14 +1861,14 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteBuildOptions.ProjectGuid,
+		"project_id": *deleteBuildOptions.ProjectID,
 		"name": *deleteBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1910,14 +1910,14 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *updateBuildOptions.ProjectGuid,
+		"project_id": *updateBuildOptions.ProjectID,
 		"name": *updateBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/builds/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1980,13 +1980,13 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listBuildRunsOptions.ProjectGuid,
+		"project_id": *listBuildRunsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2047,13 +2047,13 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createBuildRunOptions.ProjectGuid,
+		"project_id": *createBuildRunOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2156,14 +2156,14 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getBuildRunOptions.ProjectGuid,
+		"project_id": *getBuildRunOptions.ProjectID,
 		"name": *getBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2217,14 +2217,14 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteBuildRunOptions.ProjectGuid,
+		"project_id": *deleteBuildRunOptions.ProjectID,
 		"name": *deleteBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/build_runs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2266,13 +2266,13 @@ func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, l
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listConfigMapsOptions.ProjectGuid,
+		"project_id": *listConfigMapsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2333,13 +2333,13 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createConfigMapOptions.ProjectGuid,
+		"project_id": *createConfigMapOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2406,14 +2406,14 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getConfigMapOptions.ProjectGuid,
+		"project_id": *getConfigMapOptions.ProjectID,
 		"name": *getConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2467,14 +2467,14 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *replaceConfigMapOptions.ProjectGuid,
+		"project_id": *replaceConfigMapOptions.ProjectID,
 		"name": *replaceConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2541,14 +2541,14 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteConfigMapOptions.ProjectGuid,
+		"project_id": *deleteConfigMapOptions.ProjectID,
 		"name": *deleteConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/config_maps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2590,13 +2590,13 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *listSecretsOptions.ProjectGuid,
+		"project_id": *listSecretsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2657,13 +2657,13 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *createSecretOptions.ProjectGuid,
+		"project_id": *createSecretOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2748,14 +2748,14 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *getSecretOptions.ProjectGuid,
+		"project_id": *getSecretOptions.ProjectID,
 		"name": *getSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2809,14 +2809,14 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *replaceSecretOptions.ProjectGuid,
+		"project_id": *replaceSecretOptions.ProjectID,
 		"name": *replaceSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2901,14 +2901,14 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	}
 
 	pathParamsMap := map[string]string{
-		"project_guid": *deleteSecretOptions.ProjectGuid,
+		"project_id": *deleteSecretOptions.ProjectID,
 		"name": *deleteSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_guid}/secrets/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2976,8 +2976,8 @@ type App struct {
 	// The name of the app.
 	Name *string `json:"name" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the app.
 	ResourceType *string `json:"resource_type" validate:"required"`
@@ -3130,7 +3130,7 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -3483,8 +3483,8 @@ type AppRevision struct {
 	// The name of the app revison.
 	Name *string `json:"name" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the app revision.
 	ResourceType *string `json:"resource_type" validate:"required"`
@@ -3615,7 +3615,7 @@ func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -3852,8 +3852,8 @@ type Build struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the build.
 	ResourceType *string `json:"resource_type,omitempty"`
@@ -3955,7 +3955,7 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -4200,8 +4200,8 @@ type BuildRun struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the build run.
 	ResourceType *string `json:"resource_type" validate:"required"`
@@ -4318,7 +4318,7 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -4537,8 +4537,8 @@ type ConfigMap struct {
 	// The name of the config map.
 	Name *string `json:"name" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the config map.
 	ResourceType *string `json:"resource_type" validate:"required"`
@@ -4577,7 +4577,7 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -4638,7 +4638,7 @@ func (resp *ConfigMapList) GetNextStart() (*string, error) {
 // CreateAppOptions : The CreateApp options.
 type CreateAppOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
@@ -4747,17 +4747,17 @@ const (
 )
 
 // NewCreateAppOptions : Instantiate CreateAppOptions
-func (*CodeEngineV2) NewCreateAppOptions(projectGuid string, imageReference string, name string) *CreateAppOptions {
+func (*CodeEngineV2) NewCreateAppOptions(projectID string, imageReference string, name string) *CreateAppOptions {
 	return &CreateAppOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateAppOptions) SetProjectGuid(projectGuid string) *CreateAppOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateAppOptions) SetProjectID(projectID string) *CreateAppOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -4890,7 +4890,7 @@ func (options *CreateAppOptions) SetHeaders(param map[string]string) *CreateAppO
 // CreateBuildOptions : The CreateBuild options.
 type CreateBuildOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of the build. Use a name that is unique within the project.
 	Name *string `json:"name" validate:"required"`
@@ -4953,9 +4953,9 @@ const (
 )
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
-func (*CodeEngineV2) NewCreateBuildOptions(projectGuid string, name string, outputImage string, outputSecret string, sourceURL string, strategyType string) *CreateBuildOptions {
+func (*CodeEngineV2) NewCreateBuildOptions(projectID string, name string, outputImage string, outputSecret string, sourceURL string, strategyType string) *CreateBuildOptions {
 	return &CreateBuildOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		OutputImage: core.StringPtr(outputImage),
 		OutputSecret: core.StringPtr(outputSecret),
@@ -4964,9 +4964,9 @@ func (*CodeEngineV2) NewCreateBuildOptions(projectGuid string, name string, outp
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateBuildOptions) SetProjectGuid(projectGuid string) *CreateBuildOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateBuildOptions) SetProjectID(projectID string) *CreateBuildOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5051,7 +5051,7 @@ func (options *CreateBuildOptions) SetHeaders(param map[string]string) *CreateBu
 // CreateBuildRunOptions : The CreateBuildRun options.
 type CreateBuildRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional name of the build on which this build run is based on. If specified, the build run will inherit the
 	// configuration of the referenced build. If not specified, make sure to specify at least the fields `strategy_type`,
@@ -5133,15 +5133,15 @@ const (
 )
 
 // NewCreateBuildRunOptions : Instantiate CreateBuildRunOptions
-func (*CodeEngineV2) NewCreateBuildRunOptions(projectGuid string) *CreateBuildRunOptions {
+func (*CodeEngineV2) NewCreateBuildRunOptions(projectID string) *CreateBuildRunOptions {
 	return &CreateBuildRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateBuildRunOptions) SetProjectGuid(projectGuid string) *CreateBuildRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateBuildRunOptions) SetProjectID(projectID string) *CreateBuildRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5238,7 +5238,7 @@ func (options *CreateBuildRunOptions) SetHeaders(param map[string]string) *Creat
 // CreateConfigMapOptions : The CreateConfigMap options.
 type CreateConfigMapOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of the configmap. Use a name that is unique within the project.
 	Name *string `json:"name" validate:"required"`
@@ -5253,16 +5253,16 @@ type CreateConfigMapOptions struct {
 }
 
 // NewCreateConfigMapOptions : Instantiate CreateConfigMapOptions
-func (*CodeEngineV2) NewCreateConfigMapOptions(projectGuid string, name string) *CreateConfigMapOptions {
+func (*CodeEngineV2) NewCreateConfigMapOptions(projectID string, name string) *CreateConfigMapOptions {
 	return &CreateConfigMapOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateConfigMapOptions) SetProjectGuid(projectGuid string) *CreateConfigMapOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateConfigMapOptions) SetProjectID(projectID string) *CreateConfigMapOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5287,7 +5287,7 @@ func (options *CreateConfigMapOptions) SetHeaders(param map[string]string) *Crea
 // CreateJobOptions : The CreateJob options.
 type CreateJobOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
@@ -5380,17 +5380,17 @@ const (
 )
 
 // NewCreateJobOptions : Instantiate CreateJobOptions
-func (*CodeEngineV2) NewCreateJobOptions(projectGuid string, imageReference string, name string) *CreateJobOptions {
+func (*CodeEngineV2) NewCreateJobOptions(projectID string, imageReference string, name string) *CreateJobOptions {
 	return &CreateJobOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateJobOptions) SetProjectGuid(projectGuid string) *CreateJobOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateJobOptions) SetProjectID(projectID string) *CreateJobOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5499,7 +5499,7 @@ func (options *CreateJobOptions) SetHeaders(param map[string]string) *CreateJobO
 // CreateJobRunOptions : The CreateJobRun options.
 type CreateJobRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
@@ -5595,15 +5595,15 @@ const (
 )
 
 // NewCreateJobRunOptions : Instantiate CreateJobRunOptions
-func (*CodeEngineV2) NewCreateJobRunOptions(projectGuid string) *CreateJobRunOptions {
+func (*CodeEngineV2) NewCreateJobRunOptions(projectID string) *CreateJobRunOptions {
 	return &CreateJobRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateJobRunOptions) SetProjectGuid(projectGuid string) *CreateJobRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateJobRunOptions) SetProjectID(projectID string) *CreateJobRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5777,7 +5777,7 @@ func (options *CreateProjectOptions) SetHeaders(param map[string]string) *Create
 // CreateSecretOptions : The CreateSecret options.
 type CreateSecretOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Specify the format of the secret.
 	Format *string `json:"format" validate:"required"`
@@ -5826,17 +5826,17 @@ const (
 )
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
-func (*CodeEngineV2) NewCreateSecretOptions(projectGuid string, format string, name string) *CreateSecretOptions {
+func (*CodeEngineV2) NewCreateSecretOptions(projectID string, format string, name string) *CreateSecretOptions {
 	return &CreateSecretOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Format: core.StringPtr(format),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *CreateSecretOptions) SetProjectGuid(projectGuid string) *CreateSecretOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateSecretOptions) SetProjectID(projectID string) *CreateSecretOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5897,7 +5897,7 @@ func (options *CreateSecretOptions) SetHeaders(param map[string]string) *CreateS
 // DeleteAppOptions : The DeleteApp options.
 type DeleteAppOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
@@ -5907,16 +5907,16 @@ type DeleteAppOptions struct {
 }
 
 // NewDeleteAppOptions : Instantiate DeleteAppOptions
-func (*CodeEngineV2) NewDeleteAppOptions(projectGuid string, name string) *DeleteAppOptions {
+func (*CodeEngineV2) NewDeleteAppOptions(projectID string, name string) *DeleteAppOptions {
 	return &DeleteAppOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteAppOptions) SetProjectGuid(projectGuid string) *DeleteAppOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteAppOptions) SetProjectID(projectID string) *DeleteAppOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5935,7 +5935,7 @@ func (options *DeleteAppOptions) SetHeaders(param map[string]string) *DeleteAppO
 // DeleteAppRevisionOptions : The DeleteAppRevision options.
 type DeleteAppRevisionOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	AppName *string `json:"app_name" validate:"required,ne="`
@@ -5948,17 +5948,17 @@ type DeleteAppRevisionOptions struct {
 }
 
 // NewDeleteAppRevisionOptions : Instantiate DeleteAppRevisionOptions
-func (*CodeEngineV2) NewDeleteAppRevisionOptions(projectGuid string, appName string, name string) *DeleteAppRevisionOptions {
+func (*CodeEngineV2) NewDeleteAppRevisionOptions(projectID string, appName string, name string) *DeleteAppRevisionOptions {
 	return &DeleteAppRevisionOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		AppName: core.StringPtr(appName),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteAppRevisionOptions) SetProjectGuid(projectGuid string) *DeleteAppRevisionOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteAppRevisionOptions) SetProjectID(projectID string) *DeleteAppRevisionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -5983,7 +5983,7 @@ func (options *DeleteAppRevisionOptions) SetHeaders(param map[string]string) *De
 // DeleteBuildOptions : The DeleteBuild options.
 type DeleteBuildOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your build.
 	Name *string `json:"name" validate:"required,ne="`
@@ -5993,16 +5993,16 @@ type DeleteBuildOptions struct {
 }
 
 // NewDeleteBuildOptions : Instantiate DeleteBuildOptions
-func (*CodeEngineV2) NewDeleteBuildOptions(projectGuid string, name string) *DeleteBuildOptions {
+func (*CodeEngineV2) NewDeleteBuildOptions(projectID string, name string) *DeleteBuildOptions {
 	return &DeleteBuildOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteBuildOptions) SetProjectGuid(projectGuid string) *DeleteBuildOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteBuildOptions) SetProjectID(projectID string) *DeleteBuildOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6021,7 +6021,7 @@ func (options *DeleteBuildOptions) SetHeaders(param map[string]string) *DeleteBu
 // DeleteBuildRunOptions : The DeleteBuildRun options.
 type DeleteBuildRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your build run.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6031,16 +6031,16 @@ type DeleteBuildRunOptions struct {
 }
 
 // NewDeleteBuildRunOptions : Instantiate DeleteBuildRunOptions
-func (*CodeEngineV2) NewDeleteBuildRunOptions(projectGuid string, name string) *DeleteBuildRunOptions {
+func (*CodeEngineV2) NewDeleteBuildRunOptions(projectID string, name string) *DeleteBuildRunOptions {
 	return &DeleteBuildRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteBuildRunOptions) SetProjectGuid(projectGuid string) *DeleteBuildRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteBuildRunOptions) SetProjectID(projectID string) *DeleteBuildRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6059,7 +6059,7 @@ func (options *DeleteBuildRunOptions) SetHeaders(param map[string]string) *Delet
 // DeleteConfigMapOptions : The DeleteConfigMap options.
 type DeleteConfigMapOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your configmap.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6069,16 +6069,16 @@ type DeleteConfigMapOptions struct {
 }
 
 // NewDeleteConfigMapOptions : Instantiate DeleteConfigMapOptions
-func (*CodeEngineV2) NewDeleteConfigMapOptions(projectGuid string, name string) *DeleteConfigMapOptions {
+func (*CodeEngineV2) NewDeleteConfigMapOptions(projectID string, name string) *DeleteConfigMapOptions {
 	return &DeleteConfigMapOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteConfigMapOptions) SetProjectGuid(projectGuid string) *DeleteConfigMapOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteConfigMapOptions) SetProjectID(projectID string) *DeleteConfigMapOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6097,7 +6097,7 @@ func (options *DeleteConfigMapOptions) SetHeaders(param map[string]string) *Dele
 // DeleteJobOptions : The DeleteJob options.
 type DeleteJobOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6107,16 +6107,16 @@ type DeleteJobOptions struct {
 }
 
 // NewDeleteJobOptions : Instantiate DeleteJobOptions
-func (*CodeEngineV2) NewDeleteJobOptions(projectGuid string, name string) *DeleteJobOptions {
+func (*CodeEngineV2) NewDeleteJobOptions(projectID string, name string) *DeleteJobOptions {
 	return &DeleteJobOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteJobOptions) SetProjectGuid(projectGuid string) *DeleteJobOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteJobOptions) SetProjectID(projectID string) *DeleteJobOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6135,7 +6135,7 @@ func (options *DeleteJobOptions) SetHeaders(param map[string]string) *DeleteJobO
 // DeleteJobRunOptions : The DeleteJobRun options.
 type DeleteJobRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your job run.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6145,16 +6145,16 @@ type DeleteJobRunOptions struct {
 }
 
 // NewDeleteJobRunOptions : Instantiate DeleteJobRunOptions
-func (*CodeEngineV2) NewDeleteJobRunOptions(projectGuid string, name string) *DeleteJobRunOptions {
+func (*CodeEngineV2) NewDeleteJobRunOptions(projectID string, name string) *DeleteJobRunOptions {
 	return &DeleteJobRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteJobRunOptions) SetProjectGuid(projectGuid string) *DeleteJobRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteJobRunOptions) SetProjectID(projectID string) *DeleteJobRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6172,23 +6172,23 @@ func (options *DeleteJobRunOptions) SetHeaders(param map[string]string) *DeleteJ
 
 // DeleteProjectOptions : The DeleteProject options.
 type DeleteProjectOptions struct {
-	// The GUID of the project.
-	Guid *string `json:"guid" validate:"required,ne="`
+	// The ID of the project.
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteProjectOptions : Instantiate DeleteProjectOptions
-func (*CodeEngineV2) NewDeleteProjectOptions(guid string) *DeleteProjectOptions {
+func (*CodeEngineV2) NewDeleteProjectOptions(id string) *DeleteProjectOptions {
 	return &DeleteProjectOptions{
-		Guid: core.StringPtr(guid),
+		ID: core.StringPtr(id),
 	}
 }
 
-// SetGuid : Allow user to set Guid
-func (_options *DeleteProjectOptions) SetGuid(guid string) *DeleteProjectOptions {
-	_options.Guid = core.StringPtr(guid)
+// SetID : Allow user to set ID
+func (_options *DeleteProjectOptions) SetID(id string) *DeleteProjectOptions {
+	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -6201,7 +6201,7 @@ func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *Delete
 // DeleteSecretOptions : The DeleteSecret options.
 type DeleteSecretOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your secret.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6211,16 +6211,16 @@ type DeleteSecretOptions struct {
 }
 
 // NewDeleteSecretOptions : Instantiate DeleteSecretOptions
-func (*CodeEngineV2) NewDeleteSecretOptions(projectGuid string, name string) *DeleteSecretOptions {
+func (*CodeEngineV2) NewDeleteSecretOptions(projectID string, name string) *DeleteSecretOptions {
 	return &DeleteSecretOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *DeleteSecretOptions) SetProjectGuid(projectGuid string) *DeleteSecretOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteSecretOptions) SetProjectID(projectID string) *DeleteSecretOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6363,7 +6363,7 @@ func UnmarshalEnvVarPrototype(m map[string]json.RawMessage, result interface{}) 
 // GetAppOptions : The GetApp options.
 type GetAppOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6373,16 +6373,16 @@ type GetAppOptions struct {
 }
 
 // NewGetAppOptions : Instantiate GetAppOptions
-func (*CodeEngineV2) NewGetAppOptions(projectGuid string, name string) *GetAppOptions {
+func (*CodeEngineV2) NewGetAppOptions(projectID string, name string) *GetAppOptions {
 	return &GetAppOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetAppOptions) SetProjectGuid(projectGuid string) *GetAppOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetAppOptions) SetProjectID(projectID string) *GetAppOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6401,7 +6401,7 @@ func (options *GetAppOptions) SetHeaders(param map[string]string) *GetAppOptions
 // GetAppRevisionOptions : The GetAppRevision options.
 type GetAppRevisionOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	AppName *string `json:"app_name" validate:"required,ne="`
@@ -6414,17 +6414,17 @@ type GetAppRevisionOptions struct {
 }
 
 // NewGetAppRevisionOptions : Instantiate GetAppRevisionOptions
-func (*CodeEngineV2) NewGetAppRevisionOptions(projectGuid string, appName string, name string) *GetAppRevisionOptions {
+func (*CodeEngineV2) NewGetAppRevisionOptions(projectID string, appName string, name string) *GetAppRevisionOptions {
 	return &GetAppRevisionOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		AppName: core.StringPtr(appName),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetAppRevisionOptions) SetProjectGuid(projectGuid string) *GetAppRevisionOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetAppRevisionOptions) SetProjectID(projectID string) *GetAppRevisionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6449,7 +6449,7 @@ func (options *GetAppRevisionOptions) SetHeaders(param map[string]string) *GetAp
 // GetBuildOptions : The GetBuild options.
 type GetBuildOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your build.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6459,16 +6459,16 @@ type GetBuildOptions struct {
 }
 
 // NewGetBuildOptions : Instantiate GetBuildOptions
-func (*CodeEngineV2) NewGetBuildOptions(projectGuid string, name string) *GetBuildOptions {
+func (*CodeEngineV2) NewGetBuildOptions(projectID string, name string) *GetBuildOptions {
 	return &GetBuildOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetBuildOptions) SetProjectGuid(projectGuid string) *GetBuildOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetBuildOptions) SetProjectID(projectID string) *GetBuildOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6487,7 +6487,7 @@ func (options *GetBuildOptions) SetHeaders(param map[string]string) *GetBuildOpt
 // GetBuildRunOptions : The GetBuildRun options.
 type GetBuildRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your build run.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6497,16 +6497,16 @@ type GetBuildRunOptions struct {
 }
 
 // NewGetBuildRunOptions : Instantiate GetBuildRunOptions
-func (*CodeEngineV2) NewGetBuildRunOptions(projectGuid string, name string) *GetBuildRunOptions {
+func (*CodeEngineV2) NewGetBuildRunOptions(projectID string, name string) *GetBuildRunOptions {
 	return &GetBuildRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetBuildRunOptions) SetProjectGuid(projectGuid string) *GetBuildRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetBuildRunOptions) SetProjectID(projectID string) *GetBuildRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6525,7 +6525,7 @@ func (options *GetBuildRunOptions) SetHeaders(param map[string]string) *GetBuild
 // GetConfigMapOptions : The GetConfigMap options.
 type GetConfigMapOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your configmap.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6535,16 +6535,16 @@ type GetConfigMapOptions struct {
 }
 
 // NewGetConfigMapOptions : Instantiate GetConfigMapOptions
-func (*CodeEngineV2) NewGetConfigMapOptions(projectGuid string, name string) *GetConfigMapOptions {
+func (*CodeEngineV2) NewGetConfigMapOptions(projectID string, name string) *GetConfigMapOptions {
 	return &GetConfigMapOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetConfigMapOptions) SetProjectGuid(projectGuid string) *GetConfigMapOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetConfigMapOptions) SetProjectID(projectID string) *GetConfigMapOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6563,7 +6563,7 @@ func (options *GetConfigMapOptions) SetHeaders(param map[string]string) *GetConf
 // GetJobOptions : The GetJob options.
 type GetJobOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6573,16 +6573,16 @@ type GetJobOptions struct {
 }
 
 // NewGetJobOptions : Instantiate GetJobOptions
-func (*CodeEngineV2) NewGetJobOptions(projectGuid string, name string) *GetJobOptions {
+func (*CodeEngineV2) NewGetJobOptions(projectID string, name string) *GetJobOptions {
 	return &GetJobOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetJobOptions) SetProjectGuid(projectGuid string) *GetJobOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetJobOptions) SetProjectID(projectID string) *GetJobOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6601,7 +6601,7 @@ func (options *GetJobOptions) SetHeaders(param map[string]string) *GetJobOptions
 // GetJobRunOptions : The GetJobRun options.
 type GetJobRunOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your job run.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6611,16 +6611,16 @@ type GetJobRunOptions struct {
 }
 
 // NewGetJobRunOptions : Instantiate GetJobRunOptions
-func (*CodeEngineV2) NewGetJobRunOptions(projectGuid string, name string) *GetJobRunOptions {
+func (*CodeEngineV2) NewGetJobRunOptions(projectID string, name string) *GetJobRunOptions {
 	return &GetJobRunOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetJobRunOptions) SetProjectGuid(projectGuid string) *GetJobRunOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetJobRunOptions) SetProjectID(projectID string) *GetJobRunOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6638,23 +6638,23 @@ func (options *GetJobRunOptions) SetHeaders(param map[string]string) *GetJobRunO
 
 // GetProjectOptions : The GetProject options.
 type GetProjectOptions struct {
-	// The GUID of the project.
-	Guid *string `json:"guid" validate:"required,ne="`
+	// The ID of the project.
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetProjectOptions : Instantiate GetProjectOptions
-func (*CodeEngineV2) NewGetProjectOptions(guid string) *GetProjectOptions {
+func (*CodeEngineV2) NewGetProjectOptions(id string) *GetProjectOptions {
 	return &GetProjectOptions{
-		Guid: core.StringPtr(guid),
+		ID: core.StringPtr(id),
 	}
 }
 
-// SetGuid : Allow user to set Guid
-func (_options *GetProjectOptions) SetGuid(guid string) *GetProjectOptions {
-	_options.Guid = core.StringPtr(guid)
+// SetID : Allow user to set ID
+func (_options *GetProjectOptions) SetID(id string) *GetProjectOptions {
+	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -6667,7 +6667,7 @@ func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjec
 // GetSecretOptions : The GetSecret options.
 type GetSecretOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your secret.
 	Name *string `json:"name" validate:"required,ne="`
@@ -6677,16 +6677,16 @@ type GetSecretOptions struct {
 }
 
 // NewGetSecretOptions : Instantiate GetSecretOptions
-func (*CodeEngineV2) NewGetSecretOptions(projectGuid string, name string) *GetSecretOptions {
+func (*CodeEngineV2) NewGetSecretOptions(projectID string, name string) *GetSecretOptions {
 	return &GetSecretOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *GetSecretOptions) SetProjectGuid(projectGuid string) *GetSecretOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetSecretOptions) SetProjectID(projectID string) *GetSecretOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -6731,8 +6731,8 @@ type Job struct {
 	// The name of the job.
 	Name *string `json:"name" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the job.
 	ResourceType *string `json:"resource_type" validate:"required"`
@@ -6846,7 +6846,7 @@ func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -7150,8 +7150,8 @@ type JobRun struct {
 	// The name of the job run.
 	Name *string `json:"name,omitempty"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// The type of the job run.
 	ResourceType *string `json:"resource_type,omitempty"`
@@ -7279,7 +7279,7 @@ func UnmarshalJobRun(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -7466,7 +7466,7 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 // ListAppRevisionsOptions : The ListAppRevisions options.
 type ListAppRevisionsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	AppName *string `json:"app_name" validate:"required,ne="`
@@ -7484,16 +7484,16 @@ type ListAppRevisionsOptions struct {
 }
 
 // NewListAppRevisionsOptions : Instantiate ListAppRevisionsOptions
-func (*CodeEngineV2) NewListAppRevisionsOptions(projectGuid string, appName string) *ListAppRevisionsOptions {
+func (*CodeEngineV2) NewListAppRevisionsOptions(projectID string, appName string) *ListAppRevisionsOptions {
 	return &ListAppRevisionsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		AppName: core.StringPtr(appName),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListAppRevisionsOptions) SetProjectGuid(projectGuid string) *ListAppRevisionsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListAppRevisionsOptions) SetProjectID(projectID string) *ListAppRevisionsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7524,7 +7524,7 @@ func (options *ListAppRevisionsOptions) SetHeaders(param map[string]string) *Lis
 // ListAppsOptions : The ListApps options.
 type ListAppsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of apps per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7539,15 +7539,15 @@ type ListAppsOptions struct {
 }
 
 // NewListAppsOptions : Instantiate ListAppsOptions
-func (*CodeEngineV2) NewListAppsOptions(projectGuid string) *ListAppsOptions {
+func (*CodeEngineV2) NewListAppsOptions(projectID string) *ListAppsOptions {
 	return &ListAppsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListAppsOptions) SetProjectGuid(projectGuid string) *ListAppsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListAppsOptions) SetProjectID(projectID string) *ListAppsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7572,7 +7572,7 @@ func (options *ListAppsOptions) SetHeaders(param map[string]string) *ListAppsOpt
 // ListBuildRunsOptions : The ListBuildRuns options.
 type ListBuildRunsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of build runs per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7587,15 +7587,15 @@ type ListBuildRunsOptions struct {
 }
 
 // NewListBuildRunsOptions : Instantiate ListBuildRunsOptions
-func (*CodeEngineV2) NewListBuildRunsOptions(projectGuid string) *ListBuildRunsOptions {
+func (*CodeEngineV2) NewListBuildRunsOptions(projectID string) *ListBuildRunsOptions {
 	return &ListBuildRunsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListBuildRunsOptions) SetProjectGuid(projectGuid string) *ListBuildRunsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListBuildRunsOptions) SetProjectID(projectID string) *ListBuildRunsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7620,7 +7620,7 @@ func (options *ListBuildRunsOptions) SetHeaders(param map[string]string) *ListBu
 // ListBuildsOptions : The ListBuilds options.
 type ListBuildsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of builds per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7633,15 +7633,15 @@ type ListBuildsOptions struct {
 }
 
 // NewListBuildsOptions : Instantiate ListBuildsOptions
-func (*CodeEngineV2) NewListBuildsOptions(projectGuid string) *ListBuildsOptions {
+func (*CodeEngineV2) NewListBuildsOptions(projectID string) *ListBuildsOptions {
 	return &ListBuildsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListBuildsOptions) SetProjectGuid(projectGuid string) *ListBuildsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListBuildsOptions) SetProjectID(projectID string) *ListBuildsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7666,7 +7666,7 @@ func (options *ListBuildsOptions) SetHeaders(param map[string]string) *ListBuild
 // ListConfigMapsOptions : The ListConfigMaps options.
 type ListConfigMapsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of config maps per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7681,15 +7681,15 @@ type ListConfigMapsOptions struct {
 }
 
 // NewListConfigMapsOptions : Instantiate ListConfigMapsOptions
-func (*CodeEngineV2) NewListConfigMapsOptions(projectGuid string) *ListConfigMapsOptions {
+func (*CodeEngineV2) NewListConfigMapsOptions(projectID string) *ListConfigMapsOptions {
 	return &ListConfigMapsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListConfigMapsOptions) SetProjectGuid(projectGuid string) *ListConfigMapsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListConfigMapsOptions) SetProjectID(projectID string) *ListConfigMapsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7731,7 +7731,7 @@ func UnmarshalListFirstMetadata(m map[string]json.RawMessage, result interface{}
 // ListJobRunsOptions : The ListJobRuns options.
 type ListJobRunsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of job runs per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7746,15 +7746,15 @@ type ListJobRunsOptions struct {
 }
 
 // NewListJobRunsOptions : Instantiate ListJobRunsOptions
-func (*CodeEngineV2) NewListJobRunsOptions(projectGuid string) *ListJobRunsOptions {
+func (*CodeEngineV2) NewListJobRunsOptions(projectID string) *ListJobRunsOptions {
 	return &ListJobRunsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListJobRunsOptions) SetProjectGuid(projectGuid string) *ListJobRunsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListJobRunsOptions) SetProjectID(projectID string) *ListJobRunsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7779,7 +7779,7 @@ func (options *ListJobRunsOptions) SetHeaders(param map[string]string) *ListJobR
 // ListJobsOptions : The ListJobs options.
 type ListJobsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of jobs per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7794,15 +7794,15 @@ type ListJobsOptions struct {
 }
 
 // NewListJobsOptions : Instantiate ListJobsOptions
-func (*CodeEngineV2) NewListJobsOptions(projectGuid string) *ListJobsOptions {
+func (*CodeEngineV2) NewListJobsOptions(projectID string) *ListJobsOptions {
 	return &ListJobsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListJobsOptions) SetProjectGuid(projectGuid string) *ListJobsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListJobsOptions) SetProjectID(projectID string) *ListJobsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7888,7 +7888,7 @@ func (options *ListProjectsOptions) SetHeaders(param map[string]string) *ListPro
 // ListSecretsOptions : The ListSecrets options.
 type ListSecretsOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// Optional maximum number of secrets per page.
 	Limit *int64 `json:"limit,omitempty"`
@@ -7903,15 +7903,15 @@ type ListSecretsOptions struct {
 }
 
 // NewListSecretsOptions : Instantiate ListSecretsOptions
-func (*CodeEngineV2) NewListSecretsOptions(projectGuid string) *ListSecretsOptions {
+func (*CodeEngineV2) NewListSecretsOptions(projectID string) *ListSecretsOptions {
 	return &ListSecretsOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ListSecretsOptions) SetProjectGuid(projectGuid string) *ListSecretsOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListSecretsOptions) SetProjectID(projectID string) *ListSecretsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -7944,11 +7944,11 @@ type Project struct {
 	// The CRN of the project.
 	Crn *string `json:"crn" validate:"required"`
 
-	// The GUID of the project.
-	Guid *string `json:"guid" validate:"required"`
-
 	// When you provision a new resource, a URL is created identifying the location of the instance.
 	Href *string `json:"href" validate:"required"`
+
+	// The ID of the project.
+	ID *string `json:"id" validate:"required"`
 
 	// The name of the project.
 	Name *string `json:"name" validate:"required"`
@@ -8003,11 +8003,11 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -8084,7 +8084,7 @@ func (resp *ProjectList) GetNextStart() (*string, error) {
 // ReplaceConfigMapOptions : The ReplaceConfigMap options.
 type ReplaceConfigMapOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your configmap.
 	Name *string `json:"name" validate:"required,ne="`
@@ -8104,17 +8104,17 @@ type ReplaceConfigMapOptions struct {
 }
 
 // NewReplaceConfigMapOptions : Instantiate ReplaceConfigMapOptions
-func (*CodeEngineV2) NewReplaceConfigMapOptions(projectGuid string, name string, ifMatch string) *ReplaceConfigMapOptions {
+func (*CodeEngineV2) NewReplaceConfigMapOptions(projectID string, name string, ifMatch string) *ReplaceConfigMapOptions {
 	return &ReplaceConfigMapOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ReplaceConfigMapOptions) SetProjectGuid(projectGuid string) *ReplaceConfigMapOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ReplaceConfigMapOptions) SetProjectID(projectID string) *ReplaceConfigMapOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -8145,7 +8145,7 @@ func (options *ReplaceConfigMapOptions) SetHeaders(param map[string]string) *Rep
 // ReplaceSecretOptions : The ReplaceSecret options.
 type ReplaceSecretOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your secret.
 	Name *string `json:"name" validate:"required,ne="`
@@ -8199,17 +8199,17 @@ const (
 )
 
 // NewReplaceSecretOptions : Instantiate ReplaceSecretOptions
-func (*CodeEngineV2) NewReplaceSecretOptions(projectGuid string, name string, ifMatch string) *ReplaceSecretOptions {
+func (*CodeEngineV2) NewReplaceSecretOptions(projectID string, name string, ifMatch string) *ReplaceSecretOptions {
 	return &ReplaceSecretOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *ReplaceSecretOptions) SetProjectGuid(projectGuid string) *ReplaceSecretOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *ReplaceSecretOptions) SetProjectID(projectID string) *ReplaceSecretOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -8301,8 +8301,8 @@ type Secret struct {
 	// The name of the secret.
 	Name *string `json:"name" validate:"required"`
 
-	// The GUID of the project the resource is located in.
-	ProjectGuid *string `json:"project_guid" validate:"required"`
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id" validate:"required"`
 
 	// ID of the service credential associated with the secret.
 	ResourceKeyID *string `json:"resource_key_id,omitempty"`
@@ -8373,7 +8373,7 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "project_guid", &obj.ProjectGuid)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -8458,7 +8458,7 @@ func (resp *SecretList) GetNextStart() (*string, error) {
 // UpdateAppOptions : The UpdateApp options.
 type UpdateAppOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
@@ -8476,18 +8476,18 @@ type UpdateAppOptions struct {
 }
 
 // NewUpdateAppOptions : Instantiate UpdateAppOptions
-func (*CodeEngineV2) NewUpdateAppOptions(projectGuid string, name string, ifMatch string, app map[string]interface{}) *UpdateAppOptions {
+func (*CodeEngineV2) NewUpdateAppOptions(projectID string, name string, ifMatch string, app map[string]interface{}) *UpdateAppOptions {
 	return &UpdateAppOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		IfMatch: core.StringPtr(ifMatch),
 		App: app,
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *UpdateAppOptions) SetProjectGuid(projectGuid string) *UpdateAppOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateAppOptions) SetProjectID(projectID string) *UpdateAppOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -8518,7 +8518,7 @@ func (options *UpdateAppOptions) SetHeaders(param map[string]string) *UpdateAppO
 // UpdateBuildOptions : The UpdateBuild options.
 type UpdateBuildOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your build.
 	Name *string `json:"name" validate:"required,ne="`
@@ -8536,18 +8536,18 @@ type UpdateBuildOptions struct {
 }
 
 // NewUpdateBuildOptions : Instantiate UpdateBuildOptions
-func (*CodeEngineV2) NewUpdateBuildOptions(projectGuid string, name string, ifMatch string, build map[string]interface{}) *UpdateBuildOptions {
+func (*CodeEngineV2) NewUpdateBuildOptions(projectID string, name string, ifMatch string, build map[string]interface{}) *UpdateBuildOptions {
 	return &UpdateBuildOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		IfMatch: core.StringPtr(ifMatch),
 		Build: build,
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *UpdateBuildOptions) SetProjectGuid(projectGuid string) *UpdateBuildOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateBuildOptions) SetProjectID(projectID string) *UpdateBuildOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
@@ -8578,7 +8578,7 @@ func (options *UpdateBuildOptions) SetHeaders(param map[string]string) *UpdateBu
 // UpdateJobOptions : The UpdateJob options.
 type UpdateJobOptions struct {
 	// The ID of the project.
-	ProjectGuid *string `json:"project_guid" validate:"required,ne="`
+	ProjectID *string `json:"project_id" validate:"required,ne="`
 
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
@@ -8596,18 +8596,18 @@ type UpdateJobOptions struct {
 }
 
 // NewUpdateJobOptions : Instantiate UpdateJobOptions
-func (*CodeEngineV2) NewUpdateJobOptions(projectGuid string, name string, ifMatch string, job map[string]interface{}) *UpdateJobOptions {
+func (*CodeEngineV2) NewUpdateJobOptions(projectID string, name string, ifMatch string, job map[string]interface{}) *UpdateJobOptions {
 	return &UpdateJobOptions{
-		ProjectGuid: core.StringPtr(projectGuid),
+		ProjectID: core.StringPtr(projectID),
 		Name: core.StringPtr(name),
 		IfMatch: core.StringPtr(ifMatch),
 		Job: job,
 	}
 }
 
-// SetProjectGuid : Allow user to set ProjectGuid
-func (_options *UpdateJobOptions) SetProjectGuid(projectGuid string) *UpdateJobOptions {
-	_options.ProjectGuid = core.StringPtr(projectGuid)
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateJobOptions) SetProjectID(projectID string) *UpdateJobOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 

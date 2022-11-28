@@ -173,7 +173,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListApps() result:")
 			// begin-list_apps
 			listAppsOptions := &codeenginev2.ListAppsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -272,7 +272,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListAppRevisions() result:")
 			// begin-list_app_revisions
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				AppName: core.StringPtr("my-app"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
@@ -321,7 +321,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListJobs() result:")
 			// begin-list_jobs
 			listJobsOptions := &codeenginev2.ListJobsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -420,7 +420,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListJobRuns() result:")
 			// begin-list_job_runs
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -488,7 +488,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListBuilds() result:")
 			// begin-list_builds
 			listBuildsOptions := &codeenginev2.ListBuildsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -590,7 +590,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListBuildRuns() result:")
 			// begin-list_build_runs
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -658,7 +658,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListConfigMaps() result:")
 			// begin-list_config_maps
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -750,7 +750,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nListSecrets() result:")
 			// begin-list_secrets
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
-				ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 

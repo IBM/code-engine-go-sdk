@@ -230,7 +230,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -287,7 +287,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "projects": [{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -412,9 +412,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"projects":[{"account_id":"4329073d16d2f3663f74bfa955259139","created_at":"2021-03-29T12:18:13.992359829Z","crn":"crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b","id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"project-name","region":"us-east","resource_group_id":"5c49eabcf5e85881a37e2d100a33b3df","resource_type":"project_v2","status":"active"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -549,7 +549,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -622,7 +622,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -752,7 +752,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetProject(getProjectOptionsModel)
@@ -789,7 +789,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -803,7 +803,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -843,7 +843,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "4329073d16d2f3663f74bfa955259139", "created_at": "2021-03-29T12:18:13.992359829Z", "crn": "crn:v1:bluemix:public:codeengine:eu-de:a/4329073d16d2f3663f74bfa955259139:4e49b3e0-27a8-48d2-a784-c7ee48bb863b::", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "project-name", "region": "us-east", "resource_group_id": "5c49eabcf5e85881a37e2d100a33b3df", "resource_type": "project_v2", "status": "active"}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -862,7 +862,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -882,7 +882,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -923,7 +923,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetProjectOptions model
 				getProjectOptionsModel := new(codeenginev2.GetProjectOptions)
-				getProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -968,7 +968,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(codeenginev2.DeleteProjectOptions)
-				deleteProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -986,7 +986,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(codeenginev2.DeleteProjectOptions)
-				deleteProjectOptionsModel.Guid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteProjectOptionsModel.ID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -1034,7 +1034,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppsOptions model
 				listAppsOptionsModel := new(codeenginev2.ListAppsOptions)
-				listAppsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppsOptionsModel.Start = core.StringPtr("testString")
 				listAppsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1075,7 +1075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully with retries`, func() {
@@ -1089,7 +1089,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppsOptions model
 				listAppsOptionsModel := new(codeenginev2.ListAppsOptions)
-				listAppsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppsOptionsModel.Start = core.StringPtr("testString")
 				listAppsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1133,7 +1133,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully`, func() {
@@ -1152,7 +1152,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppsOptions model
 				listAppsOptionsModel := new(codeenginev2.ListAppsOptions)
-				listAppsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppsOptionsModel.Start = core.StringPtr("testString")
 				listAppsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1174,7 +1174,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppsOptions model
 				listAppsOptionsModel := new(codeenginev2.ListAppsOptions)
-				listAppsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppsOptionsModel.Start = core.StringPtr("testString")
 				listAppsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1217,7 +1217,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppsOptions model
 				listAppsOptionsModel := new(codeenginev2.ListAppsOptions)
-				listAppsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppsOptionsModel.Start = core.StringPtr("testString")
 				listAppsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1268,9 +1268,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1285,7 +1285,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -1311,7 +1311,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -1367,7 +1367,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
-				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
@@ -1440,7 +1440,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully with retries`, func() {
@@ -1470,7 +1470,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
-				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
@@ -1546,7 +1546,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully`, func() {
@@ -1581,7 +1581,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
-				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
@@ -1637,7 +1637,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
-				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
@@ -1714,7 +1714,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateAppOptions model
 				createAppOptionsModel := new(codeenginev2.CreateAppOptions)
-				createAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createAppOptionsModel.Name = core.StringPtr("my-app")
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
@@ -1775,7 +1775,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
-				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1813,7 +1813,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully with retries`, func() {
@@ -1827,7 +1827,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
-				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1868,7 +1868,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully`, func() {
@@ -1887,7 +1887,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
-				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1908,7 +1908,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
-				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1950,7 +1950,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppOptions model
 				getAppOptionsModel := new(codeenginev2.GetAppOptions)
-				getAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.Name = core.StringPtr("my-app")
 				getAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1996,7 +1996,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteAppOptions model
 				deleteAppOptionsModel := new(codeenginev2.DeleteAppOptions)
-				deleteAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppOptionsModel.Name = core.StringPtr("my-app")
 				deleteAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2015,7 +2015,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteAppOptions model
 				deleteAppOptionsModel := new(codeenginev2.DeleteAppOptions)
-				deleteAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppOptionsModel.Name = core.StringPtr("my-app")
 				deleteAppOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2104,7 +2104,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
-				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
 				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAppOptionsModel.App = appPatchModelAsPatch
@@ -2162,7 +2162,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully with retries`, func() {
@@ -2216,7 +2216,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
-				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
 				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAppOptionsModel.App = appPatchModelAsPatch
@@ -2277,7 +2277,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully`, func() {
@@ -2336,7 +2336,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
-				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
 				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAppOptionsModel.App = appPatchModelAsPatch
@@ -2399,7 +2399,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
-				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
 				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAppOptionsModel.App = appPatchModelAsPatch
@@ -2483,7 +2483,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateAppOptions model
 				updateAppOptionsModel := new(codeenginev2.UpdateAppOptions)
-				updateAppOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.Name = core.StringPtr("my-app")
 				updateAppOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAppOptionsModel.App = appPatchModelAsPatch
@@ -2529,7 +2529,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppRevisionsOptions model
 				listAppRevisionsOptionsModel := new(codeenginev2.ListAppRevisionsOptions)
-				listAppRevisionsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.AppName = core.StringPtr("my-app")
 				listAppRevisionsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppRevisionsOptionsModel.Start = core.StringPtr("testString")
@@ -2571,7 +2571,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully with retries`, func() {
@@ -2585,7 +2585,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppRevisionsOptions model
 				listAppRevisionsOptionsModel := new(codeenginev2.ListAppRevisionsOptions)
-				listAppRevisionsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.AppName = core.StringPtr("my-app")
 				listAppRevisionsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppRevisionsOptionsModel.Start = core.StringPtr("testString")
@@ -2630,7 +2630,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "revisions": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}]}`)
 				}))
 			})
 			It(`Invoke ListAppRevisions successfully`, func() {
@@ -2649,7 +2649,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppRevisionsOptions model
 				listAppRevisionsOptionsModel := new(codeenginev2.ListAppRevisionsOptions)
-				listAppRevisionsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.AppName = core.StringPtr("my-app")
 				listAppRevisionsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppRevisionsOptionsModel.Start = core.StringPtr("testString")
@@ -2672,7 +2672,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppRevisionsOptions model
 				listAppRevisionsOptionsModel := new(codeenginev2.ListAppRevisionsOptions)
-				listAppRevisionsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.AppName = core.StringPtr("my-app")
 				listAppRevisionsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppRevisionsOptionsModel.Start = core.StringPtr("testString")
@@ -2716,7 +2716,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListAppRevisionsOptions model
 				listAppRevisionsOptionsModel := new(codeenginev2.ListAppRevisionsOptions)
-				listAppRevisionsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.AppName = core.StringPtr("my-app")
 				listAppRevisionsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listAppRevisionsOptionsModel.Start = core.StringPtr("testString")
@@ -2768,9 +2768,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4GB","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2785,7 +2785,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					AppName: core.StringPtr("my-app"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
@@ -2812,7 +2812,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					AppName: core.StringPtr("my-app"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
@@ -2853,7 +2853,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppRevisionOptions model
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
-				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2892,7 +2892,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully with retries`, func() {
@@ -2906,7 +2906,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppRevisionOptions model
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
-				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2948,7 +2948,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-app-00001", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_revision_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4GB", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"actual_instances": 1, "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetAppRevision successfully`, func() {
@@ -2967,7 +2967,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppRevisionOptions model
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
-				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2989,7 +2989,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppRevisionOptions model
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
-				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3032,7 +3032,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetAppRevisionOptions model
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
-				getAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3079,7 +3079,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteAppRevisionOptions model
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
-				deleteAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3099,7 +3099,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteAppRevisionOptions model
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
-				deleteAppRevisionOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
 				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3149,7 +3149,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobsOptions model
 				listJobsOptionsModel := new(codeenginev2.ListJobsOptions)
-				listJobsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobsOptionsModel.Start = core.StringPtr("testString")
 				listJobsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3190,7 +3190,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully with retries`, func() {
@@ -3204,7 +3204,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobsOptions model
 				listJobsOptionsModel := new(codeenginev2.ListJobsOptions)
-				listJobsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobsOptionsModel.Start = core.StringPtr("testString")
 				listJobsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3248,7 +3248,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully`, func() {
@@ -3267,7 +3267,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobsOptions model
 				listJobsOptionsModel := new(codeenginev2.ListJobsOptions)
-				listJobsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobsOptionsModel.Start = core.StringPtr("testString")
 				listJobsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3289,7 +3289,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobsOptions model
 				listJobsOptionsModel := new(codeenginev2.ListJobsOptions)
-				listJobsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobsOptionsModel.Start = core.StringPtr("testString")
 				listJobsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3332,7 +3332,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobsOptions model
 				listJobsOptionsModel := new(codeenginev2.ListJobsOptions)
-				listJobsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobsOptionsModel.Start = core.StringPtr("testString")
 				listJobsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3383,9 +3383,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -3400,7 +3400,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -3426,7 +3426,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -3482,7 +3482,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
-				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
 				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
@@ -3551,7 +3551,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully with retries`, func() {
@@ -3581,7 +3581,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
-				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
 				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
@@ -3653,7 +3653,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully`, func() {
@@ -3688,7 +3688,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
-				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
 				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
@@ -3740,7 +3740,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
-				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
 				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
@@ -3813,7 +3813,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobOptions model
 				createJobOptionsModel := new(codeenginev2.CreateJobOptions)
-				createJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobOptionsModel.Name = core.StringPtr("my-job")
 				createJobOptionsModel.ImageSecret = core.StringPtr("my-secret")
@@ -3870,7 +3870,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
-				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -3908,7 +3908,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully with retries`, func() {
@@ -3922,7 +3922,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
-				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3963,7 +3963,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully`, func() {
@@ -3982,7 +3982,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
-				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4003,7 +4003,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
-				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4045,7 +4045,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobOptions model
 				getJobOptionsModel := new(codeenginev2.GetJobOptions)
-				getJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.Name = core.StringPtr("my-job")
 				getJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4091,7 +4091,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteJobOptions model
 				deleteJobOptionsModel := new(codeenginev2.DeleteJobOptions)
-				deleteJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4110,7 +4110,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteJobOptions model
 				deleteJobOptionsModel := new(codeenginev2.DeleteJobOptions)
-				deleteJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4195,7 +4195,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
-				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
 				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
 				updateJobOptionsModel.Job = jobPatchModelAsPatch
@@ -4253,7 +4253,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully with retries`, func() {
@@ -4303,7 +4303,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
-				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
 				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
 				updateJobOptionsModel.Job = jobPatchModelAsPatch
@@ -4364,7 +4364,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully`, func() {
@@ -4419,7 +4419,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
-				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
 				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
 				updateJobOptionsModel.Job = jobPatchModelAsPatch
@@ -4478,7 +4478,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
-				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
 				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
 				updateJobOptionsModel.Job = jobPatchModelAsPatch
@@ -4558,7 +4558,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateJobOptions model
 				updateJobOptionsModel := new(codeenginev2.UpdateJobOptions)
-				updateJobOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.Name = core.StringPtr("my-job")
 				updateJobOptionsModel.IfMatch = core.StringPtr("testString")
 				updateJobOptionsModel.Job = jobPatchModelAsPatch
@@ -4604,7 +4604,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
-				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4645,7 +4645,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully with retries`, func() {
@@ -4659,7 +4659,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
-				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4703,7 +4703,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully`, func() {
@@ -4722,7 +4722,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
-				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4744,7 +4744,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
-				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4787,7 +4787,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
-				listJobRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4838,9 +4838,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","ref":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","ref":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4GB","scale_max_execution_time":7200,"scale_memory_limit":"4GB","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -4855,7 +4855,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -4881,7 +4881,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -4937,7 +4937,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobRunOptions model
 				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
-				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createJobRunOptionsModel.Job = core.StringPtr("my-job")
@@ -5007,7 +5007,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully with retries`, func() {
@@ -5037,7 +5037,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobRunOptions model
 				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
-				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createJobRunOptionsModel.Job = core.StringPtr("my-job")
@@ -5110,7 +5110,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully`, func() {
@@ -5145,7 +5145,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobRunOptions model
 				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
-				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createJobRunOptionsModel.Job = core.StringPtr("my-job")
@@ -5198,7 +5198,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobRunOptions model
 				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
-				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createJobRunOptionsModel.Job = core.StringPtr("my-job")
@@ -5272,7 +5272,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateJobRunOptions model
 				createJobRunOptionsModel := new(codeenginev2.CreateJobRunOptions)
-				createJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createJobRunOptionsModel.Job = core.StringPtr("my-job")
@@ -5330,7 +5330,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
-				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.Name = core.StringPtr("my-job")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -5368,7 +5368,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully with retries`, func() {
@@ -5382,7 +5382,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
-				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.Name = core.StringPtr("my-job")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5423,7 +5423,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "ref": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "ref": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4GB", "scale_max_execution_time": 7200, "scale_memory_limit": "4GB", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully`, func() {
@@ -5442,7 +5442,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
-				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.Name = core.StringPtr("my-job")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5463,7 +5463,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
-				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.Name = core.StringPtr("my-job")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -5505,7 +5505,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
-				getJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.Name = core.StringPtr("my-job")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5551,7 +5551,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteJobRunOptions model
 				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
-				deleteJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -5570,7 +5570,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteJobRunOptions model
 				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
-				deleteJobRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
 				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -5619,7 +5619,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildsOptions model
 				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildsOptionsModel.Start = core.StringPtr("testString")
 				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -5660,7 +5660,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully with retries`, func() {
@@ -5674,7 +5674,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildsOptions model
 				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildsOptionsModel.Start = core.StringPtr("testString")
 				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -5718,7 +5718,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"builds": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuilds successfully`, func() {
@@ -5737,7 +5737,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildsOptions model
 				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildsOptionsModel.Start = core.StringPtr("testString")
 				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -5759,7 +5759,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildsOptions model
 				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildsOptionsModel.Start = core.StringPtr("testString")
 				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -5802,7 +5802,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildsOptions model
 				listBuildsOptionsModel := new(codeenginev2.ListBuildsOptions)
-				listBuildsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildsOptionsModel.Start = core.StringPtr("testString")
 				listBuildsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -5853,9 +5853,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -5870,7 +5870,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -5896,7 +5896,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -5936,7 +5936,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
 				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
@@ -6001,7 +6001,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully with retries`, func() {
@@ -6015,7 +6015,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
 				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
@@ -6083,7 +6083,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke CreateBuild successfully`, func() {
@@ -6102,7 +6102,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
 				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
@@ -6134,7 +6134,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
 				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
@@ -6187,7 +6187,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildOptions model
 				createBuildOptionsModel := new(codeenginev2.CreateBuildOptions)
-				createBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.Name = core.StringPtr("my-build")
 				createBuildOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
@@ -6240,7 +6240,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildOptions model
 				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.Name = core.StringPtr("my-build")
 				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -6278,7 +6278,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully with retries`, func() {
@@ -6292,7 +6292,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildOptions model
 				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.Name = core.StringPtr("my-build")
 				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6333,7 +6333,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke GetBuild successfully`, func() {
@@ -6352,7 +6352,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildOptions model
 				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.Name = core.StringPtr("my-build")
 				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6373,7 +6373,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildOptions model
 				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.Name = core.StringPtr("my-build")
 				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -6415,7 +6415,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildOptions model
 				getBuildOptionsModel := new(codeenginev2.GetBuildOptions)
-				getBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.Name = core.StringPtr("my-build")
 				getBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6461,7 +6461,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteBuildOptions model
 				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
-				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildOptionsModel.Name = core.StringPtr("my-build")
 				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6480,7 +6480,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteBuildOptions model
 				deleteBuildOptionsModel := new(codeenginev2.DeleteBuildOptions)
-				deleteBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildOptionsModel.Name = core.StringPtr("my-build")
 				deleteBuildOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -6545,7 +6545,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateBuildOptions model
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
 				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
 				updateBuildOptionsModel.Build = buildPatchModelAsPatch
@@ -6603,7 +6603,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully with retries`, func() {
@@ -6633,7 +6633,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateBuildOptions model
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
 				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
 				updateBuildOptionsModel.Build = buildPatchModelAsPatch
@@ -6694,7 +6694,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_v2", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "ready", "status_details": {"reason": "registered"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke UpdateBuild successfully`, func() {
@@ -6729,7 +6729,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateBuildOptions model
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
 				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
 				updateBuildOptionsModel.Build = buildPatchModelAsPatch
@@ -6768,7 +6768,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateBuildOptions model
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
 				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
 				updateBuildOptionsModel.Build = buildPatchModelAsPatch
@@ -6828,7 +6828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the UpdateBuildOptions model
 				updateBuildOptionsModel := new(codeenginev2.UpdateBuildOptions)
-				updateBuildOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.Name = core.StringPtr("my-build")
 				updateBuildOptionsModel.IfMatch = core.StringPtr("testString")
 				updateBuildOptionsModel.Build = buildPatchModelAsPatch
@@ -6874,7 +6874,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
-				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6915,7 +6915,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildRuns successfully with retries`, func() {
@@ -6929,7 +6929,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
-				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6973,7 +6973,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"build_runs": [{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListBuildRuns successfully`, func() {
@@ -6992,7 +6992,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
-				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7014,7 +7014,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
-				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7057,7 +7057,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
-				listBuildRunsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7108,9 +7108,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"build_runs":[{"build_name":"BuildName","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"SourceSecret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -7125,7 +7125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -7151,7 +7151,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -7191,7 +7191,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildRunOptions model
 				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
-				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
 				createBuildRunOptionsModel.Name = core.StringPtr("testString")
 				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
@@ -7258,7 +7258,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke CreateBuildRun successfully with retries`, func() {
@@ -7272,7 +7272,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildRunOptions model
 				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
-				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
 				createBuildRunOptionsModel.Name = core.StringPtr("testString")
 				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
@@ -7342,7 +7342,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke CreateBuildRun successfully`, func() {
@@ -7361,7 +7361,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildRunOptions model
 				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
-				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
 				createBuildRunOptionsModel.Name = core.StringPtr("testString")
 				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
@@ -7395,7 +7395,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildRunOptions model
 				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
-				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
 				createBuildRunOptionsModel.Name = core.StringPtr("testString")
 				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
@@ -7450,7 +7450,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateBuildRunOptions model
 				createBuildRunOptionsModel := new(codeenginev2.CreateBuildRunOptions)
-				createBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.BuildName = core.StringPtr("testString")
 				createBuildRunOptionsModel.Name = core.StringPtr("testString")
 				createBuildRunOptionsModel.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
@@ -7505,7 +7505,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildRunOptions model
 				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
-				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -7543,7 +7543,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke GetBuildRun successfully with retries`, func() {
@@ -7557,7 +7557,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildRunOptions model
 				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
-				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7598,7 +7598,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
+					fmt.Fprintf(res, "%s", `{"build_name": "BuildName", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-build-run", "output_image": "private.de.icr.io/icr_namespace/image-name", "output_secret": "ce-auto-icr-private-eu-de", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "build_run_v2", "service_account": "default", "source_context_dir": "some/subfolder", "source_revision": "main", "source_secret": "SourceSecret", "source_type": "git", "source_url": "https://github.com/IBM/CodeEngine", "status": "succeeded", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "output_digest": "sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384", "reason": "succeeded", "start_time": "2022-09-22T17:34:00Z"}, "strategy_size": "medium", "strategy_spec_file": "Dockerfile", "strategy_type": "dockerfile", "timeout": 600}`)
 				}))
 			})
 			It(`Invoke GetBuildRun successfully`, func() {
@@ -7617,7 +7617,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildRunOptions model
 				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
-				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7638,7 +7638,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildRunOptions model
 				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
-				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -7680,7 +7680,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetBuildRunOptions model
 				getBuildRunOptionsModel := new(codeenginev2.GetBuildRunOptions)
-				getBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				getBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7726,7 +7726,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteBuildRunOptions model
 				deleteBuildRunOptionsModel := new(codeenginev2.DeleteBuildRunOptions)
-				deleteBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				deleteBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7745,7 +7745,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteBuildRunOptions model
 				deleteBuildRunOptionsModel := new(codeenginev2.DeleteBuildRunOptions)
-				deleteBuildRunOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildRunOptionsModel.Name = core.StringPtr("my-build-run")
 				deleteBuildRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -7794,7 +7794,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListConfigMapsOptions model
 				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
-				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
 				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7835,7 +7835,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListConfigMaps successfully with retries`, func() {
@@ -7849,7 +7849,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListConfigMapsOptions model
 				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
-				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
 				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7893,7 +7893,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"config_maps": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListConfigMaps successfully`, func() {
@@ -7912,7 +7912,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListConfigMapsOptions model
 				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
-				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
 				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7934,7 +7934,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListConfigMapsOptions model
 				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
-				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
 				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7977,7 +7977,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListConfigMapsOptions model
 				listConfigMapsOptionsModel := new(codeenginev2.ListConfigMapsOptions)
-				listConfigMapsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listConfigMapsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listConfigMapsOptionsModel.Start = core.StringPtr("testString")
 				listConfigMapsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8028,9 +8028,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"config_maps":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-config-map","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"config_map_v2"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -8045,7 +8045,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -8071,7 +8071,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -8111,7 +8111,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
-				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8166,7 +8166,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke CreateConfigMap successfully with retries`, func() {
@@ -8180,7 +8180,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
-				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8238,7 +8238,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke CreateConfigMap successfully`, func() {
@@ -8257,7 +8257,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
-				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8279,7 +8279,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
-				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8322,7 +8322,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
-				createConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8365,7 +8365,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetConfigMapOptions model
 				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
-				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -8403,7 +8403,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke GetConfigMap successfully with retries`, func() {
@@ -8417,7 +8417,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetConfigMapOptions model
 				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
-				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8458,7 +8458,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke GetConfigMap successfully`, func() {
@@ -8477,7 +8477,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetConfigMapOptions model
 				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
-				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8498,7 +8498,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetConfigMapOptions model
 				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
-				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -8540,7 +8540,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetConfigMapOptions model
 				getConfigMapOptionsModel := new(codeenginev2.GetConfigMapOptions)
-				getConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				getConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8584,7 +8584,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceConfigMapOptions model
 				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
-				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceConfigMapOptionsModel.Data = make(map[string]string)
@@ -8642,7 +8642,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke ReplaceConfigMap successfully with retries`, func() {
@@ -8656,7 +8656,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceConfigMapOptions model
 				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
-				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceConfigMapOptionsModel.Data = make(map[string]string)
@@ -8717,7 +8717,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/config_maps/my-config-map", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-config-map", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "config_map_v2"}`)
 				}))
 			})
 			It(`Invoke ReplaceConfigMap successfully`, func() {
@@ -8736,7 +8736,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceConfigMapOptions model
 				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
-				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceConfigMapOptionsModel.Data = make(map[string]string)
@@ -8759,7 +8759,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceConfigMapOptions model
 				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
-				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceConfigMapOptionsModel.Data = make(map[string]string)
@@ -8803,7 +8803,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceConfigMapOptions model
 				replaceConfigMapOptionsModel := new(codeenginev2.ReplaceConfigMapOptions)
-				replaceConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceConfigMapOptionsModel.Data = make(map[string]string)
@@ -8851,7 +8851,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteConfigMapOptions model
 				deleteConfigMapOptionsModel := new(codeenginev2.DeleteConfigMapOptions)
-				deleteConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				deleteConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8870,7 +8870,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteConfigMapOptions model
 				deleteConfigMapOptionsModel := new(codeenginev2.DeleteConfigMapOptions)
-				deleteConfigMapOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				deleteConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -8919,7 +8919,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listSecretsOptionsModel.Start = core.StringPtr("testString")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8960,7 +8960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully with retries`, func() {
@@ -8974,7 +8974,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listSecretsOptionsModel.Start = core.StringPtr("testString")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -9018,7 +9018,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully`, func() {
@@ -9037,7 +9037,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listSecretsOptionsModel.Start = core.StringPtr("testString")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -9059,7 +9059,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listSecretsOptionsModel.Start = core.StringPtr("testString")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -9102,7 +9102,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ListSecretsOptions model
 				listSecretsOptionsModel := new(codeenginev2.ListSecretsOptions)
-				listSecretsOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listSecretsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listSecretsOptionsModel.Start = core.StringPtr("testString")
 				listSecretsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -9153,9 +9153,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_guid":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"components":[{"mapKey":"anyValue"}],"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_key_name":"ResourceKeyName","resource_type":"ResourceType","role":"Manager","service_id_crn":"ServiceIdCrn","service_instance_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","service_instance_type":"ServiceInstanceType"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -9170,7 +9170,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -9196,7 +9196,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
-					ProjectGuid: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -9236,7 +9236,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
@@ -9297,7 +9297,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully with retries`, func() {
@@ -9311,7 +9311,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
@@ -9375,7 +9375,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully`, func() {
@@ -9394,7 +9394,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
@@ -9422,7 +9422,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
@@ -9471,7 +9471,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
-				createSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = make(map[string]string)
@@ -9520,7 +9520,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetSecretOptions model
 				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.Name = core.StringPtr("my-secret")
 				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -9558,7 +9558,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully with retries`, func() {
@@ -9572,7 +9572,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetSecretOptions model
 				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.Name = core.StringPtr("my-secret")
 				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9613,7 +9613,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully`, func() {
@@ -9632,7 +9632,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetSecretOptions model
 				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.Name = core.StringPtr("my-secret")
 				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9653,7 +9653,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetSecretOptions model
 				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.Name = core.StringPtr("my-secret")
 				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -9695,7 +9695,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the GetSecretOptions model
 				getSecretOptionsModel := new(codeenginev2.GetSecretOptions)
-				getSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.Name = core.StringPtr("my-secret")
 				getSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9739,7 +9739,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
-				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
@@ -9803,7 +9803,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully with retries`, func() {
@@ -9817,7 +9817,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
-				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
@@ -9884,7 +9884,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_guid": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
+					fmt.Fprintf(res, "%s", `{"components": [{"mapKey": "anyValue"}], "created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_key_name": "ResourceKeyName", "resource_type": "ResourceType", "role": "Manager", "service_id_crn": "ServiceIdCrn", "service_instance_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "service_instance_type": "ServiceInstanceType"}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully`, func() {
@@ -9903,7 +9903,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
-				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
@@ -9932,7 +9932,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
-				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
@@ -9982,7 +9982,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
-				replaceSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
 				replaceSecretOptionsModel.Data = make(map[string]string)
@@ -10036,7 +10036,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteSecretOptions model
 				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
-				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteSecretOptionsModel.Name = core.StringPtr("my-secret")
 				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -10055,7 +10055,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the DeleteSecretOptions model
 				deleteSecretOptionsModel := new(codeenginev2.DeleteSecretOptions)
-				deleteSecretOptionsModel.ProjectGuid = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteSecretOptionsModel.Name = core.StringPtr("my-secret")
 				deleteSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -10113,11 +10113,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
 
 				// Construct an instance of the CreateAppOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createAppOptionsImageReference := "icr.io/codeengine/helloworld"
 				createAppOptionsName := "my-app"
-				createAppOptionsModel := codeEngineService.NewCreateAppOptions(projectGuid, createAppOptionsImageReference, createAppOptionsName)
-				createAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAppOptionsModel := codeEngineService.NewCreateAppOptions(projectID, createAppOptionsImageReference, createAppOptionsName)
+				createAppOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createAppOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createAppOptionsModel.SetName("my-app")
 				createAppOptionsModel.SetImagePort(int64(8080))
@@ -10140,7 +10140,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.SetScaleRequestTimeout(int64(300))
 				createAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAppOptionsModel).ToNot(BeNil())
-				Expect(createAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createAppOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createAppOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(createAppOptionsModel.ImagePort).To(Equal(core.Int64Ptr(int64(8080))))
@@ -10165,14 +10165,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewCreateBuildOptions successfully`, func() {
 				// Construct an instance of the CreateBuildOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createBuildOptionsName := "my-build"
 				createBuildOptionsOutputImage := "private.de.icr.io/icr_namespace/image-name"
 				createBuildOptionsOutputSecret := "ce-auto-icr-private-eu-de"
 				createBuildOptionsSourceURL := "https://github.com/IBM/CodeEngine"
 				createBuildOptionsStrategyType := "dockerfile"
-				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectGuid, createBuildOptionsName, createBuildOptionsOutputImage, createBuildOptionsOutputSecret, createBuildOptionsSourceURL, createBuildOptionsStrategyType)
-				createBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBuildOptionsModel := codeEngineService.NewCreateBuildOptions(projectID, createBuildOptionsName, createBuildOptionsOutputImage, createBuildOptionsOutputSecret, createBuildOptionsSourceURL, createBuildOptionsStrategyType)
+				createBuildOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildOptionsModel.SetName("my-build")
 				createBuildOptionsModel.SetOutputImage("private.de.icr.io/icr_namespace/image-name")
 				createBuildOptionsModel.SetOutputSecret("ce-auto-icr-private-eu-de")
@@ -10187,7 +10187,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildOptionsModel.SetTimeout(int64(600))
 				createBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createBuildOptionsModel).ToNot(BeNil())
-				Expect(createBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createBuildOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(createBuildOptionsModel.OutputImage).To(Equal(core.StringPtr("private.de.icr.io/icr_namespace/image-name")))
 				Expect(createBuildOptionsModel.OutputSecret).To(Equal(core.StringPtr("ce-auto-icr-private-eu-de")))
@@ -10204,9 +10204,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewCreateBuildRunOptions successfully`, func() {
 				// Construct an instance of the CreateBuildRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createBuildRunOptionsModel := codeEngineService.NewCreateBuildRunOptions(projectGuid)
-				createBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createBuildRunOptionsModel := codeEngineService.NewCreateBuildRunOptions(projectID)
+				createBuildRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createBuildRunOptionsModel.SetBuildName("testString")
 				createBuildRunOptionsModel.SetName("testString")
 				createBuildRunOptionsModel.SetOutputImage("private.de.icr.io/icr_namespace/image-name")
@@ -10223,7 +10223,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBuildRunOptionsModel.SetTimeout(int64(600))
 				createBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createBuildRunOptionsModel).ToNot(BeNil())
-				Expect(createBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createBuildRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createBuildRunOptionsModel.BuildName).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildRunOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createBuildRunOptionsModel.OutputImage).To(Equal(core.StringPtr("private.de.icr.io/icr_namespace/image-name")))
@@ -10242,15 +10242,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewCreateConfigMapOptions successfully`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createConfigMapOptionsName := "my-configmap"
-				createConfigMapOptionsModel := codeEngineService.NewCreateConfigMapOptions(projectGuid, createConfigMapOptionsName)
-				createConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createConfigMapOptionsModel := codeEngineService.NewCreateConfigMapOptions(projectID, createConfigMapOptionsName)
+				createConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.SetName("my-configmap")
 				createConfigMapOptionsModel.SetData(make(map[string]string))
 				createConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigMapOptionsModel).ToNot(BeNil())
-				Expect(createConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
 				Expect(createConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -10285,11 +10285,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
 
 				// Construct an instance of the CreateJobOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createJobOptionsImageReference := "icr.io/codeengine/helloworld"
 				createJobOptionsName := "my-job"
-				createJobOptionsModel := codeEngineService.NewCreateJobOptions(projectGuid, createJobOptionsImageReference, createJobOptionsName)
-				createJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createJobOptionsModel := codeEngineService.NewCreateJobOptions(projectID, createJobOptionsImageReference, createJobOptionsName)
+				createJobOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createJobOptionsModel.SetName("my-job")
 				createJobOptionsModel.SetImageSecret("my-secret")
@@ -10308,7 +10308,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.SetScaleRetryLimit(int64(3))
 				createJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createJobOptionsModel).ToNot(BeNil())
-				Expect(createJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createJobOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createJobOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(createJobOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
@@ -10357,9 +10357,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(volumeMountPrototypeModel.Type).To(Equal(core.StringPtr("secret")))
 
 				// Construct an instance of the CreateJobRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createJobRunOptionsModel := codeEngineService.NewCreateJobRunOptions(projectGuid)
-				createJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createJobRunOptionsModel := codeEngineService.NewCreateJobRunOptions(projectID)
+				createJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.SetImageSecret("my-secret")
 				createJobRunOptionsModel.SetJob("my-job")
@@ -10379,7 +10379,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.SetScaleRetryLimit(int64(3))
 				createJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createJobRunOptionsModel).ToNot(BeNil())
-				Expect(createJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createJobRunOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createJobRunOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
 				Expect(createJobRunOptionsModel.Job).To(Equal(core.StringPtr("my-job")))
@@ -10418,11 +10418,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewCreateSecretOptions successfully`, func() {
 				// Construct an instance of the CreateSecretOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createSecretOptionsFormat := "generic"
 				createSecretOptionsName := "my-secret"
-				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectGuid, createSecretOptionsFormat, createSecretOptionsName)
-				createSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createSecretOptionsModel := codeEngineService.NewCreateSecretOptions(projectID, createSecretOptionsFormat, createSecretOptionsName)
+				createSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.SetFormat("generic")
 				createSecretOptionsModel.SetName("my-secret")
 				createSecretOptionsModel.SetData(make(map[string]string))
@@ -10433,7 +10433,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.SetServiceInstanceID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
-				Expect(createSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
 				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
@@ -10446,250 +10446,250 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
 				// Construct an instance of the DeleteAppOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-app"
-				deleteAppOptionsModel := codeEngineService.NewDeleteAppOptions(projectGuid, name)
-				deleteAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppOptionsModel := codeEngineService.NewDeleteAppOptions(projectID, name)
+				deleteAppOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppOptionsModel.SetName("my-app")
 				deleteAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAppOptionsModel).ToNot(BeNil())
-				Expect(deleteAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteAppOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(deleteAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppRevisionOptions successfully`, func() {
 				// Construct an instance of the DeleteAppRevisionOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
 				name := "my-app-001"
-				deleteAppRevisionOptionsModel := codeEngineService.NewDeleteAppRevisionOptions(projectGuid, appName, name)
-				deleteAppRevisionOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAppRevisionOptionsModel := codeEngineService.NewDeleteAppRevisionOptions(projectID, appName, name)
+				deleteAppRevisionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.SetAppName("my-app")
 				deleteAppRevisionOptionsModel.SetName("my-app-001")
 				deleteAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAppRevisionOptionsModel).ToNot(BeNil())
-				Expect(deleteAppRevisionOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteAppRevisionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
 				Expect(deleteAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
 				Expect(deleteAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteBuildOptions successfully`, func() {
 				// Construct an instance of the DeleteBuildOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-build"
-				deleteBuildOptionsModel := codeEngineService.NewDeleteBuildOptions(projectGuid, name)
-				deleteBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildOptionsModel := codeEngineService.NewDeleteBuildOptions(projectID, name)
+				deleteBuildOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildOptionsModel.SetName("my-build")
 				deleteBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteBuildOptionsModel).ToNot(BeNil())
-				Expect(deleteBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteBuildOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(deleteBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteBuildRunOptions successfully`, func() {
 				// Construct an instance of the DeleteBuildRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-build-run"
-				deleteBuildRunOptionsModel := codeEngineService.NewDeleteBuildRunOptions(projectGuid, name)
-				deleteBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBuildRunOptionsModel := codeEngineService.NewDeleteBuildRunOptions(projectID, name)
+				deleteBuildRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteBuildRunOptionsModel.SetName("my-build-run")
 				deleteBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteBuildRunOptionsModel).ToNot(BeNil())
-				Expect(deleteBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteBuildRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteBuildRunOptionsModel.Name).To(Equal(core.StringPtr("my-build-run")))
 				Expect(deleteBuildRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteConfigMapOptions successfully`, func() {
 				// Construct an instance of the DeleteConfigMapOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-config-map"
-				deleteConfigMapOptionsModel := codeEngineService.NewDeleteConfigMapOptions(projectGuid, name)
-				deleteConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteConfigMapOptionsModel := codeEngineService.NewDeleteConfigMapOptions(projectID, name)
+				deleteConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteConfigMapOptionsModel.SetName("my-config-map")
 				deleteConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteConfigMapOptionsModel).ToNot(BeNil())
-				Expect(deleteConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(deleteConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteJobOptions successfully`, func() {
 				// Construct an instance of the DeleteJobOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-job"
-				deleteJobOptionsModel := codeEngineService.NewDeleteJobOptions(projectGuid, name)
-				deleteJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobOptionsModel := codeEngineService.NewDeleteJobOptions(projectID, name)
+				deleteJobOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobOptionsModel.SetName("my-job")
 				deleteJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteJobOptionsModel).ToNot(BeNil())
-				Expect(deleteJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteJobOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(deleteJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteJobRunOptions successfully`, func() {
 				// Construct an instance of the DeleteJobRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-job"
-				deleteJobRunOptionsModel := codeEngineService.NewDeleteJobRunOptions(projectGuid, name)
-				deleteJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteJobRunOptionsModel := codeEngineService.NewDeleteJobRunOptions(projectID, name)
+				deleteJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteJobRunOptionsModel.SetName("my-job")
 				deleteJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteJobRunOptionsModel).ToNot(BeNil())
-				Expect(deleteJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(deleteJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
 				// Construct an instance of the DeleteProjectOptions model
-				guid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				deleteProjectOptionsModel := codeEngineService.NewDeleteProjectOptions(guid)
-				deleteProjectOptionsModel.SetGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				id := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				deleteProjectOptionsModel := codeEngineService.NewDeleteProjectOptions(id)
+				deleteProjectOptionsModel.SetID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteProjectOptionsModel).ToNot(BeNil())
-				Expect(deleteProjectOptionsModel.Guid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteProjectOptionsModel.ID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteSecretOptions successfully`, func() {
 				// Construct an instance of the DeleteSecretOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-secret"
-				deleteSecretOptionsModel := codeEngineService.NewDeleteSecretOptions(projectGuid, name)
-				deleteSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteSecretOptionsModel := codeEngineService.NewDeleteSecretOptions(projectID, name)
+				deleteSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteSecretOptionsModel.SetName("my-secret")
 				deleteSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteSecretOptionsModel).ToNot(BeNil())
-				Expect(deleteSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(deleteSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAppOptions successfully`, func() {
 				// Construct an instance of the GetAppOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-app"
-				getAppOptionsModel := codeEngineService.NewGetAppOptions(projectGuid, name)
-				getAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppOptionsModel := codeEngineService.NewGetAppOptions(projectID, name)
+				getAppOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppOptionsModel.SetName("my-app")
 				getAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAppOptionsModel).ToNot(BeNil())
-				Expect(getAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getAppOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(getAppOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAppRevisionOptions successfully`, func() {
 				// Construct an instance of the GetAppRevisionOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
 				name := "my-app-001"
-				getAppRevisionOptionsModel := codeEngineService.NewGetAppRevisionOptions(projectGuid, appName, name)
-				getAppRevisionOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAppRevisionOptionsModel := codeEngineService.NewGetAppRevisionOptions(projectID, appName, name)
+				getAppRevisionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.SetAppName("my-app")
 				getAppRevisionOptionsModel.SetName("my-app-001")
 				getAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAppRevisionOptionsModel).ToNot(BeNil())
-				Expect(getAppRevisionOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getAppRevisionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
 				Expect(getAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
 				Expect(getAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBuildOptions successfully`, func() {
 				// Construct an instance of the GetBuildOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-build"
-				getBuildOptionsModel := codeEngineService.NewGetBuildOptions(projectGuid, name)
-				getBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildOptionsModel := codeEngineService.NewGetBuildOptions(projectID, name)
+				getBuildOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildOptionsModel.SetName("my-build")
 				getBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getBuildOptionsModel).ToNot(BeNil())
-				Expect(getBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getBuildOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(getBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBuildRunOptions successfully`, func() {
 				// Construct an instance of the GetBuildRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-build-run"
-				getBuildRunOptionsModel := codeEngineService.NewGetBuildRunOptions(projectGuid, name)
-				getBuildRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBuildRunOptionsModel := codeEngineService.NewGetBuildRunOptions(projectID, name)
+				getBuildRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getBuildRunOptionsModel.SetName("my-build-run")
 				getBuildRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getBuildRunOptionsModel).ToNot(BeNil())
-				Expect(getBuildRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getBuildRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getBuildRunOptionsModel.Name).To(Equal(core.StringPtr("my-build-run")))
 				Expect(getBuildRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetConfigMapOptions successfully`, func() {
 				// Construct an instance of the GetConfigMapOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-config-map"
-				getConfigMapOptionsModel := codeEngineService.NewGetConfigMapOptions(projectGuid, name)
-				getConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getConfigMapOptionsModel := codeEngineService.NewGetConfigMapOptions(projectID, name)
+				getConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getConfigMapOptionsModel.SetName("my-config-map")
 				getConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getConfigMapOptionsModel).ToNot(BeNil())
-				Expect(getConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(getConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetJobOptions successfully`, func() {
 				// Construct an instance of the GetJobOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-job"
-				getJobOptionsModel := codeEngineService.NewGetJobOptions(projectGuid, name)
-				getJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobOptionsModel := codeEngineService.NewGetJobOptions(projectID, name)
+				getJobOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobOptionsModel.SetName("my-job")
 				getJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getJobOptionsModel).ToNot(BeNil())
-				Expect(getJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getJobOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(getJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetJobRunOptions successfully`, func() {
 				// Construct an instance of the GetJobRunOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-job"
-				getJobRunOptionsModel := codeEngineService.NewGetJobRunOptions(projectGuid, name)
-				getJobRunOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getJobRunOptionsModel := codeEngineService.NewGetJobRunOptions(projectID, name)
+				getJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getJobRunOptionsModel.SetName("my-job")
 				getJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getJobRunOptionsModel).ToNot(BeNil())
-				Expect(getJobRunOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(getJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetProjectOptions successfully`, func() {
 				// Construct an instance of the GetProjectOptions model
-				guid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				getProjectOptionsModel := codeEngineService.NewGetProjectOptions(guid)
-				getProjectOptionsModel.SetGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				id := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				getProjectOptionsModel := codeEngineService.NewGetProjectOptions(id)
+				getProjectOptionsModel.SetID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getProjectOptionsModel).ToNot(BeNil())
-				Expect(getProjectOptionsModel.Guid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getProjectOptionsModel.ID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetSecretOptions successfully`, func() {
 				// Construct an instance of the GetSecretOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-secret"
-				getSecretOptionsModel := codeEngineService.NewGetSecretOptions(projectGuid, name)
-				getSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getSecretOptionsModel := codeEngineService.NewGetSecretOptions(projectID, name)
+				getSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getSecretOptionsModel.SetName("my-secret")
 				getSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getSecretOptionsModel).ToNot(BeNil())
-				Expect(getSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAppRevisionsOptions successfully`, func() {
 				// Construct an instance of the ListAppRevisionsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
-				listAppRevisionsOptionsModel := codeEngineService.NewListAppRevisionsOptions(projectGuid, appName)
-				listAppRevisionsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppRevisionsOptionsModel := codeEngineService.NewListAppRevisionsOptions(projectID, appName)
+				listAppRevisionsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppRevisionsOptionsModel.SetAppName("my-app")
 				listAppRevisionsOptionsModel.SetLimit(int64(100))
 				listAppRevisionsOptionsModel.SetStart("testString")
 				listAppRevisionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAppRevisionsOptionsModel).ToNot(BeNil())
-				Expect(listAppRevisionsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listAppRevisionsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listAppRevisionsOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
 				Expect(listAppRevisionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listAppRevisionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
@@ -10697,84 +10697,84 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewListAppsOptions successfully`, func() {
 				// Construct an instance of the ListAppsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listAppsOptionsModel := codeEngineService.NewListAppsOptions(projectGuid)
-				listAppsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listAppsOptionsModel := codeEngineService.NewListAppsOptions(projectID)
+				listAppsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listAppsOptionsModel.SetLimit(int64(100))
 				listAppsOptionsModel.SetStart("testString")
 				listAppsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAppsOptionsModel).ToNot(BeNil())
-				Expect(listAppsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listAppsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listAppsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listAppsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listAppsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBuildRunsOptions successfully`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listBuildRunsOptionsModel := codeEngineService.NewListBuildRunsOptions(projectGuid)
-				listBuildRunsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listBuildRunsOptionsModel := codeEngineService.NewListBuildRunsOptions(projectID)
+				listBuildRunsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildRunsOptionsModel.SetLimit(int64(100))
 				listBuildRunsOptionsModel.SetStart("testString")
 				listBuildRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listBuildRunsOptionsModel).ToNot(BeNil())
-				Expect(listBuildRunsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listBuildRunsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listBuildRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listBuildRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBuildRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBuildsOptions successfully`, func() {
 				// Construct an instance of the ListBuildsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listBuildsOptionsModel := codeEngineService.NewListBuildsOptions(projectGuid)
-				listBuildsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listBuildsOptionsModel := codeEngineService.NewListBuildsOptions(projectID)
+				listBuildsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listBuildsOptionsModel.SetLimit(int64(100))
 				listBuildsOptionsModel.SetStart("testString")
 				listBuildsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listBuildsOptionsModel).ToNot(BeNil())
-				Expect(listBuildsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listBuildsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listBuildsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listBuildsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBuildsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListConfigMapsOptions successfully`, func() {
 				// Construct an instance of the ListConfigMapsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listConfigMapsOptionsModel := codeEngineService.NewListConfigMapsOptions(projectGuid)
-				listConfigMapsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listConfigMapsOptionsModel := codeEngineService.NewListConfigMapsOptions(projectID)
+				listConfigMapsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listConfigMapsOptionsModel.SetLimit(int64(100))
 				listConfigMapsOptionsModel.SetStart("testString")
 				listConfigMapsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listConfigMapsOptionsModel).ToNot(BeNil())
-				Expect(listConfigMapsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listConfigMapsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listConfigMapsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listConfigMapsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listConfigMapsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListJobRunsOptions successfully`, func() {
 				// Construct an instance of the ListJobRunsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listJobRunsOptionsModel := codeEngineService.NewListJobRunsOptions(projectGuid)
-				listJobRunsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listJobRunsOptionsModel := codeEngineService.NewListJobRunsOptions(projectID)
+				listJobRunsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobRunsOptionsModel.SetLimit(int64(100))
 				listJobRunsOptionsModel.SetStart("testString")
 				listJobRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listJobRunsOptionsModel).ToNot(BeNil())
-				Expect(listJobRunsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listJobRunsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listJobRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listJobRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listJobRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListJobsOptions successfully`, func() {
 				// Construct an instance of the ListJobsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listJobsOptionsModel := codeEngineService.NewListJobsOptions(projectGuid)
-				listJobsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listJobsOptionsModel := codeEngineService.NewListJobsOptions(projectID)
+				listJobsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listJobsOptionsModel.SetLimit(int64(100))
 				listJobsOptionsModel.SetStart("testString")
 				listJobsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listJobsOptionsModel).ToNot(BeNil())
-				Expect(listJobsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listJobsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listJobsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listJobsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listJobsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -10792,31 +10792,31 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewListSecretsOptions successfully`, func() {
 				// Construct an instance of the ListSecretsOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listSecretsOptionsModel := codeEngineService.NewListSecretsOptions(projectGuid)
-				listSecretsOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listSecretsOptionsModel := codeEngineService.NewListSecretsOptions(projectID)
+				listSecretsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				listSecretsOptionsModel.SetLimit(int64(100))
 				listSecretsOptionsModel.SetStart("testString")
 				listSecretsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listSecretsOptionsModel).ToNot(BeNil())
-				Expect(listSecretsOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listSecretsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(listSecretsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listSecretsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listSecretsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceConfigMapOptions successfully`, func() {
 				// Construct an instance of the ReplaceConfigMapOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-config-map"
 				ifMatch := "testString"
-				replaceConfigMapOptionsModel := codeEngineService.NewReplaceConfigMapOptions(projectGuid, name, ifMatch)
-				replaceConfigMapOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceConfigMapOptionsModel := codeEngineService.NewReplaceConfigMapOptions(projectID, name, ifMatch)
+				replaceConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.SetName("my-config-map")
 				replaceConfigMapOptionsModel.SetIfMatch("testString")
 				replaceConfigMapOptionsModel.SetData(make(map[string]string))
 				replaceConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceConfigMapOptionsModel).ToNot(BeNil())
-				Expect(replaceConfigMapOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(replaceConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(replaceConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(replaceConfigMapOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(replaceConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
@@ -10824,11 +10824,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewReplaceSecretOptions successfully`, func() {
 				// Construct an instance of the ReplaceSecretOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-secret"
 				ifMatch := "testString"
-				replaceSecretOptionsModel := codeEngineService.NewReplaceSecretOptions(projectGuid, name, ifMatch)
-				replaceSecretOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				replaceSecretOptionsModel := codeEngineService.NewReplaceSecretOptions(projectID, name, ifMatch)
+				replaceSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.SetName("my-secret")
 				replaceSecretOptionsModel.SetIfMatch("testString")
 				replaceSecretOptionsModel.SetData(make(map[string]string))
@@ -10840,7 +10840,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.SetServiceInstanceID("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				replaceSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceSecretOptionsModel).ToNot(BeNil())
-				Expect(replaceSecretOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(replaceSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(replaceSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(replaceSecretOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(replaceSecretOptionsModel.Data).To(Equal(make(map[string]string)))
@@ -10854,18 +10854,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewUpdateAppOptions successfully`, func() {
 				// Construct an instance of the UpdateAppOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-app"
 				ifMatch := "testString"
 				app := map[string]interface{}{"anyKey": "anyValue"}
-				updateAppOptionsModel := codeEngineService.NewUpdateAppOptions(projectGuid, name, ifMatch, app)
-				updateAppOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAppOptionsModel := codeEngineService.NewUpdateAppOptions(projectID, name, ifMatch, app)
+				updateAppOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateAppOptionsModel.SetName("my-app")
 				updateAppOptionsModel.SetIfMatch("testString")
 				updateAppOptionsModel.SetApp(map[string]interface{}{"anyKey": "anyValue"})
 				updateAppOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAppOptionsModel).ToNot(BeNil())
-				Expect(updateAppOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateAppOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateAppOptionsModel.Name).To(Equal(core.StringPtr("my-app")))
 				Expect(updateAppOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateAppOptionsModel.App).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
@@ -10873,18 +10873,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewUpdateBuildOptions successfully`, func() {
 				// Construct an instance of the UpdateBuildOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-build"
 				ifMatch := "testString"
 				build := map[string]interface{}{"anyKey": "anyValue"}
-				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectGuid, name, ifMatch, build)
-				updateBuildOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateBuildOptionsModel := codeEngineService.NewUpdateBuildOptions(projectID, name, ifMatch, build)
+				updateBuildOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateBuildOptionsModel.SetName("my-build")
 				updateBuildOptionsModel.SetIfMatch("testString")
 				updateBuildOptionsModel.SetBuild(map[string]interface{}{"anyKey": "anyValue"})
 				updateBuildOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateBuildOptionsModel).ToNot(BeNil())
-				Expect(updateBuildOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateBuildOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateBuildOptionsModel.Name).To(Equal(core.StringPtr("my-build")))
 				Expect(updateBuildOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.Build).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
@@ -10892,18 +10892,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewUpdateJobOptions successfully`, func() {
 				// Construct an instance of the UpdateJobOptions model
-				projectGuid := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-job"
 				ifMatch := "testString"
 				job := map[string]interface{}{"anyKey": "anyValue"}
-				updateJobOptionsModel := codeEngineService.NewUpdateJobOptions(projectGuid, name, ifMatch, job)
-				updateJobOptionsModel.SetProjectGuid("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateJobOptionsModel := codeEngineService.NewUpdateJobOptions(projectID, name, ifMatch, job)
+				updateJobOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				updateJobOptionsModel.SetName("my-job")
 				updateJobOptionsModel.SetIfMatch("testString")
 				updateJobOptionsModel.SetJob(map[string]interface{}{"anyKey": "anyValue"})
 				updateJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateJobOptionsModel).ToNot(BeNil())
-				Expect(updateJobOptionsModel.ProjectGuid).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateJobOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(updateJobOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
 				Expect(updateJobOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateJobOptionsModel.Job).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
