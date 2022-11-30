@@ -265,7 +265,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// end-update_app
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
+			Expect(response.StatusCode).To(Equal(200))
 			Expect(app).ToNot(BeNil())
 		})
 		It(`ListAppRevisions request example`, func() {
