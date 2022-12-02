@@ -421,6 +421,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_job_runs
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				JobName: core.StringPtr("my-job"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
@@ -591,6 +592,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_build_runs
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				BuildName: core.StringPtr("my-build"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 

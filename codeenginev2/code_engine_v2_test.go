@@ -4587,6 +4587,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -4605,6 +4606,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
 				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.JobName = core.StringPtr("my-job")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4637,6 +4639,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -4660,6 +4663,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
 				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.JobName = core.StringPtr("my-job")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4698,6 +4702,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -4723,6 +4728,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
 				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.JobName = core.StringPtr("my-job")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4745,6 +4751,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
 				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.JobName = core.StringPtr("my-job")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4788,6 +4795,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				listJobRunsOptionsModel := new(codeenginev2.ListJobRunsOptions)
 				listJobRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.JobName = core.StringPtr("my-job")
 				listJobRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listJobRunsOptionsModel.Start = core.StringPtr("testString")
 				listJobRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4856,6 +4864,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					JobName: core.StringPtr("my-job"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -4882,6 +4891,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					JobName: core.StringPtr("my-job"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -4940,7 +4950,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.JobName = core.StringPtr("my-job")
 				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				createJobRunOptionsModel.RunArguments = []string{"testString"}
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
@@ -5040,7 +5050,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.JobName = core.StringPtr("my-job")
 				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				createJobRunOptionsModel.RunArguments = []string{"testString"}
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
@@ -5148,7 +5158,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.JobName = core.StringPtr("my-job")
 				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				createJobRunOptionsModel.RunArguments = []string{"testString"}
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
@@ -5201,7 +5211,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.JobName = core.StringPtr("my-job")
 				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				createJobRunOptionsModel.RunArguments = []string{"testString"}
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
@@ -5275,7 +5285,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.ImageSecret = core.StringPtr("my-secret")
-				createJobRunOptionsModel.Job = core.StringPtr("my-job")
+				createJobRunOptionsModel.JobName = core.StringPtr("my-job")
 				createJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				createJobRunOptionsModel.RunArguments = []string{"testString"}
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
@@ -6857,6 +6867,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["build_name"]).To(Equal([]string{"my-build"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -6875,6 +6886,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
 				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.BuildName = core.StringPtr("my-build")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6907,6 +6919,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["build_name"]).To(Equal([]string{"my-build"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -6930,6 +6943,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
 				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.BuildName = core.StringPtr("my-build")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6968,6 +6982,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listBuildRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["build_name"]).To(Equal([]string{"my-build"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -6993,6 +7008,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
 				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.BuildName = core.StringPtr("my-build")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7015,6 +7031,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
 				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.BuildName = core.StringPtr("my-build")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7058,6 +7075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ListBuildRunsOptions model
 				listBuildRunsOptionsModel := new(codeenginev2.ListBuildRunsOptions)
 				listBuildRunsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.BuildName = core.StringPtr("my-build")
 				listBuildRunsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listBuildRunsOptionsModel.Start = core.StringPtr("testString")
 				listBuildRunsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7126,6 +7144,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					BuildName: core.StringPtr("my-build"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -7152,6 +7171,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					BuildName: core.StringPtr("my-build"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
@@ -10312,7 +10332,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createJobRunOptionsModel.SetImageReference("icr.io/codeengine/helloworld")
 				createJobRunOptionsModel.SetImageSecret("my-secret")
-				createJobRunOptionsModel.SetJob("my-job")
+				createJobRunOptionsModel.SetJobName("my-job")
 				createJobRunOptionsModel.SetName("my-job-run")
 				createJobRunOptionsModel.SetRunArguments([]string{"testString"})
 				createJobRunOptionsModel.SetRunAsUser(int64(1001))
@@ -10332,7 +10352,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createJobRunOptionsModel.ImageReference).To(Equal(core.StringPtr("icr.io/codeengine/helloworld")))
 				Expect(createJobRunOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
-				Expect(createJobRunOptionsModel.Job).To(Equal(core.StringPtr("my-job")))
+				Expect(createJobRunOptionsModel.JobName).To(Equal(core.StringPtr("my-job")))
 				Expect(createJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job-run")))
 				Expect(createJobRunOptionsModel.RunArguments).To(Equal([]string{"testString"}))
 				Expect(createJobRunOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
@@ -10654,11 +10674,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				listBuildRunsOptionsModel := codeEngineService.NewListBuildRunsOptions(projectID)
 				listBuildRunsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBuildRunsOptionsModel.SetBuildName("my-build")
 				listBuildRunsOptionsModel.SetLimit(int64(100))
 				listBuildRunsOptionsModel.SetStart("testString")
 				listBuildRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listBuildRunsOptionsModel).ToNot(BeNil())
 				Expect(listBuildRunsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listBuildRunsOptionsModel.BuildName).To(Equal(core.StringPtr("my-build")))
 				Expect(listBuildRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listBuildRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBuildRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -10696,11 +10718,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				listJobRunsOptionsModel := codeEngineService.NewListJobRunsOptions(projectID)
 				listJobRunsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listJobRunsOptionsModel.SetJobName("my-job")
 				listJobRunsOptionsModel.SetLimit(int64(100))
 				listJobRunsOptionsModel.SetStart("testString")
 				listJobRunsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listJobRunsOptionsModel).ToNot(BeNil())
 				Expect(listJobRunsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listJobRunsOptionsModel.JobName).To(Equal(core.StringPtr("my-job")))
 				Expect(listJobRunsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listJobRunsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listJobRunsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
