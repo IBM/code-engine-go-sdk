@@ -1358,6 +1358,9 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listJobRunsOptions.JobName != nil {
+		builder.AddQuery("job_name", fmt.Sprint(*listJobRunsOptions.JobName))
+	}
 	if listJobRunsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listJobRunsOptions.Limit))
 	}
@@ -1433,8 +1436,8 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	if createJobRunOptions.ImageSecret != nil {
 		body["image_secret"] = createJobRunOptions.ImageSecret
 	}
-	if createJobRunOptions.Job != nil {
-		body["job"] = createJobRunOptions.Job
+	if createJobRunOptions.JobName != nil {
+		body["job_name"] = createJobRunOptions.JobName
 	}
 	if createJobRunOptions.Name != nil {
 		body["name"] = createJobRunOptions.Name
@@ -2003,6 +2006,9 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listBuildRunsOptions.BuildName != nil {
+		builder.AddQuery("build_name", fmt.Sprint(*listBuildRunsOptions.BuildName))
+	}
 	if listBuildRunsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listBuildRunsOptions.Limit))
 	}
@@ -2988,9 +2994,10 @@ type App struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The units for specifying ephemeral storage
-	// are Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3001,9 +3008,10 @@ type App struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances" validate:"required"`
 
-	// Optional amount of memory set for the instance of the app. The units for specifying memory are Megabyte (M) or
-	// Gigabyte (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
 	// Optional minimum number of instances for this app. If you set this value to `0`, the app will scale down to zero, if
@@ -3285,9 +3293,10 @@ type AppPatch struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The units for specifying ephemeral storage
-	// are Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3298,9 +3307,10 @@ type AppPatch struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
 
-	// Optional amount of memory set for the instance of the app. The units for specifying memory are Megabyte (M) or
-	// Gigabyte (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// Optional minimum number of instances for this app. If you set this value to `0`, the app will scale down to zero, if
@@ -3497,9 +3507,10 @@ type AppRevision struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The units for specifying ephemeral storage
-	// are Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -3510,9 +3521,10 @@ type AppRevision struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances" validate:"required"`
 
-	// Optional amount of memory set for the instance of the app. The units for specifying memory are Megabyte (M) or
-	// Gigabyte (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
 	// Optional minimum number of instances for this app. If you set this value to `0`, the app will scale down to zero, if
@@ -4672,9 +4684,10 @@ type CreateAppOptions struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of ephemeral storage to set for the instance of the app. The units for specifying ephemeral storage
-	// are Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// Optional initial number of instances that are created upon app creation or app update.
@@ -4685,9 +4698,10 @@ type CreateAppOptions struct {
 	// for Code Engine](https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits).
 	ScaleMaxInstances *int64 `json:"scale_max_instances,omitempty"`
 
-	// Optional amount of memory set for the instance of the app. The units for specifying memory are Megabyte (M) or
-	// Gigabyte (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the app. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// Optional minimum number of instances for this app. If you set this value to `0`, the app will scale down to zero, if
@@ -5311,21 +5325,23 @@ type CreateJobOptions struct {
 	// unique array indices specified here determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
-	// The amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
+	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The units for specifying ephemeral storage are
-	// Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. The units for specifying memory are Megabyte (M) or Gigabyte
-	// (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
@@ -5490,8 +5506,9 @@ type CreateJobRunOptions struct {
 	// provided, too.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
-	// Name of the job reference of this job run.
-	Job *string `json:"job,omitempty"`
+	// Optional name of the job on which this job run is based on. If specified, the job run will inherit the configuration
+	// of the referenced job.
+	JobName *string `json:"job_name,omitempty"`
 
 	// The name of the job. Use a name that is unique within the project.
 	Name *string `json:"name,omitempty"`
@@ -5527,21 +5544,23 @@ type CreateJobRunOptions struct {
 	// unique array indices specified here determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
-	// The amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
+	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The units for specifying ephemeral storage are
-	// Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. The units for specifying memory are Megabyte (M) or Gigabyte
-	// (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
@@ -5597,9 +5616,9 @@ func (_options *CreateJobRunOptions) SetImageSecret(imageSecret string) *CreateJ
 	return _options
 }
 
-// SetJob : Allow user to set Job
-func (_options *CreateJobRunOptions) SetJob(job string) *CreateJobRunOptions {
-	_options.Job = core.StringPtr(job)
+// SetJobName : Allow user to set JobName
+func (_options *CreateJobRunOptions) SetJobName(jobName string) *CreateJobRunOptions {
+	_options.JobName = core.StringPtr(jobName)
 	return _options
 }
 
@@ -6697,21 +6716,23 @@ type Job struct {
 	// unique array indices specified here determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec" validate:"required"`
 
-	// The amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
+	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The units for specifying ephemeral storage are
-	// Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. The units for specifying memory are Megabyte (M) or Gigabyte
-	// (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
 	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
@@ -6932,21 +6953,23 @@ type JobPatch struct {
 	// unique array indices specified here determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
-	// The amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
+	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The units for specifying ephemeral storage are
-	// Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. The units for specifying memory are Megabyte (M) or Gigabyte
-	// (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
@@ -7118,21 +7141,23 @@ type JobRun struct {
 	// unique array indices specified here determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
-	// The amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
+	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// The amount of ephemeral storage to set for the instance of the job. The units for specifying ephemeral storage are
-	// Megabyte (M) or Gigabyte (G). The amount specified as ephemeral storage, must not exceed the amount of
-	// `scale_memory_limit`.
+	// Optional amount of ephemeral storage to set for the instance of the job. The amount specified as ephemeral storage,
+	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+	// Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
 	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
-	// The amount of memory set for the instance of the job. The units for specifying memory are Megabyte (M) or Gigabyte
-	// (G). For valid values see [Supported memory and CPU
-	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
 	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
@@ -7506,6 +7531,9 @@ type ListBuildRunsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
+	// Optional name of the build that should be filtered for.
+	BuildName *string `json:"build_name,omitempty"`
+
 	// Optional maximum number of build runs per page.
 	Limit *int64 `json:"limit,omitempty"`
 
@@ -7528,6 +7556,12 @@ func (*CodeEngineV2) NewListBuildRunsOptions(projectID string) *ListBuildRunsOpt
 // SetProjectID : Allow user to set ProjectID
 func (_options *ListBuildRunsOptions) SetProjectID(projectID string) *ListBuildRunsOptions {
 	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetBuildName : Allow user to set BuildName
+func (_options *ListBuildRunsOptions) SetBuildName(buildName string) *ListBuildRunsOptions {
+	_options.BuildName = core.StringPtr(buildName)
 	return _options
 }
 
@@ -7665,6 +7699,9 @@ type ListJobRunsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
+	// Optional name of the job that should be filtered for.
+	JobName *string `json:"job_name,omitempty"`
+
 	// Optional maximum number of job runs per page.
 	Limit *int64 `json:"limit,omitempty"`
 
@@ -7687,6 +7724,12 @@ func (*CodeEngineV2) NewListJobRunsOptions(projectID string) *ListJobRunsOptions
 // SetProjectID : Allow user to set ProjectID
 func (_options *ListJobRunsOptions) SetProjectID(projectID string) *ListJobRunsOptions {
 	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetJobName : Allow user to set JobName
+func (_options *ListJobRunsOptions) SetJobName(jobName string) *ListJobRunsOptions {
+	_options.JobName = core.StringPtr(jobName)
 	return _options
 }
 
@@ -7785,9 +7828,9 @@ type ListProjectsOptions struct {
 	// Optional maximum number of projects per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'start' query parameter in the 'next_url' field of the operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
