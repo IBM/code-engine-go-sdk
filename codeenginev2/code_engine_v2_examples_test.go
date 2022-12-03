@@ -132,7 +132,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			createProjectOptions := codeEngineService.NewCreateProjectOptions(
 				"my-project",
-				"us-east",
 			)
 
 			project, response, err := codeEngineService.CreateProject(createProjectOptions)

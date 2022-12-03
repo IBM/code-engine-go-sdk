@@ -494,7 +494,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(codeenginev2.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("my-project")
-				createProjectOptionsModel.Region = core.StringPtr("us-east")
 				createProjectOptionsModel.ResourceGroupID = core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.Tags = []string{"testString"}
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -564,7 +563,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(codeenginev2.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("my-project")
-				createProjectOptionsModel.Region = core.StringPtr("us-east")
 				createProjectOptionsModel.ResourceGroupID = core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.Tags = []string{"testString"}
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -642,7 +640,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(codeenginev2.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("my-project")
-				createProjectOptionsModel.Region = core.StringPtr("us-east")
 				createProjectOptionsModel.ResourceGroupID = core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.Tags = []string{"testString"}
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -665,7 +662,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(codeenginev2.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("my-project")
-				createProjectOptionsModel.Region = core.StringPtr("us-east")
 				createProjectOptionsModel.ResourceGroupID = core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.Tags = []string{"testString"}
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -709,7 +705,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(codeenginev2.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("my-project")
-				createProjectOptionsModel.Region = core.StringPtr("us-east")
 				createProjectOptionsModel.ResourceGroupID = core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.Tags = []string{"testString"}
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -10372,16 +10367,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsName := "my-project"
-				createProjectOptionsRegion := "us-east"
-				createProjectOptionsModel := codeEngineService.NewCreateProjectOptions(createProjectOptionsName, createProjectOptionsRegion)
+				createProjectOptionsModel := codeEngineService.NewCreateProjectOptions(createProjectOptionsName)
 				createProjectOptionsModel.SetName("my-project")
-				createProjectOptionsModel.SetRegion("us-east")
 				createProjectOptionsModel.SetResourceGroupID("b91e849cedb04e7e92bd68c040c672dc")
 				createProjectOptionsModel.SetTags([]string{"testString"})
 				createProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("my-project")))
-				Expect(createProjectOptionsModel.Region).To(Equal(core.StringPtr("us-east")))
 				Expect(createProjectOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("b91e849cedb04e7e92bd68c040c672dc")))
 				Expect(createProjectOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
