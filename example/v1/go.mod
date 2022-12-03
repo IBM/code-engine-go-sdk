@@ -1,10 +1,10 @@
 module github.com/IBM/code-engine-go-sdk/example
 
-go 1.18
+go 1.19
 
 require (
 	github.com/IBM/code-engine-go-sdk v0.0.0-00010101000000-000000000000
-	github.com/IBM/go-sdk-core/v5 v5.10.1
+	github.com/IBM/go-sdk-core/v5 v5.10.2
 	k8s.io/apimachinery v0.21.7
 	k8s.io/client-go v0.21.7
 )
