@@ -84,6 +84,7 @@ func main() {
 
 	// Get Code Engine project config using the Code Engine Client
 	projectID := os.Getenv("CE_PROJECT_ID")
+	fmt.Printf("Obtaining a kube config of project '%s'\n", projectID)
 	result, _, err := ceClient.GetKubeconfig(&ibmcloudcodeenginev1.GetKubeconfigOptions{
 		XDelegatedRefreshToken: &delegatedRefreshToken,
 		ID:                     &projectID,
