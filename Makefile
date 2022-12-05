@@ -21,10 +21,10 @@ test-int-cov:
 	${GO} test `${GO} list ./...` -tags=integration ${COVERAGE}
 
 lint:
-	${LINT} run --build-tags=integration,examples
+	${LINT} run
 
 scan-gosec:
-	${GOSEC} -conf gosec.json ./...
+	${GOSEC} -conf gosec.json -exclude-dir=example/v1 ./...
 
 tidy:
 	${GO} mod tidy
