@@ -78,13 +78,13 @@ func main() {
 	}
 
 	var iamResponseData map[string]string
-	err := json.NewDecoder(resp.Body).Decode(&iamResponseData)
+	err = json.NewDecoder(resp.Body).Decode(&iamResponseData)
 	if err != nil {
 		fmt.Printf("Failed to decode IAM response data: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
-	err := resp.Body.Close()
+	err = resp.Body.Close()
 	if err != nil {
 		fmt.Printf("Failed to close the response body: %s\n", err.Error())
 		os.Exit(1)
