@@ -34,6 +34,7 @@ func main() {
 	if len(os.Getenv("IAM_ENDPOINT")) > 0 {
 		iamEndpoint = os.Getenv("IAM_ENDPOINT")
 	}
+	fmt.Printf("Using IAM endpoint: '%s'\n", iamEndpoint)
 
 	// Create an IAM authenticator.
 	authenticator := &core.IamAuthenticator{
@@ -43,10 +44,13 @@ func main() {
 		URL:          iamEndpoint,
 	}
 
+	codeEngineApiEndpoint := "https://" + os.Getenv("CE_API_HOST") + "/api/v1"
+	fmt.Printf("Using Code Engine API endpoint: '%s'\n", codeEngineApiEndpoint)
+
 	// Setup a Code Engine client
 	ceClient, err := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
 		Authenticator: authenticator,
-		URL:           "https://" + os.Getenv("CE_API_HOST") + "/api/v1",
+		URL:           codeEngineApiEndpoint,
 	})
 	if err != nil {
 		fmt.Printf("NewIbmCloudCodeEngineV1 error: %s\n", err.Error())
@@ -77,10 +81,10 @@ func main() {
 		return
 	}
 
-	var iamResponseData map[string]string
+	var iamResponseData map[string]interface{}
 	err = json.NewDecoder(resp.Body).Decode(&iamResponseData)
 	if err != nil {
-		fmt.Printf("Failed to decode IAM response data: %s\n", err.Error())
+		fmt.Printf("Failed to decode IAM response data: '%s'\n", err.Error())
 		os.Exit(1)
 		return
 	}
@@ -90,7 +94,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	delegatedRefreshToken := iamResponseData["delegated_refresh_token"]
+	delegatedRefreshToken := iamResponseData["delegated_refresh_token"].(string)
 
 	// Get Code Engine project config using the Code Engine Client
 	projectID := os.Getenv("CE_PROJECT_ID")
@@ -138,5 +142,5 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Project %s has %d configmaps.\n", os.Getenv("CE_PROJECT_ID"), len(configMapList.Items))
+	fmt.Printf("Project '%s' has %d configmaps.\n", os.Getenv("CE_PROJECT_ID"), len(configMapList.Items))
 }

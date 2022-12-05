@@ -40,7 +40,8 @@ The IBM Cloud Code Engine Go SDK allows developers to programmatically interact 
 
 Service Name | Package name 
 --- | --- 
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | codeenginev2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | codeenginev2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v1.0.0) | ibmcloudcodeenginev1 
 
 ## Prerequisites
 

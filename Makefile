@@ -24,7 +24,7 @@ lint:
 	${LINT} run
 
 scan-gosec:
-	${GOSEC} -conf gosec.json -exclude-dir=example/v1 ./...
+	${GOSEC} -conf gosec.json -exclude-dir=example/v1 -exclude-dir=example/v2 ./...
 
 tidy:
 	${GO} mod tidy
