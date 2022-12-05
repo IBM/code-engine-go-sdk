@@ -5,8 +5,8 @@ GOSEC=gosec
 
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
-all: tidy test lint
-travis-ci: test-cov lint tidy
+all: tidy test lint scan-gosec
+travis-ci: test-cov lint scan-gosec tidy
 
 test:
 	${GO} test `${GO} list ./...`
@@ -24,7 +24,7 @@ lint:
 	${LINT} run --build-tags=integration,examples
 
 scan-gosec:
-	${GOSEC} ./...
+	${GOSEC} -conf gosec.json ./...
 
 tidy:
 	${GO} mod tidy

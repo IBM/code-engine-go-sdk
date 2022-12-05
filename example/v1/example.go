@@ -78,8 +78,18 @@ func main() {
 	}
 
 	var iamResponseData map[string]string
-	json.NewDecoder(resp.Body).Decode(&iamResponseData)
-	resp.Body.Close()
+	err := json.NewDecoder(resp.Body).Decode(&iamResponseData)
+	if err != nil {
+		fmt.Printf("Failed to decode IAM response data: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	err := resp.Body.Close()
+	if err != nil {
+		fmt.Printf("Failed to close the response body: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
 	delegatedRefreshToken := iamResponseData["delegated_refresh_token"]
 
 	// Get Code Engine project config using the Code Engine Client
