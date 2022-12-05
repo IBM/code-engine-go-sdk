@@ -6,7 +6,7 @@ GOSEC=gosec
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
 all: tidy test lint
-travis-ci: test-cov lint scan-gosec tidy
+travis-ci: test-cov lint tidy
 
 test:
 	${GO} test `${GO} list ./...`

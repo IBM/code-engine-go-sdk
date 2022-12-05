@@ -50,5 +50,5 @@ script:
 #     script: npx semantic-release
 #     skip_cleanup: true
 #     on:
-#       go: '1.16.x'
+#       go: '1.19.x'
 #       branch: main
