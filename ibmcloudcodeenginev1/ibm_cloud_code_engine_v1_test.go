@@ -20,17 +20,17 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"time"
+
 	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"io"
-	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
-	"os"
-	"time"
 )
 
 var _ = Describe(`IbmCloudCodeEngineV1`, func() {
@@ -66,14 +66,13 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_CODE_ENGINE_URL": "https://ibmcloudcodeenginev1/api",
+				"IBM_CLOUD_CODE_ENGINE_URL":       "https://ibmcloudcodeenginev1/api",
 				"IBM_CLOUD_CODE_ENGINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
-				})
+				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{})
 				Expect(ibmCloudCodeEngineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -90,8 +89,7 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
-				})
+				ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{})
 				err := ibmCloudCodeEngineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(ibmCloudCodeEngineService).ToNot(BeNil())
@@ -103,13 +101,12 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_CODE_ENGINE_URL": "https://ibmcloudcodeenginev1/api",
+				"IBM_CLOUD_CODE_ENGINE_URL":       "https://ibmcloudcodeenginev1/api",
 				"IBM_CLOUD_CODE_ENGINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{
-			})
+			ibmCloudCodeEngineService, serviceErr := ibmcloudcodeenginev1.NewIbmCloudCodeEngineV1UsingExternalConfig(&ibmcloudcodeenginev1.IbmCloudCodeEngineV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(ibmCloudCodeEngineService).To(BeNil())
@@ -120,7 +117,7 @@ var _ = Describe(`IbmCloudCodeEngineV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_CODE_ENGINE_AUTH_TYPE":   "NOAuth",
+				"IBM_CLOUD_CODE_ENGINE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -401,7 +398,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate() *strfmt.Date {
