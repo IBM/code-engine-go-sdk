@@ -1,4 +1,5 @@
-dist: jammy
+dist: focal
+group: beta
 
 go:
 - 1.18.x
@@ -33,8 +34,8 @@ script:
   - ./test-integration.sh
 
 before_deploy:
-  - nvm install 14
-  - npm install -g npm@6.x
+  - nvm install 18
+  - npm install -g npm@18.x
   - npm install @semantic-release/changelog
   - npm install @semantic-release/exec
   - npm install @semantic-release/git
