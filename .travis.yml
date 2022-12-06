@@ -1,6 +1,6 @@
 language: go
-
 dist: focal
+group: beta
 
 go:
 - 1.18.x
