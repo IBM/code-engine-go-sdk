@@ -1,3 +1,4 @@
+language: go
 dist: focal
 group: beta
 
