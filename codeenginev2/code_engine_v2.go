@@ -219,7 +219,8 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 }
 
 // CreateProject : Create a project
-// Create a Code Engine project on IBM Cloud.
+// Create a Code Engine project on IBM Cloud. The project will be created in the region that corresponds to the API
+// endpoint that is being called.
 func (codeEngine *CodeEngineV2) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return codeEngine.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
@@ -257,9 +258,6 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 	body := make(map[string]interface{})
 	if createProjectOptions.Name != nil {
 		body["name"] = createProjectOptions.Name
-	}
-	if createProjectOptions.Region != nil {
-		body["region"] = createProjectOptions.Region
 	}
 	if createProjectOptions.ResourceGroupID != nil {
 		body["resource_group_id"] = createProjectOptions.ResourceGroupID
@@ -5717,9 +5715,6 @@ type CreateProjectOptions struct {
 	// The name of the project.
 	Name *string `json:"name" validate:"required"`
 
-	// The region for your project deployment.
-	Region *string `json:"region" validate:"required"`
-
 	// Optional ID of the resource group for your project deployment. If this field is not defined, the default resource
 	// group of the account will be used.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
@@ -5734,22 +5729,15 @@ type CreateProjectOptions struct {
 }
 
 // NewCreateProjectOptions : Instantiate CreateProjectOptions
-func (*CodeEngineV2) NewCreateProjectOptions(name string, region string) *CreateProjectOptions {
+func (*CodeEngineV2) NewCreateProjectOptions(name string) *CreateProjectOptions {
 	return &CreateProjectOptions{
 		Name: core.StringPtr(name),
-		Region: core.StringPtr(region),
 	}
 }
 
 // SetName : Allow user to set Name
 func (_options *CreateProjectOptions) SetName(name string) *CreateProjectOptions {
 	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetRegion : Allow user to set Region
-func (_options *CreateProjectOptions) SetRegion(region string) *CreateProjectOptions {
-	_options.Region = core.StringPtr(region)
 	return _options
 }
 

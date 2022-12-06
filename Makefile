@@ -1,20 +1,30 @@
-# Makefile to build go-sdk-template
+# Makefile to build the project
+GO=go
+LINT=golangci-lint
+GOSEC=gosec
 
-all: build unittest lint tidy
+COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
-travis-ci: build alltest lint tidy
+all: tidy test lint scan-gosec
+travis-ci: test-cov lint scan-gosec tidy
 
-build:
-	go build ./...
+test:
+	${GO} test `${GO} list ./...`
 
-unittest:
-	go test `go list ./... | grep -v samples`
+test-cov:
+	${GO} test `${GO} list ./...` ${COVERAGE}
 
-alltest:
-	go test `go list ./... | grep -v samples` -v -tags=integration
+test-int:
+	${GO} test `${GO} list ./...` -tags=integration
+
+test-int-cov:
+	${GO} test `${GO} list ./...` -tags=integration ${COVERAGE}
 
 lint:
-	golangci-lint run
+	${LINT} run
+
+scan-gosec:
+	${GOSEC} -conf gosec.json -exclude-dir=example/v1 -exclude-dir=example/v2 ./...
 
 tidy:
-	go mod tidy
+	${GO} mod tidy

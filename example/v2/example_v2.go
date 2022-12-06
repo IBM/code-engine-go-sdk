@@ -3,77 +3,20 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/IBM/code-engine-go-sdk/codeenginev2"
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 )
 
-type ResourceGroup struct {
-	Id      string `json:"id,omitempty"`
-	Name    string `json:"name,omitempty"`
-	Default bool   `json:"default,omitempty"`
-}
-type ResourceGroups struct {
-	Resources []ResourceGroup `json:"resources,omitempty"`
-}
-
-func getDefaultResourceGroupId(accessToken string, resourceControllerEndpoint string, accountId string) (*string, error) {
-
-	// build the request payload
-	data := url.Values{}
-	data.Set("account_id", accountId)
-	data.Set("default", "true")
-
-	// initialize the HTTP client
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", resourceControllerEndpoint+"/v2/resource_groups?"+data.Encode(), nil)
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", `application/json`)
-	req.Header.Set("Authorization", "Bearer "+accessToken)
-
-	// perform the RC retrieval operation
-	response, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	// read the response body and convert it to a byte array
-	responseData, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	// map the bytes to a defined struct
-	resourceGroups := ResourceGroups{}
-	err = json.Unmarshal(responseData, &resourceGroups)
-	if err != nil {
-		return nil, err
-	}
-
-	// for debugging purposes
-	// fmt.Println("resourceGroups: " + resourceGroups)
-
-	for _, resourceGroup := range resourceGroups.Resources {
-		if resourceGroup.Default {
-			fmt.Println("Identified resource group '" + resourceGroup.Name + "' as default")
-
-			// assigning the resource group id
-			resourceGroupId := resourceGroup.Id
-
-			return &resourceGroupId, nil
-		}
-	}
-
-	return nil, nil
-}
-
 func main() {
+
+	var (
+		codeEngineService *codeenginev2.CodeEngineV2
+	)
 
 	// Validate environment
 	requiredEnvs := []string{"CE_API_KEY", "CE_API_HOST", "CE_PROJECT_ID", "CE_ACCOUNT_ID"}
@@ -89,6 +32,16 @@ func main() {
 	if len(os.Getenv("IAM_ENDPOINT")) > 0 {
 		iamEndpoint = os.Getenv("IAM_ENDPOINT")
 	}
+	fmt.Printf("Using IAM endpoint: '%s'\n", iamEndpoint)
+
+	rcEndpoint := "https://resource-controller.cloud.ibm.com"
+	if len(os.Getenv("RESOURCECONTROLLER_ENDPOINT")) > 0 {
+		rcEndpoint = os.Getenv("RESOURCECONTROLLER_ENDPOINT")
+	}
+	fmt.Printf("Using Resource Controller endpoint: '%s'\n", rcEndpoint)
+
+	accountID := os.Getenv("CE_ACCOUNT_ID")
+	fmt.Printf("Using account: '%s'\n", accountID)
 
 	// Create an IAM authenticator.
 	authenticator := &core.IamAuthenticator{
@@ -98,38 +51,26 @@ func main() {
 		URL:          iamEndpoint,
 	}
 
-	accessToken, err := authenticator.GetToken()
-	if err != nil {
-		fmt.Printf("IAM GetToken error: %s\n", err.Error())
-		os.Exit(1)
-		return
-	}
+	// Cleanup projects that have been created by prior runs
+	cleanupProjectReclamations(authenticator, rcEndpoint, accountID)
 
-	resourceControllerEndpoint := "https://resource-controller.cloud.ibm.com"
-	if len(os.Getenv("RESOURCECONTROLLER_ENDPOINT")) > 0 {
-		resourceControllerEndpoint = os.Getenv("RESOURCECONTROLLER_ENDPOINT")
-	}
-	resourceGroupId, err := getDefaultResourceGroupId(accessToken, resourceControllerEndpoint, os.Getenv("CE_ACCOUNT_ID"))
-	if err != nil {
-		fmt.Printf("ResourceController GetResourceGroups error: %s\n", err.Error())
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Resolved %s as default resource group id.\n", *resourceGroupId)
+	codeEngineApiEndpoint := "https://" + os.Getenv("CE_API_HOST") + "/v2"
+	fmt.Printf("Using Code Engine API endpoint: '%s'\n", codeEngineApiEndpoint)
 
 	// Setup a Code Engine client
-	ceClient, err := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+	codeEngineServiceOptions := &codeenginev2.CodeEngineV2Options{
 		Authenticator: authenticator,
-		URL:           "https://" + os.Getenv("CE_API_HOST") + "/v2",
-	})
+		URL:           codeEngineApiEndpoint,
+	}
+	codeEngineService, err := codeenginev2.NewCodeEngineV2UsingExternalConfig(codeEngineServiceOptions)
 	if err != nil {
-		fmt.Printf("NewCodeEngineV2 error: %s\n", err.Error())
+		fmt.Printf("NewCodeEngineV2UsingExternalConfig error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
 
 	// List Code Engine projects using the Code Engine Client
-	listResult, _, err := ceClient.ListProjects(&codeenginev2.ListProjectsOptions{})
+	listResult, _, err := codeEngineService.ListProjects(&codeenginev2.ListProjectsOptions{})
 	if err != nil {
 		fmt.Printf("ListProjects error: %s\n", err.Error())
 		os.Exit(1)
@@ -139,11 +80,8 @@ func main() {
 
 	// Create a new Code Engine project using the Code Engine Client
 	projectName := "project-sdk-go-e2e--crud--" + time.Now().Format("060102-150405")
-	region := "eu-de"
-	createdProject, _, err := ceClient.CreateProject(&codeenginev2.CreateProjectOptions{
-		Name:            &projectName,
-		ResourceGroupID: resourceGroupId,
-		Region:          &region,
+	createdProject, _, err := codeEngineService.CreateProject(&codeenginev2.CreateProjectOptions{
+		Name: &projectName,
 	})
 	if err != nil {
 		fmt.Printf("CreateProject error: %s\n", err.Error())
@@ -158,9 +96,10 @@ func main() {
 		// sleep for 10 seconds and then try to fetch the project
 		time.Sleep(10 * time.Second)
 
-		obtainedProject, _, err := ceClient.GetProject(&codeenginev2.GetProjectOptions{
-			ProjectGuid: createdProject.ID,
-		})
+		getProjectOptions := codeEngineService.NewGetProjectOptions(
+			*createdProject.ID,
+		)
+		obtainedProject, _, err := codeEngineService.GetProject(getProjectOptions)
 		if err != nil {
 			fmt.Printf("GetProject error: %s\n", err.Error())
 			os.Exit(1)
@@ -172,9 +111,11 @@ func main() {
 		}
 	}
 
-	resp, err := ceClient.DeleteProject(&codeenginev2.DeleteProjectOptions{
-		ProjectGuid: createdProject.ID,
-	})
+	deleteProjectOptions := codeEngineService.NewDeleteProjectOptions(
+		*createdProject.ID,
+	)
+
+	resp, err := codeEngineService.DeleteProject(deleteProjectOptions)
 	if err != nil {
 		fmt.Printf("DeleteProject error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
 		os.Exit(1)
@@ -182,11 +123,83 @@ func main() {
 	}
 	fmt.Printf("Deleted project: '%d'\n", resp.StatusCode)
 
-	listResult, _, err = ceClient.ListProjects(&codeenginev2.ListProjectsOptions{})
+	listResult, _, err = codeEngineService.ListProjects(&codeenginev2.ListProjectsOptions{})
 	if err != nil {
 		fmt.Printf("ListProjects error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
 	fmt.Printf("Found %d projects.\n", len(listResult.Projects))
+
+}
+
+func cleanupProjectReclamations(authenticator *core.IamAuthenticator, rcEndpoint string, accountID string) {
+
+	// Init the resource controller client to cleanup leftovers
+	resourceControllerServiceOptions := &resourcecontrollerv2.ResourceControllerV2Options{
+		Authenticator: authenticator,
+		URL:           rcEndpoint,
+	}
+	resourceControllerService, rcInitErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(resourceControllerServiceOptions)
+	if rcInitErr != nil {
+		fmt.Printf("NewResourceControllerV2UsingExternalConfig error: %s\n", rcInitErr.Error())
+		os.Exit(1)
+		return
+	}
+
+	// 1 list all reclamations
+	listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
+	listReclamationsOptions = listReclamationsOptions.SetAccountID(accountID)
+	reclamationsList, _, rcErr := resourceControllerService.ListReclamations(listReclamationsOptions)
+	if rcErr != nil {
+		fmt.Printf("ListReclamations error: %s\n", rcErr.Error())
+		os.Exit(1)
+	}
+	fmt.Printf("Found %d reclamations\n", len(reclamationsList.Resources))
+
+	// 2 iterate over all reclamations
+	for _, reclamation := range reclamationsList.Resources {
+
+		// examine whether we are dealing with a code engine instance
+		if !strings.Contains(*reclamation.EntityCRN, ":public:codeengine:") {
+			continue
+		}
+
+		// examine the data of the reclamation and check whether it is older than 5 min
+		if *reclamation.State != "SCHEDULED" {
+			continue
+		}
+
+		created, parserErr := time.Parse(time.RFC3339, reclamation.CreatedAt.String())
+		if parserErr != nil {
+			fmt.Printf("faild to parse '%s' error: %s\n", reclamation.CreatedAt, parserErr.Error())
+			os.Exit(1)
+		}
+
+		// 3 examine the data of the reclamation and check whether it is older than 5 min
+		if created.After(time.Now().Add(-5 * time.Minute)) {
+			continue
+		}
+
+		// 4 delete it, if it is too old
+		fmt.Printf("Deleting reclamation: '%s'\n", *reclamation.ID)
+		runReclamationActionOptions := resourceControllerService.NewRunReclamationActionOptions(
+			*reclamation.ID,
+			"reclaim",
+		)
+		reclamation, _, reclaimErr := resourceControllerService.RunReclamationAction(runReclamationActionOptions)
+		if reclaimErr != nil {
+			fmt.Printf("RunReclamationAction error: %s\n", reclaimErr.Error())
+			os.Exit(1)
+		}
+		b, marshalErr := json.MarshalIndent(reclamation, "", "  ")
+		if marshalErr != nil {
+			fmt.Printf("faild to print reclamation: %s\n", parserErr.Error())
+			os.Exit(1)
+		}
+		fmt.Println(string(b))
+
+	}
+
+	fmt.Printf("Done cleaning up!\n")
 }
