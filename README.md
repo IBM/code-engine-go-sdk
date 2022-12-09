@@ -1,13 +1,8 @@
 [![Build Status](https://travis-ci.com/IBM/code-engine-go-sdk.svg?branch=main)](https://travis-ci.com/IBM/code-engine-go-sdk)
-<!--
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
--->
 
-# IBM Cloud Code Engine Go SDK 0.1.0
+# IBM Cloud Code Engine Go SDK 2.0.3
 Go client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
-
-Disclaimer: this SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
 
 ## Table of Contents
 <!--
@@ -43,7 +38,8 @@ The IBM Cloud Code Engine Go SDK allows developers to programmatically interact 
 
 Service Name | Package name 
 --- | --- 
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | ibmcloudcodeenginev1 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | codeenginev2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v1.0.0) | ibmcloudcodeenginev1 
 
 ## Prerequisites
 
@@ -51,10 +47,10 @@ Service Name | Package name
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.12 or above.
+* Go version 1.18 or above.
 
 ## Installation
-The current version of this SDK: 0.1.0
+The current version of this SDK: 2.0.3
 
 There are a few different ways to download and install the Code Engine Go SDK project for use by your
 Go application:
@@ -73,7 +69,7 @@ Go application, like this:
 
 ```go
 import (
-	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
+	"github.com/IBM/code-engine-go-sdk/codeenginev2"
 )
 ```
 
@@ -87,7 +83,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/code-engine-go-sdk"
-  version = "0.1.0"
+  version = "2.0.3"
 
 ```
 
