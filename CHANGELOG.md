@@ -1,3 +1,10 @@
+## [2.0.2](https://github.ibm.com/coligo/go-sdk/compare/v2.0.1...v2.0.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* **build:** remove package.json from git. added changelog entry for v2.0.0 ([f7d29f4](https://github.ibm.com/coligo/go-sdk/commit/f7d29f48a5f5f02befda1bb5e44906250017a20a))
+
 ## [2.0.1](https://github.ibm.com/coligo/go-sdk/compare/v2.0.0...v2.0.1) (2022-12-09)
 
 
