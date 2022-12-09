@@ -1,6 +1,5 @@
 language: go
 dist: focal
-group: beta
 
 go:
 - 1.18.x
@@ -32,21 +31,3 @@ install:
 
 script:
   - make travis-ci
-  - ./test-integration.sh
-
-before_deploy:
-  - nvm install 18
-  - npm install -g npm@8.x
-  - npm install @semantic-release/changelog
-  - npm install @semantic-release/exec
-  - npm install @semantic-release/git
-  - npm install @semantic-release/github
-  - pip install --user bump2version
-
-deploy:
-  - provider: script
-    script: npx semantic-release
-    skip_cleanup: true
-    on:
-      go: '1.18.x'
-      branch: main
