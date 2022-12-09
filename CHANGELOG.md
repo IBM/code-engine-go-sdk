@@ -1,3 +1,10 @@
+## [2.0.3](https://github.ibm.com/coligo/go-sdk/compare/v2.0.2...v2.0.3) (2022-12-09)
+
+
+### Bug Fixes
+
+* **documentation:** slightly adjusted the readme ([be0d31d](https://github.ibm.com/coligo/go-sdk/commit/be0d31d57f833e5a0050db5897055ccf4cea86fd))
+
 ## [2.0.2](https://github.ibm.com/coligo/go-sdk/compare/v2.0.1...v2.0.2) (2022-12-09)
 
 
