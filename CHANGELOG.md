@@ -1,3 +1,11 @@
+## [2.0.4](https://github.ibm.com/coligo/go-sdk/compare/v2.0.3...v2.0.4) (2023-03-08)
+
+
+### Bug Fixes
+
+* **build:** regenerated with most recent generator ([629189b](https://github.ibm.com/coligo/go-sdk/commit/629189b74e9fbdb8e5a58f2f0d6896e025140744))
+* **examples:** added secret create example ([e630bcd](https://github.ibm.com/coligo/go-sdk/commit/e630bcdaf6ea18e138f0431d03bf21650973b445))
+
 ## [2.0.3](https://github.ibm.com/coligo/go-sdk/compare/v2.0.2...v2.0.3) (2022-12-09)
 
 
