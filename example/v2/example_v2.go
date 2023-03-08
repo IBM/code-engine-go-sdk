@@ -111,11 +111,64 @@ func main() {
 		}
 	}
 
+	// Create secret
+	createSecretOpts := codeEngineService.NewCreateSecretOptions(
+		*createdProject.ID,
+		"ssh_auth",
+		"ssh-secret",
+	)
+	createSecretOpts.Data = map[string]string{
+		"ssh-privatekey": "test",
+	}
+
+	createdSecret, _, err := codeEngineService.CreateSecret(createSecretOpts)
+	if err != nil {
+		fmt.Printf("CreateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created secret '%s'", *createdSecret.Name)
+
+	getSecretOpts := codeEngineService.NewGetSecretOptions(
+		*createdProject.ID,
+		"ssh-secret",
+	)
+	obtainedSecret, _, err := codeEngineService.GetSecret(getSecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret '%s', format: %s", *obtainedSecret.Name, *obtainedSecret.Format)
+
+	listSecretOpts := codeEngineService.NewListSecretsOptions(
+		*createdProject.ID,
+	)
+	secretList, _, err := codeEngineService.ListSecrets(listSecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret list '%d'", len(secretList.Secrets))
+
+	deleteSecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"ssh-secret",
+	)
+	resp, err := codeEngineService.DeleteSecret(deleteSecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
 	deleteProjectOptions := codeEngineService.NewDeleteProjectOptions(
 		*createdProject.ID,
 	)
 
-	resp, err := codeEngineService.DeleteProject(deleteProjectOptions)
+	resp, err = codeEngineService.DeleteProject(deleteProjectOptions)
 	if err != nil {
 		fmt.Printf("DeleteProject error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
 		os.Exit(1)
