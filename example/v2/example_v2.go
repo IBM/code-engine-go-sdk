@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/IBM/code-engine-go-sdk/codeenginev2"
+	"github.com/IBM/code-engine-go-sdk/v2/codeenginev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 )

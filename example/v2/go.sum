@@ -1,3 +1,5 @@
+github.com/IBM/code-engine-go-sdk v0.0.0-20221209153711-82472bae75eb h1:lBjqyTOY0qhAmmZLT4ERQbW90FUEH6MyQAM2DUNuC94=
+github.com/IBM/code-engine-go-sdk v0.0.0-20221209153711-82472bae75eb/go.mod h1:X2Qj8n5L7Y47y8GR5Pxr/nxwOWhefGebRC8GGiOTvdk=
 github.com/IBM/go-sdk-core/v5 v5.10.2 h1:bfqhYNwwpJ3zJQSYpF3umhmRIKaa762itvJkTAWCCLU=
 github.com/IBM/go-sdk-core/v5 v5.10.2/go.mod h1:WZPFasUzsKab/2mzt29xPcfruSk5js2ywAPwW4VJjdI=
 github.com/IBM/platform-services-go-sdk v0.31.0 h1:XRSGejb/uMqNi2C5F28Q8x4jmVyXlRRE8cJCSwXBsPU=

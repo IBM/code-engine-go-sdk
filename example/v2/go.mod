@@ -1,14 +1,15 @@
-module github.com/IBM/code-engine-go-sdk/v2
+module github.com/IBM/v2
 
 go 1.18
 
 require (
-	github.com/IBM/code-engine-go-sdk v0.0.0-00010101000000-000000000000
+	github.com/IBM/code-engine-go-sdk/v2 v2.0.3
 	github.com/IBM/go-sdk-core/v5 v5.10.2
 	github.com/IBM/platform-services-go-sdk v0.31.0
 )
 
 require (
+	github.com/IBM/code-engine-go-sdk v0.0.0-20221209153711-82472bae75eb // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/go-openapi/errors v0.20.3 // indirect
 	github.com/go-openapi/strfmt v0.21.3 // indirect
@@ -23,4 +24,4 @@ require (
 	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 )
 
-replace github.com/IBM/code-engine-go-sdk => ./../..
+replace github.com/IBM/code-engine-go-sdk/v2 => ./../..
