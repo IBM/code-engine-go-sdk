@@ -1,3 +1,10 @@
+## [2.0.5](https://github.ibm.com/coligo/go-sdk/compare/v2.0.4...v2.0.5) (2023-03-09)
+
+
+### Bug Fixes
+
+* **model:** pulled in latest v2 endpoint updates ([38796d2](https://github.ibm.com/coligo/go-sdk/commit/38796d2175b9b01a09776d707c8dc35700e3d74f))
+
 ## [2.0.4](https://github.ibm.com/coligo/go-sdk/compare/v2.0.3...v2.0.4) (2023-03-08)
 
 
