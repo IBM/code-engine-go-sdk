@@ -2911,7 +2911,7 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 // App : App is the response model for app resources.
 type App struct {
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// Optional URL to invoke app. Depending on visibility this is accessible publicly ot in the private network only.
 	// Empty in case 'managed_domain_mappings' is set to 'local'.
@@ -2920,14 +2920,14 @@ type App struct {
 	// URL to app that is only visible within the project.
 	EndpointInternal *string `json:"endpoint_internal,omitempty"`
 
-	// The version of the job instance, which is used to achieve optimistic locking.
+	// The version of the app instance, which is used to achieve optimistic locking.
 	EntityTag *string `json:"entity_tag" validate:"required"`
 
 	// When you provision a new app,  a URL is created identifying the location of the instance.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// Optional port the app listens on. While the app will always be exposed via port `443` for end users, this port is
 	// used to connect to the port that is exposed by the container image.
@@ -2953,10 +2953,10 @@ type App struct {
 	Name *string `json:"name" validate:"required"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the app.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// Optional arguments for the app that are passed to start the container. If not specified an empty string array will
 	// be applied and the arguments specified by the container image, will be used to start the container.
@@ -3020,7 +3020,7 @@ type App struct {
 	ScaleRequestTimeout *int64 `json:"scale_request_timeout" validate:"required"`
 
 	// The current status of the app.
-	Status *string `json:"status" validate:"required"`
+	Status *string `json:"status,omitempty"`
 
 	// The detailed status of the application.
 	StatusDetails *AppStatus `json:"status_details,omitempty"`
@@ -3439,13 +3439,13 @@ type AppRevision struct {
 	AppName *string `json:"app_name,omitempty"`
 
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// When you provision a new revision,  a URL is created identifying the location of the instance.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// Optional port the app listens on. While the app will always be exposed via port `443` for end users, this port is
 	// used to connect to the port that is exposed by the container image.
@@ -3463,13 +3463,13 @@ type AppRevision struct {
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// The name of the app revison.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the app revision.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// Optional arguments for the app that are passed to start the container. If not specified an empty string array will
 	// be applied and the arguments specified by the container image, will be used to start the container.
@@ -3533,7 +3533,7 @@ type AppRevision struct {
 	ScaleRequestTimeout *int64 `json:"scale_request_timeout" validate:"required"`
 
 	// The current status of the app revision.
-	Status *string `json:"status" validate:"required"`
+	Status *string `json:"status,omitempty"`
 
 	// The detailed status of the application revision.
 	StatusDetails *AppRevisionStatus `json:"status_details,omitempty"`
@@ -3816,7 +3816,7 @@ func UnmarshalAppStatus(m map[string]json.RawMessage, result interface{}) (err e
 // Build : Response model for build definitions.
 type Build struct {
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The version of the build instance, which is used to achieve optimistic locking.
 	EntityTag *string `json:"entity_tag" validate:"required"`
@@ -3825,7 +3825,7 @@ type Build struct {
 	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the build.
 	Name *string `json:"name,omitempty"`
@@ -3838,7 +3838,7 @@ type Build struct {
 	OutputSecret *string `json:"output_secret" validate:"required"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the build.
 	ResourceType *string `json:"resource_type,omitempty"`
@@ -4167,13 +4167,13 @@ type BuildRun struct {
 	BuildName *string `json:"build_name" validate:"required"`
 
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// When you trigger a new build run,  a URL is created identifying the location of the instance.
 	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the build run.
 	Name *string `json:"name" validate:"required"`
@@ -4186,10 +4186,10 @@ type BuildRun struct {
 	OutputSecret *string `json:"output_secret,omitempty"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the build run.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// Optional service account which is used for resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
@@ -4219,7 +4219,7 @@ type BuildRun struct {
 	SourceURL *string `json:"source_url,omitempty"`
 
 	// The current status of the build run.
-	Status *string `json:"status" validate:"required"`
+	Status *string `json:"status,omitempty"`
 
 	// Current status condition of a build run.
 	StatusDetails *BuildRunStatus `json:"status_details,omitempty"`
@@ -4505,7 +4505,7 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 // ConfigMap : Describes the model of a configmap.
 type ConfigMap struct {
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The key-value pair for the config map. Values must be specified in `KEY=VALUE` format.
 	Data map[string]string `json:"data,omitempty"`
@@ -4517,16 +4517,16 @@ type ConfigMap struct {
 	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the config map.
 	Name *string `json:"name" validate:"required"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the config map.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 }
 
 // Constants associated with the ConfigMap.ResourceType property.
@@ -5289,7 +5289,7 @@ type CreateJobOptions struct {
 	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
 	// private registry when you download the container image. If the image reference points to a registry that requires
 	// authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-	// provided, too.
+	// provided, too. This property must not be set on a job run, which references a job template.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// Set arguments for the job that are passed to start job run containers. If not specified an empty string array will
@@ -5307,12 +5307,12 @@ type CreateJobOptions struct {
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-	// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-	// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+	// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 	RunMode *string `json:"run_mode,omitempty"`
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-	// `reader`, and `writer`.
+	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
 	// Optional mounts of config maps or a secrets.
@@ -5333,7 +5333,8 @@ type CreateJobOptions struct {
 	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
-	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+	// The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+	// `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
 	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -5342,8 +5343,8 @@ type CreateJobOptions struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
-	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-	// specified if `mode` is `task`.
+	// The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -5352,8 +5353,8 @@ type CreateJobOptions struct {
 
 // Constants associated with the CreateJobOptions.RunMode property.
 // The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobOptions_RunMode_Daemon = "daemon"
 	CreateJobOptions_RunMode_Task = "task"
@@ -5361,7 +5362,7 @@ const (
 
 // Constants associated with the CreateJobOptions.RunServiceAccount property.
 // The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-// `reader`, and `writer`.
+// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 const (
 	CreateJobOptions_RunServiceAccount_Default = "default"
 	CreateJobOptions_RunServiceAccount_Manager = "manager"
@@ -5501,7 +5502,7 @@ type CreateJobRunOptions struct {
 	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
 	// private registry when you download the container image. If the image reference points to a registry that requires
 	// authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-	// provided, too.
+	// provided, too. This property must not be set on a job run, which references a job template.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// Optional name of the job on which this job run is based on. If specified, the job run will inherit the configuration
@@ -5526,12 +5527,12 @@ type CreateJobRunOptions struct {
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-	// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-	// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+	// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 	RunMode *string `json:"run_mode,omitempty"`
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-	// `reader`, and `writer`.
+	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
 	// Optional mounts of config maps or a secrets.
@@ -5552,7 +5553,8 @@ type CreateJobRunOptions struct {
 	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
-	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+	// The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+	// `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
 	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -5561,8 +5563,8 @@ type CreateJobRunOptions struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
-	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-	// specified if `mode` is `task`.
+	// The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -5571,8 +5573,8 @@ type CreateJobRunOptions struct {
 
 // Constants associated with the CreateJobRunOptions.RunMode property.
 // The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobRunOptions_RunMode_Daemon = "daemon"
 	CreateJobRunOptions_RunMode_Task = "task"
@@ -5580,7 +5582,7 @@ const (
 
 // Constants associated with the CreateJobRunOptions.RunServiceAccount property.
 // The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-// `reader`, and `writer`.
+// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 const (
 	CreateJobRunOptions_RunServiceAccount_Default = "default"
 	CreateJobRunOptions_RunServiceAccount_Manager = "manager"
@@ -5773,7 +5775,7 @@ type CreateSecretOptions struct {
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
 	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
-	Data map[string]string `json:"data,omitempty"`
+	Data SecretDataIntf `json:"data,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5819,7 +5821,7 @@ func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
 }
 
 // SetData : Allow user to set Data
-func (_options *CreateSecretOptions) SetData(data map[string]string) *CreateSecretOptions {
+func (_options *CreateSecretOptions) SetData(data SecretDataIntf) *CreateSecretOptions {
 	_options.Data = data
 	return _options
 }
@@ -6641,16 +6643,16 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 // Job : Job is the response model for job resources.
 type Job struct {
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The version of the job instance, which is used to achieve optimistic locking.
 	EntityTag *string `json:"entity_tag" validate:"required"`
 
 	// When you provision a new job,  a URL is created identifying the location of the instance.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
@@ -6661,17 +6663,17 @@ type Job struct {
 	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
 	// private registry when you download the container image. If the image reference points to a registry that requires
 	// authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-	// provided, too.
+	// provided, too. This property must not be set on a job run, which references a job template.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// The name of the job.
 	Name *string `json:"name" validate:"required"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the job.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// Set arguments for the job that are passed to start job run containers. If not specified an empty string array will
 	// be applied and the arguments specified by the container image, will be used to start the container.
@@ -6688,12 +6690,12 @@ type Job struct {
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-	// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-	// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+	// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 	RunMode *string `json:"run_mode" validate:"required"`
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-	// `reader`, and `writer`.
+	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
 	// Optional mounts of config maps or a secrets.
@@ -6714,7 +6716,8 @@ type Job struct {
 	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
 
-	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+	// The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+	// `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
 	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -6723,8 +6726,8 @@ type Job struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
 
-	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-	// specified if `mode` is `task`.
+	// The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 }
 
@@ -6736,8 +6739,8 @@ const (
 
 // Constants associated with the Job.RunMode property.
 // The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	Job_RunMode_Daemon = "daemon"
 	Job_RunMode_Task = "task"
@@ -6745,7 +6748,7 @@ const (
 
 // Constants associated with the Job.RunServiceAccount property.
 // The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-// `reader`, and `writer`.
+// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 const (
 	Job_RunServiceAccount_Default = "default"
 	Job_RunServiceAccount_Manager = "manager"
@@ -6906,7 +6909,7 @@ type JobPatch struct {
 	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
 	// private registry when you download the container image. If the image reference points to a registry that requires
 	// authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-	// provided, too.
+	// provided, too. This property must not be set on a job run, which references a job template.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// Set arguments for the job that are passed to start job run containers. If not specified an empty string array will
@@ -6924,12 +6927,12 @@ type JobPatch struct {
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-	// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-	// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+	// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 	RunMode *string `json:"run_mode,omitempty"`
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-	// `reader`, and `writer`.
+	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
 	// Optional mounts of config maps or a secrets. In case this is provided, existing `run_volume_mounts` will be
@@ -6951,7 +6954,8 @@ type JobPatch struct {
 	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
-	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+	// The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+	// `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
 	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -6960,15 +6964,15 @@ type JobPatch struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
-	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-	// specified if `mode` is `task`.
+	// The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 }
 
 // Constants associated with the JobPatch.RunMode property.
 // The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobPatch_RunMode_Daemon = "daemon"
 	JobPatch_RunMode_Task = "task"
@@ -6976,7 +6980,7 @@ const (
 
 // Constants associated with the JobPatch.RunServiceAccount property.
 // The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-// `reader`, and `writer`.
+// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 const (
 	JobPatch_RunServiceAccount_Default = "default"
 	JobPatch_RunServiceAccount_Manager = "manager"
@@ -7082,7 +7086,7 @@ type JobRun struct {
 	// The name of the image registry access secret. The image registry access secret is used to authenticate with a
 	// private registry when you download the container image. If the image reference points to a registry that requires
 	// authentication, the job / job runs will be created but submitted job runs will fail, until this property is
-	// provided, too.
+	// provided, too. This property must not be set on a job run, which references a job template.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
 	// Optional name of the job reference of this job run. If specified, the job run will inherit the configuration of the
@@ -7093,7 +7097,7 @@ type JobRun struct {
 	Name *string `json:"name,omitempty"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the job run.
 	ResourceType *string `json:"resource_type,omitempty"`
@@ -7113,12 +7117,12 @@ type JobRun struct {
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-	// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-	// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+	// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+	// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 	RunMode *string `json:"run_mode,omitempty"`
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-	// `reader`, and `writer`.
+	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
 	// Optional mounts of config maps or a secrets.
@@ -7139,7 +7143,8 @@ type JobRun struct {
 	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit,omitempty"`
 
-	// The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is `task`.
+	// The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode` is
+	// `task`.
 	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
 
 	// Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -7148,8 +7153,8 @@ type JobRun struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
-	// The number of times to rerun an instance of the job before the job is marked as failed. This option can only be
-	// specified if `mode` is `task`.
+	// The number of times to rerun an instance of the job before the job is marked as failed. This property can only be
+	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 
 	// The current status of the job run.
@@ -7167,8 +7172,8 @@ const (
 
 // Constants associated with the JobRun.RunMode property.
 // The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
-// `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-// indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+// `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted
+// indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobRun_RunMode_Daemon = "daemon"
 	JobRun_RunMode_Task = "task"
@@ -7176,7 +7181,7 @@ const (
 
 // Constants associated with the JobRun.RunServiceAccount property.
 // The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
-// `reader`, and `writer`.
+// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 const (
 	JobRun_RunServiceAccount_Default = "default"
 	JobRun_RunServiceAccount_Manager = "manager"
@@ -7899,36 +7904,36 @@ func (options *ListSecretsOptions) SetHeaders(param map[string]string) *ListSecr
 // Project : Describes the model of a project.
 type Project struct {
 	// An alphanumeric value identifying the account ID.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `json:"account_id,omitempty"`
 
 	// The date when the project was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The CRN of the project.
-	Crn *string `json:"crn" validate:"required"`
+	Crn *string `json:"crn,omitempty"`
 
 	// When you provision a new resource, a URL is created identifying the location of the instance.
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
 	// The ID of the project.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the project.
 	Name *string `json:"name" validate:"required"`
 
 	// The region for your project deployment. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de', 'eu-gb', 'jp-osa',
 	// 'jp-tok', 'us-east', 'us-south'.
-	Region *string `json:"region" validate:"required"`
+	Region *string `json:"region,omitempty"`
 
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
 	// The type of the project.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// The current state of the project. For example, if the project is created and ready to get used, it will return
 	// active.
-	Status *string `json:"status" validate:"required"`
+	Status *string `json:"status,omitempty"`
 }
 
 // Constants associated with the Project.ResourceType property.
@@ -8125,7 +8130,7 @@ type ReplaceSecretOptions struct {
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
 	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
-	Data map[string]string `json:"data,omitempty"`
+	Data SecretDataIntf `json:"data,omitempty"`
 
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
@@ -8174,7 +8179,7 @@ func (_options *ReplaceSecretOptions) SetIfMatch(ifMatch string) *ReplaceSecretO
 }
 
 // SetData : Allow user to set Data
-func (_options *ReplaceSecretOptions) SetData(data map[string]string) *ReplaceSecretOptions {
+func (_options *ReplaceSecretOptions) SetData(data SecretDataIntf) *ReplaceSecretOptions {
 	_options.Data = data
 	return _options
 }
@@ -8194,7 +8199,7 @@ func (options *ReplaceSecretOptions) SetHeaders(param map[string]string) *Replac
 // Secret : Describes the model of a secret.
 type Secret struct {
 	// The date when the resource was created.
-	CreatedAt *string `json:"created_at" validate:"required"`
+	CreatedAt *string `json:"created_at,omitempty"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
@@ -8211,16 +8216,16 @@ type Secret struct {
 	Href *string `json:"href,omitempty"`
 
 	// The identifier of the resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The name of the secret.
 	Name *string `json:"name" validate:"required"`
 
 	// The ID of the project the resource is located in.
-	ProjectID *string `json:"project_id" validate:"required"`
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the secret.
-	ResourceType *string `json:"resource_type" validate:"required"`
+	ResourceType *string `json:"resource_type,omitempty"`
 }
 
 // Constants associated with the Secret.Format property.
@@ -8273,6 +8278,173 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
 		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value
+// field can consists of any character and must not be exceed a max length of 1048576 characters.
+// Models which "extend" this model:
+// - SecretDataSSHSecretData
+// - SecretDataRegistrySecretData
+// - SecretDataTLSSecretData
+// - SecretDataGenericSecretData
+// - SecretDataBasicAuthSecretData
+type SecretData struct {
+	// SSH key.
+	SshKey *string `json:"ssh_key,omitempty"`
+
+	// Known hosts.
+	KnownHosts *string `json:"known_hosts,omitempty"`
+
+	// Registry username.
+	Username *string `json:"username,omitempty"`
+
+	// Registry password.
+	Password *string `json:"password,omitempty"`
+
+	// Registry server.
+	Server *string `json:"server,omitempty"`
+
+	// Registry email address.
+	Email *string `json:"email,omitempty"`
+
+	// The TLS certificate used in a TLS secret.
+	TlsCert *string `json:"tls_cert,omitempty"`
+
+	// The TLS key used in a TLS secret.
+	TlsKey *string `json:"tls_key,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+func (*SecretData) isaSecretData() bool {
+	return true
+}
+
+type SecretDataIntf interface {
+	isaSecretData() bool
+	SetProperty(key string, value *string)
+	SetProperties(m map[string]*string)
+	GetProperty(key string) *string
+	GetProperties() map[string]*string
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretData
+func (o *SecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretData
+func (o *SecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretData
+func (o *SecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretData
+func (o *SecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretData
+func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.SshKey != nil {
+		m["ssh_key"] = o.SshKey
+	}
+	if o.KnownHosts != nil {
+		m["known_hosts"] = o.KnownHosts
+	}
+	if o.Username != nil {
+		m["username"] = o.Username
+	}
+	if o.Password != nil {
+		m["password"] = o.Password
+	}
+	if o.Server != nil {
+		m["server"] = o.Server
+	}
+	if o.Email != nil {
+		m["email"] = o.Email
+	}
+	if o.TlsCert != nil {
+		m["tls_cert"] = o.TlsCert
+	}
+	if o.TlsKey != nil {
+		m["tls_key"] = o.TlsKey
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretData unmarshals an instance of SecretData from the specified map of raw messages.
+func UnmarshalSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretData)
+	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	if err != nil {
+		return
+	}
+	delete(m, "ssh_key")
+	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
+	if err != nil {
+		return
+	}
+	delete(m, "known_hosts")
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	delete(m, "username")
+	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
+	if err != nil {
+		return
+	}
+	delete(m, "password")
+	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
+	if err != nil {
+		return
+	}
+	delete(m, "server")
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	if err != nil {
+		return
+	}
+	delete(m, "email")
+	err = core.UnmarshalPrimitive(m, "tls_cert", &obj.TlsCert)
+	if err != nil {
+		return
+	}
+	delete(m, "tls_cert")
+	err = core.UnmarshalPrimitive(m, "tls_key", &obj.TlsKey)
+	if err != nil {
+		return
+	}
+	delete(m, "tls_key")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -8601,6 +8773,485 @@ func UnmarshalVolumeMountPrototype(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataBasicAuthSecretData : SecretDataBasicAuthSecretData struct
+// This model "extends" SecretData
+type SecretDataBasicAuthSecretData struct {
+	// Basic auth username.
+	Username *string `json:"username" validate:"required"`
+
+	// Basic auth password.
+	Password *string `json:"password" validate:"required"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+
+// NewSecretDataBasicAuthSecretData : Instantiate SecretDataBasicAuthSecretData (Generic Model Constructor)
+func (*CodeEngineV2) NewSecretDataBasicAuthSecretData(username string, password string) (_model *SecretDataBasicAuthSecretData, err error) {
+	_model = &SecretDataBasicAuthSecretData{
+		Username: core.StringPtr(username),
+		Password: core.StringPtr(password),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*SecretDataBasicAuthSecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataBasicAuthSecretData
+func (o *SecretDataBasicAuthSecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataBasicAuthSecretData
+func (o *SecretDataBasicAuthSecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataBasicAuthSecretData
+func (o *SecretDataBasicAuthSecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataBasicAuthSecretData
+func (o *SecretDataBasicAuthSecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataBasicAuthSecretData
+func (o *SecretDataBasicAuthSecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.Username != nil {
+		m["username"] = o.Username
+	}
+	if o.Password != nil {
+		m["password"] = o.Password
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretDataBasicAuthSecretData unmarshals an instance of SecretDataBasicAuthSecretData from the specified map of raw messages.
+func UnmarshalSecretDataBasicAuthSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataBasicAuthSecretData)
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	delete(m, "username")
+	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
+	if err != nil {
+		return
+	}
+	delete(m, "password")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataGenericSecretData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value
+// field can consists of any character and must not be exceed a max length of 1048576 characters.
+// This model "extends" SecretData
+type SecretDataGenericSecretData struct {
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+
+func (*SecretDataGenericSecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataGenericSecretData
+func (o *SecretDataGenericSecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataGenericSecretData
+func (o *SecretDataGenericSecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataGenericSecretData
+func (o *SecretDataGenericSecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataGenericSecretData
+func (o *SecretDataGenericSecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataGenericSecretData
+func (o *SecretDataGenericSecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretDataGenericSecretData unmarshals an instance of SecretDataGenericSecretData from the specified map of raw messages.
+func UnmarshalSecretDataGenericSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataGenericSecretData)
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataRegistrySecretData : SecretDataRegistrySecretData struct
+// This model "extends" SecretData
+type SecretDataRegistrySecretData struct {
+	// Registry username.
+	Username *string `json:"username" validate:"required"`
+
+	// Registry password.
+	Password *string `json:"password" validate:"required"`
+
+	// Registry server.
+	Server *string `json:"server" validate:"required"`
+
+	// Registry email address.
+	Email *string `json:"email" validate:"required"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+
+// NewSecretDataRegistrySecretData : Instantiate SecretDataRegistrySecretData (Generic Model Constructor)
+func (*CodeEngineV2) NewSecretDataRegistrySecretData(username string, password string, server string, email string) (_model *SecretDataRegistrySecretData, err error) {
+	_model = &SecretDataRegistrySecretData{
+		Username: core.StringPtr(username),
+		Password: core.StringPtr(password),
+		Server: core.StringPtr(server),
+		Email: core.StringPtr(email),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*SecretDataRegistrySecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataRegistrySecretData
+func (o *SecretDataRegistrySecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataRegistrySecretData
+func (o *SecretDataRegistrySecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataRegistrySecretData
+func (o *SecretDataRegistrySecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataRegistrySecretData
+func (o *SecretDataRegistrySecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataRegistrySecretData
+func (o *SecretDataRegistrySecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.Username != nil {
+		m["username"] = o.Username
+	}
+	if o.Password != nil {
+		m["password"] = o.Password
+	}
+	if o.Server != nil {
+		m["server"] = o.Server
+	}
+	if o.Email != nil {
+		m["email"] = o.Email
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretDataRegistrySecretData unmarshals an instance of SecretDataRegistrySecretData from the specified map of raw messages.
+func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataRegistrySecretData)
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	delete(m, "username")
+	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
+	if err != nil {
+		return
+	}
+	delete(m, "password")
+	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
+	if err != nil {
+		return
+	}
+	delete(m, "server")
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	if err != nil {
+		return
+	}
+	delete(m, "email")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataSSHSecretData : Secret Data field used by SSH secrets.
+// This model "extends" SecretData
+type SecretDataSSHSecretData struct {
+	// SSH key.
+	SshKey *string `json:"ssh_key" validate:"required"`
+
+	// Known hosts.
+	KnownHosts *string `json:"known_hosts,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+
+// NewSecretDataSSHSecretData : Instantiate SecretDataSSHSecretData (Generic Model Constructor)
+func (*CodeEngineV2) NewSecretDataSSHSecretData(sshKey string) (_model *SecretDataSSHSecretData, err error) {
+	_model = &SecretDataSSHSecretData{
+		SshKey: core.StringPtr(sshKey),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*SecretDataSSHSecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataSSHSecretData
+func (o *SecretDataSSHSecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataSSHSecretData
+func (o *SecretDataSSHSecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataSSHSecretData
+func (o *SecretDataSSHSecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataSSHSecretData
+func (o *SecretDataSSHSecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataSSHSecretData
+func (o *SecretDataSSHSecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.SshKey != nil {
+		m["ssh_key"] = o.SshKey
+	}
+	if o.KnownHosts != nil {
+		m["known_hosts"] = o.KnownHosts
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretDataSSHSecretData unmarshals an instance of SecretDataSSHSecretData from the specified map of raw messages.
+func UnmarshalSecretDataSSHSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataSSHSecretData)
+	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	if err != nil {
+		return
+	}
+	delete(m, "ssh_key")
+	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
+	if err != nil {
+		return
+	}
+	delete(m, "known_hosts")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataTLSSecretData : SecretDataTLSSecretData struct
+// This model "extends" SecretData
+type SecretDataTLSSecretData struct {
+	// The TLS certificate used in a TLS secret.
+	TlsCert *string `json:"tls_cert" validate:"required"`
+
+	// The TLS key used in a TLS secret.
+	TlsKey *string `json:"tls_key" validate:"required"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*string
+}
+
+// NewSecretDataTLSSecretData : Instantiate SecretDataTLSSecretData (Generic Model Constructor)
+func (*CodeEngineV2) NewSecretDataTLSSecretData(tlsCert string, tlsKey string) (_model *SecretDataTLSSecretData, err error) {
+	_model = &SecretDataTLSSecretData{
+		TlsCert: core.StringPtr(tlsCert),
+		TlsKey: core.StringPtr(tlsKey),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*SecretDataTLSSecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataTLSSecretData
+func (o *SecretDataTLSSecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataTLSSecretData
+func (o *SecretDataTLSSecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataTLSSecretData
+func (o *SecretDataTLSSecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataTLSSecretData
+func (o *SecretDataTLSSecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataTLSSecretData
+func (o *SecretDataTLSSecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.TlsCert != nil {
+		m["tls_cert"] = o.TlsCert
+	}
+	if o.TlsKey != nil {
+		m["tls_key"] = o.TlsKey
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalSecretDataTLSSecretData unmarshals an instance of SecretDataTLSSecretData from the specified map of raw messages.
+func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataTLSSecretData)
+	err = core.UnmarshalPrimitive(m, "tls_cert", &obj.TlsCert)
+	if err != nil {
+		return
+	}
+	delete(m, "tls_cert")
+	err = core.UnmarshalPrimitive(m, "tls_key", &obj.TlsKey)
+	if err != nil {
+		return
+	}
+	delete(m, "tls_key")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return

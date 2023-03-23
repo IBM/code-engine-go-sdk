@@ -300,7 +300,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			getAppRevisionOptions := codeEngineService.NewGetAppRevisionOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"my-app",
-				"my-app-001",
+				"my-app-00001",
 			)
 
 			appRevision, response, err := codeEngineService.GetAppRevision(getAppRevisionOptions)
@@ -468,7 +468,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			getJobRunOptions := codeEngineService.NewGetJobRunOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job",
+				"my-job-run",
 			)
 
 			jobRun, response, err := codeEngineService.GetJobRun(getJobRunOptions)
@@ -686,7 +686,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			createConfigMapOptions := codeEngineService.NewCreateConfigMapOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-configmap",
+				"my-config-map",
 			)
 
 			configMap, response, err := codeEngineService.CreateConfigMap(createConfigMapOptions)
@@ -887,7 +887,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			deleteAppRevisionOptions := codeEngineService.NewDeleteAppRevisionOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"my-app",
-				"my-app-001",
+				"my-app-00001",
 			)
 
 			response, err := codeEngineService.DeleteAppRevision(deleteAppRevisionOptions)
@@ -929,7 +929,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			deleteJobRunOptions := codeEngineService.NewDeleteJobRunOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job",
+				"my-job-run",
 			)
 
 			response, err := codeEngineService.DeleteJobRun(deleteJobRunOptions)

@@ -111,14 +111,16 @@ func main() {
 		}
 	}
 
-	// Create secret
+	// Create ssh secret
 	createSecretOpts := codeEngineService.NewCreateSecretOptions(
 		*createdProject.ID,
 		"ssh_auth",
 		"ssh-secret",
 	)
-	createSecretOpts.Data = map[string]string{
-		"ssh-privatekey": "test",
+
+	sshKey := "-----BEGIN RSA PRIVATE KEY----------END RSA PRIVATE KEY-----"
+	createSecretOpts.Data = &codeenginev2.SecretDataSSHSecretData{
+		SshKey: &sshKey,
 	}
 
 	createdSecret, _, err := codeEngineService.CreateSecret(createSecretOpts)
@@ -127,8 +129,9 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Created secret '%s'", *createdSecret.Name)
+	fmt.Printf("Created ssh secret '%s'\n", *createdSecret.Name)
 
+	// Get ssh secret
 	getSecretOpts := codeEngineService.NewGetSecretOptions(
 		*createdProject.ID,
 		"ssh-secret",
@@ -141,6 +144,26 @@ func main() {
 	}
 	fmt.Printf("Obtained secret '%s', format: %s", *obtainedSecret.Name, *obtainedSecret.Format)
 
+	// Update ssh secret
+	replaceSecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"ssh-secret",
+		"*",
+	)
+	sshKeyUpdated := "-----BEGIN RSA PRIVATE KEY-----udpated-----END RSA PRIVATE KEY-----"
+	replaceSecretopts.Data = &codeenginev2.SecretDataSSHSecretData{
+		SshKey: &sshKeyUpdated,
+	}
+	format := "ssh_auth"
+	replaceSecretopts.Format = &format
+	updatedSecret, _, err := codeEngineService.ReplaceSecret(replaceSecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedSecret.Name, *updatedSecret.Format)
+
 	listSecretOpts := codeEngineService.NewListSecretsOptions(
 		*createdProject.ID,
 	)
@@ -152,11 +175,228 @@ func main() {
 	}
 	fmt.Printf("Obtained secret list '%d'", len(secretList.Secrets))
 
+	// Delete ssh secret
 	deleteSecretOpts := codeEngineService.NewDeleteSecretOptions(
 		*createdProject.ID,
 		"ssh-secret",
 	)
 	resp, err := codeEngineService.DeleteSecret(deleteSecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
+	// Create tls secret
+	createTLSSecretOpts := codeEngineService.NewCreateSecretOptions(
+		*createdProject.ID,
+		"tls",
+		"tls-secret",
+	)
+
+	tlsKey := "-----BEGIN RSA PRIVATE KEY----------END RSA PRIVATE KEY-----"
+	tlsCert := "---BEGIN CERTIFICATE------END CERTIFICATE---"
+	createTLSSecretOpts.Data = &codeenginev2.SecretDataTLSSecretData{
+		TlsCert: &tlsCert,
+		TlsKey:  &tlsKey,
+	}
+
+	createdTLSSecret, _, err := codeEngineService.CreateSecret(createTLSSecretOpts)
+	if err != nil {
+		fmt.Printf("CreateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created tls secret '%s'\n", *createdTLSSecret.Name)
+
+	// Get tls secret
+	getTLSSecretOpts := codeEngineService.NewGetSecretOptions(
+		*createdProject.ID,
+		"tls-secret",
+	)
+	obtainedTLSSecret, _, err := codeEngineService.GetSecret(getTLSSecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret '%s', format: %s", *obtainedTLSSecret.Name, *obtainedTLSSecret.Format)
+
+	// Update ssh secret
+	replaceTLSSecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"tls-secret",
+		"*",
+	)
+	tlsKey = "-----BEGIN RSA PRIVATE KEY-----update-----END RSA PRIVATE KEY-----"
+	tlsCert = "---BEGIN CERTIFICATE---update---END CERTIFICATE---"
+	replaceTLSSecretopts.Data = &codeenginev2.SecretDataTLSSecretData{
+		TlsCert: &tlsCert,
+		TlsKey:  &tlsKey,
+	}
+	format = "tls"
+	replaceTLSSecretopts.Format = &format
+	updatedTLSSecret, _, err := codeEngineService.ReplaceSecret(replaceTLSSecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedTLSSecret.Name, *updatedTLSSecret.Format)
+
+	// Delete tls secret
+	deleteTLSSecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"tls-secret",
+	)
+	resp, err = codeEngineService.DeleteSecret(deleteTLSSecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
+	// Create basic auth secret
+	createBasicAuthSecretOpts := codeEngineService.NewCreateSecretOptions(
+		*createdProject.ID,
+		"basic_auth",
+		"basic-auth-secret",
+	)
+
+	username := "user"
+	password := "password"
+	createBasicAuthSecretOpts.Data = &codeenginev2.SecretDataBasicAuthSecretData{
+		Username: &username,
+		Password: &password,
+	}
+
+	createdBASecret, _, err := codeEngineService.CreateSecret(createBasicAuthSecretOpts)
+	if err != nil {
+		fmt.Printf("CreateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created tls secret '%s'\n", *createdBASecret.Name)
+
+	// Get basic auth secret
+	getBASecretOpts := codeEngineService.NewGetSecretOptions(
+		*createdProject.ID,
+		"basic-auth-secret",
+	)
+	obtainedBASecret, _, err := codeEngineService.GetSecret(getBASecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret '%s', format: %s", *obtainedBASecret.Name, *obtainedBASecret.Format)
+
+	// Update basic auth secret
+	replaceBASecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"basic-auth-secret",
+		"*",
+	)
+	username = "user2"
+	password = "password2"
+	replaceBASecretopts.Data = &codeenginev2.SecretDataBasicAuthSecretData{
+		Username: &username,
+		Password: &password,
+	}
+	format = "basic_auth"
+	replaceBASecretopts.Format = &format
+	updatedBASecret, _, err := codeEngineService.ReplaceSecret(replaceBASecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedBASecret.Name, *updatedBASecret.Format)
+
+	// Delete basic auth secret
+	deleteBASecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"basic-auth-secret",
+	)
+	resp, err = codeEngineService.DeleteSecret(deleteBASecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
+	// Create registry secret
+	createRegistrySecretOpts := codeEngineService.NewCreateSecretOptions(
+		*createdProject.ID,
+		"registry",
+		"registry-secret",
+	)
+	username = "user"
+	password = "password"
+	server := "github.com"
+	email := "email@email.com"
+	createRegistrySecretOpts.Data = &codeenginev2.SecretDataRegistrySecretData{
+		Username: &username,
+		Password: &password,
+		Email:    &email,
+		Server:   &server,
+	}
+
+	createdRegistrySecret, _, err := codeEngineService.CreateSecret(createRegistrySecretOpts)
+	if err != nil {
+		fmt.Printf("CreateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created tls secret '%s'\n", *createdRegistrySecret.Name)
+
+	// Get registry secret
+	getRegistrySecretOpts := codeEngineService.NewGetSecretOptions(
+		*createdProject.ID,
+		"registry-secret",
+	)
+	obtainedRegistrySecret, _, err := codeEngineService.GetSecret(getRegistrySecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret '%s', format: %s", *obtainedRegistrySecret.Name, *obtainedRegistrySecret.Format)
+
+	// Update registry secret
+	replaceRegistrySecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"registry-secret",
+		"*",
+	)
+	username = "user2"
+	password = "password2"
+	replaceRegistrySecretopts.Data = &codeenginev2.SecretDataRegistrySecretData{
+		Username: &username,
+		Password: &password,
+		Email:    &email,
+		Server:   &server,
+	}
+	format = "registry"
+	replaceRegistrySecretopts.Format = &format
+
+	updatedRegistrySecret, _, err := codeEngineService.ReplaceSecret(replaceRegistrySecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedRegistrySecret.Name, *updatedRegistrySecret.Format)
+
+	// Delete registry secret
+	deleteRegistrySecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"registry-secret",
+	)
+	resp, err = codeEngineService.DeleteSecret(deleteRegistrySecretOpts)
 	if err != nil {
 		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
 		os.Exit(1)
