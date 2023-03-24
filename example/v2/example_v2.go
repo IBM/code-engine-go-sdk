@@ -265,7 +265,7 @@ func main() {
 		"basic-auth-secret",
 	)
 
-	username := "user"
+	username := "username"
 	password := "password"
 	createBasicAuthSecretOpts.Data = &codeenginev2.SecretDataBasicAuthSecretData{
 		Username: &username,
