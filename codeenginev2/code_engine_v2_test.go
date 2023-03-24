@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,14 +66,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				Expect(codeEngineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				err := codeEngineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-			})
+			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(codeEngineService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_AUTH_TYPE":   "NOAuth",
+				"CODE_ENGINE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -384,14 +381,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.ProjectList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1002,6 +999,218 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) - Operation response error`, func() {
+		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectEgressIpsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectEgressIps with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				getProjectEgressIpsOptionsModel := new(codeenginev2.GetProjectEgressIpsOptions)
+				getProjectEgressIpsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions)`, func() {
+		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectEgressIpsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"private": ["Private"], "public": ["Public"]}`)
+				}))
+			})
+			It(`Invoke GetProjectEgressIps successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				getProjectEgressIpsOptionsModel := new(codeenginev2.GetProjectEgressIpsOptions)
+				getProjectEgressIpsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetProjectEgressIpsWithContext(ctx, getProjectEgressIpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetProjectEgressIpsWithContext(ctx, getProjectEgressIpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectEgressIpsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"private": ["Private"], "public": ["Public"]}`)
+				}))
+			})
+			It(`Invoke GetProjectEgressIps successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetProjectEgressIps(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				getProjectEgressIpsOptionsModel := new(codeenginev2.GetProjectEgressIpsOptions)
+				getProjectEgressIpsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectEgressIps with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				getProjectEgressIpsOptionsModel := new(codeenginev2.GetProjectEgressIpsOptions)
+				getProjectEgressIpsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectEgressIpsOptions model with no property values
+				getProjectEgressIpsOptionsModelNew := new(codeenginev2.GetProjectEgressIpsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectEgressIps successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				getProjectEgressIpsOptionsModel := new(codeenginev2.GetProjectEgressIpsOptions)
+				getProjectEgressIpsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions) - Operation response error`, func() {
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1235,14 +1444,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.AppList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1281,7 +1490,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -1307,7 +1516,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -2735,14 +2944,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.AppRevisionList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2781,8 +2990,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -2808,8 +3017,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -2824,7 +3033,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) - Operation response error`, func() {
-		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-001"
+		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2850,7 +3059,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetAppRevision(getAppRevisionOptionsModel)
@@ -2871,7 +3080,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions)`, func() {
-		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-001"
+		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2903,7 +3112,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2964,7 +3173,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2986,7 +3195,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3029,7 +3238,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				getAppRevisionOptionsModel := new(codeenginev2.GetAppRevisionOptions)
 				getAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				getAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				getAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3046,7 +3255,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions)`, func() {
-		deleteAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-001"
+		deleteAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3076,7 +3285,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
 				deleteAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3096,7 +3305,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				deleteAppRevisionOptionsModel := new(codeenginev2.DeleteAppRevisionOptions)
 				deleteAppRevisionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.AppName = core.StringPtr("my-app")
-				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-001")
+				deleteAppRevisionOptionsModel.Name = core.StringPtr("my-app-00001")
 				deleteAppRevisionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -3243,7 +3452,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully`, func() {
@@ -3350,14 +3559,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.JobList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -3378,9 +3587,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -3396,7 +3605,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -3422,7 +3631,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -3485,7 +3694,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
 				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobOptionsModel.RunMode = core.StringPtr("task")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -3546,7 +3755,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully with retries`, func() {
@@ -3584,7 +3793,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
 				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobOptionsModel.RunMode = core.StringPtr("task")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -3648,7 +3857,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke CreateJob successfully`, func() {
@@ -3691,7 +3900,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
 				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobOptionsModel.RunMode = core.StringPtr("task")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -3743,7 +3952,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
 				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobOptionsModel.RunMode = core.StringPtr("task")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -3816,7 +4025,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobOptionsModel.RunCommands = []string{"testString"}
 				createJobOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobOptionsModel.RunMode = core.StringPtr("task")
 				createJobOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -3903,7 +4112,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully with retries`, func() {
@@ -3958,7 +4167,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke GetJob successfully`, func() {
@@ -4176,7 +4385,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				jobPatchModel.RunCommands = []string{"testString"}
 				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunMode = core.StringPtr("task")
 				jobPatchModel.RunServiceAccount = core.StringPtr("default")
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -4248,7 +4457,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully with retries`, func() {
@@ -4284,7 +4493,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				jobPatchModel.RunCommands = []string{"testString"}
 				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunMode = core.StringPtr("task")
 				jobPatchModel.RunServiceAccount = core.StringPtr("default")
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -4359,7 +4568,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}`)
 				}))
 			})
 			It(`Invoke UpdateJob successfully`, func() {
@@ -4400,7 +4609,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				jobPatchModel.RunCommands = []string{"testString"}
 				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunMode = core.StringPtr("task")
 				jobPatchModel.RunServiceAccount = core.StringPtr("default")
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -4459,7 +4668,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				jobPatchModel.RunCommands = []string{"testString"}
 				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunMode = core.StringPtr("task")
 				jobPatchModel.RunServiceAccount = core.StringPtr("default")
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -4539,7 +4748,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				jobPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				jobPatchModel.RunCommands = []string{"testString"}
 				jobPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				jobPatchModel.RunMode = core.StringPtr("daemon")
+				jobPatchModel.RunMode = core.StringPtr("task")
 				jobPatchModel.RunServiceAccount = core.StringPtr("default")
 				jobPatchModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				jobPatchModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -4643,7 +4852,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully with retries`, func() {
@@ -4703,7 +4912,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully`, func() {
@@ -4813,14 +5022,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.JobRunList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -4841,9 +5050,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -4859,8 +5068,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -4886,8 +5095,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -4951,7 +5160,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobRunOptionsModel.RunCommands = []string{"testString"}
 				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunMode = core.StringPtr("task")
 				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -5012,7 +5221,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully with retries`, func() {
@@ -5051,7 +5260,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobRunOptionsModel.RunCommands = []string{"testString"}
 				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunMode = core.StringPtr("task")
 				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -5115,7 +5324,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully`, func() {
@@ -5159,7 +5368,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobRunOptionsModel.RunCommands = []string{"testString"}
 				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunMode = core.StringPtr("task")
 				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -5212,7 +5421,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobRunOptionsModel.RunCommands = []string{"testString"}
 				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunMode = core.StringPtr("task")
 				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -5286,7 +5495,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createJobRunOptionsModel.RunCommands = []string{"testString"}
 				createJobRunOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
-				createJobRunOptionsModel.RunMode = core.StringPtr("daemon")
+				createJobRunOptionsModel.RunMode = core.StringPtr("task")
 				createJobRunOptionsModel.RunServiceAccount = core.StringPtr("default")
 				createJobRunOptionsModel.RunVolumeMounts = []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}
 				createJobRunOptionsModel.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
@@ -5311,7 +5520,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions) - Operation response error`, func() {
-		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
+		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -5336,7 +5545,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
 				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.GetJobRun(getJobRunOptionsModel)
@@ -5357,7 +5566,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions)`, func() {
-		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
+		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -5373,7 +5582,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully with retries`, func() {
@@ -5388,7 +5597,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
 				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5428,7 +5637,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully`, func() {
@@ -5448,7 +5657,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
 				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5469,7 +5678,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
 				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -5511,7 +5720,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				getJobRunOptionsModel := new(codeenginev2.GetJobRunOptions)
 				getJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.Name = core.StringPtr("my-job")
+				getJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				getJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -5528,7 +5737,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions)`, func() {
-		deleteJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job"
+		deleteJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -5557,7 +5766,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteJobRunOptions model
 				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
 				deleteJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
+				deleteJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5576,7 +5785,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteJobRunOptions model
 				deleteJobRunOptionsModel := new(codeenginev2.DeleteJobRunOptions)
 				deleteJobRunOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobRunOptionsModel.Name = core.StringPtr("my-job")
+				deleteJobRunOptionsModel.Name = core.StringPtr("my-job-run")
 				deleteJobRunOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -5830,14 +6039,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.BuildList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5876,7 +6085,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -5902,7 +6111,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -7093,14 +7302,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.BuildRunList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -7140,7 +7349,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -7167,7 +7376,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -8015,14 +8224,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.ConfigMapList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -8061,7 +8270,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -8087,7 +8296,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -8127,7 +8336,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -8196,7 +8405,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8273,7 +8482,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8295,7 +8504,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -8338,7 +8547,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.Name = core.StringPtr("my-configmap")
+				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				createConfigMapOptionsModel.Data = make(map[string]string)
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9140,14 +9349,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.SecretList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -9186,7 +9395,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -9212,7 +9421,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -9249,12 +9458,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
-				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
@@ -9319,12 +9534,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
-				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -9397,12 +9618,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
-				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -9420,12 +9647,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
-				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -9464,12 +9697,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.Format = core.StringPtr("generic")
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
-				createSecretOptionsModel.Data = make(map[string]string)
+				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -9727,12 +9966,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -9800,12 +10045,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9881,12 +10132,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -9905,12 +10162,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -9950,12 +10213,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				replaceSecretOptionsModel := new(codeenginev2.ReplaceSecretOptions)
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = make(map[string]string)
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -10208,15 +10477,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewCreateConfigMapOptions successfully`, func() {
 				// Construct an instance of the CreateConfigMapOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				createConfigMapOptionsName := "my-configmap"
+				createConfigMapOptionsName := "my-config-map"
 				createConfigMapOptionsModel := codeEngineService.NewCreateConfigMapOptions(projectID, createConfigMapOptionsName)
 				createConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createConfigMapOptionsModel.SetName("my-configmap")
+				createConfigMapOptionsModel.SetName("my-config-map")
 				createConfigMapOptionsModel.SetData(make(map[string]string))
 				createConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigMapOptionsModel).ToNot(BeNil())
 				Expect(createConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-configmap")))
+				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(createConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
 				Expect(createConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -10262,7 +10531,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobOptionsModel.SetRunAsUser(int64(1001))
 				createJobOptionsModel.SetRunCommands([]string{"testString"})
 				createJobOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
-				createJobOptionsModel.SetRunMode("daemon")
+				createJobOptionsModel.SetRunMode("task")
 				createJobOptionsModel.SetRunServiceAccount("default")
 				createJobOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createJobOptionsModel.SetScaleArraySpec("1-5,7-8,10")
@@ -10281,7 +10550,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createJobOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
 				Expect(createJobOptionsModel.RunCommands).To(Equal([]string{"testString"}))
 				Expect(createJobOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
-				Expect(createJobOptionsModel.RunMode).To(Equal(core.StringPtr("daemon")))
+				Expect(createJobOptionsModel.RunMode).To(Equal(core.StringPtr("task")))
 				Expect(createJobOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
 				Expect(createJobOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createJobOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
@@ -10333,7 +10602,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createJobRunOptionsModel.SetRunAsUser(int64(1001))
 				createJobRunOptionsModel.SetRunCommands([]string{"testString"})
 				createJobRunOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
-				createJobRunOptionsModel.SetRunMode("daemon")
+				createJobRunOptionsModel.SetRunMode("task")
 				createJobRunOptionsModel.SetRunServiceAccount("default")
 				createJobRunOptionsModel.SetRunVolumeMounts([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel})
 				createJobRunOptionsModel.SetScaleArraySpec("1-5,7-8,10")
@@ -10353,7 +10622,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createJobRunOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
 				Expect(createJobRunOptionsModel.RunCommands).To(Equal([]string{"testString"}))
 				Expect(createJobRunOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
-				Expect(createJobRunOptionsModel.RunMode).To(Equal(core.StringPtr("daemon")))
+				Expect(createJobRunOptionsModel.RunMode).To(Equal(core.StringPtr("task")))
 				Expect(createJobRunOptionsModel.RunServiceAccount).To(Equal(core.StringPtr("default")))
 				Expect(createJobRunOptionsModel.RunVolumeMounts).To(Equal([]codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel}))
 				Expect(createJobRunOptionsModel.ScaleArraySpec).To(Equal(core.StringPtr("1-5,7-8,10")))
@@ -10379,6 +10648,26 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateSecretOptions successfully`, func() {
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				Expect(secretDataModel).ToNot(BeNil())
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(secretDataModel.SshKey).To(Equal(core.StringPtr("testString")))
+				Expect(secretDataModel.KnownHosts).To(Equal(core.StringPtr("testString")))
+				Expect(secretDataModel.GetProperties()).ToNot(BeEmpty())
+				Expect(secretDataModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+
+				secretDataModel.SetProperties(nil)
+				Expect(secretDataModel.GetProperties()).To(BeEmpty())
+
+				secretDataModelExpectedMap := make(map[string]*string)
+				secretDataModelExpectedMap["foo"] = core.StringPtr("testString")
+				secretDataModel.SetProperties(secretDataModelExpectedMap)
+				secretDataModelActualMap := secretDataModel.GetProperties()
+				Expect(secretDataModelActualMap).To(Equal(secretDataModelExpectedMap))
+
 				// Construct an instance of the CreateSecretOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createSecretOptionsFormat := "generic"
@@ -10387,13 +10676,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createSecretOptionsModel.SetFormat("generic")
 				createSecretOptionsModel.SetName("my-secret")
-				createSecretOptionsModel.SetData(make(map[string]string))
+				createSecretOptionsModel.SetData(secretDataModel)
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
 				Expect(createSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
 				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
-				Expect(createSecretOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(createSecretOptionsModel.Data).To(Equal(secretDataModel))
 				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
@@ -10413,16 +10702,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the DeleteAppRevisionOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
-				name := "my-app-001"
+				name := "my-app-00001"
 				deleteAppRevisionOptionsModel := codeEngineService.NewDeleteAppRevisionOptions(projectID, appName, name)
 				deleteAppRevisionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				deleteAppRevisionOptionsModel.SetAppName("my-app")
-				deleteAppRevisionOptionsModel.SetName("my-app-001")
+				deleteAppRevisionOptionsModel.SetName("my-app-00001")
 				deleteAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAppRevisionOptionsModel).ToNot(BeNil())
 				Expect(deleteAppRevisionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
-				Expect(deleteAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
+				Expect(deleteAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-00001")))
 				Expect(deleteAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteBuildOptions successfully`, func() {
@@ -10480,14 +10769,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewDeleteJobRunOptions successfully`, func() {
 				// Construct an instance of the DeleteJobRunOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				name := "my-job"
+				name := "my-job-run"
 				deleteJobRunOptionsModel := codeEngineService.NewDeleteJobRunOptions(projectID, name)
 				deleteJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteJobRunOptionsModel.SetName("my-job")
+				deleteJobRunOptionsModel.SetName("my-job-run")
 				deleteJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteJobRunOptionsModel).ToNot(BeNil())
 				Expect(deleteJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(deleteJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
+				Expect(deleteJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job-run")))
 				Expect(deleteJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
@@ -10530,16 +10819,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the GetAppRevisionOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				appName := "my-app"
-				name := "my-app-001"
+				name := "my-app-00001"
 				getAppRevisionOptionsModel := codeEngineService.NewGetAppRevisionOptions(projectID, appName, name)
 				getAppRevisionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				getAppRevisionOptionsModel.SetAppName("my-app")
-				getAppRevisionOptionsModel.SetName("my-app-001")
+				getAppRevisionOptionsModel.SetName("my-app-00001")
 				getAppRevisionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAppRevisionOptionsModel).ToNot(BeNil())
 				Expect(getAppRevisionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getAppRevisionOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
-				Expect(getAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-001")))
+				Expect(getAppRevisionOptionsModel.Name).To(Equal(core.StringPtr("my-app-00001")))
 				Expect(getAppRevisionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBuildOptions successfully`, func() {
@@ -10597,15 +10886,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 			It(`Invoke NewGetJobRunOptions successfully`, func() {
 				// Construct an instance of the GetJobRunOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				name := "my-job"
+				name := "my-job-run"
 				getJobRunOptionsModel := codeEngineService.NewGetJobRunOptions(projectID, name)
 				getJobRunOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getJobRunOptionsModel.SetName("my-job")
+				getJobRunOptionsModel.SetName("my-job-run")
 				getJobRunOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getJobRunOptionsModel).ToNot(BeNil())
 				Expect(getJobRunOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(getJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job")))
+				Expect(getJobRunOptionsModel.Name).To(Equal(core.StringPtr("my-job-run")))
 				Expect(getJobRunOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetProjectEgressIpsOptions successfully`, func() {
+				// Construct an instance of the GetProjectEgressIpsOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				getProjectEgressIpsOptionsModel := codeEngineService.NewGetProjectEgressIpsOptions(projectID)
+				getProjectEgressIpsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectEgressIpsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getProjectEgressIpsOptionsModel).ToNot(BeNil())
+				Expect(getProjectEgressIpsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getProjectEgressIpsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetProjectOptions successfully`, func() {
 				// Construct an instance of the GetProjectOptions model
@@ -10779,6 +11078,26 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(replaceConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceSecretOptions successfully`, func() {
+				// Construct an instance of the SecretDataSSHSecretData model
+				secretDataModel := new(codeenginev2.SecretDataSSHSecretData)
+				Expect(secretDataModel).ToNot(BeNil())
+				secretDataModel.SshKey = core.StringPtr("testString")
+				secretDataModel.KnownHosts = core.StringPtr("testString")
+				secretDataModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(secretDataModel.SshKey).To(Equal(core.StringPtr("testString")))
+				Expect(secretDataModel.KnownHosts).To(Equal(core.StringPtr("testString")))
+				Expect(secretDataModel.GetProperties()).ToNot(BeEmpty())
+				Expect(secretDataModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+
+				secretDataModel.SetProperties(nil)
+				Expect(secretDataModel.GetProperties()).To(BeEmpty())
+
+				secretDataModelExpectedMap := make(map[string]*string)
+				secretDataModelExpectedMap["foo"] = core.StringPtr("testString")
+				secretDataModel.SetProperties(secretDataModelExpectedMap)
+				secretDataModelActualMap := secretDataModel.GetProperties()
+				Expect(secretDataModelActualMap).To(Equal(secretDataModelExpectedMap))
+
 				// Construct an instance of the ReplaceSecretOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-secret"
@@ -10787,14 +11106,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.SetName("my-secret")
 				replaceSecretOptionsModel.SetIfMatch("testString")
-				replaceSecretOptionsModel.SetData(make(map[string]string))
+				replaceSecretOptionsModel.SetData(secretDataModel)
 				replaceSecretOptionsModel.SetFormat("generic")
 				replaceSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceSecretOptionsModel).ToNot(BeNil())
 				Expect(replaceSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(replaceSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(replaceSecretOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(replaceSecretOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(replaceSecretOptionsModel.Data).To(Equal(secretDataModel))
 				Expect(replaceSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
 				Expect(replaceSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -10860,6 +11179,35 @@ var _ = Describe(`CodeEngineV2`, func() {
 				reference := "my-secret"
 				typeVar := "secret"
 				_model, err := codeEngineService.NewVolumeMountPrototype(mountPath, reference, typeVar)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSecretDataBasicAuthSecretData successfully`, func() {
+				username := "testString"
+				password := "testString"
+				_model, err := codeEngineService.NewSecretDataBasicAuthSecretData(username, password)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSecretDataRegistrySecretData successfully`, func() {
+				username := "testString"
+				password := "testString"
+				server := "testString"
+				email := "testString"
+				_model, err := codeEngineService.NewSecretDataRegistrySecretData(username, password, server, email)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSecretDataSSHSecretData successfully`, func() {
+				sshKey := "testString"
+				_model, err := codeEngineService.NewSecretDataSSHSecretData(sshKey)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSecretDataTLSSecretData successfully`, func() {
+				tlsCert := "testString"
+				tlsKey := "testString"
+				_model, err := codeEngineService.NewSecretDataTLSSecretData(tlsCert, tlsKey)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

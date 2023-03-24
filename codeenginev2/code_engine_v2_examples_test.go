@@ -1,7 +1,8 @@
+//go:build examples
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +30,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Code Engine service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,14 +41,13 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../code_engine_v2.env"
 
 	var (
 		codeEngineService *codeenginev2.CodeEngineV2
-		config       map[string]string
+		config            map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -168,12 +167,33 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(project).ToNot(BeNil())
 		})
+		It(`GetProjectEgressIps request example`, func() {
+			fmt.Println("\nGetProjectEgressIps() result:")
+			// begin-get_project_egress_ips
+
+			getProjectEgressIpsOptions := codeEngineService.NewGetProjectEgressIpsOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+			)
+
+			projectEgressIpAddresses, response, err := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(projectEgressIpAddresses, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_project_egress_ips
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(projectEgressIpAddresses).ToNot(BeNil())
+		})
 		It(`ListApps request example`, func() {
 			fmt.Println("\nListApps() result:")
 			// begin-list_apps
 			listAppsOptions := &codeenginev2.ListAppsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppsPager(listAppsOptions)
@@ -242,8 +262,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateApp() result:")
 			// begin-update_app
 
-			appPatchModel := &codeenginev2.AppPatch{
-			}
+			appPatchModel := &codeenginev2.AppPatch{}
 			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -272,8 +291,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_app_revisions
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptions)
@@ -300,7 +319,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			getAppRevisionOptions := codeEngineService.NewGetAppRevisionOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"my-app",
-				"my-app-001",
+				"my-app-00001",
 			)
 
 			appRevision, response, err := codeEngineService.GetAppRevision(getAppRevisionOptions)
@@ -321,7 +340,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_jobs
 			listJobsOptions := &codeenginev2.ListJobsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewJobsPager(listJobsOptions)
@@ -390,8 +409,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateJob() result:")
 			// begin-update_job
 
-			jobPatchModel := &codeenginev2.JobPatch{
-			}
+			jobPatchModel := &codeenginev2.JobPatch{}
 			jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -420,8 +438,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_job_runs
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				JobName: core.StringPtr("my-job"),
-				Limit: core.Int64Ptr(int64(100)),
+				JobName:   core.StringPtr("my-job"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptions)
@@ -468,7 +486,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			getJobRunOptions := codeEngineService.NewGetJobRunOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job",
+				"my-job-run",
 			)
 
 			jobRun, response, err := codeEngineService.GetJobRun(getJobRunOptions)
@@ -489,7 +507,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_builds
 			listBuildsOptions := &codeenginev2.ListBuildsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBuildsPager(listBuildsOptions)
@@ -561,8 +579,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateBuild() result:")
 			// begin-update_build
 
-			buildPatchModel := &codeenginev2.BuildPatch{
-			}
+			buildPatchModel := &codeenginev2.BuildPatch{}
 			buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -592,7 +609,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				BuildName: core.StringPtr("my-build"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptions)
@@ -660,7 +677,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_config_maps
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptions)
@@ -686,7 +703,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			createConfigMapOptions := codeEngineService.NewCreateConfigMapOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-configmap",
+				"my-config-map",
 			)
 
 			configMap, response, err := codeEngineService.CreateConfigMap(createConfigMapOptions)
@@ -752,7 +769,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_secrets
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewSecretsPager(listSecretsOptions)
@@ -887,7 +904,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			deleteAppRevisionOptions := codeEngineService.NewDeleteAppRevisionOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"my-app",
-				"my-app-001",
+				"my-app-00001",
 			)
 
 			response, err := codeEngineService.DeleteAppRevision(deleteAppRevisionOptions)
@@ -929,7 +946,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			deleteJobRunOptions := codeEngineService.NewDeleteJobRunOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job",
+				"my-job-run",
 			)
 
 			response, err := codeEngineService.DeleteJobRun(deleteJobRunOptions)
