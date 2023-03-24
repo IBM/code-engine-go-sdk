@@ -1,3 +1,15 @@
+# [3.1.0](https://github.ibm.com/coligo/go-sdk/compare/v3.0.0...v3.1.0) (2023-03-24)
+
+
+### Bug Fixes
+
+* **tests:** hardened integration tests ([#34](https://github.ibm.com/coligo/go-sdk/issues/34)) ([06943d4](https://github.ibm.com/coligo/go-sdk/commit/06943d4dddc3f482703e75b24f0fd86b9773aece))
+
+
+### Features
+
+* **api:** added support to retrieve egress ips ([e9688bc](https://github.ibm.com/coligo/go-sdk/commit/e9688bc8a17dc8396d9fb30921fd37a2a2564aea))
+
 # [3.0.0](https://github.ibm.com/coligo/go-sdk/compare/v2.0.5...v3.0.0) (2023-03-24)
 
 
