@@ -1,3 +1,15 @@
+# [3.0.0](https://github.ibm.com/coligo/go-sdk/compare/v2.0.5...v3.0.0) (2023-03-24)
+
+
+### Features
+
+* **oneOf:** oneOf added for v3 release ([#30](https://github.ibm.com/coligo/go-sdk/issues/30)) ([4f0d815](https://github.ibm.com/coligo/go-sdk/commit/4f0d8151e978e9f0cb22cb05a99481300129a81f))
+
+
+### BREAKING CHANGES
+
+* **oneOf:** Secret data structs are no long string maps, they are oneOf types with sepcific properties based on the type of secret being created/updated
+
 ## [2.0.5](https://github.ibm.com/coligo/go-sdk/compare/v2.0.4...v2.0.5) (2023-03-09)
 
 
