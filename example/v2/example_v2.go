@@ -100,7 +100,7 @@ func main() {
 			*createdProject.ID,
 		)
 		obtainedProject, _, err := codeEngineService.GetProject(getProjectOptions)
-		if err != nil {
+		if err != nil && !strings.Contains(err.Error(), "Project is not yet active") {
 			fmt.Printf("GetProject error: %s\n", err.Error())
 			os.Exit(1)
 			return
