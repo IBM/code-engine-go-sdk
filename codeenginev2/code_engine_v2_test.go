@@ -66,14 +66,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				Expect(codeEngineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				err := codeEngineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-			})
+			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(codeEngineService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_AUTH_TYPE":   "NOAuth",
+				"CODE_ENGINE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -384,14 +381,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.ProjectList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1447,14 +1444,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.AppList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1493,7 +1490,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -1519,7 +1516,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -2947,14 +2944,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.AppRevisionList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2993,8 +2990,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3020,8 +3017,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3397,7 +3394,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "jobs": [{"created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "name": "my-job", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "daemon", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobs successfully with retries`, func() {
@@ -3562,14 +3559,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.JobList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -3608,7 +3605,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -3634,7 +3631,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -5025,14 +5022,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.JobRunList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5071,8 +5068,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -5098,8 +5095,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -6042,14 +6039,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.BuildList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6088,7 +6085,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -6114,7 +6111,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -7305,14 +7302,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.BuildRunList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -7352,7 +7349,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -7379,7 +7376,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -8227,14 +8224,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.ConfigMapList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -8273,7 +8270,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -8299,7 +8296,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -9352,14 +9349,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				nextObject := new(codeenginev2.ListNextMetadata)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(codeenginev2.SecretList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -9398,7 +9395,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -9424,7 +9421,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
