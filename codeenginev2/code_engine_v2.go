@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.0-959a5845-20230112-195144
+ * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -395,6 +395,66 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// GetProjectEgressIps : List egress IP addresses
+// Lists all egress IP addresses (public and private) that are used by components running in this project.
+func (codeEngine *CodeEngineV2) GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) (result *ProjectEgressIPAddresses, response *core.DetailedResponse, err error) {
+	return codeEngine.GetProjectEgressIpsWithContext(context.Background(), getProjectEgressIpsOptions)
+}
+
+// GetProjectEgressIpsWithContext is an alternate form of the GetProjectEgressIps method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Context, getProjectEgressIpsOptions *GetProjectEgressIpsOptions) (result *ProjectEgressIPAddresses, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getProjectEgressIpsOptions, "getProjectEgressIpsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getProjectEgressIpsOptions, "getProjectEgressIpsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getProjectEgressIpsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/egress_ips`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getProjectEgressIpsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetProjectEgressIps")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectEgressIPAddresses)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -6574,6 +6634,34 @@ func (options *GetJobRunOptions) SetHeaders(param map[string]string) *GetJobRunO
 	return options
 }
 
+// GetProjectEgressIpsOptions : The GetProjectEgressIps options.
+type GetProjectEgressIpsOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetProjectEgressIpsOptions : Instantiate GetProjectEgressIpsOptions
+func (*CodeEngineV2) NewGetProjectEgressIpsOptions(projectID string) *GetProjectEgressIpsOptions {
+	return &GetProjectEgressIpsOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetProjectEgressIpsOptions) SetProjectID(projectID string) *GetProjectEgressIpsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetProjectEgressIpsOptions) SetHeaders(param map[string]string) *GetProjectEgressIpsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetProjectOptions : The GetProject options.
 type GetProjectOptions struct {
 	// The ID of the project.
@@ -8000,6 +8088,30 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectEgressIPAddresses : Describes the model of egress IP addresses.
+type ProjectEgressIPAddresses struct {
+	// List of IBM private network IP addresses.
+	Private []string `json:"private,omitempty"`
+
+	// List of public IP addresses.
+	Public []string `json:"public,omitempty"`
+}
+
+// UnmarshalProjectEgressIPAddresses unmarshals an instance of ProjectEgressIPAddresses from the specified map of raw messages.
+func UnmarshalProjectEgressIPAddresses(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectEgressIPAddresses)
+	err = core.UnmarshalPrimitive(m, "private", &obj.Private)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "public", &obj.Public)
 	if err != nil {
 		return
 	}

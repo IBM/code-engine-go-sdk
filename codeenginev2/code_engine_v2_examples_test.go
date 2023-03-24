@@ -168,6 +168,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(project).ToNot(BeNil())
 		})
+		It(`GetProjectEgressIps request example`, func() {
+			fmt.Println("\nGetProjectEgressIps() result:")
+			// begin-get_project_egress_ips
+
+			getProjectEgressIpsOptions := codeEngineService.NewGetProjectEgressIpsOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+			)
+
+			projectEgressIpAddresses, response, err := codeEngineService.GetProjectEgressIps(getProjectEgressIpsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(projectEgressIpAddresses, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_project_egress_ips
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(projectEgressIpAddresses).ToNot(BeNil())
+		})
 		It(`ListApps request example`, func() {
 			fmt.Println("\nListApps() result:")
 			// begin-list_apps
