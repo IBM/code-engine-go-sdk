@@ -203,6 +203,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`GetProjectStatusDetails - Get the status details for a project`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
+			getProjectStatusDetailsOptions := &codeenginev2.GetProjectStatusDetailsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+			}
+
+			projectStatusDetails, response, err := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(projectStatusDetails).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListApps - List applications`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -304,6 +320,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ScaleConcurrency: core.Int64Ptr(int64(100)),
 				ScaleConcurrencyTarget: core.Int64Ptr(int64(80)),
 				ScaleCpuLimit: core.StringPtr("1"),
+				ScaleDownDelay: core.Int64Ptr(int64(300)),
 				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
 				ScaleInitialInstances: core.Int64Ptr(int64(1)),
 				ScaleMaxInstances: core.Int64Ptr(int64(10)),
@@ -371,6 +388,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ScaleConcurrency: core.Int64Ptr(int64(100)),
 				ScaleConcurrencyTarget: core.Int64Ptr(int64(80)),
 				ScaleCpuLimit: core.StringPtr("1"),
+				ScaleDownDelay: core.Int64Ptr(int64(300)),
 				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
 				ScaleInitialInstances: core.Int64Ptr(int64(1)),
 				ScaleMaxInstances: core.Int64Ptr(int64(10)),
@@ -869,12 +887,12 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				Name: core.StringPtr("my-build"),
 				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
 				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
-				SourceURL: core.StringPtr("https://github.com/IBM/CodeEngine"),
 				StrategyType: core.StringPtr("dockerfile"),
 				SourceContextDir: core.StringPtr("some/subfolder"),
 				SourceRevision: core.StringPtr("main"),
 				SourceSecret: core.StringPtr("testString"),
 				SourceType: core.StringPtr("git"),
+				SourceURL: core.StringPtr("https://github.com/IBM/CodeEngine"),
 				StrategySize: core.StringPtr("medium"),
 				StrategySpecFile: core.StringPtr("Dockerfile"),
 				Timeout: core.Int64Ptr(int64(600)),
@@ -1245,11 +1263,31 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			secretDataModel.SetProperty("foo", core.StringPtr("testString"))
 
+			resourceKeyRefPrototypeModel := &codeenginev2.ResourceKeyRefPrototype{
+				ID: core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b"),
+			}
+
+			roleRefPrototypeModel := &codeenginev2.RoleRefPrototype{
+				Crn: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
+			}
+
+			serviceInstanceRefPrototypeModel := &codeenginev2.ServiceInstanceRefPrototype{
+				ID: core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b"),
+			}
+
+			serviceAccessSecretPrototypePropsModel := &codeenginev2.ServiceAccessSecretPrototypeProps{
+				ResourceKey: resourceKeyRefPrototypeModel,
+				Role: roleRefPrototypeModel,
+				ServiceIdCrn: core.StringPtr("testString"),
+				ServiceInstance: serviceInstanceRefPrototypeModel,
+			}
+
 			createSecretOptions := &codeenginev2.CreateSecretOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Format: core.StringPtr("generic"),
 				Name: core.StringPtr("my-secret"),
 				Data: secretDataModel,
+				ServiceAccess: serviceAccessSecretPrototypePropsModel,
 			}
 
 			secret, response, err := codeEngineService.CreateSecret(createSecretOptions)
@@ -1299,6 +1337,110 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListBindings - List bindings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) with pagination`, func(){
+			listBindingsOptions := &codeenginev2.ListBindingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+				Start: core.StringPtr("testString"),
+			}
+
+			listBindingsOptions.Start = nil
+			listBindingsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.Binding
+			for {
+				bindingList, response, err := codeEngineService.ListBindings(listBindingsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(bindingList).ToNot(BeNil())
+				allResults = append(allResults, bindingList.Bindings...)
+
+				listBindingsOptions.Start, err = bindingList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listBindingsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) using BindingsPager`, func(){
+			listBindingsOptions := &codeenginev2.ListBindingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.Binding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewBindingsPager(listBindingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListBindings() returned a total of %d item(s) using BindingsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateBinding - Create a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
+			componentRefModel := &codeenginev2.ComponentRef{
+			}
+
+			createBindingOptions := &codeenginev2.CreateBindingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Component: componentRefModel,
+				Prefix: core.StringPtr("MY_COS"),
+				SecretName: core.StringPtr("my-service-access"),
+				ServiceidCrn: core.StringPtr("testString"),
+			}
+
+			binding, response, err := codeEngineService.CreateBinding(createBindingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(binding).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetBinding - Get a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
+			getBindingOptions := &codeenginev2.GetBindingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("app_my-app-1_my-service-access_PREFIX"),
+			}
+
+			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(binding).ToNot(BeNil())
 		})
 	})
 
@@ -1441,6 +1583,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			response, err := codeEngineService.DeleteSecret(deleteSecretOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeleteBinding - Delete a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
+			deleteBindingOptions := &codeenginev2.DeleteBindingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("app_my-app-1_my-service-access_PREFIX"),
+			}
+
+			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
