@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
+ * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -400,7 +400,9 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 }
 
 // GetProjectEgressIps : List egress IP addresses
-// Lists all egress IP addresses (public and private) that are used by components running in this project.
+// Lists all egress IP addresses (public and private) that are used by components running in this project. For
+// information about using egress IP addresses, see [Code Engine public and private IP
+// addresses](https://cloud.ibm.com/docs/codeengine?topic=codeengine-network-addresses).
 func (codeEngine *CodeEngineV2) GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) (result *ProjectEgressIPAddresses, response *core.DetailedResponse, err error) {
 	return codeEngine.GetProjectEgressIpsWithContext(context.Background(), getProjectEgressIpsOptions)
 }
@@ -608,6 +610,9 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 	if createAppOptions.ScaleCpuLimit != nil {
 		body["scale_cpu_limit"] = createAppOptions.ScaleCpuLimit
+	}
+	if createAppOptions.ScaleDownDelay != nil {
+		body["scale_down_delay"] = createAppOptions.ScaleDownDelay
 	}
 	if createAppOptions.ScaleEphemeralStorageLimit != nil {
 		body["scale_ephemeral_storage_limit"] = createAppOptions.ScaleEphemeralStorageLimit
@@ -1792,9 +1797,6 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	if createBuildOptions.OutputSecret != nil {
 		body["output_secret"] = createBuildOptions.OutputSecret
 	}
-	if createBuildOptions.SourceURL != nil {
-		body["source_url"] = createBuildOptions.SourceURL
-	}
 	if createBuildOptions.StrategyType != nil {
 		body["strategy_type"] = createBuildOptions.StrategyType
 	}
@@ -1809,6 +1811,9 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	}
 	if createBuildOptions.SourceType != nil {
 		body["source_type"] = createBuildOptions.SourceType
+	}
+	if createBuildOptions.SourceURL != nil {
+		body["source_url"] = createBuildOptions.SourceURL
 	}
 	if createBuildOptions.StrategySize != nil {
 		body["strategy_size"] = createBuildOptions.StrategySize
@@ -2755,6 +2760,9 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.Data != nil {
 		body["data"] = createSecretOptions.Data
 	}
+	if createSecretOptions.ServiceAccess != nil {
+		body["service_access"] = createSecretOptions.ServiceAccess
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -2968,12 +2976,268 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	return
 }
 
+// ListBindings : List bindings
+// List all bindings in a project.
+func (codeEngine *CodeEngineV2) ListBindings(listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListBindingsWithContext(context.Background(), listBindingsOptions)
+}
+
+// ListBindingsWithContext is an alternate form of the ListBindings method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listBindingsOptions, "listBindingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listBindingsOptions, "listBindingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listBindingsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listBindingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListBindings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listBindingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listBindingsOptions.Limit))
+	}
+	if listBindingsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listBindingsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBindingList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateBinding : Create a binding
+// Create a binding.
+func (codeEngine *CodeEngineV2) CreateBinding(createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
+}
+
+// CreateBindingWithContext is an alternate form of the CreateBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createBindingOptions, "createBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createBindingOptions, "createBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createBindingOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createBindingOptions.Component != nil {
+		body["component"] = createBindingOptions.Component
+	}
+	if createBindingOptions.Prefix != nil {
+		body["prefix"] = createBindingOptions.Prefix
+	}
+	if createBindingOptions.SecretName != nil {
+		body["secret_name"] = createBindingOptions.SecretName
+	}
+	if createBindingOptions.ServiceidCrn != nil {
+		body["serviceid_crn"] = createBindingOptions.ServiceidCrn
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetBinding : Get a binding
+// Display the details of a binding.
+func (codeEngine *CodeEngineV2) GetBinding(getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	return codeEngine.GetBindingWithContext(context.Background(), getBindingOptions)
+}
+
+// GetBindingWithContext is an alternate form of the GetBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getBindingOptions, "getBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getBindingOptions, "getBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getBindingOptions.ProjectID,
+		"id":         *getBindingOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteBinding : Delete a binding
+// Delete a binding.
+func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
+}
+
+// DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBindingOptions.ProjectID,
+		"id":         *deleteBindingOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
 // App : App is the response model for app resources.
 type App struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
-	// Optional URL to invoke app. Depending on visibility this is accessible publicly ot in the private network only.
+	// Optional URL to invoke app. Depending on visibility this is accessible publicly or in the private network only.
 	// Empty in case 'managed_domain_mappings' is set to 'local'.
 	Endpoint *string `json:"endpoint,omitempty"`
 
@@ -2993,7 +3257,7 @@ type App struct {
 	// used to connect to the port that is exposed by the container image.
 	ImagePort *int64 `json:"image_port,omitempty"`
 
-	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+	// The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
 	// default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
 	// specify the property `image_secret`.
@@ -3029,8 +3293,7 @@ type App struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or a literal values, which are exposed as environment variables in the
-	// application.
+	// References to config maps, secrets or literal values, which are exposed as environment variables in the application.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
@@ -3051,6 +3314,9 @@ type App struct {
 	// Optional number of CPU set for the instance of the app. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
 	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
@@ -3213,6 +3479,10 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
 		return
@@ -3301,7 +3571,7 @@ type AppPatch struct {
 	// used to connect to the port that is exposed by the container image.
 	ImagePort *int64 `json:"image_port,omitempty"`
 
-	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+	// The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
 	// default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
 	// specify the property `image_secret`.
@@ -3328,7 +3598,7 @@ type AppPatch struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
-	// Optional references to config maps, secrets or a literal values.
+	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
@@ -3350,6 +3620,9 @@ type AppPatch struct {
 	// Optional number of CPU set for the instance of the app. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
 	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
@@ -3455,6 +3728,10 @@ func UnmarshalAppPatch(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
 		return
@@ -3498,7 +3775,7 @@ type AppRevision struct {
 	// Name of the associated app.
 	AppName *string `json:"app_name,omitempty"`
 
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// When you provision a new revision,  a URL is created identifying the location of the instance.
@@ -3511,7 +3788,7 @@ type AppRevision struct {
 	// used to connect to the port that is exposed by the container image.
 	ImagePort *int64 `json:"image_port,omitempty"`
 
-	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+	// The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
 	// default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
 	// specify the property `image_secret`.
@@ -3542,8 +3819,7 @@ type AppRevision struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or a literal values, which are exposed as environment variables in the
-	// application.
+	// References to config maps, secrets or literal values, which are exposed as environment variables in the application.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
@@ -3564,6 +3840,9 @@ type AppRevision struct {
 	// Optional number of CPU set for the instance of the app. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
 	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
@@ -3701,6 +3980,10 @@ func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
 		return
 	}
@@ -3873,9 +4156,127 @@ func UnmarshalAppStatus(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
+// Binding : Describes the model of a binding.
+type Binding struct {
+	// A reference to another component.
+	Component *ComponentRef `json:"component" validate:"required"`
+
+	// When you provision a new binding,  a URL is created identifying the location of the instance.
+	Href *string `json:"href,omitempty"`
+
+	// The ID of the binding.
+	ID *string `json:"id,omitempty"`
+
+	// The value that is set as prefix in the component that is bound.
+	Prefix *string `json:"prefix" validate:"required"`
+
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The type of the binding.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// The service access secret that is bound to a component.
+	SecretName *string `json:"secret_name" validate:"required"`
+
+	// The current status of the binding.
+	Status *string `json:"status,omitempty"`
+}
+
+// Constants associated with the Binding.ResourceType property.
+// The type of the binding.
+const (
+	Binding_ResourceType_BindingV2 = "binding_v2"
+)
+
+// UnmarshalBinding unmarshals an instance of Binding from the specified map of raw messages.
+func UnmarshalBinding(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Binding)
+	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prefix", &obj.Prefix)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "secret_name", &obj.SecretName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BindingList : Contains a list of bindings and pagination information.
+type BindingList struct {
+	// List of all bindings.
+	Bindings []Binding `json:"bindings" validate:"required"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalBindingList unmarshals an instance of BindingList from the specified map of raw messages.
+func UnmarshalBindingList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BindingList)
+	err = core.UnmarshalModel(m, "bindings", &obj.Bindings, UnmarshalBinding)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *BindingList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
 // Build : Response model for build definitions.
 type Build struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The version of the build instance, which is used to achieve optimistic locking.
@@ -3925,7 +4326,7 @@ type Build struct {
 	// `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
 	// `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a 'ssh' URL like
 	// `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of format `ssh_auth`.
-	SourceURL *string `json:"source_url" validate:"required"`
+	SourceURL *string `json:"source_url,omitempty"`
 
 	// The current status of the build.
 	Status *string `json:"status,omitempty"`
@@ -4226,7 +4627,7 @@ type BuildRun struct {
 	// `source_url`, `output_image` and `output_secret` to describe the build run.
 	BuildName *string `json:"build_name" validate:"required"`
 
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// When you trigger a new build run,  a URL is created identifying the location of the instance.
@@ -4562,9 +4963,33 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
+// ComponentRef : A reference to another component.
+type ComponentRef struct {
+	// The name of the referenced component.
+	Name *string `json:"name,omitempty"`
+
+	// The type of the referenced resource.
+	ResourceType *string `json:"resource_type,omitempty"`
+}
+
+// UnmarshalComponentRef unmarshals an instance of ComponentRef from the specified map of raw messages.
+func UnmarshalComponentRef(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ComponentRef)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ConfigMap : Describes the model of a configmap.
 type ConfigMap struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The key-value pair for the config map. Values must be specified in `KEY=VALUE` format.
@@ -4685,7 +5110,7 @@ type CreateAppOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
+	// The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY`
 	// and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not specified, the
 	// default is `latest`. If the image reference points to a registry that requires authentication, make sure to also
 	// specify the property `image_secret`.
@@ -4719,7 +5144,7 @@ type CreateAppOptions struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
-	// Optional references to config maps, secrets or a literal values that are exposed as environment variables within the
+	// Optional references to config maps, secrets or literal values that are exposed as environment variables within the
 	// running application.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
@@ -4741,6 +5166,9 @@ type CreateAppOptions struct {
 	// Optional number of CPU set for the instance of the app. For valid values see [Supported memory and CPU
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
 	// must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
@@ -4893,6 +5321,12 @@ func (_options *CreateAppOptions) SetScaleCpuLimit(scaleCpuLimit string) *Create
 	return _options
 }
 
+// SetScaleDownDelay : Allow user to set ScaleDownDelay
+func (_options *CreateAppOptions) SetScaleDownDelay(scaleDownDelay int64) *CreateAppOptions {
+	_options.ScaleDownDelay = core.Int64Ptr(scaleDownDelay)
+	return _options
+}
+
 // SetScaleEphemeralStorageLimit : Allow user to set ScaleEphemeralStorageLimit
 func (_options *CreateAppOptions) SetScaleEphemeralStorageLimit(scaleEphemeralStorageLimit string) *CreateAppOptions {
 	_options.ScaleEphemeralStorageLimit = core.StringPtr(scaleEphemeralStorageLimit)
@@ -4935,6 +5369,73 @@ func (options *CreateAppOptions) SetHeaders(param map[string]string) *CreateAppO
 	return options
 }
 
+// CreateBindingOptions : The CreateBinding options.
+type CreateBindingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// A reference to another component.
+	Component *ComponentRef `json:"component" validate:"required"`
+
+	// Optional value that is set as prefix in the component that is bound. Will be generated if not provided.
+	Prefix *string `json:"prefix" validate:"required"`
+
+	// The service access secret that is binding to a component.
+	SecretName *string `json:"secret_name" validate:"required"`
+
+	// OptionalService ID CRN to use if a user wants to manage thi binding with their own serviceID.
+	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateBindingOptions : Instantiate CreateBindingOptions
+func (*CodeEngineV2) NewCreateBindingOptions(projectID string, component *ComponentRef, prefix string, secretName string) *CreateBindingOptions {
+	return &CreateBindingOptions{
+		ProjectID:  core.StringPtr(projectID),
+		Component:  component,
+		Prefix:     core.StringPtr(prefix),
+		SecretName: core.StringPtr(secretName),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateBindingOptions) SetProjectID(projectID string) *CreateBindingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetComponent : Allow user to set Component
+func (_options *CreateBindingOptions) SetComponent(component *ComponentRef) *CreateBindingOptions {
+	_options.Component = component
+	return _options
+}
+
+// SetPrefix : Allow user to set Prefix
+func (_options *CreateBindingOptions) SetPrefix(prefix string) *CreateBindingOptions {
+	_options.Prefix = core.StringPtr(prefix)
+	return _options
+}
+
+// SetSecretName : Allow user to set SecretName
+func (_options *CreateBindingOptions) SetSecretName(secretName string) *CreateBindingOptions {
+	_options.SecretName = core.StringPtr(secretName)
+	return _options
+}
+
+// SetServiceidCrn : Allow user to set ServiceidCrn
+func (_options *CreateBindingOptions) SetServiceidCrn(serviceidCrn string) *CreateBindingOptions {
+	_options.ServiceidCrn = core.StringPtr(serviceidCrn)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateBindingOptions) SetHeaders(param map[string]string) *CreateBindingOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateBuildOptions : The CreateBuild options.
 type CreateBuildOptions struct {
 	// The ID of the project.
@@ -4949,12 +5450,6 @@ type CreateBuildOptions struct {
 	// The secret that is required to access the image registry. Make sure that the secret is granted with push permissions
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret" validate:"required"`
-
-	// The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type` value is
-	// `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
-	// `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a 'ssh' URL like
-	// `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of format `ssh_auth`.
-	SourceURL *string `json:"source_url" validate:"required"`
 
 	// The strategy to use for building the image.
 	StrategyType *string `json:"strategy_type" validate:"required"`
@@ -4976,6 +5471,12 @@ type CreateBuildOptions struct {
 	// * local - For builds from local source code.
 	// * git - For builds from git version controlled source code.
 	SourceType *string `json:"source_type,omitempty"`
+
+	// The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type` value is
+	// `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
+	// `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a 'ssh' URL like
+	// `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of format `ssh_auth`.
+	SourceURL *string `json:"source_url,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 	// `large`, `xlarge`.
@@ -5001,13 +5502,12 @@ const (
 )
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
-func (*CodeEngineV2) NewCreateBuildOptions(projectID string, name string, outputImage string, outputSecret string, sourceURL string, strategyType string) *CreateBuildOptions {
+func (*CodeEngineV2) NewCreateBuildOptions(projectID string, name string, outputImage string, outputSecret string, strategyType string) *CreateBuildOptions {
 	return &CreateBuildOptions{
 		ProjectID:    core.StringPtr(projectID),
 		Name:         core.StringPtr(name),
 		OutputImage:  core.StringPtr(outputImage),
 		OutputSecret: core.StringPtr(outputSecret),
-		SourceURL:    core.StringPtr(sourceURL),
 		StrategyType: core.StringPtr(strategyType),
 	}
 }
@@ -5033,12 +5533,6 @@ func (_options *CreateBuildOptions) SetOutputImage(outputImage string) *CreateBu
 // SetOutputSecret : Allow user to set OutputSecret
 func (_options *CreateBuildOptions) SetOutputSecret(outputSecret string) *CreateBuildOptions {
 	_options.OutputSecret = core.StringPtr(outputSecret)
-	return _options
-}
-
-// SetSourceURL : Allow user to set SourceURL
-func (_options *CreateBuildOptions) SetSourceURL(sourceURL string) *CreateBuildOptions {
-	_options.SourceURL = core.StringPtr(sourceURL)
 	return _options
 }
 
@@ -5069,6 +5563,12 @@ func (_options *CreateBuildOptions) SetSourceSecret(sourceSecret string) *Create
 // SetSourceType : Allow user to set SourceType
 func (_options *CreateBuildOptions) SetSourceType(sourceType string) *CreateBuildOptions {
 	_options.SourceType = core.StringPtr(sourceType)
+	return _options
+}
+
+// SetSourceURL : Allow user to set SourceURL
+func (_options *CreateBuildOptions) SetSourceURL(sourceURL string) *CreateBuildOptions {
+	_options.SourceURL = core.StringPtr(sourceURL)
 	return _options
 }
 
@@ -5356,14 +5856,14 @@ type CreateJobOptions struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the application (e.g., 1001).
+	// The user ID (UID) to run the job (e.g., 1001).
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
-	// Optional references to config maps, secrets or a literal values.
+	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -5576,14 +6076,14 @@ type CreateJobRunOptions struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the application (e.g., 1001).
+	// The user ID (UID) to run the job (e.g., 1001).
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
-	// Optional references to config maps, secrets or a literal values.
+	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -5837,6 +6337,9 @@ type CreateSecretOptions struct {
 	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
 
+	// Properties for Service Access Secret Prototypes.
+	ServiceAccess *ServiceAccessSecretPrototypeProps `json:"service_access,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -5883,6 +6386,12 @@ func (_options *CreateSecretOptions) SetName(name string) *CreateSecretOptions {
 // SetData : Allow user to set Data
 func (_options *CreateSecretOptions) SetData(data SecretDataIntf) *CreateSecretOptions {
 	_options.Data = data
+	return _options
+}
+
+// SetServiceAccess : Allow user to set ServiceAccess
+func (_options *CreateSecretOptions) SetServiceAccess(serviceAccess *ServiceAccessSecretPrototypeProps) *CreateSecretOptions {
+	_options.ServiceAccess = serviceAccess
 	return _options
 }
 
@@ -5974,6 +6483,44 @@ func (_options *DeleteAppRevisionOptions) SetName(name string) *DeleteAppRevisio
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteAppRevisionOptions) SetHeaders(param map[string]string) *DeleteAppRevisionOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteBindingOptions : The DeleteBinding options.
+type DeleteBindingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The id of your binding.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteBindingOptions : Instantiate DeleteBindingOptions
+func (*CodeEngineV2) NewDeleteBindingOptions(projectID string, id string) *DeleteBindingOptions {
+	return &DeleteBindingOptions{
+		ProjectID: core.StringPtr(projectID),
+		ID:        core.StringPtr(id),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteBindingOptions) SetProjectID(projectID string) *DeleteBindingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *DeleteBindingOptions) SetID(id string) *DeleteBindingOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteBindingOptions) SetHeaders(param map[string]string) *DeleteBindingOptions {
 	options.Headers = param
 	return options
 }
@@ -6444,6 +6991,44 @@ func (options *GetAppRevisionOptions) SetHeaders(param map[string]string) *GetAp
 	return options
 }
 
+// GetBindingOptions : The GetBinding options.
+type GetBindingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The id of your binding.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetBindingOptions : Instantiate GetBindingOptions
+func (*CodeEngineV2) NewGetBindingOptions(projectID string, id string) *GetBindingOptions {
+	return &GetBindingOptions{
+		ProjectID: core.StringPtr(projectID),
+		ID:        core.StringPtr(id),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetBindingOptions) SetProjectID(projectID string) *GetBindingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *GetBindingOptions) SetID(id string) *GetBindingOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetBindingOptions) SetHeaders(param map[string]string) *GetBindingOptions {
+	options.Headers = param
+	return options
+}
+
 // GetBuildOptions : The GetBuild options.
 type GetBuildOptions struct {
 	// The ID of the project.
@@ -6730,7 +7315,7 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 
 // Job : Job is the response model for job resources.
 type Job struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The version of the job instance, which is used to achieve optimistic locking.
@@ -6767,14 +7352,14 @@ type Job struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// The user ID (UID) to run the application (e.g., 1001).
+	// The user ID (UID) to run the job (e.g., 1001).
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or a literal values, which are exposed as environment variables in the job run.
+	// References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -7004,14 +7589,14 @@ type JobPatch struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the application (e.g., 1001).
+	// The user ID (UID) to run the job (e.g., 1001).
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
-	// Optional references to config maps, secrets or a literal values.
+	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -7156,7 +7741,7 @@ func (jobPatch *JobPatch) AsPatch() (_patch map[string]interface{}, err error) {
 
 // JobRun : Response model for job run resources.
 type JobRun struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// When you provision a new job run,  a URL is created identifying the location of the instance.
@@ -7194,14 +7779,14 @@ type JobRun struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// The user ID (UID) to run the application (e.g., 1001).
+	// The user ID (UID) to run the job (e.g., 1001).
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or a literal values, which are exposed as environment variables in the job run.
+	// References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -7607,6 +8192,54 @@ func (options *ListAppsOptions) SetHeaders(param map[string]string) *ListAppsOpt
 	return options
 }
 
+// ListBindingsOptions : The ListBindings options.
+type ListBindingsOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Optional maximum number of bindings per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListBindingsOptions : Instantiate ListBindingsOptions
+func (*CodeEngineV2) NewListBindingsOptions(projectID string) *ListBindingsOptions {
+	return &ListBindingsOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListBindingsOptions) SetProjectID(projectID string) *ListBindingsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListBindingsOptions) SetLimit(limit int64) *ListBindingsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListBindingsOptions) SetStart(start string) *ListBindingsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListBindingsOptions) SetHeaders(param map[string]string) *ListBindingsOptions {
+	options.Headers = param
+	return options
+}
+
 // ListBuildRunsOptions : The ListBuildRuns options.
 type ListBuildRunsOptions struct {
 	// The ID of the project.
@@ -7994,7 +8627,7 @@ type Project struct {
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// The date when the project was created.
+	// The timestamp when the project was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// The CRN of the project.
@@ -8308,9 +8941,91 @@ func (options *ReplaceSecretOptions) SetHeaders(param map[string]string) *Replac
 	return options
 }
 
+// ResourceKeyRef : The service credential associated with the secret.
+type ResourceKeyRef struct {
+	// ID of the service credential associated with the secret.
+	ID *string `json:"id,omitempty"`
+
+	// Name of the service credential associated with the secret.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalResourceKeyRef unmarshals an instance of ResourceKeyRef from the specified map of raw messages.
+func UnmarshalResourceKeyRef(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceKeyRef)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceKeyRefPrototype : The service credential associated with the secret.
+type ResourceKeyRefPrototype struct {
+	// ID of the service credential associated with the secret.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalResourceKeyRefPrototype unmarshals an instance of ResourceKeyRefPrototype from the specified map of raw messages.
+func UnmarshalResourceKeyRefPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceKeyRefPrototype)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RoleRef : A reference to the Role and Role CRN for service binding.
+type RoleRef struct {
+	// CRN of the IAM Role for thise service access secret.
+	Crn *string `json:"crn,omitempty"`
+
+	// Role of the service credential.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalRoleRef unmarshals an instance of RoleRef from the specified map of raw messages.
+func UnmarshalRoleRef(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RoleRef)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RoleRefPrototype : A reference to the Role and Role CRN for service binding.
+type RoleRefPrototype struct {
+	// CRN of the IAM Role for thise service access secret.
+	Crn *string `json:"crn,omitempty"`
+}
+
+// UnmarshalRoleRefPrototype unmarshals an instance of RoleRefPrototype from the specified map of raw messages.
+func UnmarshalRoleRefPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RoleRefPrototype)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Secret : Describes the model of a secret.
 type Secret struct {
-	// The date when the resource was created.
+	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
@@ -8338,6 +9053,9 @@ type Secret struct {
 
 	// The type of the secret.
 	ResourceType *string `json:"resource_type,omitempty"`
+
+	// Properties for Service Access Secrets.
+	ServiceAccess *ServiceAccessSecretProps `json:"service_access,omitempty"`
 }
 
 // Constants associated with the Secret.Format property.
@@ -8388,6 +9106,10 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service_access", &obj.ServiceAccess, UnmarshalServiceAccessSecretProps)
 	if err != nil {
 		return
 	}
@@ -8607,6 +9329,133 @@ func (resp *SecretList) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	return resp.Next.Start, nil
+}
+
+// ServiceAccessSecretProps : Properties for Service Access Secrets.
+type ServiceAccessSecretProps struct {
+	// The service credential associated with the secret.
+	ResourceKey *ResourceKeyRef `json:"resource_key" validate:"required"`
+
+	// A reference to the Role and Role CRN for service binding.
+	Role *RoleRef `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential.
+	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
+
+	// The IBM Cloud service instance associated with the secret.
+	ServiceInstance *ServiceInstanceRef `json:"service_instance" validate:"required"`
+}
+
+// UnmarshalServiceAccessSecretProps unmarshals an instance of ServiceAccessSecretProps from the specified map of raw messages.
+func UnmarshalServiceAccessSecretProps(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceAccessSecretProps)
+	err = core.UnmarshalModel(m, "resource_key", &obj.ResourceKey, UnmarshalResourceKeyRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "role", &obj.Role, UnmarshalRoleRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_id_crn", &obj.ServiceIdCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRef)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceAccessSecretPrototypeProps : Properties for Service Access Secret Prototypes.
+type ServiceAccessSecretPrototypeProps struct {
+	// The service credential associated with the secret.
+	ResourceKey *ResourceKeyRefPrototype `json:"resource_key" validate:"required"`
+
+	// A reference to the Role and Role CRN for service binding.
+	Role *RoleRefPrototype `json:"role,omitempty"`
+
+	// CRN of a Service ID used to create the service credential.
+	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
+
+	// The IBM Cloud service instance associated with the secret.
+	ServiceInstance *ServiceInstanceRefPrototype `json:"service_instance" validate:"required"`
+}
+
+// NewServiceAccessSecretPrototypeProps : Instantiate ServiceAccessSecretPrototypeProps (Generic Model Constructor)
+func (*CodeEngineV2) NewServiceAccessSecretPrototypeProps(resourceKey *ResourceKeyRefPrototype, serviceInstance *ServiceInstanceRefPrototype) (_model *ServiceAccessSecretPrototypeProps, err error) {
+	_model = &ServiceAccessSecretPrototypeProps{
+		ResourceKey:     resourceKey,
+		ServiceInstance: serviceInstance,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalServiceAccessSecretPrototypeProps unmarshals an instance of ServiceAccessSecretPrototypeProps from the specified map of raw messages.
+func UnmarshalServiceAccessSecretPrototypeProps(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceAccessSecretPrototypeProps)
+	err = core.UnmarshalModel(m, "resource_key", &obj.ResourceKey, UnmarshalResourceKeyRefPrototype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "role", &obj.Role, UnmarshalRoleRefPrototype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_id_crn", &obj.ServiceIdCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRefPrototype)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceInstanceRef : The IBM Cloud service instance associated with the secret.
+type ServiceInstanceRef struct {
+	// ID of the IBM Cloud service instance associated with the secret.
+	ID *string `json:"id,omitempty"`
+
+	// Type of IBM Cloud service associated with the secret.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalServiceInstanceRef unmarshals an instance of ServiceInstanceRef from the specified map of raw messages.
+func UnmarshalServiceInstanceRef(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceInstanceRef)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceInstanceRefPrototype : The IBM Cloud service instance associated with the secret.
+type ServiceInstanceRefPrototype struct {
+	// ID of the IBM Cloud service instance associated with the secret.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalServiceInstanceRefPrototype unmarshals an instance of ServiceInstanceRefPrototype from the specified map of raw messages.
+func UnmarshalServiceInstanceRefPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceInstanceRefPrototype)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // UpdateAppOptions : The UpdateApp options.
@@ -10078,5 +10927,84 @@ func (pager *SecretsPager) GetNext() (page []Secret, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+// BindingsPager can be used to simplify the use of the "ListBindings" method.
+type BindingsPager struct {
+	hasNext     bool
+	options     *ListBindingsOptions
+	client      *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewBindingsPager returns a new BindingsPager instance.
+func (codeEngine *CodeEngineV2) NewBindingsPager(options *ListBindingsOptions) (pager *BindingsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListBindingsOptions = *options
+	pager = &BindingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *BindingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *BindingsPager) GetNextWithContext(ctx context.Context) (page []Binding, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListBindingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Bindings
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *BindingsPager) GetAllWithContext(ctx context.Context) (allItems []Binding, err error) {
+	for pager.HasNext() {
+		var nextPage []Binding
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *BindingsPager) GetNext() (page []Binding, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *BindingsPager) GetAll() (allItems []Binding, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
