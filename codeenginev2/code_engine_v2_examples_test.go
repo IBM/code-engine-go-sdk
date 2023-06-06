@@ -189,27 +189,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(projectEgressIpAddresses).ToNot(BeNil())
 		})
-		It(`GetProjectStatusDetails request example`, func() {
-			fmt.Println("\nGetProjectStatusDetails() result:")
-			// begin-get_project_status_details
-
-			getProjectStatusDetailsOptions := codeEngineService.NewGetProjectStatusDetailsOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-			)
-
-			projectStatusDetails, response, err := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(projectStatusDetails, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_project_status_details
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(projectStatusDetails).ToNot(BeNil())
-		})
 		It(`ListApps request example`, func() {
 			fmt.Println("\nListApps() result:")
 			// begin-list_apps
@@ -939,7 +918,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			getBindingOptions := codeEngineService.NewGetBindingOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"app_my-app-1_my-service-access_PREFIX",
+				"a172ced-b5f21bc-71ba50c-1638604",
 			)
 
 			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
@@ -1149,7 +1128,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			deleteBindingOptions := codeEngineService.NewDeleteBindingOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"app_my-app-1_my-service-access_PREFIX",
+				"a172ced-b5f21bc-71ba50c-1638604",
 			)
 
 			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)

@@ -461,66 +461,6 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 	return
 }
 
-// GetProjectStatusDetails : Get the status details for a project
-// Retrieves status details about the given project.
-func (codeEngine *CodeEngineV2) GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
-	return codeEngine.GetProjectStatusDetailsWithContext(context.Background(), getProjectStatusDetailsOptions)
-}
-
-// GetProjectStatusDetailsWithContext is an alternate form of the GetProjectStatusDetails method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.Context, getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *getProjectStatusDetailsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/status_details`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getProjectStatusDetailsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetProjectStatusDetails")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectStatusDetails)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
 // ListApps : List applications
 // List all applications in a project.
 func (codeEngine *CodeEngineV2) ListApps(listAppsOptions *ListAppsOptions) (result *AppList, response *core.DetailedResponse, err error) {
@@ -3201,13 +3141,13 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBindingOptions.ProjectID,
-		"name": *getBindingOptions.Name,
+		"id": *getBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3262,13 +3202,13 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBindingOptions.ProjectID,
-		"name": *deleteBindingOptions.Name,
+		"id": *deleteBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -6552,18 +6492,18 @@ type DeleteBindingOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// The name of your binding.
-	Name *string `json:"name" validate:"required,ne="`
+	// The id of your binding.
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteBindingOptions : Instantiate DeleteBindingOptions
-func (*CodeEngineV2) NewDeleteBindingOptions(projectID string, name string) *DeleteBindingOptions {
+func (*CodeEngineV2) NewDeleteBindingOptions(projectID string, id string) *DeleteBindingOptions {
 	return &DeleteBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -6573,9 +6513,9 @@ func (_options *DeleteBindingOptions) SetProjectID(projectID string) *DeleteBind
 	return _options
 }
 
-// SetName : Allow user to set Name
-func (_options *DeleteBindingOptions) SetName(name string) *DeleteBindingOptions {
-	_options.Name = core.StringPtr(name)
+// SetID : Allow user to set ID
+func (_options *DeleteBindingOptions) SetID(id string) *DeleteBindingOptions {
+	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -7056,18 +6996,18 @@ type GetBindingOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// The name of your binding.
-	Name *string `json:"name" validate:"required,ne="`
+	// The id of your binding.
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetBindingOptions : Instantiate GetBindingOptions
-func (*CodeEngineV2) NewGetBindingOptions(projectID string, name string) *GetBindingOptions {
+func (*CodeEngineV2) NewGetBindingOptions(projectID string, id string) *GetBindingOptions {
 	return &GetBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -7077,9 +7017,9 @@ func (_options *GetBindingOptions) SetProjectID(projectID string) *GetBindingOpt
 	return _options
 }
 
-// SetName : Allow user to set Name
-func (_options *GetBindingOptions) SetName(name string) *GetBindingOptions {
-	_options.Name = core.StringPtr(name)
+// SetID : Allow user to set ID
+func (_options *GetBindingOptions) SetID(id string) *GetBindingOptions {
+	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -7331,34 +7271,6 @@ func (_options *GetProjectOptions) SetID(id string) *GetProjectOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjectOptions {
-	options.Headers = param
-	return options
-}
-
-// GetProjectStatusDetailsOptions : The GetProjectStatusDetails options.
-type GetProjectStatusDetailsOptions struct {
-	// The ID of the project.
-	ProjectID *string `json:"project_id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetProjectStatusDetailsOptions : Instantiate GetProjectStatusDetailsOptions
-func (*CodeEngineV2) NewGetProjectStatusDetailsOptions(projectID string) *GetProjectStatusDetailsOptions {
-	return &GetProjectStatusDetailsOptions{
-		ProjectID: core.StringPtr(projectID),
-	}
-}
-
-// SetProjectID : Allow user to set ProjectID
-func (_options *GetProjectStatusDetailsOptions) SetProjectID(projectID string) *GetProjectStatusDetailsOptions {
-	_options.ProjectID = core.StringPtr(projectID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetProjectStatusDetailsOptions) SetHeaders(param map[string]string) *GetProjectStatusDetailsOptions {
 	options.Headers = param
 	return options
 }
@@ -8884,44 +8796,6 @@ func (resp *ProjectList) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	return resp.Next.Start, nil
-}
-
-// ProjectStatusDetails : Describes the model of a project status details.
-type ProjectStatusDetails struct {
-	// Status of the domain created for the project.
-	Domain *string `json:"domain" validate:"required"`
-
-	// Defines whether a project is enabled for management and consumption.
-	Project *string `json:"project" validate:"required"`
-}
-
-// Constants associated with the ProjectStatusDetails.Domain property.
-// Status of the domain created for the project.
-const (
-	ProjectStatusDetails_Domain_Ready = "ready"
-	ProjectStatusDetails_Domain_Unknown = "unknown"
-)
-
-// Constants associated with the ProjectStatusDetails.Project property.
-// Defines whether a project is enabled for management and consumption.
-const (
-	ProjectStatusDetails_Project_Disabled = "disabled"
-	ProjectStatusDetails_Project_Enabled = "enabled"
-)
-
-// UnmarshalProjectStatusDetails unmarshals an instance of ProjectStatusDetails from the specified map of raw messages.
-func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectStatusDetails)
-	err = core.UnmarshalPrimitive(m, "domain", &obj.Domain)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "project", &obj.Project)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // ReplaceConfigMapOptions : The ReplaceConfigMap options.

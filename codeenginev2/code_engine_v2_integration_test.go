@@ -203,22 +203,6 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetProjectStatusDetails - Get the status details for a project`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
-			getProjectStatusDetailsOptions := &codeenginev2.GetProjectStatusDetailsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-			}
-
-			projectStatusDetails, response, err := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(projectStatusDetails).ToNot(BeNil())
-		})
-	})
-
 	Describe(`ListApps - List applications`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1434,7 +1418,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
 			getBindingOptions := &codeenginev2.GetBindingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("app_my-app-1_my-service-access_PREFIX"),
+				ID: core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
 			}
 
 			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
@@ -1595,7 +1579,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
 			deleteBindingOptions := &codeenginev2.DeleteBindingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("app_my-app-1_my-service-access_PREFIX"),
+				ID: core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
 			}
 
 			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
