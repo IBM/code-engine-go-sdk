@@ -677,7 +677,7 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 
 	pathParamsMap := map[string]string{
 		"project_id": *getAppOptions.ProjectID,
-		"name": *getAppOptions.Name,
+		"name":       *getAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -738,7 +738,7 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteAppOptions.ProjectID,
-		"name": *deleteAppOptions.Name,
+		"name":       *deleteAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -789,7 +789,7 @@ func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, update
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateAppOptions.ProjectID,
-		"name": *updateAppOptions.Name,
+		"name":       *updateAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -859,7 +859,7 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 
 	pathParamsMap := map[string]string{
 		"project_id": *listAppRevisionsOptions.ProjectID,
-		"app_name": *listAppRevisionsOptions.AppName,
+		"app_name":   *listAppRevisionsOptions.AppName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -927,8 +927,8 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"project_id": *getAppRevisionOptions.ProjectID,
-		"app_name": *getAppRevisionOptions.AppName,
-		"name": *getAppRevisionOptions.Name,
+		"app_name":   *getAppRevisionOptions.AppName,
+		"name":       *getAppRevisionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -989,8 +989,8 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteAppRevisionOptions.ProjectID,
-		"app_name": *deleteAppRevisionOptions.AppName,
-		"name": *deleteAppRevisionOptions.Name,
+		"app_name":   *deleteAppRevisionOptions.AppName,
+		"name":       *deleteAppRevisionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1221,7 +1221,7 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 
 	pathParamsMap := map[string]string{
 		"project_id": *getJobOptions.ProjectID,
-		"name": *getJobOptions.Name,
+		"name":       *getJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1282,7 +1282,7 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteJobOptions.ProjectID,
-		"name": *deleteJobOptions.Name,
+		"name":       *deleteJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1331,7 +1331,7 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateJobOptions.ProjectID,
-		"name": *updateJobOptions.Name,
+		"name":       *updateJobOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1589,7 +1589,7 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 
 	pathParamsMap := map[string]string{
 		"project_id": *getJobRunOptions.ProjectID,
-		"name": *getJobRunOptions.Name,
+		"name":       *getJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1650,7 +1650,7 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteJobRunOptions.ProjectID,
-		"name": *deleteJobRunOptions.Name,
+		"name":       *deleteJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1869,7 +1869,7 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBuildOptions.ProjectID,
-		"name": *getBuildOptions.Name,
+		"name":       *getBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1930,7 +1930,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBuildOptions.ProjectID,
-		"name": *deleteBuildOptions.Name,
+		"name":       *deleteBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1979,7 +1979,7 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateBuildOptions.ProjectID,
-		"name": *updateBuildOptions.Name,
+		"name":       *updateBuildOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -2228,7 +2228,7 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBuildRunOptions.ProjectID,
-		"name": *getBuildRunOptions.Name,
+		"name":       *getBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2289,7 +2289,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBuildRunOptions.ProjectID,
-		"name": *deleteBuildRunOptions.Name,
+		"name":       *deleteBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2478,7 +2478,7 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 
 	pathParamsMap := map[string]string{
 		"project_id": *getConfigMapOptions.ProjectID,
-		"name": *getConfigMapOptions.Name,
+		"name":       *getConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2539,7 +2539,7 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 
 	pathParamsMap := map[string]string{
 		"project_id": *replaceConfigMapOptions.ProjectID,
-		"name": *replaceConfigMapOptions.Name,
+		"name":       *replaceConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2613,7 +2613,7 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteConfigMapOptions.ProjectID,
-		"name": *deleteConfigMapOptions.Name,
+		"name":       *deleteConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2808,7 +2808,7 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 
 	pathParamsMap := map[string]string{
 		"project_id": *getSecretOptions.ProjectID,
-		"name": *getSecretOptions.Name,
+		"name":       *getSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2869,7 +2869,7 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 
 	pathParamsMap := map[string]string{
 		"project_id": *replaceSecretOptions.ProjectID,
-		"name": *replaceSecretOptions.Name,
+		"name":       *replaceSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2946,7 +2946,7 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteSecretOptions.ProjectID,
-		"name": *deleteSecretOptions.Name,
+		"name":       *deleteSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -3141,7 +3141,7 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBindingOptions.ProjectID,
-		"id": *getBindingOptions.ID,
+		"id":         *getBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -3202,7 +3202,7 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBindingOptions.ProjectID,
-		"id": *deleteBindingOptions.ID,
+		"id":         *deleteBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -3357,9 +3357,9 @@ type App struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	App_ManagedDomainMappings_Local = "local"
+	App_ManagedDomainMappings_Local        = "local"
 	App_ManagedDomainMappings_LocalPrivate = "local_private"
-	App_ManagedDomainMappings_LocalPublic = "local_public"
+	App_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the App.ResourceType property.
@@ -3374,18 +3374,18 @@ const (
 const (
 	App_RunServiceAccount_Default = "default"
 	App_RunServiceAccount_Manager = "manager"
-	App_RunServiceAccount_None = "none"
-	App_RunServiceAccount_Reader = "reader"
-	App_RunServiceAccount_Writer = "writer"
+	App_RunServiceAccount_None    = "none"
+	App_RunServiceAccount_Reader  = "reader"
+	App_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the App.Status property.
 // The current status of the app.
 const (
 	App_Status_Deploying = "deploying"
-	App_Status_Failed = "failed"
-	App_Status_Ready = "ready"
-	App_Status_Warning = "warning"
+	App_Status_Failed    = "failed"
+	App_Status_Ready     = "ready"
+	App_Status_Warning   = "warning"
 )
 
 // UnmarshalApp unmarshals an instance of App from the specified map of raw messages.
@@ -3657,9 +3657,9 @@ type AppPatch struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	AppPatch_ManagedDomainMappings_Local = "local"
+	AppPatch_ManagedDomainMappings_Local        = "local"
 	AppPatch_ManagedDomainMappings_LocalPrivate = "local_private"
-	AppPatch_ManagedDomainMappings_LocalPublic = "local_public"
+	AppPatch_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the AppPatch.RunServiceAccount property.
@@ -3668,9 +3668,9 @@ const (
 const (
 	AppPatch_RunServiceAccount_Default = "default"
 	AppPatch_RunServiceAccount_Manager = "manager"
-	AppPatch_RunServiceAccount_None = "none"
-	AppPatch_RunServiceAccount_Reader = "reader"
-	AppPatch_RunServiceAccount_Writer = "writer"
+	AppPatch_RunServiceAccount_None    = "none"
+	AppPatch_RunServiceAccount_Reader  = "reader"
+	AppPatch_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalAppPatch unmarshals an instance of AppPatch from the specified map of raw messages.
@@ -3890,17 +3890,17 @@ const (
 const (
 	AppRevision_RunServiceAccount_Default = "default"
 	AppRevision_RunServiceAccount_Manager = "manager"
-	AppRevision_RunServiceAccount_None = "none"
-	AppRevision_RunServiceAccount_Reader = "reader"
-	AppRevision_RunServiceAccount_Writer = "writer"
+	AppRevision_RunServiceAccount_None    = "none"
+	AppRevision_RunServiceAccount_Reader  = "reader"
+	AppRevision_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the AppRevision.Status property.
 // The current status of the app revision.
 const (
-	AppRevision_Status_Failed = "failed"
+	AppRevision_Status_Failed  = "failed"
 	AppRevision_Status_Loading = "loading"
-	AppRevision_Status_Ready = "ready"
+	AppRevision_Status_Ready   = "ready"
 	AppRevision_Status_Warning = "warning"
 )
 
@@ -4081,23 +4081,23 @@ type AppRevisionStatus struct {
 // Constants associated with the AppRevisionStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	AppRevisionStatus_Reason_ContainerFailedExitCode0 = "container_failed_exit_code_0"
-	AppRevisionStatus_Reason_ContainerFailedExitCode1 = "container_failed_exit_code_1"
-	AppRevisionStatus_Reason_ContainerFailedExitCode139 = "container_failed_exit_code_139"
-	AppRevisionStatus_Reason_ContainerFailedExitCode24 = "container_failed_exit_code_24"
-	AppRevisionStatus_Reason_Deploying = "deploying"
-	AppRevisionStatus_Reason_DeployingWaitingForResources = "deploying_waiting_for_resources"
+	AppRevisionStatus_Reason_ContainerFailedExitCode0               = "container_failed_exit_code_0"
+	AppRevisionStatus_Reason_ContainerFailedExitCode1               = "container_failed_exit_code_1"
+	AppRevisionStatus_Reason_ContainerFailedExitCode139             = "container_failed_exit_code_139"
+	AppRevisionStatus_Reason_ContainerFailedExitCode24              = "container_failed_exit_code_24"
+	AppRevisionStatus_Reason_Deploying                              = "deploying"
+	AppRevisionStatus_Reason_DeployingWaitingForResources           = "deploying_waiting_for_resources"
 	AppRevisionStatus_Reason_FetchImageFailedMissingPullCredentials = "fetch_image_failed_missing_pull_credentials"
-	AppRevisionStatus_Reason_FetchImageFailedMissingPullSecret = "fetch_image_failed_missing_pull_secret"
-	AppRevisionStatus_Reason_FetchImageFailedRegistryNotFound = "fetch_image_failed_registry_not_found"
-	AppRevisionStatus_Reason_FetchImageFailedUnknownManifest = "fetch_image_failed_unknown_manifest"
-	AppRevisionStatus_Reason_FetchImageFailedUnknownRepository = "fetch_image_failed_unknown_repository"
-	AppRevisionStatus_Reason_FetchImageFailedWrongPullCredentials = "fetch_image_failed_wrong_pull_credentials"
-	AppRevisionStatus_Reason_ImagePullBackOff = "image_pull_back_off"
-	AppRevisionStatus_Reason_InitialScaleNeverAchieved = "initial_scale_never_achieved"
-	AppRevisionStatus_Reason_InvalidTarHeaderImagePullErr = "invalid_tar_header_image_pull_err"
-	AppRevisionStatus_Reason_Ready = "ready"
-	AppRevisionStatus_Reason_Waiting = "waiting"
+	AppRevisionStatus_Reason_FetchImageFailedMissingPullSecret      = "fetch_image_failed_missing_pull_secret"
+	AppRevisionStatus_Reason_FetchImageFailedRegistryNotFound       = "fetch_image_failed_registry_not_found"
+	AppRevisionStatus_Reason_FetchImageFailedUnknownManifest        = "fetch_image_failed_unknown_manifest"
+	AppRevisionStatus_Reason_FetchImageFailedUnknownRepository      = "fetch_image_failed_unknown_repository"
+	AppRevisionStatus_Reason_FetchImageFailedWrongPullCredentials   = "fetch_image_failed_wrong_pull_credentials"
+	AppRevisionStatus_Reason_ImagePullBackOff                       = "image_pull_back_off"
+	AppRevisionStatus_Reason_InitialScaleNeverAchieved              = "initial_scale_never_achieved"
+	AppRevisionStatus_Reason_InvalidTarHeaderImagePullErr           = "invalid_tar_header_image_pull_err"
+	AppRevisionStatus_Reason_Ready                                  = "ready"
+	AppRevisionStatus_Reason_Waiting                                = "waiting"
 )
 
 // UnmarshalAppRevisionStatus unmarshals an instance of AppRevisionStatus from the specified map of raw messages.
@@ -4130,11 +4130,11 @@ type AppStatus struct {
 // Constants associated with the AppStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	AppStatus_Reason_Deploying = "deploying"
-	AppStatus_Reason_NoRevisionReady = "no_revision_ready"
-	AppStatus_Reason_Ready = "ready"
+	AppStatus_Reason_Deploying                    = "deploying"
+	AppStatus_Reason_NoRevisionReady              = "no_revision_ready"
+	AppStatus_Reason_Ready                        = "ready"
 	AppStatus_Reason_ReadyButLatestRevisionFailed = "ready_but_latest_revision_failed"
-	AppStatus_Reason_WaitingForResources = "waiting_for_resources"
+	AppStatus_Reason_WaitingForResources          = "waiting_for_resources"
 )
 
 // UnmarshalAppStatus unmarshals an instance of AppStatus from the specified map of raw messages.
@@ -4359,7 +4359,7 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	Build_SourceType_Git = "git"
+	Build_SourceType_Git   = "git"
 	Build_SourceType_Local = "local"
 )
 
@@ -4367,7 +4367,7 @@ const (
 // The current status of the build.
 const (
 	Build_Status_Failed = "failed"
-	Build_Status_Ready = "ready"
+	Build_Status_Ready  = "ready"
 )
 
 // UnmarshalBuild unmarshals an instance of Build from the specified map of raw messages.
@@ -4555,7 +4555,7 @@ type BuildPatch struct {
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	BuildPatch_SourceType_Git = "git"
+	BuildPatch_SourceType_Git   = "git"
 	BuildPatch_SourceType_Local = "local"
 )
 
@@ -4710,9 +4710,9 @@ const (
 const (
 	BuildRun_ServiceAccount_Default = "default"
 	BuildRun_ServiceAccount_Manager = "manager"
-	BuildRun_ServiceAccount_None = "none"
-	BuildRun_ServiceAccount_Reader = "reader"
-	BuildRun_ServiceAccount_Writer = "writer"
+	BuildRun_ServiceAccount_None    = "none"
+	BuildRun_ServiceAccount_Reader  = "reader"
+	BuildRun_ServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the BuildRun.SourceType property.
@@ -4720,16 +4720,16 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	BuildRun_SourceType_Git = "git"
+	BuildRun_SourceType_Git   = "git"
 	BuildRun_SourceType_Local = "local"
 )
 
 // Constants associated with the BuildRun.Status property.
 // The current status of the build run.
 const (
-	BuildRun_Status_Failed = "failed"
-	BuildRun_Status_Pending = "pending"
-	BuildRun_Status_Running = "running"
+	BuildRun_Status_Failed    = "failed"
+	BuildRun_Status_Pending   = "pending"
+	BuildRun_Status_Running   = "running"
 	BuildRun_Status_Succeeded = "succeeded"
 )
 
@@ -4888,23 +4888,23 @@ type BuildRunStatus struct {
 // Constants associated with the BuildRunStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	BuildRunStatus_Reason_BuildNotFound = "build_not_found"
-	BuildRunStatus_Reason_ExceededEphemeralStorage = "exceeded_ephemeral_storage"
-	BuildRunStatus_Reason_Failed = "failed"
-	BuildRunStatus_Reason_FailedToExecuteBuildRun = "failed_to_execute_build_run"
-	BuildRunStatus_Reason_InvalidBuildConfiguration = "invalid_build_configuration"
-	BuildRunStatus_Reason_MissingCodeRepoAccess = "missing_code_repo_access"
-	BuildRunStatus_Reason_MissingRegistryAccess = "missing_registry_access"
-	BuildRunStatus_Reason_MissingSecrets = "missing_secrets"
-	BuildRunStatus_Reason_MissingTaskRun = "missing_task_run"
-	BuildRunStatus_Reason_Pending = "pending"
-	BuildRunStatus_Reason_PodEvicted = "pod_evicted"
+	BuildRunStatus_Reason_BuildNotFound                          = "build_not_found"
+	BuildRunStatus_Reason_ExceededEphemeralStorage               = "exceeded_ephemeral_storage"
+	BuildRunStatus_Reason_Failed                                 = "failed"
+	BuildRunStatus_Reason_FailedToExecuteBuildRun                = "failed_to_execute_build_run"
+	BuildRunStatus_Reason_InvalidBuildConfiguration              = "invalid_build_configuration"
+	BuildRunStatus_Reason_MissingCodeRepoAccess                  = "missing_code_repo_access"
+	BuildRunStatus_Reason_MissingRegistryAccess                  = "missing_registry_access"
+	BuildRunStatus_Reason_MissingSecrets                         = "missing_secrets"
+	BuildRunStatus_Reason_MissingTaskRun                         = "missing_task_run"
+	BuildRunStatus_Reason_Pending                                = "pending"
+	BuildRunStatus_Reason_PodEvicted                             = "pod_evicted"
 	BuildRunStatus_Reason_PodEvictedBecauseOfStorageQuotaExceeds = "pod_evicted_because_of_storage_quota_exceeds"
-	BuildRunStatus_Reason_Running = "running"
-	BuildRunStatus_Reason_Succeeded = "succeeded"
-	BuildRunStatus_Reason_TaskRunGenerationFailed = "task_run_generation_failed"
-	BuildRunStatus_Reason_Timeout = "timeout"
-	BuildRunStatus_Reason_UnknownStrategy = "unknown_strategy"
+	BuildRunStatus_Reason_Running                                = "running"
+	BuildRunStatus_Reason_Succeeded                              = "succeeded"
+	BuildRunStatus_Reason_TaskRunGenerationFailed                = "task_run_generation_failed"
+	BuildRunStatus_Reason_Timeout                                = "timeout"
+	BuildRunStatus_Reason_UnknownStrategy                        = "unknown_strategy"
 )
 
 // UnmarshalBuildRunStatus unmarshals an instance of BuildRunStatus from the specified map of raw messages.
@@ -4940,16 +4940,16 @@ type BuildStatus struct {
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
 	BuildStatus_Reason_ClusterBuildStrategyNotFound = "cluster_build_strategy_not_found"
-	BuildStatus_Reason_Failed = "failed"
-	BuildStatus_Reason_MultipleSecretRefNotFound = "multiple_secret_ref_not_found"
-	BuildStatus_Reason_Registered = "registered"
-	BuildStatus_Reason_RemoteRepositoryUnreachable = "remote_repository_unreachable"
-	BuildStatus_Reason_RuntimePathsCanNotBeEmpty = "runtime_paths_can_not_be_empty"
-	BuildStatus_Reason_SetOwnerReferenceFailed = "set_owner_reference_failed"
-	BuildStatus_Reason_SpecOutputSecretRefNotFound = "spec_output_secret_ref_not_found"
+	BuildStatus_Reason_Failed                       = "failed"
+	BuildStatus_Reason_MultipleSecretRefNotFound    = "multiple_secret_ref_not_found"
+	BuildStatus_Reason_Registered                   = "registered"
+	BuildStatus_Reason_RemoteRepositoryUnreachable  = "remote_repository_unreachable"
+	BuildStatus_Reason_RuntimePathsCanNotBeEmpty    = "runtime_paths_can_not_be_empty"
+	BuildStatus_Reason_SetOwnerReferenceFailed      = "set_owner_reference_failed"
+	BuildStatus_Reason_SpecOutputSecretRefNotFound  = "spec_output_secret_ref_not_found"
 	BuildStatus_Reason_SpecRuntimeSecretRefNotFound = "spec_runtime_secret_ref_not_found"
-	BuildStatus_Reason_SpecSourceSecretNotFound = "spec_source_secret_not_found"
-	BuildStatus_Reason_StrategyNotFound = "strategy_not_found"
+	BuildStatus_Reason_SpecSourceSecretNotFound     = "spec_source_secret_not_found"
+	BuildStatus_Reason_StrategyNotFound             = "strategy_not_found"
 )
 
 // UnmarshalBuildStatus unmarshals an instance of BuildStatus from the specified map of raw messages.
@@ -5206,9 +5206,9 @@ type CreateAppOptions struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	CreateAppOptions_ManagedDomainMappings_Local = "local"
+	CreateAppOptions_ManagedDomainMappings_Local        = "local"
 	CreateAppOptions_ManagedDomainMappings_LocalPrivate = "local_private"
-	CreateAppOptions_ManagedDomainMappings_LocalPublic = "local_public"
+	CreateAppOptions_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the CreateAppOptions.RunServiceAccount property.
@@ -5217,17 +5217,17 @@ const (
 const (
 	CreateAppOptions_RunServiceAccount_Default = "default"
 	CreateAppOptions_RunServiceAccount_Manager = "manager"
-	CreateAppOptions_RunServiceAccount_None = "none"
-	CreateAppOptions_RunServiceAccount_Reader = "reader"
-	CreateAppOptions_RunServiceAccount_Writer = "writer"
+	CreateAppOptions_RunServiceAccount_None    = "none"
+	CreateAppOptions_RunServiceAccount_Reader  = "reader"
+	CreateAppOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateAppOptions : Instantiate CreateAppOptions
 func (*CodeEngineV2) NewCreateAppOptions(projectID string, imageReference string, name string) *CreateAppOptions {
 	return &CreateAppOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:      core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
-		Name: core.StringPtr(name),
+		Name:           core.StringPtr(name),
 	}
 }
 
@@ -5393,9 +5393,9 @@ type CreateBindingOptions struct {
 // NewCreateBindingOptions : Instantiate CreateBindingOptions
 func (*CodeEngineV2) NewCreateBindingOptions(projectID string, component *ComponentRef, prefix string, secretName string) *CreateBindingOptions {
 	return &CreateBindingOptions{
-		ProjectID: core.StringPtr(projectID),
-		Component: component,
-		Prefix: core.StringPtr(prefix),
+		ProjectID:  core.StringPtr(projectID),
+		Component:  component,
+		Prefix:     core.StringPtr(prefix),
 		SecretName: core.StringPtr(secretName),
 	}
 }
@@ -5497,16 +5497,16 @@ type CreateBuildOptions struct {
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	CreateBuildOptions_SourceType_Git = "git"
+	CreateBuildOptions_SourceType_Git   = "git"
 	CreateBuildOptions_SourceType_Local = "local"
 )
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
 func (*CodeEngineV2) NewCreateBuildOptions(projectID string, name string, outputImage string, outputSecret string, strategyType string) *CreateBuildOptions {
 	return &CreateBuildOptions{
-		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		OutputImage: core.StringPtr(outputImage),
+		ProjectID:    core.StringPtr(projectID),
+		Name:         core.StringPtr(name),
+		OutputImage:  core.StringPtr(outputImage),
 		OutputSecret: core.StringPtr(outputSecret),
 		StrategyType: core.StringPtr(strategyType),
 	}
@@ -5666,9 +5666,9 @@ type CreateBuildRunOptions struct {
 const (
 	CreateBuildRunOptions_ServiceAccount_Default = "default"
 	CreateBuildRunOptions_ServiceAccount_Manager = "manager"
-	CreateBuildRunOptions_ServiceAccount_None = "none"
-	CreateBuildRunOptions_ServiceAccount_Reader = "reader"
-	CreateBuildRunOptions_ServiceAccount_Writer = "writer"
+	CreateBuildRunOptions_ServiceAccount_None    = "none"
+	CreateBuildRunOptions_ServiceAccount_Reader  = "reader"
+	CreateBuildRunOptions_ServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the CreateBuildRunOptions.SourceType property.
@@ -5676,7 +5676,7 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	CreateBuildRunOptions_SourceType_Git = "git"
+	CreateBuildRunOptions_SourceType_Git   = "git"
 	CreateBuildRunOptions_SourceType_Local = "local"
 )
 
@@ -5804,7 +5804,7 @@ type CreateConfigMapOptions struct {
 func (*CodeEngineV2) NewCreateConfigMapOptions(projectID string, name string) *CreateConfigMapOptions {
 	return &CreateConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -5917,7 +5917,7 @@ type CreateJobOptions struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobOptions_RunMode_Daemon = "daemon"
-	CreateJobOptions_RunMode_Task = "task"
+	CreateJobOptions_RunMode_Task   = "task"
 )
 
 // Constants associated with the CreateJobOptions.RunServiceAccount property.
@@ -5926,17 +5926,17 @@ const (
 const (
 	CreateJobOptions_RunServiceAccount_Default = "default"
 	CreateJobOptions_RunServiceAccount_Manager = "manager"
-	CreateJobOptions_RunServiceAccount_None = "none"
-	CreateJobOptions_RunServiceAccount_Reader = "reader"
-	CreateJobOptions_RunServiceAccount_Writer = "writer"
+	CreateJobOptions_RunServiceAccount_None    = "none"
+	CreateJobOptions_RunServiceAccount_Reader  = "reader"
+	CreateJobOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateJobOptions : Instantiate CreateJobOptions
 func (*CodeEngineV2) NewCreateJobOptions(projectID string, imageReference string, name string) *CreateJobOptions {
 	return &CreateJobOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:      core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
-		Name: core.StringPtr(name),
+		Name:           core.StringPtr(name),
 	}
 }
 
@@ -6137,7 +6137,7 @@ type CreateJobRunOptions struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobRunOptions_RunMode_Daemon = "daemon"
-	CreateJobRunOptions_RunMode_Task = "task"
+	CreateJobRunOptions_RunMode_Task   = "task"
 )
 
 // Constants associated with the CreateJobRunOptions.RunServiceAccount property.
@@ -6146,9 +6146,9 @@ const (
 const (
 	CreateJobRunOptions_RunServiceAccount_Default = "default"
 	CreateJobRunOptions_RunServiceAccount_Manager = "manager"
-	CreateJobRunOptions_RunServiceAccount_None = "none"
-	CreateJobRunOptions_RunServiceAccount_Reader = "reader"
-	CreateJobRunOptions_RunServiceAccount_Writer = "writer"
+	CreateJobRunOptions_RunServiceAccount_None    = "none"
+	CreateJobRunOptions_RunServiceAccount_Reader  = "reader"
+	CreateJobRunOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateJobRunOptions : Instantiate CreateJobRunOptions
@@ -6347,21 +6347,21 @@ type CreateSecretOptions struct {
 // Constants associated with the CreateSecretOptions.Format property.
 // Specify the format of the secret.
 const (
-	CreateSecretOptions_Format_BasicAuth = "basic_auth"
-	CreateSecretOptions_Format_Generic = "generic"
-	CreateSecretOptions_Format_Other = "other"
-	CreateSecretOptions_Format_Registry = "registry"
+	CreateSecretOptions_Format_BasicAuth     = "basic_auth"
+	CreateSecretOptions_Format_Generic       = "generic"
+	CreateSecretOptions_Format_Other         = "other"
+	CreateSecretOptions_Format_Registry      = "registry"
 	CreateSecretOptions_Format_ServiceAccess = "service_access"
-	CreateSecretOptions_Format_SshAuth = "ssh_auth"
-	CreateSecretOptions_Format_Tls = "tls"
+	CreateSecretOptions_Format_SshAuth       = "ssh_auth"
+	CreateSecretOptions_Format_Tls           = "tls"
 )
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
 func (*CodeEngineV2) NewCreateSecretOptions(projectID string, format string, name string) *CreateSecretOptions {
 	return &CreateSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Format: core.StringPtr(format),
-		Name: core.StringPtr(name),
+		Format:    core.StringPtr(format),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6417,7 +6417,7 @@ type DeleteAppOptions struct {
 func (*CodeEngineV2) NewDeleteAppOptions(projectID string, name string) *DeleteAppOptions {
 	return &DeleteAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6458,8 +6458,8 @@ type DeleteAppRevisionOptions struct {
 func (*CodeEngineV2) NewDeleteAppRevisionOptions(projectID string, appName string, name string) *DeleteAppRevisionOptions {
 	return &DeleteAppRevisionOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
-		Name: core.StringPtr(name),
+		AppName:   core.StringPtr(appName),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6503,7 +6503,7 @@ type DeleteBindingOptions struct {
 func (*CodeEngineV2) NewDeleteBindingOptions(projectID string, id string) *DeleteBindingOptions {
 	return &DeleteBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		ID: core.StringPtr(id),
+		ID:        core.StringPtr(id),
 	}
 }
 
@@ -6541,7 +6541,7 @@ type DeleteBuildOptions struct {
 func (*CodeEngineV2) NewDeleteBuildOptions(projectID string, name string) *DeleteBuildOptions {
 	return &DeleteBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6579,7 +6579,7 @@ type DeleteBuildRunOptions struct {
 func (*CodeEngineV2) NewDeleteBuildRunOptions(projectID string, name string) *DeleteBuildRunOptions {
 	return &DeleteBuildRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6617,7 +6617,7 @@ type DeleteConfigMapOptions struct {
 func (*CodeEngineV2) NewDeleteConfigMapOptions(projectID string, name string) *DeleteConfigMapOptions {
 	return &DeleteConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6655,7 +6655,7 @@ type DeleteJobOptions struct {
 func (*CodeEngineV2) NewDeleteJobOptions(projectID string, name string) *DeleteJobOptions {
 	return &DeleteJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6693,7 +6693,7 @@ type DeleteJobRunOptions struct {
 func (*CodeEngineV2) NewDeleteJobRunOptions(projectID string, name string) *DeleteJobRunOptions {
 	return &DeleteJobRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6759,7 +6759,7 @@ type DeleteSecretOptions struct {
 func (*CodeEngineV2) NewDeleteSecretOptions(projectID string, name string) *DeleteSecretOptions {
 	return &DeleteSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6806,10 +6806,10 @@ type EnvVar struct {
 // Specify the type of the environment variable.
 const (
 	EnvVar_Type_ConfigMapFullReference = "config_map_full_reference"
-	EnvVar_Type_ConfigMapKeyReference = "config_map_key_reference"
-	EnvVar_Type_Literal = "literal"
-	EnvVar_Type_SecretFullReference = "secret_full_reference"
-	EnvVar_Type_SecretKeyReference = "secret_key_reference"
+	EnvVar_Type_ConfigMapKeyReference  = "config_map_key_reference"
+	EnvVar_Type_Literal                = "literal"
+	EnvVar_Type_SecretFullReference    = "secret_full_reference"
+	EnvVar_Type_SecretKeyReference     = "secret_key_reference"
 )
 
 // UnmarshalEnvVar unmarshals an instance of EnvVar from the specified map of raw messages.
@@ -6868,10 +6868,10 @@ type EnvVarPrototype struct {
 // Specify the type of the environment variable.
 const (
 	EnvVarPrototype_Type_ConfigMapFullReference = "config_map_full_reference"
-	EnvVarPrototype_Type_ConfigMapKeyReference = "config_map_key_reference"
-	EnvVarPrototype_Type_Literal = "literal"
-	EnvVarPrototype_Type_SecretFullReference = "secret_full_reference"
-	EnvVarPrototype_Type_SecretKeyReference = "secret_key_reference"
+	EnvVarPrototype_Type_ConfigMapKeyReference  = "config_map_key_reference"
+	EnvVarPrototype_Type_Literal                = "literal"
+	EnvVarPrototype_Type_SecretFullReference    = "secret_full_reference"
+	EnvVarPrototype_Type_SecretKeyReference     = "secret_key_reference"
 )
 
 // UnmarshalEnvVarPrototype unmarshals an instance of EnvVarPrototype from the specified map of raw messages.
@@ -6921,7 +6921,7 @@ type GetAppOptions struct {
 func (*CodeEngineV2) NewGetAppOptions(projectID string, name string) *GetAppOptions {
 	return &GetAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -6962,8 +6962,8 @@ type GetAppRevisionOptions struct {
 func (*CodeEngineV2) NewGetAppRevisionOptions(projectID string, appName string, name string) *GetAppRevisionOptions {
 	return &GetAppRevisionOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
-		Name: core.StringPtr(name),
+		AppName:   core.StringPtr(appName),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7007,7 +7007,7 @@ type GetBindingOptions struct {
 func (*CodeEngineV2) NewGetBindingOptions(projectID string, id string) *GetBindingOptions {
 	return &GetBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		ID: core.StringPtr(id),
+		ID:        core.StringPtr(id),
 	}
 }
 
@@ -7045,7 +7045,7 @@ type GetBuildOptions struct {
 func (*CodeEngineV2) NewGetBuildOptions(projectID string, name string) *GetBuildOptions {
 	return &GetBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7083,7 +7083,7 @@ type GetBuildRunOptions struct {
 func (*CodeEngineV2) NewGetBuildRunOptions(projectID string, name string) *GetBuildRunOptions {
 	return &GetBuildRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7121,7 +7121,7 @@ type GetConfigMapOptions struct {
 func (*CodeEngineV2) NewGetConfigMapOptions(projectID string, name string) *GetConfigMapOptions {
 	return &GetConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7159,7 +7159,7 @@ type GetJobOptions struct {
 func (*CodeEngineV2) NewGetJobOptions(projectID string, name string) *GetJobOptions {
 	return &GetJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7197,7 +7197,7 @@ type GetJobRunOptions struct {
 func (*CodeEngineV2) NewGetJobRunOptions(projectID string, name string) *GetJobRunOptions {
 	return &GetJobRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7291,7 +7291,7 @@ type GetSecretOptions struct {
 func (*CodeEngineV2) NewGetSecretOptions(projectID string, name string) *GetSecretOptions {
 	return &GetSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -7416,7 +7416,7 @@ const (
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	Job_RunMode_Daemon = "daemon"
-	Job_RunMode_Task = "task"
+	Job_RunMode_Task   = "task"
 )
 
 // Constants associated with the Job.RunServiceAccount property.
@@ -7425,9 +7425,9 @@ const (
 const (
 	Job_RunServiceAccount_Default = "default"
 	Job_RunServiceAccount_Manager = "manager"
-	Job_RunServiceAccount_None = "none"
-	Job_RunServiceAccount_Reader = "reader"
-	Job_RunServiceAccount_Writer = "writer"
+	Job_RunServiceAccount_None    = "none"
+	Job_RunServiceAccount_Reader  = "reader"
+	Job_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalJob unmarshals an instance of Job from the specified map of raw messages.
@@ -7648,7 +7648,7 @@ type JobPatch struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobPatch_RunMode_Daemon = "daemon"
-	JobPatch_RunMode_Task = "task"
+	JobPatch_RunMode_Task   = "task"
 )
 
 // Constants associated with the JobPatch.RunServiceAccount property.
@@ -7657,9 +7657,9 @@ const (
 const (
 	JobPatch_RunServiceAccount_Default = "default"
 	JobPatch_RunServiceAccount_Manager = "manager"
-	JobPatch_RunServiceAccount_None = "none"
-	JobPatch_RunServiceAccount_Reader = "reader"
-	JobPatch_RunServiceAccount_Writer = "writer"
+	JobPatch_RunServiceAccount_None    = "none"
+	JobPatch_RunServiceAccount_Reader  = "reader"
+	JobPatch_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalJobPatch unmarshals an instance of JobPatch from the specified map of raw messages.
@@ -7849,7 +7849,7 @@ const (
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobRun_RunMode_Daemon = "daemon"
-	JobRun_RunMode_Task = "task"
+	JobRun_RunMode_Task   = "task"
 )
 
 // Constants associated with the JobRun.RunServiceAccount property.
@@ -7858,17 +7858,17 @@ const (
 const (
 	JobRun_RunServiceAccount_Default = "default"
 	JobRun_RunServiceAccount_Manager = "manager"
-	JobRun_RunServiceAccount_None = "none"
-	JobRun_RunServiceAccount_Reader = "reader"
-	JobRun_RunServiceAccount_Writer = "writer"
+	JobRun_RunServiceAccount_None    = "none"
+	JobRun_RunServiceAccount_Reader  = "reader"
+	JobRun_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the JobRun.Status property.
 // The current status of the job run.
 const (
 	JobRun_Status_Completed = "completed"
-	JobRun_Status_Pending = "pending"
-	JobRun_Status_Running = "running"
+	JobRun_Status_Pending   = "pending"
+	JobRun_Status_Running   = "running"
 )
 
 // UnmarshalJobRun unmarshals an instance of JobRun from the specified map of raw messages.
@@ -8110,7 +8110,7 @@ type ListAppRevisionsOptions struct {
 func (*CodeEngineV2) NewListAppRevisionsOptions(projectID string, appName string) *ListAppRevisionsOptions {
 	return &ListAppRevisionsOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
+		AppName:   core.StringPtr(appName),
 	}
 }
 
@@ -8667,18 +8667,18 @@ const (
 // The current state of the project. For example, if the project is created and ready to get used, it will return
 // active.
 const (
-	Project_Status_Active = "active"
-	Project_Status_Creating = "creating"
-	Project_Status_CreationFailed = "creation_failed"
-	Project_Status_Deleting = "deleting"
-	Project_Status_DeletionFailed = "deletion_failed"
-	Project_Status_HardDeleted = "hard_deleted"
-	Project_Status_HardDeleting = "hard_deleting"
+	Project_Status_Active             = "active"
+	Project_Status_Creating           = "creating"
+	Project_Status_CreationFailed     = "creation_failed"
+	Project_Status_Deleting           = "deleting"
+	Project_Status_DeletionFailed     = "deletion_failed"
+	Project_Status_HardDeleted        = "hard_deleted"
+	Project_Status_HardDeleting       = "hard_deleting"
 	Project_Status_HardDeletionFailed = "hard_deletion_failed"
-	Project_Status_Inactive = "inactive"
-	Project_Status_PendingRemoval = "pending_removal"
-	Project_Status_Preparing = "preparing"
-	Project_Status_SoftDeleted = "soft_deleted"
+	Project_Status_Inactive           = "inactive"
+	Project_Status_PendingRemoval     = "pending_removal"
+	Project_Status_Preparing          = "preparing"
+	Project_Status_SoftDeleted        = "soft_deleted"
 )
 
 // UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
@@ -8824,8 +8824,8 @@ type ReplaceConfigMapOptions struct {
 func (*CodeEngineV2) NewReplaceConfigMapOptions(projectID string, name string, ifMatch string) *ReplaceConfigMapOptions {
 	return &ReplaceConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -8887,21 +8887,21 @@ type ReplaceSecretOptions struct {
 // Constants associated with the ReplaceSecretOptions.Format property.
 // Specify the format of the secret.
 const (
-	ReplaceSecretOptions_Format_BasicAuth = "basic_auth"
-	ReplaceSecretOptions_Format_Generic = "generic"
-	ReplaceSecretOptions_Format_Other = "other"
-	ReplaceSecretOptions_Format_Registry = "registry"
+	ReplaceSecretOptions_Format_BasicAuth     = "basic_auth"
+	ReplaceSecretOptions_Format_Generic       = "generic"
+	ReplaceSecretOptions_Format_Other         = "other"
+	ReplaceSecretOptions_Format_Registry      = "registry"
 	ReplaceSecretOptions_Format_ServiceAccess = "service_access"
-	ReplaceSecretOptions_Format_SshAuth = "ssh_auth"
-	ReplaceSecretOptions_Format_Tls = "tls"
+	ReplaceSecretOptions_Format_SshAuth       = "ssh_auth"
+	ReplaceSecretOptions_Format_Tls           = "tls"
 )
 
 // NewReplaceSecretOptions : Instantiate ReplaceSecretOptions
 func (*CodeEngineV2) NewReplaceSecretOptions(projectID string, name string, ifMatch string) *ReplaceSecretOptions {
 	return &ReplaceSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -9061,13 +9061,13 @@ type Secret struct {
 // Constants associated with the Secret.Format property.
 // Specify the format of the secret.
 const (
-	Secret_Format_BasicAuth = "basic_auth"
-	Secret_Format_Generic = "generic"
-	Secret_Format_Other = "other"
-	Secret_Format_Registry = "registry"
+	Secret_Format_BasicAuth     = "basic_auth"
+	Secret_Format_Generic       = "generic"
+	Secret_Format_Other         = "other"
+	Secret_Format_Registry      = "registry"
 	Secret_Format_ServiceAccess = "service_access"
-	Secret_Format_SshAuth = "ssh_auth"
-	Secret_Format_Tls = "tls"
+	Secret_Format_SshAuth       = "ssh_auth"
+	Secret_Format_Tls           = "tls"
 )
 
 // UnmarshalSecret unmarshals an instance of Secret from the specified map of raw messages.
@@ -9154,6 +9154,7 @@ type SecretData struct {
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]*string
 }
+
 func (*SecretData) isaSecretData() bool {
 	return true
 }
@@ -9386,7 +9387,7 @@ type ServiceAccessSecretPrototypeProps struct {
 // NewServiceAccessSecretPrototypeProps : Instantiate ServiceAccessSecretPrototypeProps (Generic Model Constructor)
 func (*CodeEngineV2) NewServiceAccessSecretPrototypeProps(resourceKey *ResourceKeyRefPrototype, serviceInstance *ServiceInstanceRefPrototype) (_model *ServiceAccessSecretPrototypeProps, err error) {
 	_model = &ServiceAccessSecretPrototypeProps{
-		ResourceKey: resourceKey,
+		ResourceKey:     resourceKey,
 		ServiceInstance: serviceInstance,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -9481,9 +9482,9 @@ type UpdateAppOptions struct {
 func (*CodeEngineV2) NewUpdateAppOptions(projectID string, name string, ifMatch string, app map[string]interface{}) *UpdateAppOptions {
 	return &UpdateAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		App: app,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		App:       app,
 	}
 }
 
@@ -9541,9 +9542,9 @@ type UpdateBuildOptions struct {
 func (*CodeEngineV2) NewUpdateBuildOptions(projectID string, name string, ifMatch string, build map[string]interface{}) *UpdateBuildOptions {
 	return &UpdateBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Build: build,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Build:     build,
 	}
 }
 
@@ -9601,9 +9602,9 @@ type UpdateJobOptions struct {
 func (*CodeEngineV2) NewUpdateJobOptions(projectID string, name string, ifMatch string, job map[string]interface{}) *UpdateJobOptions {
 	return &UpdateJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Job: job,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Job:       job,
 	}
 }
 
@@ -9656,7 +9657,7 @@ type VolumeMount struct {
 // Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
 const (
 	VolumeMount_Type_ConfigMap = "config_map"
-	VolumeMount_Type_Secret = "secret"
+	VolumeMount_Type_Secret    = "secret"
 )
 
 // UnmarshalVolumeMount unmarshals an instance of VolumeMount from the specified map of raw messages.
@@ -9702,7 +9703,7 @@ type VolumeMountPrototype struct {
 // Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
 const (
 	VolumeMountPrototype_Type_ConfigMap = "config_map"
-	VolumeMountPrototype_Type_Secret = "secret"
+	VolumeMountPrototype_Type_Secret    = "secret"
 )
 
 // NewVolumeMountPrototype : Instantiate VolumeMountPrototype (Generic Model Constructor)
@@ -9710,7 +9711,7 @@ func (*CodeEngineV2) NewVolumeMountPrototype(mountPath string, reference string,
 	_model = &VolumeMountPrototype{
 		MountPath: core.StringPtr(mountPath),
 		Reference: core.StringPtr(reference),
-		Type: core.StringPtr(typeVar),
+		Type:      core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -9928,8 +9929,8 @@ func (*CodeEngineV2) NewSecretDataRegistrySecretData(username string, password s
 	_model = &SecretDataRegistrySecretData{
 		Username: core.StringPtr(username),
 		Password: core.StringPtr(password),
-		Server: core.StringPtr(server),
-		Email: core.StringPtr(email),
+		Server:   core.StringPtr(server),
+		Email:    core.StringPtr(email),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -10138,7 +10139,7 @@ type SecretDataTLSSecretData struct {
 func (*CodeEngineV2) NewSecretDataTLSSecretData(tlsCert string, tlsKey string) (_model *SecretDataTLSSecretData, err error) {
 	_model = &SecretDataTLSSecretData{
 		TlsCert: core.StringPtr(tlsCert),
-		TlsKey: core.StringPtr(tlsKey),
+		TlsKey:  core.StringPtr(tlsKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -10218,13 +10219,11 @@ func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result inter
 	return
 }
 
-//
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
-//
 type ProjectsPager struct {
-	hasNext bool
-	options *ListProjectsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListProjectsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10299,13 +10298,11 @@ func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // AppsPager can be used to simplify the use of the "ListApps" method.
-//
 type AppsPager struct {
-	hasNext bool
-	options *ListAppsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListAppsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10380,13 +10377,11 @@ func (pager *AppsPager) GetAll() (allItems []App, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // AppRevisionsPager can be used to simplify the use of the "ListAppRevisions" method.
-//
 type AppRevisionsPager struct {
-	hasNext bool
-	options *ListAppRevisionsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListAppRevisionsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10461,13 +10456,11 @@ func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // JobsPager can be used to simplify the use of the "ListJobs" method.
-//
 type JobsPager struct {
-	hasNext bool
-	options *ListJobsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListJobsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10542,13 +10535,11 @@ func (pager *JobsPager) GetAll() (allItems []Job, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // JobRunsPager can be used to simplify the use of the "ListJobRuns" method.
-//
 type JobRunsPager struct {
-	hasNext bool
-	options *ListJobRunsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListJobRunsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10623,13 +10614,11 @@ func (pager *JobRunsPager) GetAll() (allItems []JobRun, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // BuildsPager can be used to simplify the use of the "ListBuilds" method.
-//
 type BuildsPager struct {
-	hasNext bool
-	options *ListBuildsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListBuildsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10704,13 +10693,11 @@ func (pager *BuildsPager) GetAll() (allItems []Build, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // BuildRunsPager can be used to simplify the use of the "ListBuildRuns" method.
-//
 type BuildRunsPager struct {
-	hasNext bool
-	options *ListBuildRunsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListBuildRunsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10785,13 +10772,11 @@ func (pager *BuildRunsPager) GetAll() (allItems []BuildRun, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ConfigMapsPager can be used to simplify the use of the "ListConfigMaps" method.
-//
 type ConfigMapsPager struct {
-	hasNext bool
-	options *ListConfigMapsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListConfigMapsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10866,13 +10851,11 @@ func (pager *ConfigMapsPager) GetAll() (allItems []ConfigMap, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // SecretsPager can be used to simplify the use of the "ListSecrets" method.
-//
 type SecretsPager struct {
-	hasNext bool
-	options *ListSecretsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListSecretsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -10947,13 +10930,11 @@ func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // BindingsPager can be used to simplify the use of the "ListBindings" method.
-//
 type BindingsPager struct {
-	hasNext bool
-	options *ListBindingsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListBindingsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
