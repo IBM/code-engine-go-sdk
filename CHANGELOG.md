@@ -1,10 +1,3 @@
-# [3.2.0](https://github.ibm.com/coligo/go-sdk/compare/v3.1.0...v3.2.0) (2023-06-05)
-
-
-### Features
-
-* **api:** SDK update 20230605-120554 ([#38](https://github.ibm.com/coligo/go-sdk/issues/38)) ([a231e21](https://github.ibm.com/coligo/go-sdk/commit/a231e21ee040479743b31c99e4e0dfd0fde5e17c))
-
 # [3.1.0](https://github.ibm.com/coligo/go-sdk/compare/v3.0.0...v3.1.0) (2023-03-24)
 
 
