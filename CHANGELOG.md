@@ -1,3 +1,21 @@
+# [4.0.0](https://github.ibm.com/coligo/go-sdk/compare/v3.1.0...v4.0.0) (2023-06-06)
+
+
+### Features
+
+* **api:** Added support for service bindings and service access secret ([#40](https://github.ibm.com/coligo/go-sdk/issues/40)) ([438d269](https://github.ibm.com/coligo/go-sdk/commit/438d2694c95b60dd9797865bb22c4bd8a186531f))
+* **api:** SDK update 20230605-120554 ([#38](https://github.ibm.com/coligo/go-sdk/issues/38)) ([a231e21](https://github.ibm.com/coligo/go-sdk/commit/a231e21ee040479743b31c99e4e0dfd0fde5e17c))
+
+
+### Reverts
+
+* Revert "sdk-update-20230605-120554" (#39) ([c689cb7](https://github.ibm.com/coligo/go-sdk/commit/c689cb731e74f0a31a4f5d728c4ee94154d84cf7)), closes [#39](https://github.ibm.com/coligo/go-sdk/issues/39) [#38](https://github.ibm.com/coligo/go-sdk/issues/38)
+
+
+### BREAKING CHANGES
+
+* **api:** Removed SoureURL from required fields for build create operations
+
 # [3.1.0](https://github.ibm.com/coligo/go-sdk/compare/v3.0.0...v3.1.0) (2023-03-24)
 
 
