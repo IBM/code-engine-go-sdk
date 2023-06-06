@@ -1,3 +1,10 @@
+# [4.1.0](https://github.ibm.com/coligo/go-sdk/compare/v4.0.0...v4.1.0) (2023-06-06)
+
+
+### Features
+
+* **api:** SDK update 20230606-124943 ([#43](https://github.ibm.com/coligo/go-sdk/issues/43)) ([053101d](https://github.ibm.com/coligo/go-sdk/commit/053101d233398d4082f720d9993aeeafa9323e17))
+
 # [4.0.0](https://github.ibm.com/coligo/go-sdk/compare/v3.1.0...v4.0.0) (2023-06-06)
 
 
