@@ -17,7 +17,7 @@ Go client library to interact with the [Code Engine API](https://cloud.ibm.com/a
 
 <!-- toc -->
 
-- [IBM Cloud Code Engine Go SDK 4.1.1](#ibm-cloud-code-engine-go-sdk-310)
+- [IBM Cloud Code Engine Go SDK 4.1.1](#ibm-cloud-code-engine-go-sdk-411)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
