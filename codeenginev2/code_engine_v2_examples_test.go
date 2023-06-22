@@ -188,6 +188,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(projectEgressIpAddresses).ToNot(BeNil())
 		})
+		It(`GetProjectStatusDetails request example`, func() {
+			fmt.Println("\nGetProjectStatusDetails() result:")
+			// begin-get_project_status_details
+
+			getProjectStatusDetailsOptions := codeEngineService.NewGetProjectStatusDetailsOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+			)
+
+			projectStatusDetails, response, err := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(projectStatusDetails, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_project_status_details
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(projectStatusDetails).ToNot(BeNil())
+		})
 		It(`ListApps request example`, func() {
 			fmt.Println("\nListApps() result:")
 			// begin-list_apps
@@ -501,6 +522,82 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(jobRun).ToNot(BeNil())
+		})
+		It(`ListBindings request example`, func() {
+			fmt.Println("\nListBindings() result:")
+			// begin-list_bindings
+			listBindingsOptions := &codeenginev2.ListBindingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.Binding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_bindings
+		})
+		It(`CreateBinding request example`, func() {
+			fmt.Println("\nCreateBinding() result:")
+			// begin-create_binding
+
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name:         core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			createBindingOptions := codeEngineService.NewCreateBindingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				componentRefModel,
+				"MY_COS",
+				"my-service-access",
+			)
+
+			binding, response, err := codeEngineService.CreateBinding(createBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(binding, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_binding
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(binding).ToNot(BeNil())
+		})
+		It(`GetBinding request example`, func() {
+			fmt.Println("\nGetBinding() result:")
+			// begin-get_binding
+
+			getBindingOptions := codeEngineService.NewGetBindingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"a172ced-b5f21bc-71ba50c-1638604",
+			)
+
+			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(binding, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_binding
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(binding).ToNot(BeNil())
 		})
 		It(`ListBuilds request example`, func() {
 			fmt.Println("\nListBuilds() result:")
@@ -841,6 +938,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"my-secret",
 				"testString",
+				"generic",
 			)
 
 			secret, response, err := codeEngineService.ReplaceSecret(replaceSecretOptions)
@@ -855,79 +953,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
-		})
-		It(`ListBindings request example`, func() {
-			fmt.Println("\nListBindings() result:")
-			// begin-list_bindings
-			listBindingsOptions := &codeenginev2.ListBindingsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
-			}
-
-			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []codeenginev2.Binding
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_bindings
-		})
-		It(`CreateBinding request example`, func() {
-			fmt.Println("\nCreateBinding() result:")
-			// begin-create_binding
-
-			componentRefModel := &codeenginev2.ComponentRef{}
-
-			createBindingOptions := codeEngineService.NewCreateBindingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				componentRefModel,
-				"MY_COS",
-				"my-service-access",
-			)
-
-			binding, response, err := codeEngineService.CreateBinding(createBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(binding, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_binding
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(binding).ToNot(BeNil())
-		})
-		It(`GetBinding request example`, func() {
-			fmt.Println("\nGetBinding() result:")
-			// begin-get_binding
-
-			getBindingOptions := codeEngineService.NewGetBindingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"a172ced-b5f21bc-71ba50c-1638604",
-			)
-
-			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(binding, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_binding
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(binding).ToNot(BeNil())
 		})
 		It(`DeleteProject request example`, func() {
 			// begin-delete_project
@@ -1034,6 +1059,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
+		It(`DeleteBinding request example`, func() {
+			// begin-delete_binding
+
+			deleteBindingOptions := codeEngineService.NewDeleteBindingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"a172ced-b5f21bc-71ba50c-1638604",
+			)
+
+			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteBinding(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_binding
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
 		It(`DeleteBuild request example`, func() {
 			// begin-delete_build
 
@@ -1114,27 +1160,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_secret
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-		It(`DeleteBinding request example`, func() {
-			// begin-delete_binding
-
-			deleteBindingOptions := codeEngineService.NewDeleteBindingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"a172ced-b5f21bc-71ba50c-1638604",
-			)
-
-			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 202 {
-				fmt.Printf("\nUnexpected response status code received from DeleteBinding(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_binding
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
+ * IBM OpenAPI SDK Code Generator Version: 3.72.2-2bede9d2-20230601-202845
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -452,6 +452,66 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectEgressIPAddresses)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetProjectStatusDetails : Get the status details for a project
+// Retrieves status details about the given project.
+func (codeEngine *CodeEngineV2) GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
+	return codeEngine.GetProjectStatusDetailsWithContext(context.Background(), getProjectStatusDetailsOptions)
+}
+
+// GetProjectStatusDetailsWithContext is an alternate form of the GetProjectStatusDetails method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.Context, getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getProjectStatusDetailsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/status_details`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getProjectStatusDetailsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetProjectStatusDetails")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectStatusDetails)
 		if err != nil {
 			return
 		}
@@ -1666,6 +1726,260 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 	}
 
 	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJobRun")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// ListBindings : List bindings
+// List all bindings in a project.
+func (codeEngine *CodeEngineV2) ListBindings(listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListBindingsWithContext(context.Background(), listBindingsOptions)
+}
+
+// ListBindingsWithContext is an alternate form of the ListBindings method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listBindingsOptions, "listBindingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listBindingsOptions, "listBindingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listBindingsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listBindingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListBindings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listBindingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listBindingsOptions.Limit))
+	}
+	if listBindingsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listBindingsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBindingList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateBinding : Create a binding
+// Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision. For
+// more information see the [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+func (codeEngine *CodeEngineV2) CreateBinding(createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
+}
+
+// CreateBindingWithContext is an alternate form of the CreateBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createBindingOptions, "createBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createBindingOptions, "createBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createBindingOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createBindingOptions.Component != nil {
+		body["component"] = createBindingOptions.Component
+	}
+	if createBindingOptions.Prefix != nil {
+		body["prefix"] = createBindingOptions.Prefix
+	}
+	if createBindingOptions.SecretName != nil {
+		body["secret_name"] = createBindingOptions.SecretName
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetBinding : Get a binding
+// Display the details of a binding.
+func (codeEngine *CodeEngineV2) GetBinding(getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	return codeEngine.GetBindingWithContext(context.Background(), getBindingOptions)
+}
+
+// GetBindingWithContext is an alternate form of the GetBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getBindingOptions, "getBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getBindingOptions, "getBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getBindingOptions.ProjectID,
+		"id":         *getBindingOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteBinding : Delete a binding
+// Delete a binding.
+func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
+}
+
+// DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBindingOptions.ProjectID,
+		"id":         *deleteBindingOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBinding")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2895,11 +3209,11 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	}
 
 	body := make(map[string]interface{})
-	if replaceSecretOptions.Data != nil {
-		body["data"] = replaceSecretOptions.Data
-	}
 	if replaceSecretOptions.Format != nil {
 		body["format"] = replaceSecretOptions.Format
+	}
+	if replaceSecretOptions.Data != nil {
+		body["data"] = replaceSecretOptions.Data
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2962,262 +3276,6 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	}
 
 	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteSecret")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-
-	return
-}
-
-// ListBindings : List bindings
-// List all bindings in a project.
-func (codeEngine *CodeEngineV2) ListBindings(listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListBindingsWithContext(context.Background(), listBindingsOptions)
-}
-
-// ListBindingsWithContext is an alternate form of the ListBindings method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listBindingsOptions, "listBindingsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(listBindingsOptions, "listBindingsOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *listBindingsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listBindingsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListBindings")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listBindingsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listBindingsOptions.Limit))
-	}
-	if listBindingsOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listBindingsOptions.Start))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBindingList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// CreateBinding : Create a binding
-// Create a binding.
-func (codeEngine *CodeEngineV2) CreateBinding(createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
-}
-
-// CreateBindingWithContext is an alternate form of the CreateBinding method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createBindingOptions, "createBindingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(createBindingOptions, "createBindingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *createBindingOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range createBindingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateBinding")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if createBindingOptions.Component != nil {
-		body["component"] = createBindingOptions.Component
-	}
-	if createBindingOptions.Prefix != nil {
-		body["prefix"] = createBindingOptions.Prefix
-	}
-	if createBindingOptions.SecretName != nil {
-		body["secret_name"] = createBindingOptions.SecretName
-	}
-	if createBindingOptions.ServiceidCrn != nil {
-		body["serviceid_crn"] = createBindingOptions.ServiceidCrn
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetBinding : Get a binding
-// Display the details of a binding.
-func (codeEngine *CodeEngineV2) GetBinding(getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	return codeEngine.GetBindingWithContext(context.Background(), getBindingOptions)
-}
-
-// GetBindingWithContext is an alternate form of the GetBinding method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getBindingOptions, "getBindingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getBindingOptions, "getBindingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *getBindingOptions.ProjectID,
-		"id":         *getBindingOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getBindingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetBinding")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// DeleteBinding : Delete a binding
-// Delete a binding.
-func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
-}
-
-// DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteBindingOptions.ProjectID,
-		"id":         *deleteBindingOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteBindingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBinding")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -4966,10 +5024,20 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 // ComponentRef : A reference to another component.
 type ComponentRef struct {
 	// The name of the referenced component.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name" validate:"required"`
 
 	// The type of the referenced resource.
-	ResourceType *string `json:"resource_type,omitempty"`
+	ResourceType *string `json:"resource_type" validate:"required"`
+}
+
+// NewComponentRef : Instantiate ComponentRef (Generic Model Constructor)
+func (*CodeEngineV2) NewComponentRef(name string, resourceType string) (_model *ComponentRef, err error) {
+	_model = &ComponentRef{
+		Name:         core.StringPtr(name),
+		ResourceType: core.StringPtr(resourceType),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
 }
 
 // UnmarshalComponentRef unmarshals an instance of ComponentRef from the specified map of raw messages.
@@ -5383,9 +5451,6 @@ type CreateBindingOptions struct {
 	// The service access secret that is binding to a component.
 	SecretName *string `json:"secret_name" validate:"required"`
 
-	// OptionalService ID CRN to use if a user wants to manage thi binding with their own serviceID.
-	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -5421,12 +5486,6 @@ func (_options *CreateBindingOptions) SetPrefix(prefix string) *CreateBindingOpt
 // SetSecretName : Allow user to set SecretName
 func (_options *CreateBindingOptions) SetSecretName(secretName string) *CreateBindingOptions {
 	_options.SecretName = core.StringPtr(secretName)
-	return _options
-}
-
-// SetServiceidCrn : Allow user to set ServiceidCrn
-func (_options *CreateBindingOptions) SetServiceidCrn(serviceidCrn string) *CreateBindingOptions {
-	_options.ServiceidCrn = core.StringPtr(serviceidCrn)
 	return _options
 }
 
@@ -7275,6 +7334,34 @@ func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjec
 	return options
 }
 
+// GetProjectStatusDetailsOptions : The GetProjectStatusDetails options.
+type GetProjectStatusDetailsOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetProjectStatusDetailsOptions : Instantiate GetProjectStatusDetailsOptions
+func (*CodeEngineV2) NewGetProjectStatusDetailsOptions(projectID string) *GetProjectStatusDetailsOptions {
+	return &GetProjectStatusDetailsOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetProjectStatusDetailsOptions) SetProjectID(projectID string) *GetProjectStatusDetailsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetProjectStatusDetailsOptions) SetHeaders(param map[string]string) *GetProjectStatusDetailsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetSecretOptions : The GetSecret options.
 type GetSecretOptions struct {
 	// The ID of the project.
@@ -8798,6 +8885,44 @@ func (resp *ProjectList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// ProjectStatusDetails : Describes the model of a project status details.
+type ProjectStatusDetails struct {
+	// Status of the domain created for the project.
+	Domain *string `json:"domain" validate:"required"`
+
+	// Defines whether a project is enabled for management and consumption.
+	Project *string `json:"project" validate:"required"`
+}
+
+// Constants associated with the ProjectStatusDetails.Domain property.
+// Status of the domain created for the project.
+const (
+	ProjectStatusDetails_Domain_Ready   = "ready"
+	ProjectStatusDetails_Domain_Unknown = "unknown"
+)
+
+// Constants associated with the ProjectStatusDetails.Project property.
+// Defines whether a project is enabled for management and consumption.
+const (
+	ProjectStatusDetails_Project_Disabled = "disabled"
+	ProjectStatusDetails_Project_Enabled  = "enabled"
+)
+
+// UnmarshalProjectStatusDetails unmarshals an instance of ProjectStatusDetails from the specified map of raw messages.
+func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectStatusDetails)
+	err = core.UnmarshalPrimitive(m, "domain", &obj.Domain)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project", &obj.Project)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ReplaceConfigMapOptions : The ReplaceConfigMap options.
 type ReplaceConfigMapOptions struct {
 	// The ID of the project.
@@ -8872,13 +8997,13 @@ type ReplaceSecretOptions struct {
 	// version available. This might result in stale updates.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
+	// Specify the format of the secret.
+	Format *string `json:"format" validate:"required"`
+
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
 	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
-
-	// Specify the format of the secret.
-	Format *string `json:"format,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8897,11 +9022,12 @@ const (
 )
 
 // NewReplaceSecretOptions : Instantiate ReplaceSecretOptions
-func (*CodeEngineV2) NewReplaceSecretOptions(projectID string, name string, ifMatch string) *ReplaceSecretOptions {
+func (*CodeEngineV2) NewReplaceSecretOptions(projectID string, name string, ifMatch string, format string) *ReplaceSecretOptions {
 	return &ReplaceSecretOptions{
 		ProjectID: core.StringPtr(projectID),
 		Name:      core.StringPtr(name),
 		IfMatch:   core.StringPtr(ifMatch),
+		Format:    core.StringPtr(format),
 	}
 }
 
@@ -8923,15 +9049,15 @@ func (_options *ReplaceSecretOptions) SetIfMatch(ifMatch string) *ReplaceSecretO
 	return _options
 }
 
-// SetData : Allow user to set Data
-func (_options *ReplaceSecretOptions) SetData(data SecretDataIntf) *ReplaceSecretOptions {
-	_options.Data = data
-	return _options
-}
-
 // SetFormat : Allow user to set Format
 func (_options *ReplaceSecretOptions) SetFormat(format string) *ReplaceSecretOptions {
 	_options.Format = core.StringPtr(format)
+	return _options
+}
+
+// SetData : Allow user to set Data
+func (_options *ReplaceSecretOptions) SetData(data SecretDataIntf) *ReplaceSecretOptions {
+	_options.Data = data
 	return _options
 }
 
@@ -9339,11 +9465,11 @@ type ServiceAccessSecretProps struct {
 	// A reference to the Role and Role CRN for service binding.
 	Role *RoleRef `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential.
-	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
-
 	// The IBM Cloud service instance associated with the secret.
 	ServiceInstance *ServiceInstanceRef `json:"service_instance" validate:"required"`
+
+	// A reference to the Service ID used to the create service credential.
+	Serviceid *ServiceIDRef `json:"serviceid,omitempty"`
 }
 
 // UnmarshalServiceAccessSecretProps unmarshals an instance of ServiceAccessSecretProps from the specified map of raw messages.
@@ -9357,11 +9483,11 @@ func UnmarshalServiceAccessSecretProps(m map[string]json.RawMessage, result inte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_id_crn", &obj.ServiceIdCrn)
+	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRef)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRef)
+	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
 	if err != nil {
 		return
 	}
@@ -9377,11 +9503,11 @@ type ServiceAccessSecretPrototypeProps struct {
 	// A reference to the Role and Role CRN for service binding.
 	Role *RoleRefPrototype `json:"role,omitempty"`
 
-	// CRN of a Service ID used to create the service credential.
-	ServiceIdCrn *string `json:"service_id_crn,omitempty"`
-
 	// The IBM Cloud service instance associated with the secret.
 	ServiceInstance *ServiceInstanceRefPrototype `json:"service_instance" validate:"required"`
+
+	// A reference to the Service ID used to the create service credential.
+	Serviceid *ServiceIDRef `json:"serviceid,omitempty"`
 }
 
 // NewServiceAccessSecretPrototypeProps : Instantiate ServiceAccessSecretPrototypeProps (Generic Model Constructor)
@@ -9405,11 +9531,28 @@ func UnmarshalServiceAccessSecretPrototypeProps(m map[string]json.RawMessage, re
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_id_crn", &obj.ServiceIdCrn)
+	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRefPrototype)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRefPrototype)
+	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceIDRef : A reference to the Service ID used to the create service credential.
+type ServiceIDRef struct {
+	// CRN value of a Service ID used to create the service credential.
+	Crn *string `json:"crn,omitempty"`
+}
+
+// UnmarshalServiceIDRef unmarshals an instance of ServiceIDRef from the specified map of raw messages.
+func UnmarshalServiceIDRef(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceIDRef)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
 		return
 	}
@@ -10614,6 +10757,85 @@ func (pager *JobRunsPager) GetAll() (allItems []JobRun, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
+// BindingsPager can be used to simplify the use of the "ListBindings" method.
+type BindingsPager struct {
+	hasNext     bool
+	options     *ListBindingsOptions
+	client      *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewBindingsPager returns a new BindingsPager instance.
+func (codeEngine *CodeEngineV2) NewBindingsPager(options *ListBindingsOptions) (pager *BindingsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListBindingsOptions = *options
+	pager = &BindingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *BindingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *BindingsPager) GetNextWithContext(ctx context.Context) (page []Binding, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListBindingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Bindings
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *BindingsPager) GetAllWithContext(ctx context.Context) (allItems []Binding, err error) {
+	for pager.HasNext() {
+		var nextPage []Binding
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *BindingsPager) GetNext() (page []Binding, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *BindingsPager) GetAll() (allItems []Binding, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
 // BuildsPager can be used to simplify the use of the "ListBuilds" method.
 type BuildsPager struct {
 	hasNext     bool
@@ -10927,84 +11149,5 @@ func (pager *SecretsPager) GetNext() (page []Secret, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
-	return pager.GetAllWithContext(context.Background())
-}
-
-// BindingsPager can be used to simplify the use of the "ListBindings" method.
-type BindingsPager struct {
-	hasNext     bool
-	options     *ListBindingsOptions
-	client      *CodeEngineV2
-	pageContext struct {
-		next *string
-	}
-}
-
-// NewBindingsPager returns a new BindingsPager instance.
-func (codeEngine *CodeEngineV2) NewBindingsPager(options *ListBindingsOptions) (pager *BindingsPager, err error) {
-	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
-		return
-	}
-
-	var optionsCopy ListBindingsOptions = *options
-	pager = &BindingsPager{
-		hasNext: true,
-		options: &optionsCopy,
-		client:  codeEngine,
-	}
-	return
-}
-
-// HasNext returns true if there are potentially more results to be retrieved.
-func (pager *BindingsPager) HasNext() bool {
-	return pager.hasNext
-}
-
-// GetNextWithContext returns the next page of results using the specified Context.
-func (pager *BindingsPager) GetNextWithContext(ctx context.Context) (page []Binding, err error) {
-	if !pager.HasNext() {
-		return nil, fmt.Errorf("no more results available")
-	}
-
-	pager.options.Start = pager.pageContext.next
-
-	result, _, err := pager.client.ListBindingsWithContext(ctx, pager.options)
-	if err != nil {
-		return
-	}
-
-	var next *string
-	if result.Next != nil {
-		next = result.Next.Start
-	}
-	pager.pageContext.next = next
-	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Bindings
-
-	return
-}
-
-// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
-// until all pages of results have been retrieved.
-func (pager *BindingsPager) GetAllWithContext(ctx context.Context) (allItems []Binding, err error) {
-	for pager.HasNext() {
-		var nextPage []Binding
-		nextPage, err = pager.GetNextWithContext(ctx)
-		if err != nil {
-			return
-		}
-		allItems = append(allItems, nextPage...)
-	}
-	return
-}
-
-// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *BindingsPager) GetNext() (page []Binding, err error) {
-	return pager.GetNextWithContext(context.Background())
-}
-
-// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *BindingsPager) GetAll() (allItems []Binding, err error) {
 	return pager.GetAllWithContext(context.Background())
 }

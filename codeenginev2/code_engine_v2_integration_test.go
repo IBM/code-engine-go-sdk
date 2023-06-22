@@ -204,6 +204,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`GetProjectStatusDetails - Get the status details for a project`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
+			getProjectStatusDetailsOptions := &codeenginev2.GetProjectStatusDetailsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+			}
+
+			projectStatusDetails, response, err := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(projectStatusDetails).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListApps - List applications`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -798,6 +814,111 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListBindings - List bindings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) with pagination`, func() {
+			listBindingsOptions := &codeenginev2.ListBindingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
+			}
+
+			listBindingsOptions.Start = nil
+			listBindingsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.Binding
+			for {
+				bindingList, response, err := codeEngineService.ListBindings(listBindingsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(bindingList).ToNot(BeNil())
+				allResults = append(allResults, bindingList.Bindings...)
+
+				listBindingsOptions.Start, err = bindingList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listBindingsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) using BindingsPager`, func() {
+			listBindingsOptions := &codeenginev2.ListBindingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.Binding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewBindingsPager(listBindingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListBindings() returned a total of %d item(s) using BindingsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateBinding - Create a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name:         core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			createBindingOptions := &codeenginev2.CreateBindingOptions{
+				ProjectID:  core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Component:  componentRefModel,
+				Prefix:     core.StringPtr("MY_COS"),
+				SecretName: core.StringPtr("my-service-access"),
+			}
+
+			binding, response, err := codeEngineService.CreateBinding(createBindingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(binding).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetBinding - Get a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
+			getBindingOptions := &codeenginev2.GetBindingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
+			}
+
+			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(binding).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListBuilds - List builds`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1127,7 +1248,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			createConfigMapOptions := &codeenginev2.CreateConfigMapOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name:      core.StringPtr("my-config-map"),
-				Data:      make(map[string]string),
+				Data:      map[string]string{"key1": "testString"},
 			}
 
 			configMap, response, err := codeEngineService.CreateConfigMap(createConfigMapOptions)
@@ -1163,7 +1284,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name:      core.StringPtr("my-config-map"),
 				IfMatch:   core.StringPtr("testString"),
-				Data:      make(map[string]string),
+				Data:      map[string]string{"key1": "testString"},
 			}
 
 			configMap, response, err := codeEngineService.ReplaceConfigMap(replaceConfigMapOptions)
@@ -1260,11 +1381,15 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ID: core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b"),
 			}
 
+			serviceIdRefModel := &codeenginev2.ServiceIDRef{
+				Crn: core.StringPtr("testString"),
+			}
+
 			serviceAccessSecretPrototypePropsModel := &codeenginev2.ServiceAccessSecretPrototypeProps{
 				ResourceKey:     resourceKeyRefPrototypeModel,
 				Role:            roleRefPrototypeModel,
-				ServiceIdCrn:    core.StringPtr("testString"),
 				ServiceInstance: serviceInstanceRefPrototypeModel,
+				Serviceid:       serviceIdRefModel,
 			}
 
 			createSecretOptions := &codeenginev2.CreateSecretOptions{
@@ -1314,117 +1439,14 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name:      core.StringPtr("my-secret"),
 				IfMatch:   core.StringPtr("testString"),
-				Data:      secretDataModel,
 				Format:    core.StringPtr("generic"),
+				Data:      secretDataModel,
 			}
 
 			secret, response, err := codeEngineService.ReplaceSecret(replaceSecretOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
-		})
-	})
-
-	Describe(`ListBindings - List bindings`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListBindings(listBindingsOptions *ListBindingsOptions) with pagination`, func() {
-			listBindingsOptions := &codeenginev2.ListBindingsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
-				Start:     core.StringPtr("testString"),
-			}
-
-			listBindingsOptions.Start = nil
-			listBindingsOptions.Limit = core.Int64Ptr(1)
-
-			var allResults []codeenginev2.Binding
-			for {
-				bindingList, response, err := codeEngineService.ListBindings(listBindingsOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(bindingList).ToNot(BeNil())
-				allResults = append(allResults, bindingList.Bindings...)
-
-				listBindingsOptions.Start, err = bindingList.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if listBindingsOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`ListBindings(listBindingsOptions *ListBindingsOptions) using BindingsPager`, func() {
-			listBindingsOptions := &codeenginev2.ListBindingsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
-			}
-
-			// Test GetNext().
-			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			var allResults []codeenginev2.Binding
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = codeEngineService.NewBindingsPager(listBindingsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListBindings() returned a total of %d item(s) using BindingsPager.\n", len(allResults))
-		})
-	})
-
-	Describe(`CreateBinding - Create a binding`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
-			componentRefModel := &codeenginev2.ComponentRef{}
-
-			createBindingOptions := &codeenginev2.CreateBindingOptions{
-				ProjectID:    core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Component:    componentRefModel,
-				Prefix:       core.StringPtr("MY_COS"),
-				SecretName:   core.StringPtr("my-service-access"),
-				ServiceidCrn: core.StringPtr("testString"),
-			}
-
-			binding, response, err := codeEngineService.CreateBinding(createBindingOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(binding).ToNot(BeNil())
-		})
-	})
-
-	Describe(`GetBinding - Get a binding`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
-			getBindingOptions := &codeenginev2.GetBindingOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
-			}
-
-			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(binding).ToNot(BeNil())
 		})
 	})
 
@@ -1508,6 +1530,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DeleteBinding - Delete a binding`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
+			deleteBindingOptions := &codeenginev2.DeleteBindingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
+			}
+
+			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
 	Describe(`DeleteBuild - Delete a build`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1567,22 +1605,6 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			response, err := codeEngineService.DeleteSecret(deleteSecretOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`DeleteBinding - Delete a binding`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
-			deleteBindingOptions := &codeenginev2.DeleteBindingOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
-			}
-
-			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})

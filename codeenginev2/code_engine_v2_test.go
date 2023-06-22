@@ -1211,6 +1211,218 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) - Operation response error`, func() {
+		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusDetailsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectStatusDetails with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				getProjectStatusDetailsOptionsModel := new(codeenginev2.GetProjectStatusDetailsOptions)
+				getProjectStatusDetailsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
+		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusDetailsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain": "unknown", "project": "enabled"}`)
+				}))
+			})
+			It(`Invoke GetProjectStatusDetails successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				getProjectStatusDetailsOptionsModel := new(codeenginev2.GetProjectStatusDetailsOptions)
+				getProjectStatusDetailsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetProjectStatusDetailsWithContext(ctx, getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetProjectStatusDetailsWithContext(ctx, getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusDetailsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain": "unknown", "project": "enabled"}`)
+				}))
+			})
+			It(`Invoke GetProjectStatusDetails successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetProjectStatusDetails(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				getProjectStatusDetailsOptionsModel := new(codeenginev2.GetProjectStatusDetailsOptions)
+				getProjectStatusDetailsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectStatusDetails with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				getProjectStatusDetailsOptionsModel := new(codeenginev2.GetProjectStatusDetailsOptions)
+				getProjectStatusDetailsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectStatusDetailsOptions model with no property values
+				getProjectStatusDetailsOptionsModelNew := new(codeenginev2.GetProjectStatusDetailsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectStatusDetails successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				getProjectStatusDetailsOptionsModel := new(codeenginev2.GetProjectStatusDetailsOptions)
+				getProjectStatusDetailsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetProjectStatusDetails(getProjectStatusDetailsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions) - Operation response error`, func() {
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -5816,6 +6028,896 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions) - Operation response error`, func() {
+		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListBindings with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBindingsOptions model
+				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
+				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBindingsOptionsModel.Start = core.StringPtr("testString")
+				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions)`, func() {
+		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"bindings": [{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBindings successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListBindingsOptions model
+				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
+				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBindingsOptionsModel.Start = core.StringPtr("testString")
+				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListBindingsWithContext(ctx, listBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListBindingsWithContext(ctx, listBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"bindings": [{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListBindings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListBindings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListBindingsOptions model
+				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
+				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBindingsOptionsModel.Start = core.StringPtr("testString")
+				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListBindings with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBindingsOptions model
+				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
+				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBindingsOptionsModel.Start = core.StringPtr("testString")
+				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListBindingsOptions model with no property values
+				listBindingsOptionsModelNew := new(codeenginev2.ListBindingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListBindings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListBindingsOptions model
+				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
+				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listBindingsOptionsModel.Start = core.StringPtr("testString")
+				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.BindingList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.BindingList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use BindingsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit:     core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.Binding
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use BindingsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit:     core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions) - Operation response error`, func() {
+		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateBinding with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateBindingOptions model
+				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
+				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBindingOptionsModel.Component = componentRefModel
+				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
+				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
+				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
+		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
+				}))
+			})
+			It(`Invoke CreateBinding successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateBindingOptions model
+				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
+				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBindingOptionsModel.Component = componentRefModel
+				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
+				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
+				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateBindingWithContext(ctx, createBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateBindingWithContext(ctx, createBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
+				}))
+			})
+			It(`Invoke CreateBinding successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateBinding(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateBindingOptions model
+				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
+				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBindingOptionsModel.Component = componentRefModel
+				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
+				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
+				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateBinding with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateBindingOptions model
+				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
+				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBindingOptionsModel.Component = componentRefModel
+				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
+				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
+				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateBindingOptions model with no property values
+				createBindingOptionsModelNew := new(codeenginev2.CreateBindingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateBinding successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateBindingOptions model
+				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
+				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createBindingOptionsModel.Component = componentRefModel
+				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
+				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
+				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBinding(getBindingOptions *GetBindingOptions) - Operation response error`, func() {
+		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetBinding with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBindingOptions model
+				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
+				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
+		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
+				}))
+			})
+			It(`Invoke GetBinding successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetBindingOptions model
+				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
+				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetBindingWithContext(ctx, getBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetBindingWithContext(ctx, getBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
+				}))
+			})
+			It(`Invoke GetBinding successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetBinding(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetBindingOptions model
+				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
+				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetBinding with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBindingOptions model
+				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
+				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetBindingOptions model with no property values
+				getBindingOptionsModelNew := new(codeenginev2.GetBindingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetBinding successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetBindingOptions model
+				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
+				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
+		deleteBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteBindingPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteBinding successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteBinding(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteBindingOptions model
+				deleteBindingOptionsModel := new(codeenginev2.DeleteBindingOptions)
+				deleteBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				deleteBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteBinding(deleteBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteBinding with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteBindingOptions model
+				deleteBindingOptionsModel := new(codeenginev2.DeleteBindingOptions)
+				deleteBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
+				deleteBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteBinding(deleteBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteBindingOptions model with no property values
+				deleteBindingOptionsModelNew := new(codeenginev2.DeleteBindingOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteBinding(deleteBindingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions) - Operation response error`, func() {
 		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -8347,7 +9449,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
-				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateConfigMap(createConfigMapOptionsModel)
@@ -8416,7 +9518,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
-				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -8493,7 +9595,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
-				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8515,7 +9617,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
-				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -8558,7 +9660,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := new(codeenginev2.CreateConfigMapOptions)
 				createConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
-				createConfigMapOptionsModel.Data = make(map[string]string)
+				createConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				createConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -8821,7 +9923,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.ReplaceConfigMap(replaceConfigMapOptionsModel)
@@ -8893,7 +9995,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -8973,7 +10075,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -8996,7 +10098,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -9040,7 +10142,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.Name = core.StringPtr("my-config-map")
 				replaceConfigMapOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceConfigMapOptionsModel.Data = make(map[string]string)
+				replaceConfigMapOptionsModel.Data = map[string]string{"key1": "testString"}
 				replaceConfigMapOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -9194,7 +10296,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully with retries`, func() {
@@ -9252,7 +10354,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully`, func() {
@@ -9387,9 +10489,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_id_crn":"ServiceIdCrn","service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"}}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn"}}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_id_crn":"ServiceIdCrn","service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"}}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn"}}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -9486,12 +10588,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel := new(codeenginev2.ServiceInstanceRefPrototype)
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
@@ -9552,7 +10658,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully with retries`, func() {
@@ -9582,12 +10688,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel := new(codeenginev2.ServiceInstanceRefPrototype)
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
@@ -9651,7 +10761,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully`, func() {
@@ -9686,12 +10796,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel := new(codeenginev2.ServiceInstanceRefPrototype)
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
@@ -9735,12 +10849,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel := new(codeenginev2.ServiceInstanceRefPrototype)
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
@@ -9805,12 +10923,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel := new(codeenginev2.ServiceInstanceRefPrototype)
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
@@ -9897,7 +11019,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully with retries`, func() {
@@ -9952,7 +11074,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully`, func() {
@@ -10087,8 +11209,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.ReplaceSecret(replaceSecretOptionsModel)
@@ -10143,7 +11265,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully with retries`, func() {
@@ -10166,8 +11288,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -10225,7 +11347,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_id_crn": "ServiceIdCrn", "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully`, func() {
@@ -10253,8 +11375,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -10283,8 +11405,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -10334,8 +11456,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.Name = core.StringPtr("my-secret")
 				replaceSecretOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Format = core.StringPtr("generic")
+				replaceSecretOptionsModel.Data = secretDataModel
 				replaceSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -10421,896 +11543,18 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions) - Operation response error`, func() {
-		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListBindings with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBindingsOptions model
-				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
-				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBindingsOptionsModel.Start = core.StringPtr("testString")
-				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions)`, func() {
-		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"bindings": [{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBindings successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListBindingsOptions model
-				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
-				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBindingsOptionsModel.Start = core.StringPtr("testString")
-				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListBindingsWithContext(ctx, listBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListBindingsWithContext(ctx, listBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"bindings": [{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListBindings successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListBindings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListBindingsOptions model
-				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
-				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBindingsOptionsModel.Start = core.StringPtr("testString")
-				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListBindings with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBindingsOptions model
-				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
-				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBindingsOptionsModel.Start = core.StringPtr("testString")
-				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListBindingsOptions model with no property values
-				listBindingsOptionsModelNew := new(codeenginev2.ListBindingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListBindings(listBindingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListBindings successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListBindingsOptions model
-				listBindingsOptionsModel := new(codeenginev2.ListBindingsOptions)
-				listBindingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listBindingsOptionsModel.Start = core.StringPtr("testString")
-				listBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListBindings(listBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.BindingList)
-				nextObject := new(codeenginev2.ListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.BindingList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use BindingsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
-					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.Binding
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use BindingsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
-					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions) - Operation response error`, func() {
-		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateBinding with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-
-				// Construct an instance of the CreateBindingOptions model
-				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
-				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBindingOptionsModel.Component = componentRefModel
-				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
-				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
-				createBindingOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
-		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
-				}))
-			})
-			It(`Invoke CreateBinding successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-
-				// Construct an instance of the CreateBindingOptions model
-				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
-				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBindingOptionsModel.Component = componentRefModel
-				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
-				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
-				createBindingOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateBindingWithContext(ctx, createBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateBindingWithContext(ctx, createBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
-				}))
-			})
-			It(`Invoke CreateBinding successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-
-				// Construct an instance of the CreateBindingOptions model
-				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
-				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBindingOptionsModel.Component = componentRefModel
-				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
-				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
-				createBindingOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateBinding with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-
-				// Construct an instance of the CreateBindingOptions model
-				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
-				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBindingOptionsModel.Component = componentRefModel
-				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
-				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
-				createBindingOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateBindingOptions model with no property values
-				createBindingOptionsModelNew := new(codeenginev2.CreateBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateBinding(createBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateBinding successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-
-				// Construct an instance of the CreateBindingOptions model
-				createBindingOptionsModel := new(codeenginev2.CreateBindingOptions)
-				createBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createBindingOptionsModel.Component = componentRefModel
-				createBindingOptionsModel.Prefix = core.StringPtr("MY_COS")
-				createBindingOptionsModel.SecretName = core.StringPtr("my-service-access")
-				createBindingOptionsModel.ServiceidCrn = core.StringPtr("testString")
-				createBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateBinding(createBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBinding(getBindingOptions *GetBindingOptions) - Operation response error`, func() {
-		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetBinding with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBindingOptions model
-				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
-				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
-		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
-				}))
-			})
-			It(`Invoke GetBinding successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetBindingOptions model
-				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
-				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetBindingWithContext(ctx, getBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetBindingWithContext(ctx, getBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"component": {"name": "my-app-1", "resource_type": "app_v2"}, "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding", "id": "a172ced-b5f21bc-71ba50c-1638604", "prefix": "MY_COS", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "binding_v2", "secret_name": "my-service-access", "status": "active"}`)
-				}))
-			})
-			It(`Invoke GetBinding successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetBindingOptions model
-				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
-				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetBinding with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBindingOptions model
-				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
-				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetBindingOptions model with no property values
-				getBindingOptionsModelNew := new(codeenginev2.GetBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetBinding(getBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetBinding successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetBindingOptions model
-				getBindingOptionsModel := new(codeenginev2.GetBindingOptions)
-				getBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				getBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetBinding(getBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
-		deleteBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteBindingPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteBinding successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteBindingOptions model
-				deleteBindingOptionsModel := new(codeenginev2.DeleteBindingOptions)
-				deleteBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				deleteBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteBinding(deleteBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteBinding with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteBindingOptions model
-				deleteBindingOptionsModel := new(codeenginev2.DeleteBindingOptions)
-				deleteBindingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteBindingOptionsModel.ID = core.StringPtr("a172ced-b5f21bc-71ba50c-1638604")
-				deleteBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteBinding(deleteBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteBindingOptions model with no property values
-				deleteBindingOptionsModelNew := new(codeenginev2.DeleteBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteBinding(deleteBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			codeEngineService, _ := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 				URL:           "http://codeenginev2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewComponentRef successfully`, func() {
+				name := "my-app-1"
+				resourceType := "app_v2"
+				_model, err := codeEngineService.NewComponentRef(name, resourceType)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewCreateAppOptions successfully`, func() {
 				// Construct an instance of the EnvVarPrototype model
@@ -11398,6 +11642,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ComponentRef model
 				componentRefModel := new(codeenginev2.ComponentRef)
 				Expect(componentRefModel).ToNot(BeNil())
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+				Expect(componentRefModel.Name).To(Equal(core.StringPtr("my-app-1")))
+				Expect(componentRefModel.ResourceType).To(Equal(core.StringPtr("app_v2")))
 
 				// Construct an instance of the CreateBindingOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -11409,14 +11657,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createBindingOptionsModel.SetComponent(componentRefModel)
 				createBindingOptionsModel.SetPrefix("MY_COS")
 				createBindingOptionsModel.SetSecretName("my-service-access")
-				createBindingOptionsModel.SetServiceidCrn("testString")
 				createBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createBindingOptionsModel).ToNot(BeNil())
 				Expect(createBindingOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createBindingOptionsModel.Component).To(Equal(componentRefModel))
 				Expect(createBindingOptionsModel.Prefix).To(Equal(core.StringPtr("MY_COS")))
 				Expect(createBindingOptionsModel.SecretName).To(Equal(core.StringPtr("my-service-access")))
-				Expect(createBindingOptionsModel.ServiceidCrn).To(Equal(core.StringPtr("testString")))
 				Expect(createBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateBuildOptions successfully`, func() {
@@ -11502,12 +11748,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createConfigMapOptionsModel := codeEngineService.NewCreateConfigMapOptions(projectID, createConfigMapOptionsName)
 				createConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				createConfigMapOptionsModel.SetName("my-config-map")
-				createConfigMapOptionsModel.SetData(make(map[string]string))
+				createConfigMapOptionsModel.SetData(map[string]string{"key1": "testString"})
 				createConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigMapOptionsModel).ToNot(BeNil())
 				Expect(createConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
-				Expect(createConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(createConfigMapOptionsModel.Data).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(createConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateJobOptions successfully`, func() {
@@ -11707,17 +11953,23 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceInstanceRefPrototypeModel.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
 				Expect(serviceInstanceRefPrototypeModel.ID).To(Equal(core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")))
 
+				// Construct an instance of the ServiceIDRef model
+				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
+				Expect(serviceIdRefModel).ToNot(BeNil())
+				serviceIdRefModel.Crn = core.StringPtr("testString")
+				Expect(serviceIdRefModel.Crn).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
 				Expect(serviceAccessSecretPrototypePropsModel).ToNot(BeNil())
 				serviceAccessSecretPrototypePropsModel.ResourceKey = resourceKeyRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Role = roleRefPrototypeModel
-				serviceAccessSecretPrototypePropsModel.ServiceIdCrn = core.StringPtr("testString")
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
+				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 				Expect(serviceAccessSecretPrototypePropsModel.ResourceKey).To(Equal(resourceKeyRefPrototypeModel))
 				Expect(serviceAccessSecretPrototypePropsModel.Role).To(Equal(roleRefPrototypeModel))
-				Expect(serviceAccessSecretPrototypePropsModel.ServiceIdCrn).To(Equal(core.StringPtr("testString")))
 				Expect(serviceAccessSecretPrototypePropsModel.ServiceInstance).To(Equal(serviceInstanceRefPrototypeModel))
+				Expect(serviceAccessSecretPrototypePropsModel.Serviceid).To(Equal(serviceIdRefModel))
 
 				// Construct an instance of the CreateSecretOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -11995,6 +12247,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getProjectOptionsModel.ID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetProjectStatusDetailsOptions successfully`, func() {
+				// Construct an instance of the GetProjectStatusDetailsOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				getProjectStatusDetailsOptionsModel := codeEngineService.NewGetProjectStatusDetailsOptions(projectID)
+				getProjectStatusDetailsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getProjectStatusDetailsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getProjectStatusDetailsOptionsModel).ToNot(BeNil())
+				Expect(getProjectStatusDetailsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getProjectStatusDetailsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetSecretOptions successfully`, func() {
 				// Construct an instance of the GetSecretOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -12161,13 +12423,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 				replaceConfigMapOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceConfigMapOptionsModel.SetName("my-config-map")
 				replaceConfigMapOptionsModel.SetIfMatch("testString")
-				replaceConfigMapOptionsModel.SetData(make(map[string]string))
+				replaceConfigMapOptionsModel.SetData(map[string]string{"key1": "testString"})
 				replaceConfigMapOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceConfigMapOptionsModel).ToNot(BeNil())
 				Expect(replaceConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(replaceConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(replaceConfigMapOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(replaceConfigMapOptionsModel.Data).To(Equal(make(map[string]string)))
+				Expect(replaceConfigMapOptionsModel.Data).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(replaceConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceSecretOptions successfully`, func() {
@@ -12195,19 +12457,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				name := "my-secret"
 				ifMatch := "testString"
-				replaceSecretOptionsModel := codeEngineService.NewReplaceSecretOptions(projectID, name, ifMatch)
+				replaceSecretOptionsFormat := "generic"
+				replaceSecretOptionsModel := codeEngineService.NewReplaceSecretOptions(projectID, name, ifMatch, replaceSecretOptionsFormat)
 				replaceSecretOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
 				replaceSecretOptionsModel.SetName("my-secret")
 				replaceSecretOptionsModel.SetIfMatch("testString")
-				replaceSecretOptionsModel.SetData(secretDataModel)
 				replaceSecretOptionsModel.SetFormat("generic")
+				replaceSecretOptionsModel.SetData(secretDataModel)
 				replaceSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceSecretOptionsModel).ToNot(BeNil())
 				Expect(replaceSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(replaceSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(replaceSecretOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(replaceSecretOptionsModel.Data).To(Equal(secretDataModel))
 				Expect(replaceSecretOptionsModel.Format).To(Equal(core.StringPtr("generic")))
+				Expect(replaceSecretOptionsModel.Data).To(Equal(secretDataModel))
 				Expect(replaceSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewServiceAccessSecretPrototypeProps successfully`, func() {
