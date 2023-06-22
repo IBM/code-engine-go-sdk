@@ -1,3 +1,10 @@
+## [4.1.1](https://github.ibm.com/coligo/go-sdk/compare/v4.1.0...v4.1.1) (2023-06-22)
+
+
+### Bug Fixes
+
+* **tests:** fixed tests after regen ([#44](https://github.ibm.com/coligo/go-sdk/issues/44)) ([905306e](https://github.ibm.com/coligo/go-sdk/commit/905306e9fe8797a2966f7e1600bd28c281e27c19))
+
 # [4.1.0](https://github.ibm.com/coligo/go-sdk/compare/v4.0.0...v4.1.0) (2023-06-06)
 
 
