@@ -149,6 +149,7 @@ func main() {
 		*createdProject.ID,
 		"ssh-secret",
 		"*",
+		"ssh_auth",
 	)
 	sshKeyUpdated := "-----BEGIN RSA PRIVATE KEY-----udpated-----END RSA PRIVATE KEY-----"
 	replaceSecretopts.Data = &codeenginev2.SecretDataSSHSecretData{
@@ -228,6 +229,7 @@ func main() {
 		*createdProject.ID,
 		"tls-secret",
 		"*",
+		"tls",
 	)
 	tlsKey = "-----BEGIN RSA PRIVATE KEY-----update-----END RSA PRIVATE KEY-----"
 	tlsCert = "---BEGIN CERTIFICATE---update---END CERTIFICATE---"
@@ -298,6 +300,7 @@ func main() {
 		*createdProject.ID,
 		"basic-auth-secret",
 		"*",
+		"basic_auth",
 	)
 	username = "user2"
 	password = "password2"
@@ -371,6 +374,7 @@ func main() {
 		*createdProject.ID,
 		"registry-secret",
 		"*",
+		"registry",
 	)
 	username = "user2"
 	password = "password2"
