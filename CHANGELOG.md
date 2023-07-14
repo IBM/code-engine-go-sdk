@@ -1,3 +1,10 @@
+## [4.1.2](https://github.ibm.com/coligo/go-sdk/compare/v4.1.1...v4.1.2) (2023-07-14)
+
+
+### Bug Fixes
+
+* **test:** adjusted test for tls secrets ([#47](https://github.ibm.com/coligo/go-sdk/issues/47)) ([c9246e1](https://github.ibm.com/coligo/go-sdk/commit/c9246e1d106c5b736198dd8690e94a8c13dd7c09))
+
 ## [4.1.1](https://github.ibm.com/coligo/go-sdk/compare/v4.1.0...v4.1.1) (2023-06-22)
 
 
