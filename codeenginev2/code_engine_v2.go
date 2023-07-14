@@ -6385,7 +6385,7 @@ type CreateSecretOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// Specify the format of the secret.
+	// Specify the format of the secret. The format of the secret will determine how the secret is used.
 	Format *string `json:"format" validate:"required"`
 
 	// The name of the secret.
@@ -6404,7 +6404,7 @@ type CreateSecretOptions struct {
 }
 
 // Constants associated with the CreateSecretOptions.Format property.
-// Specify the format of the secret.
+// Specify the format of the secret. The format of the secret will determine how the secret is used.
 const (
 	CreateSecretOptions_Format_BasicAuth = "basic_auth"
 	CreateSecretOptions_Format_Generic = "generic"
@@ -8997,7 +8997,7 @@ type ReplaceSecretOptions struct {
 	// version available. This might result in stale updates.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
-	// Specify the format of the secret.
+	// Specify the format of the secret. The format of the secret will determine how the secret is used.
 	Format *string `json:"format" validate:"required"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
@@ -9010,7 +9010,7 @@ type ReplaceSecretOptions struct {
 }
 
 // Constants associated with the ReplaceSecretOptions.Format property.
-// Specify the format of the secret.
+// Specify the format of the secret. The format of the secret will determine how the secret is used.
 const (
 	ReplaceSecretOptions_Format_BasicAuth = "basic_auth"
 	ReplaceSecretOptions_Format_Generic = "generic"
