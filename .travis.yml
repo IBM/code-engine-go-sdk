@@ -4,7 +4,7 @@ group: beta
 version: ~> 1.0
 
 go:
-- 1.18.x
+- 1.19.x
 
 # Only run on main (still tests PRs)
 branches:
