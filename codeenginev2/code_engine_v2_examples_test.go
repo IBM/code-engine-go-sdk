@@ -1,4 +1,3 @@
-//go:build examples
 // +build examples
 
 /**
@@ -30,6 +29,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the Code Engine service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,13 +41,14 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../code_engine_v2.env"
 
 	var (
 		codeEngineService *codeenginev2.CodeEngineV2
-		config            map[string]string
+		config       map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -214,7 +215,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_apps
 			listAppsOptions := &codeenginev2.ListAppsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppsPager(listAppsOptions)
@@ -283,7 +284,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateApp() result:")
 			// begin-update_app
 
-			appPatchModel := &codeenginev2.AppPatch{}
+			appPatchModel := &codeenginev2.AppPatch{
+			}
 			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -312,8 +314,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_app_revisions
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName:   core.StringPtr("my-app"),
-				Limit:     core.Int64Ptr(int64(100)),
+				AppName: core.StringPtr("my-app"),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptions)
@@ -361,7 +363,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_jobs
 			listJobsOptions := &codeenginev2.ListJobsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewJobsPager(listJobsOptions)
@@ -430,7 +432,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateJob() result:")
 			// begin-update_job
 
-			jobPatchModel := &codeenginev2.JobPatch{}
+			jobPatchModel := &codeenginev2.JobPatch{
+			}
 			jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -459,8 +462,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_job_runs
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				JobName:   core.StringPtr("my-job"),
-				Limit:     core.Int64Ptr(int64(100)),
+				JobName: core.StringPtr("my-job"),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptions)
@@ -528,7 +531,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_bindings
 			listBindingsOptions := &codeenginev2.ListBindingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
@@ -553,7 +556,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-create_binding
 
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name:         core.StringPtr("my-app-1"),
+				Name: core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
@@ -604,7 +607,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_builds
 			listBuildsOptions := &codeenginev2.ListBuildsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBuildsPager(listBuildsOptions)
@@ -675,7 +678,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateBuild() result:")
 			// begin-update_build
 
-			buildPatchModel := &codeenginev2.BuildPatch{}
+			buildPatchModel := &codeenginev2.BuildPatch{
+			}
 			buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -705,7 +709,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				BuildName: core.StringPtr("my-build"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptions)
@@ -773,7 +777,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_config_maps
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptions)
@@ -865,7 +869,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_secrets
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit:     core.Int64Ptr(int64(100)),
+				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewSecretsPager(listSecretsOptions)
@@ -953,6 +957,111 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
+		})
+		It(`ListDomainMappings request example`, func() {
+			fmt.Println("\nListDomainMappings() result:")
+			// begin-list_domain_mappings
+			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.DomainMapping
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_domain_mappings
+		})
+		It(`CreateDomainMapping request example`, func() {
+			fmt.Println("\nCreateDomainMapping() result:")
+			// begin-create_domain_mapping
+
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name: core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			createDomainMappingOptions := codeEngineService.NewCreateDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				componentRefModel,
+				"www.example.com",
+				"my-tls-secret",
+			)
+
+			domainMapping, response, err := codeEngineService.CreateDomainMapping(createDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+		It(`GetDomainMapping request example`, func() {
+			fmt.Println("\nGetDomainMapping() result:")
+			// begin-get_domain_mapping
+
+			getDomainMappingOptions := codeEngineService.NewGetDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+			)
+
+			domainMapping, response, err := codeEngineService.GetDomainMapping(getDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+		It(`UpdateDomainMapping request example`, func() {
+			fmt.Println("\nUpdateDomainMapping() result:")
+			// begin-update_domain_mapping
+
+			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{
+			}
+			domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateDomainMappingOptions := codeEngineService.NewUpdateDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+				"testString",
+				domainMappingPatchModelAsPatch,
+			)
+
+			domainMapping, response, err := codeEngineService.UpdateDomainMapping(updateDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
 		})
 		It(`DeleteProject request example`, func() {
 			// begin-delete_project
@@ -1160,6 +1269,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_secret
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteDomainMapping request example`, func() {
+			// begin-delete_domain_mapping
+
+			deleteDomainMappingOptions := codeEngineService.NewDeleteDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+			)
+
+			response, err := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteDomainMapping(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_domain_mapping
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))

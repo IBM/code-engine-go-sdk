@@ -66,13 +66,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL":       "https://codeenginev2/api",
+				"CODE_ENGINE_URL": "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
+				})
 				Expect(codeEngineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
+				})
 				err := codeEngineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL":       "https://codeenginev2/api",
+				"CODE_ENGINE_URL": "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
+			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(codeEngineService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_AUTH_TYPE": "NOAuth",
+				"CODE_ENGINE_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1491,7 +1494,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully with retries`, func() {
@@ -1549,7 +1552,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"apps": [{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"apps": [{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListApps successfully`, func() {
@@ -1684,9 +1687,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"Path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"Path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"Path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"Path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1702,7 +1705,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -1728,7 +1731,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -1765,6 +1768,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -1789,6 +1802,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.ProbeLiveness = probePrototypeModel
+				createAppOptionsModel.ProbeReadiness = probePrototypeModel
 				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
@@ -1857,7 +1872,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully with retries`, func() {
@@ -1868,6 +1883,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
 
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
@@ -1893,6 +1918,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.ProbeLiveness = probePrototypeModel
+				createAppOptionsModel.ProbeReadiness = probePrototypeModel
 				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
@@ -1964,7 +1991,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke CreateApp successfully`, func() {
@@ -1980,6 +2007,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
 
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
@@ -2005,6 +2042,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.ProbeLiveness = probePrototypeModel
+				createAppOptionsModel.ProbeReadiness = probePrototypeModel
 				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
@@ -2038,6 +2077,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -2062,6 +2111,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.ProbeLiveness = probePrototypeModel
+				createAppOptionsModel.ProbeReadiness = probePrototypeModel
 				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
@@ -2116,6 +2167,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -2140,6 +2201,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.ImagePort = core.Int64Ptr(int64(8080))
 				createAppOptionsModel.ImageSecret = core.StringPtr("my-secret")
 				createAppOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createAppOptionsModel.ProbeLiveness = probePrototypeModel
+				createAppOptionsModel.ProbeReadiness = probePrototypeModel
 				createAppOptionsModel.RunArguments = []string{"testString"}
 				createAppOptionsModel.RunAsUser = core.Int64Ptr(int64(1001))
 				createAppOptionsModel.RunCommands = []string{"testString"}
@@ -2234,7 +2297,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully with retries`, func() {
@@ -2289,7 +2352,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke GetApp successfully`, func() {
@@ -2483,6 +2546,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -2505,6 +2578,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				appPatchModel.ImageSecret = core.StringPtr("my-secret")
 				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.ProbeLiveness = probePrototypeModel
+				appPatchModel.ProbeReadiness = probePrototypeModel
 				appPatchModel.RunArguments = []string{"testString"}
 				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				appPatchModel.RunCommands = []string{"testString"}
@@ -2584,7 +2659,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully with retries`, func() {
@@ -2595,6 +2670,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
 
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
@@ -2618,6 +2703,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				appPatchModel.ImageSecret = core.StringPtr("my-secret")
 				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.ProbeLiveness = probePrototypeModel
+				appPatchModel.ProbeReadiness = probePrototypeModel
 				appPatchModel.RunArguments = []string{"testString"}
 				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				appPatchModel.RunCommands = []string{"testString"}
@@ -2700,7 +2787,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
+					fmt.Fprintf(res, "%s", `{"build": "my-build", "build_run": "my-build-run", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-app.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_port": 8080, "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "managed_domain_mappings": "local_public", "name": "my-app", "probe_liveness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "probe_readiness": {"failure_threshold": 5, "initial_delay": 5, "interval": 5, "path": "Path", "port": 8080, "timeout": 300, "type": "tcp"}, "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "app_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_concurrency": 100, "scale_concurrency_target": 80, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_ephemeral_storage_limit": "4G", "scale_initial_instances": 1, "scale_max_instances": 10, "scale_memory_limit": "4G", "scale_min_instances": 1, "scale_request_timeout": 300, "status": "ready", "status_details": {"latest_created_revision": "my-app-00001", "latest_ready_revision": "my-app-00001", "reason": "ready"}}`)
 				}))
 			})
 			It(`Invoke UpdateApp successfully`, func() {
@@ -2716,6 +2803,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
 
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
@@ -2739,6 +2836,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				appPatchModel.ImageSecret = core.StringPtr("my-secret")
 				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.ProbeLiveness = probePrototypeModel
+				appPatchModel.ProbeReadiness = probePrototypeModel
 				appPatchModel.RunArguments = []string{"testString"}
 				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				appPatchModel.RunCommands = []string{"testString"}
@@ -2781,6 +2880,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -2803,6 +2912,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				appPatchModel.ImageSecret = core.StringPtr("my-secret")
 				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.ProbeLiveness = probePrototypeModel
+				appPatchModel.ProbeReadiness = probePrototypeModel
 				appPatchModel.RunArguments = []string{"testString"}
 				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				appPatchModel.RunCommands = []string{"testString"}
@@ -2866,6 +2977,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
@@ -2888,6 +3009,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				appPatchModel.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
 				appPatchModel.ImageSecret = core.StringPtr("my-secret")
 				appPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				appPatchModel.ProbeLiveness = probePrototypeModel
+				appPatchModel.ProbeReadiness = probePrototypeModel
 				appPatchModel.RunArguments = []string{"testString"}
 				appPatchModel.RunAsUser = core.Int64Ptr(int64(1001))
 				appPatchModel.RunCommands = []string{"testString"}
@@ -3212,8 +3335,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName:   core.StringPtr("my-app"),
-					Limit:     core.Int64Ptr(int64(100)),
+					AppName: core.StringPtr("my-app"),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3239,8 +3362,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName:   core.StringPtr("my-app"),
-					Limit:     core.Int64Ptr(int64(100)),
+					AppName: core.StringPtr("my-app"),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3827,7 +3950,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -3853,7 +3976,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -5074,7 +5197,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully with retries`, func() {
@@ -5134,7 +5257,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "job_runs": [{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListJobRuns successfully`, func() {
@@ -5272,9 +5395,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["RunArguments"],"run_as_user":1001,"run_commands":["RunCommands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -5290,8 +5413,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName:   core.StringPtr("my-job"),
-					Limit:     core.Int64Ptr(int64(100)),
+					JobName: core.StringPtr("my-job"),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -5317,8 +5440,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName:   core.StringPtr("my-job"),
-					Limit:     core.Int64Ptr(int64(100)),
+					JobName: core.StringPtr("my-job"),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -5443,7 +5566,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully with retries`, func() {
@@ -5546,7 +5669,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke CreateJobRun successfully`, func() {
@@ -5804,7 +5927,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully with retries`, func() {
@@ -5859,7 +5982,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "completed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "image_reference": "icr.io/codeengine/helloworld", "image_secret": "my-secret", "job_name": "my-job", "name": "my-job-run", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "job_run_v2", "run_arguments": ["RunArguments"], "run_as_user": 1001, "run_commands": ["RunCommands"], "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "run_mode": "task", "run_service_account": "default", "run_volume_mounts": [{"mount_path": "/app", "name": "codeengine-mount-b69u90", "reference": "my-secret", "type": "secret"}], "scale_array_spec": "1-5,7-8,10", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_max_execution_time": 7200, "scale_memory_limit": "4G", "scale_retry_limit": 3, "status": "failed", "status_details": {"completion_time": "2022-09-22T17:40:00Z", "failed": 0, "pending": 0, "requested": 0, "running": 0, "start_time": "2022-09-22T17:34:00Z", "succeeded": 1, "unknown": 0}}`)
 				}))
 			})
 			It(`Invoke GetJobRun successfully`, func() {
@@ -6307,7 +6430,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
@@ -6333,7 +6456,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
@@ -7197,7 +7320,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -7223,7 +7346,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -8461,7 +8584,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -8488,7 +8611,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -9382,7 +9505,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -9408,7 +9531,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -10296,7 +10419,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully with retries`, func() {
@@ -10354,7 +10477,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "secrets": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}]}`)
 				}))
 			})
 			It(`Invoke ListSecrets successfully`, func() {
@@ -10489,9 +10612,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn"}}}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["ResourceGroupIds"],"serviceid":{"crn":"Crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":false}}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn"}}}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"Inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"ResourceType","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"Name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"Type"},"serviceid":{"crn":"Crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["ResourceGroupIds"],"serviceid":{"crn":"Crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":false}}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -10507,7 +10630,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -10533,7 +10656,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit:     core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -10591,6 +10714,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ServiceIDRef model
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -10599,6 +10723,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -10606,6 +10739,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.ServiceAccess = serviceAccessSecretPrototypePropsModel
+				createSecretOptionsModel.ServiceOperator = operatorSecretPrototypePropsModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := codeEngineService.CreateSecret(createSecretOptionsModel)
@@ -10658,7 +10792,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully with retries`, func() {
@@ -10691,6 +10825,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ServiceIDRef model
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -10699,6 +10834,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -10706,6 +10850,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.ServiceAccess = serviceAccessSecretPrototypePropsModel
+				createSecretOptionsModel.ServiceOperator = operatorSecretPrototypePropsModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -10761,7 +10906,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke CreateSecret successfully`, func() {
@@ -10799,6 +10944,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ServiceIDRef model
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -10807,6 +10953,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -10814,6 +10969,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.ServiceAccess = serviceAccessSecretPrototypePropsModel
+				createSecretOptionsModel.ServiceOperator = operatorSecretPrototypePropsModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -10852,6 +11008,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ServiceIDRef model
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -10860,6 +11017,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -10867,6 +11033,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.ServiceAccess = serviceAccessSecretPrototypePropsModel
+				createSecretOptionsModel.ServiceOperator = operatorSecretPrototypePropsModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
@@ -10926,6 +11093,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the ServiceIDRef model
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -10934,6 +11102,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceAccessSecretPrototypePropsModel.ServiceInstance = serviceInstanceRefPrototypeModel
 				serviceAccessSecretPrototypePropsModel.Serviceid = serviceIdRefModel
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+
 				// Construct an instance of the CreateSecretOptions model
 				createSecretOptionsModel := new(codeenginev2.CreateSecretOptions)
 				createSecretOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
@@ -10941,6 +11118,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.Name = core.StringPtr("my-secret")
 				createSecretOptionsModel.Data = secretDataModel
 				createSecretOptionsModel.ServiceAccess = serviceAccessSecretPrototypePropsModel
+				createSecretOptionsModel.ServiceOperator = operatorSecretPrototypePropsModel
 				createSecretOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -11019,7 +11197,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully with retries`, func() {
@@ -11074,7 +11252,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke GetSecret successfully`, func() {
@@ -11265,7 +11443,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully with retries`, func() {
@@ -11347,7 +11525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn"}}}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"mapKey": "Inner"}, "entity_tag": "2385407409", "format": "generic", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-secret", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "ResourceType", "service_access": {"resource_key": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "name": "Name"}, "role": {"crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer", "name": "Manager"}, "service_instance": {"id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "type": "Type"}, "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}}, "service_operator": {"apikey_id": "ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b", "resource_group_ids": ["ResourceGroupIds"], "serviceid": {"crn": "Crn", "id": "ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}, "user_managed": false}}`)
 				}))
 			})
 			It(`Invoke ReplaceSecret successfully`, func() {
@@ -11543,6 +11721,1221 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) - Operation response error`, func() {
+		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListDomainMappings with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions)`, func() {
+		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListDomainMappings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListDomainMappings with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListDomainMappingsOptions model with no property values
+				listDomainMappingsOptionsModelNew := new(codeenginev2.ListDomainMappingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.DomainMappingList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.DomainMappingList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use DomainMappingsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.DomainMapping
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use DomainMappingsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) - Operation response error`, func() {
+		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
+		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateDomainMappingOptions model with no property values
+				createDomainMappingOptionsModelNew := new(codeenginev2.CreateDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) - Operation response error`, func() {
+		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
+		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetDomainMappingOptions model with no property values
+				getDomainMappingOptionsModelNew := new(codeenginev2.GetDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
+		deleteDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteDomainMappingPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteDomainMappingOptions model
+				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
+				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteDomainMappingOptions model
+				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
+				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteDomainMappingOptions model with no property values
+				deleteDomainMappingOptionsModelNew := new(codeenginev2.DeleteDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) - Operation response error`, func() {
+		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
+		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateDomainMappingOptions model with no property values
+				updateDomainMappingOptionsModelNew := new(codeenginev2.UpdateDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			codeEngineService, _ := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
@@ -11557,6 +12950,24 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewCreateAppOptions successfully`, func() {
+				// Construct an instance of the ProbePrototype model
+				probePrototypeModel := new(codeenginev2.ProbePrototype)
+				Expect(probePrototypeModel).ToNot(BeNil())
+				probePrototypeModel.FailureThreshold = core.Int64Ptr(int64(5))
+				probePrototypeModel.InitialDelay = core.Int64Ptr(int64(5))
+				probePrototypeModel.Interval = core.Int64Ptr(int64(5))
+				probePrototypeModel.Path = core.StringPtr("testString")
+				probePrototypeModel.Port = core.Int64Ptr(int64(8080))
+				probePrototypeModel.Timeout = core.Int64Ptr(int64(300))
+				probePrototypeModel.Type = core.StringPtr("tcp")
+				Expect(probePrototypeModel.FailureThreshold).To(Equal(core.Int64Ptr(int64(5))))
+				Expect(probePrototypeModel.InitialDelay).To(Equal(core.Int64Ptr(int64(5))))
+				Expect(probePrototypeModel.Interval).To(Equal(core.Int64Ptr(int64(5))))
+				Expect(probePrototypeModel.Path).To(Equal(core.StringPtr("testString")))
+				Expect(probePrototypeModel.Port).To(Equal(core.Int64Ptr(int64(8080))))
+				Expect(probePrototypeModel.Timeout).To(Equal(core.Int64Ptr(int64(300))))
+				Expect(probePrototypeModel.Type).To(Equal(core.StringPtr("tcp")))
+
 				// Construct an instance of the EnvVarPrototype model
 				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
 				Expect(envVarPrototypeModel).ToNot(BeNil())
@@ -11596,6 +13007,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createAppOptionsModel.SetImagePort(int64(8080))
 				createAppOptionsModel.SetImageSecret("my-secret")
 				createAppOptionsModel.SetManagedDomainMappings("local_public")
+				createAppOptionsModel.SetProbeLiveness(probePrototypeModel)
+				createAppOptionsModel.SetProbeReadiness(probePrototypeModel)
 				createAppOptionsModel.SetRunArguments([]string{"testString"})
 				createAppOptionsModel.SetRunAsUser(int64(1001))
 				createAppOptionsModel.SetRunCommands([]string{"testString"})
@@ -11620,6 +13033,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createAppOptionsModel.ImagePort).To(Equal(core.Int64Ptr(int64(8080))))
 				Expect(createAppOptionsModel.ImageSecret).To(Equal(core.StringPtr("my-secret")))
 				Expect(createAppOptionsModel.ManagedDomainMappings).To(Equal(core.StringPtr("local_public")))
+				Expect(createAppOptionsModel.ProbeLiveness).To(Equal(probePrototypeModel))
+				Expect(createAppOptionsModel.ProbeReadiness).To(Equal(probePrototypeModel))
 				Expect(createAppOptionsModel.RunArguments).To(Equal([]string{"testString"}))
 				Expect(createAppOptionsModel.RunAsUser).To(Equal(core.Int64Ptr(int64(1001))))
 				Expect(createAppOptionsModel.RunCommands).To(Equal([]string{"testString"}))
@@ -11755,6 +13170,33 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(createConfigMapOptionsModel.Data).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(createConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateDomainMappingOptions successfully`, func() {
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				Expect(componentRefModel).ToNot(BeNil())
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+				Expect(componentRefModel.Name).To(Equal(core.StringPtr("my-app-1")))
+				Expect(componentRefModel.ResourceType).To(Equal(core.StringPtr("app_v2")))
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				var createDomainMappingOptionsComponent *codeenginev2.ComponentRef = nil
+				createDomainMappingOptionsName := "www.example.com"
+				createDomainMappingOptionsTlsSecret := "my-tls-secret"
+				createDomainMappingOptionsModel := codeEngineService.NewCreateDomainMappingOptions(projectID, createDomainMappingOptionsComponent, createDomainMappingOptionsName, createDomainMappingOptionsTlsSecret)
+				createDomainMappingOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.SetComponent(componentRefModel)
+				createDomainMappingOptionsModel.SetName("www.example.com")
+				createDomainMappingOptionsModel.SetTlsSecret("my-tls-secret")
+				createDomainMappingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createDomainMappingOptionsModel).ToNot(BeNil())
+				Expect(createDomainMappingOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createDomainMappingOptionsModel.Component).To(Equal(componentRefModel))
+				Expect(createDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
+				Expect(createDomainMappingOptionsModel.TlsSecret).To(Equal(core.StringPtr("my-tls-secret")))
+				Expect(createDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateJobOptions successfully`, func() {
 				// Construct an instance of the EnvVarPrototype model
@@ -11957,7 +13399,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 				serviceIdRefModel := new(codeenginev2.ServiceIDRef)
 				Expect(serviceIdRefModel).ToNot(BeNil())
 				serviceIdRefModel.Crn = core.StringPtr("testString")
+				serviceIdRefModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
 				Expect(serviceIdRefModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(serviceIdRefModel.ID).To(Equal(core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")))
 
 				// Construct an instance of the ServiceAccessSecretPrototypeProps model
 				serviceAccessSecretPrototypePropsModel := new(codeenginev2.ServiceAccessSecretPrototypeProps)
@@ -11971,6 +13415,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceAccessSecretPrototypePropsModel.ServiceInstance).To(Equal(serviceInstanceRefPrototypeModel))
 				Expect(serviceAccessSecretPrototypePropsModel.Serviceid).To(Equal(serviceIdRefModel))
 
+				// Construct an instance of the ServiceIDRefPrototype model
+				serviceIdRefPrototypeModel := new(codeenginev2.ServiceIDRefPrototype)
+				Expect(serviceIdRefPrototypeModel).ToNot(BeNil())
+				serviceIdRefPrototypeModel.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+				Expect(serviceIdRefPrototypeModel.ID).To(Equal(core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")))
+
+				// Construct an instance of the OperatorSecretPrototypeProps model
+				operatorSecretPrototypePropsModel := new(codeenginev2.OperatorSecretPrototypeProps)
+				Expect(operatorSecretPrototypePropsModel).ToNot(BeNil())
+				operatorSecretPrototypePropsModel.ResourceGroupIds = []string{"testString"}
+				operatorSecretPrototypePropsModel.Serviceid = serviceIdRefPrototypeModel
+				Expect(operatorSecretPrototypePropsModel.ResourceGroupIds).To(Equal([]string{"testString"}))
+				Expect(operatorSecretPrototypePropsModel.Serviceid).To(Equal(serviceIdRefPrototypeModel))
+
 				// Construct an instance of the CreateSecretOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
 				createSecretOptionsFormat := "generic"
@@ -11981,6 +13439,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				createSecretOptionsModel.SetName("my-secret")
 				createSecretOptionsModel.SetData(secretDataModel)
 				createSecretOptionsModel.SetServiceAccess(serviceAccessSecretPrototypePropsModel)
+				createSecretOptionsModel.SetServiceOperator(operatorSecretPrototypePropsModel)
 				createSecretOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createSecretOptionsModel).ToNot(BeNil())
 				Expect(createSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
@@ -11988,6 +13447,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(createSecretOptionsModel.Data).To(Equal(secretDataModel))
 				Expect(createSecretOptionsModel.ServiceAccess).To(Equal(serviceAccessSecretPrototypePropsModel))
+				Expect(createSecretOptionsModel.ServiceOperator).To(Equal(operatorSecretPrototypePropsModel))
 				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
@@ -12070,6 +13530,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(deleteConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(deleteConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteDomainMappingOptions successfully`, func() {
+				// Construct an instance of the DeleteDomainMappingOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "www.example.com"
+				deleteDomainMappingOptionsModel := codeEngineService.NewDeleteDomainMappingOptions(projectID, name)
+				deleteDomainMappingOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteDomainMappingOptionsModel.SetName("www.example.com")
+				deleteDomainMappingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteDomainMappingOptionsModel).ToNot(BeNil())
+				Expect(deleteDomainMappingOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
+				Expect(deleteDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteJobOptions successfully`, func() {
 				// Construct an instance of the DeleteJobOptions model
@@ -12200,6 +13673,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getConfigMapOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getConfigMapOptionsModel.Name).To(Equal(core.StringPtr("my-config-map")))
 				Expect(getConfigMapOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetDomainMappingOptions successfully`, func() {
+				// Construct an instance of the GetDomainMappingOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "www.example.com"
+				getDomainMappingOptionsModel := codeEngineService.NewGetDomainMappingOptions(projectID, name)
+				getDomainMappingOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.SetName("www.example.com")
+				getDomainMappingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getDomainMappingOptionsModel).ToNot(BeNil())
+				Expect(getDomainMappingOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
+				Expect(getDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetJobOptions successfully`, func() {
 				// Construct an instance of the GetJobOptions model
@@ -12359,6 +13845,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listConfigMapsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listConfigMapsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListDomainMappingsOptions successfully`, func() {
+				// Construct an instance of the ListDomainMappingsOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listDomainMappingsOptionsModel := codeEngineService.NewListDomainMappingsOptions(projectID)
+				listDomainMappingsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.SetLimit(int64(100))
+				listDomainMappingsOptionsModel.SetStart("testString")
+				listDomainMappingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listDomainMappingsOptionsModel).ToNot(BeNil())
+				Expect(listDomainMappingsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listDomainMappingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listDomainMappingsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listDomainMappingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListJobRunsOptions successfully`, func() {
 				// Construct an instance of the ListJobRunsOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -12516,6 +14016,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateBuildOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateBuildOptionsModel.Build).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateBuildOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateDomainMappingOptions successfully`, func() {
+				// Construct an instance of the UpdateDomainMappingOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "www.example.com"
+				ifMatch := "testString"
+				domainMapping := map[string]interface{}{"anyKey": "anyValue"}
+				updateDomainMappingOptionsModel := codeEngineService.NewUpdateDomainMappingOptions(projectID, name, ifMatch, domainMapping)
+				updateDomainMappingOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.SetName("www.example.com")
+				updateDomainMappingOptionsModel.SetIfMatch("testString")
+				updateDomainMappingOptionsModel.SetDomainMapping(map[string]interface{}{"anyKey": "anyValue"})
+				updateDomainMappingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateDomainMappingOptionsModel).ToNot(BeNil())
+				Expect(updateDomainMappingOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
+				Expect(updateDomainMappingOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateDomainMappingOptionsModel.DomainMapping).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(updateDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateJobOptions successfully`, func() {
 				// Construct an instance of the UpdateJobOptions model
