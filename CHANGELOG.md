@@ -1,3 +1,16 @@
+# [4.2.0](https://github.ibm.com/coligo/go-sdk/compare/v4.1.2...v4.2.0) (2023-11-06)
+
+
+### Bug Fixes
+
+* **test:** updated k8s.io/client-go library in example v1 tests ([#78](https://github.ibm.com/coligo/go-sdk/issues/78)) ([46b8905](https://github.ibm.com/coligo/go-sdk/commit/46b8905e68672fdd6f816cc15522a5973efa71e6))
+
+
+### Features
+
+* **api:** Adding Domain Mapping support to SDK ([#91](https://github.ibm.com/coligo/go-sdk/issues/91)) ([3299b8a](https://github.ibm.com/coligo/go-sdk/commit/3299b8ab9594c7f0e0576176e67f48e70d6df3ee))
+* **api:** Adding Domain Mapping support to SDK ([#92](https://github.ibm.com/coligo/go-sdk/issues/92)) ([614ab77](https://github.ibm.com/coligo/go-sdk/commit/614ab775b5e98d9f3a8819ed9154255510ab87a8))
+
 ## [4.1.2](https://github.ibm.com/coligo/go-sdk/compare/v4.1.1...v4.1.2) (2023-07-14)
 
 
