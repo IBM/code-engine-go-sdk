@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.72.2-2bede9d2-20230601-202845
+ * IBM OpenAPI SDK Code Generator Version: 3.80.0-29334a73-20230925-151553
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -643,6 +643,12 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 	if createAppOptions.ManagedDomainMappings != nil {
 		body["managed_domain_mappings"] = createAppOptions.ManagedDomainMappings
+	}
+	if createAppOptions.ProbeLiveness != nil {
+		body["probe_liveness"] = createAppOptions.ProbeLiveness
+	}
+	if createAppOptions.ProbeReadiness != nil {
+		body["probe_readiness"] = createAppOptions.ProbeReadiness
 	}
 	if createAppOptions.RunArguments != nil {
 		body["run_arguments"] = createAppOptions.RunArguments
@@ -3077,6 +3083,9 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	if createSecretOptions.ServiceAccess != nil {
 		body["service_access"] = createSecretOptions.ServiceAccess
 	}
+	if createSecretOptions.ServiceOperator != nil {
+		body["service_operator"] = createSecretOptions.ServiceOperator
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -3290,8 +3299,337 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	return
 }
 
+// ListDomainMappings : List domain mappings
+// List all domain mappings in a project.
+func (codeEngine *CodeEngineV2) ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListDomainMappingsWithContext(context.Background(), listDomainMappingsOptions)
+}
+
+// ListDomainMappingsWithContext is an alternate form of the ListDomainMappings method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Context, listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listDomainMappingsOptions, "listDomainMappingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listDomainMappingsOptions, "listDomainMappingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listDomainMappingsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listDomainMappingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListDomainMappings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listDomainMappingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listDomainMappingsOptions.Limit))
+	}
+	if listDomainMappingsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listDomainMappingsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMappingList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateDomainMapping : Create a domain mapping
+// Create a domain mapping.
+func (codeEngine *CodeEngineV2) CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateDomainMappingWithContext(context.Background(), createDomainMappingOptions)
+}
+
+// CreateDomainMappingWithContext is an alternate form of the CreateDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Context, createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createDomainMappingOptions, "createDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createDomainMappingOptions, "createDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createDomainMappingOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createDomainMappingOptions.Component != nil {
+		body["component"] = createDomainMappingOptions.Component
+	}
+	if createDomainMappingOptions.Name != nil {
+		body["name"] = createDomainMappingOptions.Name
+	}
+	if createDomainMappingOptions.TlsSecret != nil {
+		body["tls_secret"] = createDomainMappingOptions.TlsSecret
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetDomainMapping : Get a domain mapping
+// Get domain mapping.
+func (codeEngine *CodeEngineV2) GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.GetDomainMappingWithContext(context.Background(), getDomainMappingOptions)
+}
+
+// GetDomainMappingWithContext is an alternate form of the GetDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context, getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getDomainMappingOptions, "getDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getDomainMappingOptions, "getDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getDomainMappingOptions.ProjectID,
+		"name": *getDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteDomainMapping : Delete a domain mapping
+// Delete a domain mapping.
+func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
+}
+
+// DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteDomainMappingOptions.ProjectID,
+		"name": *deleteDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateDomainMapping : Update a domain mapping
+// Update a domain mapping.
+func (codeEngine *CodeEngineV2) UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateDomainMappingWithContext(context.Background(), updateDomainMappingOptions)
+}
+
+// UpdateDomainMappingWithContext is an alternate form of the UpdateDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Context, updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateDomainMappingOptions, "updateDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateDomainMappingOptions, "updateDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateDomainMappingOptions.ProjectID,
+		"name": *updateDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateDomainMappingOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateDomainMappingOptions.IfMatch))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateDomainMappingOptions.DomainMapping)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // App : App is the response model for app resources.
 type App struct {
+	// Reference to a build that is associated with the application.
+	Build *string `json:"build,omitempty"`
+
+	// Reference to a buildrun that is associated with the application.
+	BuildRun *string `json:"build_run,omitempty"`
+
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
@@ -3333,6 +3671,12 @@ type App struct {
 
 	// The name of the app.
 	Name *string `json:"name" validate:"required"`
+
+	// Response model for probes.
+	ProbeLiveness *Probe `json:"probe_liveness,omitempty"`
+
+	// Response model for probes.
+	ProbeReadiness *Probe `json:"probe_readiness,omitempty"`
 
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -3449,6 +3793,14 @@ const (
 // UnmarshalApp unmarshals an instance of App from the specified map of raw messages.
 func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(App)
+	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "build_run", &obj.BuildRun)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
@@ -3490,6 +3842,14 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_liveness", &obj.ProbeLiveness, UnmarshalProbe)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_readiness", &obj.ProbeReadiness, UnmarshalProbe)
 	if err != nil {
 		return
 	}
@@ -3645,6 +4005,12 @@ type AppPatch struct {
 	// supports application private visibility.
 	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
 
+	// Request model for probes.
+	ProbeLiveness *ProbePrototype `json:"probe_liveness,omitempty"`
+
+	// Request model for probes.
+	ProbeReadiness *ProbePrototype `json:"probe_readiness,omitempty"`
+
 	// Optional arguments for the app that are passed to start the container. If not specified an empty string array will
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
@@ -3747,6 +4113,14 @@ func UnmarshalAppPatch(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_liveness", &obj.ProbeLiveness, UnmarshalProbePrototype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_readiness", &obj.ProbeReadiness, UnmarshalProbePrototype)
 	if err != nil {
 		return
 	}
@@ -5201,6 +5575,12 @@ type CreateAppOptions struct {
 	// supports application private visibility.
 	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
 
+	// Request model for probes.
+	ProbeLiveness *ProbePrototype `json:"probe_liveness,omitempty"`
+
+	// Request model for probes.
+	ProbeReadiness *ProbePrototype `json:"probe_readiness,omitempty"`
+
 	// Optional arguments for the app that are passed to start the container. If not specified an empty string array will
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
@@ -5332,6 +5712,18 @@ func (_options *CreateAppOptions) SetImageSecret(imageSecret string) *CreateAppO
 // SetManagedDomainMappings : Allow user to set ManagedDomainMappings
 func (_options *CreateAppOptions) SetManagedDomainMappings(managedDomainMappings string) *CreateAppOptions {
 	_options.ManagedDomainMappings = core.StringPtr(managedDomainMappings)
+	return _options
+}
+
+// SetProbeLiveness : Allow user to set ProbeLiveness
+func (_options *CreateAppOptions) SetProbeLiveness(probeLiveness *ProbePrototype) *CreateAppOptions {
+	_options.ProbeLiveness = probeLiveness
+	return _options
+}
+
+// SetProbeReadiness : Allow user to set ProbeReadiness
+func (_options *CreateAppOptions) SetProbeReadiness(probeReadiness *ProbePrototype) *CreateAppOptions {
+	_options.ProbeReadiness = probeReadiness
 	return _options
 }
 
@@ -5891,6 +6283,64 @@ func (options *CreateConfigMapOptions) SetHeaders(param map[string]string) *Crea
 	return options
 }
 
+// CreateDomainMappingOptions : The CreateDomainMapping options.
+type CreateDomainMappingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// A reference to another component.
+	Component *ComponentRef `json:"component" validate:"required"`
+
+	// The name of the domain mapping.
+	Name *string `json:"name" validate:"required"`
+
+	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	TlsSecret *string `json:"tls_secret" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateDomainMappingOptions : Instantiate CreateDomainMappingOptions
+func (*CodeEngineV2) NewCreateDomainMappingOptions(projectID string, component *ComponentRef, name string, tlsSecret string) *CreateDomainMappingOptions {
+	return &CreateDomainMappingOptions{
+		ProjectID: core.StringPtr(projectID),
+		Component: component,
+		Name: core.StringPtr(name),
+		TlsSecret: core.StringPtr(tlsSecret),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateDomainMappingOptions) SetProjectID(projectID string) *CreateDomainMappingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetComponent : Allow user to set Component
+func (_options *CreateDomainMappingOptions) SetComponent(component *ComponentRef) *CreateDomainMappingOptions {
+	_options.Component = component
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateDomainMappingOptions) SetName(name string) *CreateDomainMappingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetTlsSecret : Allow user to set TlsSecret
+func (_options *CreateDomainMappingOptions) SetTlsSecret(tlsSecret string) *CreateDomainMappingOptions {
+	_options.TlsSecret = core.StringPtr(tlsSecret)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateDomainMappingOptions) SetHeaders(param map[string]string) *CreateDomainMappingOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateJobOptions : The CreateJob options.
 type CreateJobOptions struct {
 	// The ID of the project.
@@ -6392,12 +6842,15 @@ type CreateSecretOptions struct {
 	Name *string `json:"name" validate:"required"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
+	// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+	// field can consists of any character and must not exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
 
 	// Properties for Service Access Secret Prototypes.
 	ServiceAccess *ServiceAccessSecretPrototypeProps `json:"service_access,omitempty"`
+
+	// Properties for the IBM Cloud Operator Secret Prototype.
+	ServiceOperator *OperatorSecretPrototypeProps `json:"service_operator,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6411,6 +6864,7 @@ const (
 	CreateSecretOptions_Format_Other = "other"
 	CreateSecretOptions_Format_Registry = "registry"
 	CreateSecretOptions_Format_ServiceAccess = "service_access"
+	CreateSecretOptions_Format_ServiceOperator = "service_operator"
 	CreateSecretOptions_Format_SshAuth = "ssh_auth"
 	CreateSecretOptions_Format_Tls = "tls"
 )
@@ -6451,6 +6905,12 @@ func (_options *CreateSecretOptions) SetData(data SecretDataIntf) *CreateSecretO
 // SetServiceAccess : Allow user to set ServiceAccess
 func (_options *CreateSecretOptions) SetServiceAccess(serviceAccess *ServiceAccessSecretPrototypeProps) *CreateSecretOptions {
 	_options.ServiceAccess = serviceAccess
+	return _options
+}
+
+// SetServiceOperator : Allow user to set ServiceOperator
+func (_options *CreateSecretOptions) SetServiceOperator(serviceOperator *OperatorSecretPrototypeProps) *CreateSecretOptions {
+	_options.ServiceOperator = serviceOperator
 	return _options
 }
 
@@ -6698,6 +7158,44 @@ func (options *DeleteConfigMapOptions) SetHeaders(param map[string]string) *Dele
 	return options
 }
 
+// DeleteDomainMappingOptions : The DeleteDomainMapping options.
+type DeleteDomainMappingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your domain mapping.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteDomainMappingOptions : Instantiate DeleteDomainMappingOptions
+func (*CodeEngineV2) NewDeleteDomainMappingOptions(projectID string, name string) *DeleteDomainMappingOptions {
+	return &DeleteDomainMappingOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteDomainMappingOptions) SetProjectID(projectID string) *DeleteDomainMappingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DeleteDomainMappingOptions) SetName(name string) *DeleteDomainMappingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteDomainMappingOptions) SetHeaders(param map[string]string) *DeleteDomainMappingOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteJobOptions : The DeleteJob options.
 type DeleteJobOptions struct {
 	// The ID of the project.
@@ -6838,6 +7336,248 @@ func (_options *DeleteSecretOptions) SetName(name string) *DeleteSecretOptions {
 func (options *DeleteSecretOptions) SetHeaders(param map[string]string) *DeleteSecretOptions {
 	options.Headers = param
 	return options
+}
+
+// DomainMapping : Response model for domain mapping definitions.
+type DomainMapping struct {
+	// Exposes the value of the CNAME record that needs to be configured in the DNS settings of the domain, to route
+	// traffic properly to the target Code Engine region.
+	CnameTarget *string `json:"cname_target,omitempty"`
+
+	// A reference to another component.
+	Component *ComponentRef `json:"component" validate:"required"`
+
+	// The timestamp when the resource was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// The version of the domain mapping instance, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// When you provision a new domain mapping, a URL is created identifying the location of the instance.
+	Href *string `json:"href,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the domain mapping.
+	Name *string `json:"name" validate:"required"`
+
+	// The ID of the project the resource is located in.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The type of the CE Resource.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// The current status of the domain mapping.
+	Status *string `json:"status,omitempty"`
+
+	// The detailed status of the domain mapping.
+	StatusDetails *DomainMappingStatus `json:"status_details,omitempty"`
+
+	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	TlsSecret *string `json:"tls_secret" validate:"required"`
+
+	// Exposes whether the domain mapping is managed by the user or by Code Engine.
+	UserManaged *bool `json:"user_managed,omitempty"`
+
+	// Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only through
+	// other components within the same Code Engine project.
+	Visibility *string `json:"visibility,omitempty"`
+}
+
+// Constants associated with the DomainMapping.ResourceType property.
+// The type of the CE Resource.
+const (
+	DomainMapping_ResourceType_DomainMappingV2 = "domain_mapping_v2"
+)
+
+// Constants associated with the DomainMapping.Status property.
+// The current status of the domain mapping.
+const (
+	DomainMapping_Status_Deploying = "deploying"
+	DomainMapping_Status_Failed = "failed"
+	DomainMapping_Status_Ready = "ready"
+)
+
+// Constants associated with the DomainMapping.Visibility property.
+// Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only through
+// other components within the same Code Engine project.
+const (
+	DomainMapping_Visibility_Custom = "custom"
+	DomainMapping_Visibility_Private = "private"
+	DomainMapping_Visibility_Project = "project"
+	DomainMapping_Visibility_Public = "public"
+)
+
+// UnmarshalDomainMapping unmarshals an instance of DomainMapping from the specified map of raw messages.
+func UnmarshalDomainMapping(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DomainMapping)
+	err = core.UnmarshalPrimitive(m, "cname_target", &obj.CnameTarget)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalDomainMappingStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tls_secret", &obj.TlsSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "user_managed", &obj.UserManaged)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "visibility", &obj.Visibility)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DomainMappingList : Contains a list of domain mappings and pagination information.
+type DomainMappingList struct {
+	// List of all domain mappings.
+	DomainMappings []DomainMapping `json:"domain_mappings" validate:"required"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalDomainMappingList unmarshals an instance of DomainMappingList from the specified map of raw messages.
+func UnmarshalDomainMappingList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DomainMappingList)
+	err = core.UnmarshalModel(m, "domain_mappings", &obj.DomainMappings, UnmarshalDomainMapping)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *DomainMappingList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// DomainMappingPatch : Patch a domain mappings object.
+type DomainMappingPatch struct {
+	// A reference to another component.
+	Component *ComponentRef `json:"component,omitempty"`
+
+	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	TlsSecret *string `json:"tls_secret,omitempty"`
+}
+
+// UnmarshalDomainMappingPatch unmarshals an instance of DomainMappingPatch from the specified map of raw messages.
+func UnmarshalDomainMappingPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DomainMappingPatch)
+	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tls_secret", &obj.TlsSecret)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the DomainMappingPatch
+func (domainMappingPatch *DomainMappingPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	var jsonData []byte
+	jsonData, err = json.Marshal(domainMappingPatch)
+	if err == nil {
+		err = json.Unmarshal(jsonData, &_patch)
+	}
+	return
+}
+
+// DomainMappingStatus : The detailed status of the domain mapping.
+type DomainMappingStatus struct {
+	// Optional information to provide more context in case of a 'failed' or 'warning' status.
+	Reason *string `json:"reason,omitempty"`
+}
+
+// Constants associated with the DomainMappingStatus.Reason property.
+// Optional information to provide more context in case of a 'failed' or 'warning' status.
+const (
+	DomainMappingStatus_Reason_AppRefFailed = "app_ref_failed"
+	DomainMappingStatus_Reason_Deploying = "deploying"
+	DomainMappingStatus_Reason_DomainAlreadyClaimed = "domain_already_claimed"
+	DomainMappingStatus_Reason_Failed = "failed"
+	DomainMappingStatus_Reason_FailedReconcileIngress = "failed_reconcile_ingress"
+	DomainMappingStatus_Reason_Ready = "ready"
+)
+
+// UnmarshalDomainMappingStatus unmarshals an instance of DomainMappingStatus from the specified map of raw messages.
+func UnmarshalDomainMappingStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DomainMappingStatus)
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // EnvVar : Response model for environment variables.
@@ -7198,6 +7938,44 @@ func (_options *GetConfigMapOptions) SetName(name string) *GetConfigMapOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *GetConfigMapOptions) SetHeaders(param map[string]string) *GetConfigMapOptions {
+	options.Headers = param
+	return options
+}
+
+// GetDomainMappingOptions : The GetDomainMapping options.
+type GetDomainMappingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your domain mapping.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetDomainMappingOptions : Instantiate GetDomainMappingOptions
+func (*CodeEngineV2) NewGetDomainMappingOptions(projectID string, name string) *GetDomainMappingOptions {
+	return &GetDomainMappingOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetDomainMappingOptions) SetProjectID(projectID string) *GetDomainMappingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *GetDomainMappingOptions) SetName(name string) *GetDomainMappingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetDomainMappingOptions) SetHeaders(param map[string]string) *GetDomainMappingOptions {
 	options.Headers = param
 	return options
 }
@@ -7954,7 +8732,7 @@ const (
 // The current status of the job run.
 const (
 	JobRun_Status_Completed = "completed"
-	JobRun_Status_Pending = "pending"
+	JobRun_Status_Failed = "failed"
 	JobRun_Status_Running = "running"
 )
 
@@ -8185,8 +8963,8 @@ type ListAppRevisionsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8240,8 +9018,8 @@ type ListAppsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8288,8 +9066,8 @@ type ListBindingsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8339,8 +9117,8 @@ type ListBuildRunsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8439,8 +9217,8 @@ type ListConfigMapsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8478,6 +9256,52 @@ func (options *ListConfigMapsOptions) SetHeaders(param map[string]string) *ListC
 	return options
 }
 
+// ListDomainMappingsOptions : The ListDomainMappings options.
+type ListDomainMappingsOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Optional maximum number of domain mappings per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The token to continue traversing paginated list of domain mappings.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListDomainMappingsOptions : Instantiate ListDomainMappingsOptions
+func (*CodeEngineV2) NewListDomainMappingsOptions(projectID string) *ListDomainMappingsOptions {
+	return &ListDomainMappingsOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListDomainMappingsOptions) SetProjectID(projectID string) *ListDomainMappingsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListDomainMappingsOptions) SetLimit(limit int64) *ListDomainMappingsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListDomainMappingsOptions) SetStart(start string) *ListDomainMappingsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListDomainMappingsOptions) SetHeaders(param map[string]string) *ListDomainMappingsOptions {
+	options.Headers = param
+	return options
+}
+
 // ListFirstMetadata : Describes properties needed to retrieve the first page of a result list.
 type ListFirstMetadata struct {
 	// Href that points to the first page.
@@ -8507,8 +9331,8 @@ type ListJobRunsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8561,8 +9385,8 @@ type ListJobsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8631,7 +9455,7 @@ type ListProjectsOptions struct {
 
 	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
 	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
-	// obtained from the 'start' query parameter in the 'next_url' field of the operation response.
+	// obtained from the 'start' query parameter in the `next` object of the operation response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8670,8 +9494,8 @@ type ListSecretsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
-	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
-	// operation response.
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -8707,6 +9531,202 @@ func (_options *ListSecretsOptions) SetStart(start string) *ListSecretsOptions {
 func (options *ListSecretsOptions) SetHeaders(param map[string]string) *ListSecretsOptions {
 	options.Headers = param
 	return options
+}
+
+// OperatorSecretProps : Properties for the IBM Cloud Operator Secret.
+type OperatorSecretProps struct {
+	// The ID of the apikey associated with the operator secret.
+	ApikeyID *string `json:"apikey_id" validate:"required"`
+
+	// The list of resource groups (by ID) that the operator secret can bind services in.
+	ResourceGroupIds []string `json:"resource_group_ids" validate:"required"`
+
+	// A reference to a Service ID.
+	Serviceid *ServiceIDRef `json:"serviceid" validate:"required"`
+
+	// Specifies whether the operator secret is user managed.
+	UserManaged *bool `json:"user_managed" validate:"required"`
+}
+
+// UnmarshalOperatorSecretProps unmarshals an instance of OperatorSecretProps from the specified map of raw messages.
+func UnmarshalOperatorSecretProps(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OperatorSecretProps)
+	err = core.UnmarshalPrimitive(m, "apikey_id", &obj.ApikeyID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_ids", &obj.ResourceGroupIds)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "user_managed", &obj.UserManaged)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// OperatorSecretPrototypeProps : Properties for the IBM Cloud Operator Secret Prototype.
+type OperatorSecretPrototypeProps struct {
+	// The list of resource groups (by ID) that the operator secret can bind services in.
+	ResourceGroupIds []string `json:"resource_group_ids,omitempty"`
+
+	// A reference to the Service ID.
+	Serviceid *ServiceIDRefPrototype `json:"serviceid,omitempty"`
+}
+
+// UnmarshalOperatorSecretPrototypeProps unmarshals an instance of OperatorSecretPrototypeProps from the specified map of raw messages.
+func UnmarshalOperatorSecretPrototypeProps(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OperatorSecretPrototypeProps)
+	err = core.UnmarshalPrimitive(m, "resource_group_ids", &obj.ResourceGroupIds)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRefPrototype)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Probe : Response model for probes.
+type Probe struct {
+	// The number of consecutive, unsuccessful checks for the probe to be considered failed.
+	FailureThreshold *int64 `json:"failure_threshold,omitempty"`
+
+	// The amount of time in seconds to wait before the first probe check is performed.
+	InitialDelay *int64 `json:"initial_delay,omitempty"`
+
+	// The amount of time in seconds between probe checks.
+	Interval *int64 `json:"interval,omitempty"`
+
+	// The path of the HTTP request to the resource. A path is only supported for a probe with a `type` of `http`.
+	Path *string `json:"path,omitempty"`
+
+	// The port on which to probe the resource.
+	Port *int64 `json:"port,omitempty"`
+
+	// The amount of time in seconds that the probe waits for a response from the application before it times out and
+	// fails.
+	Timeout *int64 `json:"timeout,omitempty"`
+
+	// Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the Probe.Type property.
+// Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
+const (
+	Probe_Type_Http = "http"
+	Probe_Type_Tcp = "tcp"
+)
+
+// UnmarshalProbe unmarshals an instance of Probe from the specified map of raw messages.
+func UnmarshalProbe(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Probe)
+	err = core.UnmarshalPrimitive(m, "failure_threshold", &obj.FailureThreshold)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "initial_delay", &obj.InitialDelay)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "port", &obj.Port)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProbePrototype : Request model for probes.
+type ProbePrototype struct {
+	// The number of consecutive, unsuccessful checks for the probe to be considered failed.
+	FailureThreshold *int64 `json:"failure_threshold,omitempty"`
+
+	// The amount of time in seconds to wait before the first probe check is performed.
+	InitialDelay *int64 `json:"initial_delay,omitempty"`
+
+	// The amount of time in seconds between probe checks.
+	Interval *int64 `json:"interval,omitempty"`
+
+	// The path of the HTTP request to the resource. A path is only supported for a probe with a `type` of `http`.
+	Path *string `json:"path,omitempty"`
+
+	// The port on which to probe the resource.
+	Port *int64 `json:"port,omitempty"`
+
+	// The amount of time in seconds that the probe waits for a response from the application before it times out and
+	// fails.
+	Timeout *int64 `json:"timeout,omitempty"`
+
+	// Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the ProbePrototype.Type property.
+// Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
+const (
+	ProbePrototype_Type_Http = "http"
+	ProbePrototype_Type_Tcp = "tcp"
+)
+
+// UnmarshalProbePrototype unmarshals an instance of ProbePrototype from the specified map of raw messages.
+func UnmarshalProbePrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProbePrototype)
+	err = core.UnmarshalPrimitive(m, "failure_threshold", &obj.FailureThreshold)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "initial_delay", &obj.InitialDelay)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "port", &obj.Port)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // Project : Describes the model of a project.
@@ -9001,8 +10021,8 @@ type ReplaceSecretOptions struct {
 	Format *string `json:"format" validate:"required"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
+	// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+	// field can consists of any character and must not exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -9017,6 +10037,7 @@ const (
 	ReplaceSecretOptions_Format_Other = "other"
 	ReplaceSecretOptions_Format_Registry = "registry"
 	ReplaceSecretOptions_Format_ServiceAccess = "service_access"
+	ReplaceSecretOptions_Format_ServiceOperator = "service_operator"
 	ReplaceSecretOptions_Format_SshAuth = "ssh_auth"
 	ReplaceSecretOptions_Format_Tls = "tls"
 )
@@ -9110,7 +10131,7 @@ func UnmarshalResourceKeyRefPrototype(m map[string]json.RawMessage, result inter
 
 // RoleRef : A reference to the Role and Role CRN for service binding.
 type RoleRef struct {
-	// CRN of the IAM Role for thise service access secret.
+	// CRN of the IAM Role for this service access secret.
 	Crn *string `json:"crn,omitempty"`
 
 	// Role of the service credential.
@@ -9134,7 +10155,7 @@ func UnmarshalRoleRef(m map[string]json.RawMessage, result interface{}) (err err
 
 // RoleRefPrototype : A reference to the Role and Role CRN for service binding.
 type RoleRefPrototype struct {
-	// CRN of the IAM Role for thise service access secret.
+	// CRN of the IAM Role for this service access secret.
 	Crn *string `json:"crn,omitempty"`
 }
 
@@ -9155,8 +10176,8 @@ type Secret struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-	// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
-	// value field can consists of any character and must not be exceed a max length of 1048576 characters.
+	// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+	// field can consists of any character and must not exceed a max length of 1048576 characters.
 	Data map[string]string `json:"data,omitempty"`
 
 	// The version of the secret instance, which is used to achieve optimistic locking.
@@ -9182,6 +10203,9 @@ type Secret struct {
 
 	// Properties for Service Access Secrets.
 	ServiceAccess *ServiceAccessSecretProps `json:"service_access,omitempty"`
+
+	// Properties for the IBM Cloud Operator Secret.
+	ServiceOperator *OperatorSecretProps `json:"service_operator,omitempty"`
 }
 
 // Constants associated with the Secret.Format property.
@@ -9192,6 +10216,7 @@ const (
 	Secret_Format_Other = "other"
 	Secret_Format_Registry = "registry"
 	Secret_Format_ServiceAccess = "service_access"
+	Secret_Format_ServiceOperator = "service_operator"
 	Secret_Format_SshAuth = "ssh_auth"
 	Secret_Format_Tls = "tls"
 )
@@ -9239,13 +10264,17 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "service_operator", &obj.ServiceOperator, UnmarshalOperatorSecretProps)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // SecretData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
-// consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value
-// field can consists of any character and must not be exceed a max length of 1048576 characters.
+// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+// field can consists of any character and must not exceed a max length of 1048576 characters.
 // Models which "extend" this model:
 // - SecretDataSSHSecretData
 // - SecretDataRegistrySecretData
@@ -9467,7 +10496,7 @@ type ServiceAccessSecretProps struct {
 	// The IBM Cloud service instance associated with the secret.
 	ServiceInstance *ServiceInstanceRef `json:"service_instance" validate:"required"`
 
-	// A reference to the Service ID used to the create service credential.
+	// A reference to a Service ID.
 	Serviceid *ServiceIDRef `json:"serviceid,omitempty"`
 }
 
@@ -9505,7 +10534,7 @@ type ServiceAccessSecretPrototypeProps struct {
 	// The IBM Cloud service instance associated with the secret.
 	ServiceInstance *ServiceInstanceRefPrototype `json:"service_instance" validate:"required"`
 
-	// A reference to the Service ID used to the create service credential.
+	// A reference to a Service ID.
 	Serviceid *ServiceIDRef `json:"serviceid,omitempty"`
 }
 
@@ -9542,16 +10571,40 @@ func UnmarshalServiceAccessSecretPrototypeProps(m map[string]json.RawMessage, re
 	return
 }
 
-// ServiceIDRef : A reference to the Service ID used to the create service credential.
+// ServiceIDRef : A reference to a Service ID.
 type ServiceIDRef struct {
-	// CRN value of a Service ID used to create the service credential.
+	// CRN value of a Service ID.
 	Crn *string `json:"crn,omitempty"`
+
+	// The ID of the Service ID.
+	ID *string `json:"id,omitempty"`
 }
 
 // UnmarshalServiceIDRef unmarshals an instance of ServiceIDRef from the specified map of raw messages.
 func UnmarshalServiceIDRef(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ServiceIDRef)
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceIDRefPrototype : A reference to the Service ID.
+type ServiceIDRefPrototype struct {
+	// The ID of the Service ID.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalServiceIDRefPrototype unmarshals an instance of ServiceIDRefPrototype from the specified map of raw messages.
+func UnmarshalServiceIDRefPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceIDRefPrototype)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -9716,6 +10769,66 @@ func (_options *UpdateBuildOptions) SetBuild(build map[string]interface{}) *Upda
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateBuildOptions) SetHeaders(param map[string]string) *UpdateBuildOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateDomainMappingOptions : The UpdateDomainMapping options.
+type UpdateDomainMappingOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your domain mapping.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Version of the domain mapping to be updated. Specify the version that you retrieved as entity_tag (ETag header) when
+	// reading the domain mapping. This value helps identify parallel usage of this API. Pass * to indicate to update any
+	// version available. This might result in stale updates.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// DomainMapping patch.
+	DomainMapping map[string]interface{} `json:"domain_mapping" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateDomainMappingOptions : Instantiate UpdateDomainMappingOptions
+func (*CodeEngineV2) NewUpdateDomainMappingOptions(projectID string, name string, ifMatch string, domainMapping map[string]interface{}) *UpdateDomainMappingOptions {
+	return &UpdateDomainMappingOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+		IfMatch: core.StringPtr(ifMatch),
+		DomainMapping: domainMapping,
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateDomainMappingOptions) SetProjectID(projectID string) *UpdateDomainMappingOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateDomainMappingOptions) SetName(name string) *UpdateDomainMappingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateDomainMappingOptions) SetIfMatch(ifMatch string) *UpdateDomainMappingOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetDomainMapping : Allow user to set DomainMapping
+func (_options *UpdateDomainMappingOptions) SetDomainMapping(domainMapping map[string]interface{}) *UpdateDomainMappingOptions {
+	_options.DomainMapping = domainMapping
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateDomainMappingOptions) SetHeaders(param map[string]string) *UpdateDomainMappingOptions {
 	options.Headers = param
 	return options
 }
@@ -11168,5 +12281,86 @@ func (pager *SecretsPager) GetNext() (page []Secret, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// DomainMappingsPager can be used to simplify the use of the "ListDomainMappings" method.
+//
+type DomainMappingsPager struct {
+	hasNext bool
+	options *ListDomainMappingsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewDomainMappingsPager returns a new DomainMappingsPager instance.
+func (codeEngine *CodeEngineV2) NewDomainMappingsPager(options *ListDomainMappingsOptions) (pager *DomainMappingsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListDomainMappingsOptions = *options
+	pager = &DomainMappingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *DomainMappingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *DomainMappingsPager) GetNextWithContext(ctx context.Context) (page []DomainMapping, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListDomainMappingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.DomainMappings
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *DomainMappingsPager) GetAllWithContext(ctx context.Context) (allItems []DomainMapping, err error) {
+	for pager.HasNext() {
+		var nextPage []DomainMapping
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *DomainMappingsPager) GetNext() (page []DomainMapping, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *DomainMappingsPager) GetAll() (allItems []DomainMapping, err error) {
 	return pager.GetAllWithContext(context.Background())
 }

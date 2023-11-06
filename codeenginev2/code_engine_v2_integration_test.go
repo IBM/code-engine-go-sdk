@@ -288,6 +288,16 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateApp(createAppOptions *CreateAppOptions)`, func() {
+			probePrototypeModel := &codeenginev2.ProbePrototype{
+				FailureThreshold: core.Int64Ptr(int64(5)),
+				InitialDelay: core.Int64Ptr(int64(5)),
+				Interval: core.Int64Ptr(int64(5)),
+				Path: core.StringPtr("testString"),
+				Port: core.Int64Ptr(int64(8080)),
+				Timeout: core.Int64Ptr(int64(300)),
+				Type: core.StringPtr("tcp"),
+			}
+
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
 				Key: core.StringPtr("MY_VARIABLE"),
 				Name: core.StringPtr("SOME"),
@@ -311,6 +321,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ImagePort: core.Int64Ptr(int64(8080)),
 				ImageSecret: core.StringPtr("my-secret"),
 				ManagedDomainMappings: core.StringPtr("local_public"),
+				ProbeLiveness: probePrototypeModel,
+				ProbeReadiness: probePrototypeModel,
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
@@ -358,6 +370,16 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateApp(updateAppOptions *UpdateAppOptions)`, func() {
+			probePrototypeModel := &codeenginev2.ProbePrototype{
+				FailureThreshold: core.Int64Ptr(int64(5)),
+				InitialDelay: core.Int64Ptr(int64(5)),
+				Interval: core.Int64Ptr(int64(5)),
+				Path: core.StringPtr("testString"),
+				Port: core.Int64Ptr(int64(8080)),
+				Timeout: core.Int64Ptr(int64(300)),
+				Type: core.StringPtr("tcp"),
+			}
+
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
 				Key: core.StringPtr("MY_VARIABLE"),
 				Name: core.StringPtr("SOME"),
@@ -379,6 +401,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
 				ImageSecret: core.StringPtr("my-secret"),
 				ManagedDomainMappings: core.StringPtr("local_public"),
+				ProbeLiveness: probePrototypeModel,
+				ProbeReadiness: probePrototypeModel,
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
@@ -1382,6 +1406,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 
 			serviceIdRefModel := &codeenginev2.ServiceIDRef{
 				Crn: core.StringPtr("testString"),
+				ID: core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"),
 			}
 
 			serviceAccessSecretPrototypePropsModel := &codeenginev2.ServiceAccessSecretPrototypeProps{
@@ -1391,12 +1416,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				Serviceid: serviceIdRefModel,
 			}
 
+			serviceIdRefPrototypeModel := &codeenginev2.ServiceIDRefPrototype{
+				ID: core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"),
+			}
+
+			operatorSecretPrototypePropsModel := &codeenginev2.OperatorSecretPrototypeProps{
+				ResourceGroupIds: []string{"testString"},
+				Serviceid: serviceIdRefPrototypeModel,
+			}
+
 			createSecretOptions := &codeenginev2.CreateSecretOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Format: core.StringPtr("generic"),
 				Name: core.StringPtr("my-secret"),
 				Data: secretDataModel,
 				ServiceAccess: serviceAccessSecretPrototypePropsModel,
+				ServiceOperator: operatorSecretPrototypePropsModel,
 			}
 
 			secret, response, err := codeEngineService.CreateSecret(createSecretOptions)
@@ -1446,6 +1481,142 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListDomainMappings - List domain mappings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) with pagination`, func(){
+			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+				Start: core.StringPtr("testString"),
+			}
+
+			listDomainMappingsOptions.Start = nil
+			listDomainMappingsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.DomainMapping
+			for {
+				domainMappingList, response, err := codeEngineService.ListDomainMappings(listDomainMappingsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(domainMappingList).ToNot(BeNil())
+				allResults = append(allResults, domainMappingList.DomainMappings...)
+
+				listDomainMappingsOptions.Start, err = domainMappingList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listDomainMappingsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) using DomainMappingsPager`, func(){
+			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.DomainMapping
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListDomainMappings() returned a total of %d item(s) using DomainMappingsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateDomainMapping - Create a domain mapping`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name: core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			createDomainMappingOptions := &codeenginev2.CreateDomainMappingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Component: componentRefModel,
+				Name: core.StringPtr("www.example.com"),
+				TlsSecret: core.StringPtr("my-tls-secret"),
+			}
+
+			domainMapping, response, err := codeEngineService.CreateDomainMapping(createDomainMappingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetDomainMapping - Get a domain mapping`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
+			getDomainMappingOptions := &codeenginev2.GetDomainMappingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("www.example.com"),
+			}
+
+			domainMapping, response, err := codeEngineService.GetDomainMapping(getDomainMappingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateDomainMapping - Update a domain mapping`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name: core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{
+				Component: componentRefModel,
+				TlsSecret: core.StringPtr("my-tls-secret"),
+			}
+			domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateDomainMappingOptions := &codeenginev2.UpdateDomainMappingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("www.example.com"),
+				IfMatch: core.StringPtr("testString"),
+				DomainMapping: domainMappingPatchModelAsPatch,
+			}
+
+			domainMapping, response, err := codeEngineService.UpdateDomainMapping(updateDomainMappingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
 		})
 	})
 
@@ -1604,6 +1775,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			response, err := codeEngineService.DeleteSecret(deleteSecretOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeleteDomainMapping - Delete a domain mapping`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
+			deleteDomainMappingOptions := &codeenginev2.DeleteDomainMappingOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("www.example.com"),
+			}
+
+			response, err := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
