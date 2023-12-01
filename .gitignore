@@ -9,6 +9,9 @@ vendor/
 .openapi-generator/VERSION
 /.project
 
+# API repo (pulled from Github)
+api
+
 # credentials files
 *.env
 

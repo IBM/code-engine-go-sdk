@@ -15,8 +15,6 @@ set -e
 # - CE_PROJECT_ID: GUID of Code Engine project to target
 # - CE_PROJECT_REGION: region for API URL
 # - CE_ACCOUNT_ID: account id of the current user
-# - CE_TLS_KEY_FILE_PATH: path to TLS key file
-# - CE_TLS_CERT_FILE_PATH: path to TLS crt file
 
 function get_repo {
     if [ ! -d "$apiDirectory" ]; then
