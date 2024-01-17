@@ -1,3 +1,10 @@
 {
-  "settingsInheritedFrom": "whitesource-config/whitesource-config@issues_none"
+  "settingsInheritedFrom": "whitesource-config/whitesource-config@issues_none",
+  "remediateSettings": {
+    "enableRenovate": true,
+    "extends": [
+      "config:base"
+    ],
+    "transitiveRemediation": true
+  }
 }
