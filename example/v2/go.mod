@@ -1,6 +1,6 @@
 module github.com/IBM/v2
 
-go 1.18
+go 1.21
 
 require (
 	github.com/IBM/code-engine-go-sdk/v2 v2.0.3
@@ -23,10 +23,10 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	go.mongodb.org/mongo-driver v1.12.1 // indirect
-	golang.org/x/crypto v0.14.0 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 )
 
 replace github.com/IBM/code-engine-go-sdk/v2 => ./../..
