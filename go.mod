@@ -6,6 +6,7 @@ require (
 	github.com/IBM/go-sdk-core/v5 v5.15.0
 	github.com/go-openapi/strfmt v0.21.7
 	github.com/onsi/ginkgo v1.16.5
+	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.30.0
 	github.com/stretchr/testify v1.8.4
 )
@@ -26,7 +27,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/nxadm/tail v1.4.11 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.15.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.12.1 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
