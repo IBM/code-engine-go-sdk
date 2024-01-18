@@ -40,8 +40,8 @@ echo "----------------------------------"
 rootDirectory=$(pwd)
 apiDirectory=$rootDirectory/api
 get_repo
-export CE_TLS_KEY_FILE_PATH=$apiDirectory/test/integration/v1beta/domainmappings/tls-files/demohero.key
-export CE_TLS_CERT_FILE_PATH=$apiDirectory/test/integration/v1beta/domainmappings/tls-files/demohero.crt
+export CE_TLS_KEY_FILE_PATH=$apiDirectory/test/integration/tls-files/demohero.key
+export CE_TLS_CERT_FILE_PATH=$apiDirectory/test/integration/tls-files/demohero.crt
 
 echo ""
 echo "----------------------------------"
