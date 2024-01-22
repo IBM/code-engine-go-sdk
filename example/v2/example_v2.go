@@ -15,11 +15,12 @@ import (
 func main() {
 
 	var (
-		codeEngineService *codeenginev2.CodeEngineV2
+		codeEngineService     *codeenginev2.CodeEngineV2
+		codeEngineApiEndpoint string
 	)
 
 	// Validate environment
-	requiredEnvs := []string{"CE_API_KEY", "CE_API_HOST", "CE_PROJECT_ID", "CE_ACCOUNT_ID", "CE_DOMAIN_MAPPING_NAME", "CE_TLS_KEY_FILE_PATH", "CE_TLS_CERT_FILE_PATH"}
+	requiredEnvs := []string{"CE_API_KEY", "CE_DOMAIN_MAPPING_NAME", "CE_TLS_KEY_FILE_PATH", "CE_TLS_CERT_FILE_PATH"}
 	for _, env := range requiredEnvs {
 		if os.Getenv(env) == "" {
 			fmt.Printf("Environment variable %s must be set\n", env)
@@ -40,9 +41,6 @@ func main() {
 	}
 	fmt.Printf("Using Resource Controller endpoint: '%s'\n", rcEndpoint)
 
-	accountID := os.Getenv("CE_ACCOUNT_ID")
-	fmt.Printf("Using account: '%s'\n", accountID)
-
 	// Create an IAM authenticator.
 	authenticator := &core.IamAuthenticator{
 		ApiKey:       os.Getenv("CE_API_KEY"),
@@ -51,10 +49,11 @@ func main() {
 		URL:          iamEndpoint,
 	}
 
-	// Cleanup projects that have been created by prior runs
-	cleanupProjectReclamations(authenticator, rcEndpoint, accountID)
-
-	codeEngineApiEndpoint := "https://" + os.Getenv("CE_API_HOST") + "/v2"
+	if len(os.Getenv("CE_API_HOST")) > 0 {
+		codeEngineApiEndpoint = "https://" + os.Getenv("CE_API_HOST") + "/v2"
+	} else {
+		codeEngineApiEndpoint = "https://api." + os.Getenv("CE_PROJECT_REGION") + ".codeengine.cloud.ibm.com/v2"
+	}
 	fmt.Printf("Using Code Engine API endpoint: '%s'\n", codeEngineApiEndpoint)
 
 	// Setup a Code Engine client
@@ -67,6 +66,14 @@ func main() {
 		fmt.Printf("NewCodeEngineV2UsingExternalConfig error: %s\n", err.Error())
 		os.Exit(1)
 		return
+	}
+
+	if len(os.Getenv("CE_ACCOUNT_ID")) > 0 {
+		accountID := os.Getenv("CE_ACCOUNT_ID")
+		fmt.Printf("Using account: '%s'\n", accountID)
+
+		// Cleanup projects that have been created by prior runs
+		cleanupProjectReclamations(authenticator, rcEndpoint, accountID)
 	}
 
 	// List Code Engine projects using the Code Engine Client
@@ -388,7 +395,7 @@ func main() {
 	// Create domain mapping
 	domainMappingName := os.Getenv("CE_DOMAIN_MAPPING_NAME")
 	appComponentRef := &codeenginev2.ComponentRef{
-		Name:         core.StringPtr("app-1"),
+		Name:         createdApp.Name,
 		ResourceType: core.StringPtr("app_v2"),
 	}
 
@@ -396,7 +403,7 @@ func main() {
 		*createdProject.ID,
 		appComponentRef,
 		domainMappingName,
-		"tls-secret",
+		*createdTLSSecret.Name,
 	)
 
 	createdDomainMapping, _, err := codeEngineService.CreateDomainMapping(createDomainMappingOpts)
@@ -437,7 +444,7 @@ func main() {
 	fmt.Printf("Created app '%s'\n", *createdApp2.Name)
 
 	app2ComponentRef := &codeenginev2.ComponentRef{
-		Name:         core.StringPtr("app-2"),
+		Name:         createdApp2.Name,
 		ResourceType: core.StringPtr("app_v2"),
 	}
 

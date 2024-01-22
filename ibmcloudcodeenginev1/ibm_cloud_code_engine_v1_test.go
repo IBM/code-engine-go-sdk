@@ -29,7 +29,7 @@ import (
 	"github.com/IBM/code-engine-go-sdk/ibmcloudcodeenginev1"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 

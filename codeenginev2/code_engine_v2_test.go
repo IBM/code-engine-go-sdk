@@ -29,7 +29,7 @@ import (
 	"github.com/IBM/code-engine-go-sdk/codeenginev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
@@ -66,14 +66,13 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				Expect(codeEngineService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-				})
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 				err := codeEngineService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_URL": "https://codeenginev2/api",
+				"CODE_ENGINE_URL":       "https://codeenginev2/api",
 				"CODE_ENGINE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{
-			})
+			codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2UsingExternalConfig(&codeenginev2.CodeEngineV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(codeEngineService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CODE_ENGINE_AUTH_TYPE":   "NOAuth",
+				"CODE_ENGINE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1705,7 +1702,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -1731,7 +1728,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppsOptionsModel := &codeenginev2.ListAppsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppsPager(listAppsOptionsModel)
@@ -3335,8 +3332,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3362,8 +3359,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listAppRevisionsOptionsModel := &codeenginev2.ListAppRevisionsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					AppName: core.StringPtr("my-app"),
-					Limit: core.Int64Ptr(int64(100)),
+					AppName:   core.StringPtr("my-app"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptionsModel)
@@ -3950,7 +3947,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -3976,7 +3973,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobsOptionsModel := &codeenginev2.ListJobsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobsPager(listJobsOptionsModel)
@@ -5413,8 +5410,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -5440,8 +5437,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listJobRunsOptionsModel := &codeenginev2.ListJobRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					JobName: core.StringPtr("my-job"),
-					Limit: core.Int64Ptr(int64(100)),
+					JobName:   core.StringPtr("my-job"),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptionsModel)
@@ -6430,7 +6427,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
@@ -6456,7 +6453,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBindingsOptionsModel := &codeenginev2.ListBindingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBindingsPager(listBindingsOptionsModel)
@@ -7320,7 +7317,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -7346,7 +7343,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listBuildsOptionsModel := &codeenginev2.ListBuildsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildsPager(listBuildsOptionsModel)
@@ -8584,7 +8581,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -8611,7 +8608,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				listBuildRunsOptionsModel := &codeenginev2.ListBuildRunsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					BuildName: core.StringPtr("my-build"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptionsModel)
@@ -9505,7 +9502,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -9531,7 +9528,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listConfigMapsOptionsModel := &codeenginev2.ListConfigMapsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptionsModel)
@@ -10630,7 +10627,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -10656,7 +10653,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listSecretsOptionsModel := &codeenginev2.ListSecretsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewSecretsPager(listSecretsOptionsModel)
@@ -12000,7 +11997,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
@@ -12026,7 +12023,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
+					Limit:     core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
