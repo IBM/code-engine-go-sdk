@@ -1,5 +1,6 @@
 .DS_Store
 .env
+.vscode
 
 # ignore vendor/
 vendor/
@@ -8,6 +9,9 @@ vendor/
 .openapi-generator-ignore
 .openapi-generator/VERSION
 /.project
+
+# API repo (pulled from Github)
+api
 
 # credentials files
 *.env
