@@ -1,12 +1,12 @@
 module github.com/IBM/code-engine-go-sdk
 
-go 1.21
+go 1.18
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.15.0
 	github.com/go-openapi/strfmt v0.22.0
-	github.com/onsi/ginkgo/v2 v2.15.0
-	github.com/onsi/gomega v1.31.1
+	github.com/onsi/ginkgo v1.16.5
+	github.com/onsi/gomega v1.29.0
 	github.com/stretchr/testify v1.8.4
 )
 
