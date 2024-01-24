@@ -5,6 +5,7 @@ go 1.21
 require (
 	github.com/IBM/go-sdk-core/v5 v5.15.0
 	github.com/go-openapi/strfmt v0.22.0
+	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.31.1
 	github.com/stretchr/testify v1.8.4
@@ -37,6 +38,7 @@ require (
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.16.1 // indirect
+	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 

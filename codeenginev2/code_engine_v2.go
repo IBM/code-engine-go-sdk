@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.80.0-29334a73-20230925-151553
+ * IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -1591,6 +1591,9 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	}
 	if createJobRunOptions.RunVolumeMounts != nil {
 		body["run_volume_mounts"] = createJobRunOptions.RunVolumeMounts
+	}
+	if createJobRunOptions.ScaleArraySizeVariableOverride != nil {
+		body["scale_array_size_variable_override"] = createJobRunOptions.ScaleArraySizeVariableOverride
 	}
 	if createJobRunOptions.ScaleArraySpec != nil {
 		body["scale_array_spec"] = createJobRunOptions.ScaleArraySpec
@@ -3681,6 +3684,10 @@ type App struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the app.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -3854,6 +3861,10 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -4237,6 +4248,10 @@ type AppRevision struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the app revision.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -4372,6 +4387,10 @@ func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -4733,6 +4752,10 @@ type Build struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the build.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -4767,7 +4790,7 @@ type Build struct {
 	StatusDetails *BuildStatus `json:"status_details,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-	// `large`, `xlarge`.
+	// `large`, `xlarge`, `xxlarge`.
 	StrategySize *string `json:"strategy_size" validate:"required"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
@@ -4834,6 +4857,10 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -4969,7 +4996,7 @@ type BuildPatch struct {
 	SourceURL *string `json:"source_url,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-	// `large`, `xlarge`.
+	// `large`, `xlarge`, `xxlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
@@ -5081,6 +5108,10 @@ type BuildRun struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the build run.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -5118,7 +5149,7 @@ type BuildRun struct {
 	StatusDetails *BuildRunStatus `json:"status_details,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-	// `large`, `xlarge`.
+	// `large`, `xlarge`, `xxlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
@@ -5197,6 +5228,10 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -5452,6 +5487,10 @@ type ConfigMap struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the config map.
 	ResourceType *string `json:"resource_type,omitempty"`
 }
@@ -5490,6 +5529,10 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -5930,7 +5973,7 @@ type CreateBuildOptions struct {
 	SourceURL *string `json:"source_url,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-	// `large`, `xlarge`.
+	// `large`, `xlarge`, `xxlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
@@ -6096,7 +6139,7 @@ type CreateBuildRunOptions struct {
 	SourceURL *string `json:"source_url,omitempty"`
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
-	// `large`, `xlarge`.
+	// `large`, `xlarge`, `xxlarge`.
 	StrategySize *string `json:"strategy_size,omitempty"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
@@ -6607,6 +6650,9 @@ type CreateJobRunOptions struct {
 	// Optional mounts of config maps or a secrets.
 	RunVolumeMounts []VolumeMountPrototype `json:"run_volume_mounts,omitempty"`
 
+	// Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
+	ScaleArraySizeVariableOverride *int64 `json:"scale_array_size_variable_override,omitempty"`
+
 	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
 	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
 	// unique array indices specified here determines the number of job instances to run.
@@ -6736,6 +6782,12 @@ func (_options *CreateJobRunOptions) SetRunServiceAccount(runServiceAccount stri
 // SetRunVolumeMounts : Allow user to set RunVolumeMounts
 func (_options *CreateJobRunOptions) SetRunVolumeMounts(runVolumeMounts []VolumeMountPrototype) *CreateJobRunOptions {
 	_options.RunVolumeMounts = runVolumeMounts
+	return _options
+}
+
+// SetScaleArraySizeVariableOverride : Allow user to set ScaleArraySizeVariableOverride
+func (_options *CreateJobRunOptions) SetScaleArraySizeVariableOverride(scaleArraySizeVariableOverride int64) *CreateJobRunOptions {
+	_options.ScaleArraySizeVariableOverride = core.Int64Ptr(scaleArraySizeVariableOverride)
 	return _options
 }
 
@@ -7365,6 +7417,10 @@ type DomainMapping struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the CE Resource.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -7441,6 +7497,10 @@ func UnmarshalDomainMapping(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -8180,6 +8240,12 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 
 // Job : Job is the response model for job resources.
 type Job struct {
+	// Reference to a build that is associated with the job.
+	Build *string `json:"build,omitempty"`
+
+	// Reference to a buildrun that is associated with the job.
+	BuildRun *string `json:"build_run,omitempty"`
+
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
@@ -8209,6 +8275,10 @@ type Job struct {
 
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
+
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
 
 	// The type of the job.
 	ResourceType *string `json:"resource_type,omitempty"`
@@ -8298,6 +8368,14 @@ const (
 // UnmarshalJob unmarshals an instance of Job from the specified map of raw messages.
 func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Job)
+	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "build_run", &obj.BuildRun)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
@@ -8327,6 +8405,10 @@ func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -8637,6 +8719,10 @@ type JobRun struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the job run.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -8665,6 +8751,9 @@ type JobRun struct {
 
 	// Optional mounts of config maps or a secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
+
+	// Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
+	ScaleArraySizeVariableOverride *int64 `json:"scale_array_size_variable_override,omitempty"`
 
 	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
 	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
@@ -8733,6 +8822,7 @@ const (
 const (
 	JobRun_Status_Completed = "completed"
 	JobRun_Status_Failed = "failed"
+	JobRun_Status_Pending = "pending"
 	JobRun_Status_Running = "running"
 )
 
@@ -8771,6 +8861,10 @@ func UnmarshalJobRun(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
 		return
@@ -8800,6 +8894,10 @@ func UnmarshalJobRun(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_array_size_variable_override", &obj.ScaleArraySizeVariableOverride)
 	if err != nil {
 		return
 	}
@@ -10198,6 +10296,10 @@ type Secret struct {
 	// The ID of the project the resource is located in.
 	ProjectID *string `json:"project_id,omitempty"`
 
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
 	// The type of the secret.
 	ResourceType *string `json:"resource_type,omitempty"`
 
@@ -10253,6 +10355,10 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
