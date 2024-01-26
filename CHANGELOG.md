@@ -1,3 +1,27 @@
+# [4.3.0](https://github.ibm.com/coligo/go-sdk/compare/v4.2.0...v4.3.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* **deps:** :lock: upgrade crypto package ([#107](https://github.ibm.com/coligo/go-sdk/issues/107)) ([c6509ce](https://github.ibm.com/coligo/go-sdk/commit/c6509cefa9fb498742e86a2d4760689de98c79f6))
+* **deps:** update kubernetes packages to v0.29.1 ([#110](https://github.ibm.com/coligo/go-sdk/issues/110)) ([b64a371](https://github.ibm.com/coligo/go-sdk/commit/b64a371d27459df4a4677859a8e8b1d18012e9a7))
+* **deps:** update module github.com/go-openapi/strfmt to v0.22.0 ([#104](https://github.ibm.com/coligo/go-sdk/issues/104)) ([18a495b](https://github.ibm.com/coligo/go-sdk/commit/18a495be43647fd2198127b03bfbd44e049a5551))
+* **deps:** update module github.com/ibm/go-sdk-core/v5 to v5.15.0 ([#105](https://github.ibm.com/coligo/go-sdk/issues/105)) ([3b2b91b](https://github.ibm.com/coligo/go-sdk/commit/3b2b91bc8d9fbeaf899eda0cc2b2059039bf1b53))
+* **deps:** update module github.com/ibm/platform-services-go-sdk to v0.56.0 ([#108](https://github.ibm.com/coligo/go-sdk/issues/108)) ([d643728](https://github.ibm.com/coligo/go-sdk/commit/d64372840a4e41201bbee972186b03004e3e7d72))
+* **deps:** update module github.com/ibm/platform-services-go-sdk to v0.56.2 ([#123](https://github.ibm.com/coligo/go-sdk/issues/123)) ([6ed24cd](https://github.ibm.com/coligo/go-sdk/commit/6ed24cdf2c13d3abd75b5a5ab0fc56228f942051))
+* **deps:** update module github.com/onsi/ginkgo to v2 ([#114](https://github.ibm.com/coligo/go-sdk/issues/114)) ([fd79e28](https://github.ibm.com/coligo/go-sdk/commit/fd79e289c72599c274423feee931aaa493014f8a))
+* **deps:** update module github.com/onsi/ginkgo to v2 ([#115](https://github.ibm.com/coligo/go-sdk/issues/115)) ([6cdcafa](https://github.ibm.com/coligo/go-sdk/commit/6cdcafa249c24b204660349d253709f3a01fe26f))
+* **deps:** update module github.com/onsi/ginkgo to v2 ([#116](https://github.ibm.com/coligo/go-sdk/issues/116)) ([2862675](https://github.ibm.com/coligo/go-sdk/commit/2862675b355271203e74fcd80f03168f27f97a35))
+* **deps:** update module github.com/onsi/gomega to v1.31.0 ([#109](https://github.ibm.com/coligo/go-sdk/issues/109)) ([8ea0055](https://github.ibm.com/coligo/go-sdk/commit/8ea005553f7c6e934c86e759ecfb980427c078ee))
+* **deps:** update module github.com/onsi/gomega to v1.31.1 ([#118](https://github.ibm.com/coligo/go-sdk/issues/118)) ([174d0dc](https://github.ibm.com/coligo/go-sdk/commit/174d0dc373307b74c026901ec6b05e58d481b24c))
+* **documentation:** fix the example link ([#122](https://github.ibm.com/coligo/go-sdk/issues/122)) ([11cec7b](https://github.ibm.com/coligo/go-sdk/commit/11cec7b67139ab8db921e1d2caa8df3551956872))
+* **readme:** add readme for example_v2 ([#120](https://github.ibm.com/coligo/go-sdk/issues/120)) ([da397b9](https://github.ibm.com/coligo/go-sdk/commit/da397b9c6416d17eaf1b19de344fc38a568427db))
+
+
+### Features
+
+* **api:** SDK update 20240124-161556 ([#125](https://github.ibm.com/coligo/go-sdk/issues/125)) ([c2e6d52](https://github.ibm.com/coligo/go-sdk/commit/c2e6d52a9635b606422b0d9d8f78644edc40242a))
+
 # [4.2.0](https://github.ibm.com/coligo/go-sdk/compare/v4.1.2...v4.2.0) (2023-11-06)
 
 
