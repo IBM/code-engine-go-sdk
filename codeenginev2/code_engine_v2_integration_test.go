@@ -1,7 +1,7 @@
-// +build integration
+//go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -805,6 +805,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunMode: core.StringPtr("task"),
 				RunServiceAccount: core.StringPtr("default"),
 				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				ScaleArraySizeVariableOverride: core.Int64Ptr(int64(2)),
 				ScaleArraySpec: core.StringPtr("1-5,7-8,10"),
 				ScaleCpuLimit: core.StringPtr("1"),
 				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
