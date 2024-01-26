@@ -36,7 +36,7 @@ script:
   - ./test-integration.sh
 
 before_deploy:
-  - nvm install 18
+  - nvm install 20
   - npm install -g npm@9.x
   - npm install -g semantic-release
   - npm install -g @semantic-release/changelog
