@@ -18,7 +18,7 @@ require (
 	github.com/go-openapi/errors v0.21.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect
-	github.com/go-openapi/strfmt v0.22.0 // indirect
+	github.com/go-openapi/strfmt v0.22.1 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
@@ -41,7 +41,7 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	go.mongodb.org/mongo-driver v1.13.1 // indirect
+	go.mongodb.org/mongo-driver v1.14.0 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/net v0.20.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
