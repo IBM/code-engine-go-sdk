@@ -33,9 +33,9 @@ require (
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
-	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/net v0.20.0 // indirect
-	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/crypto v0.21.0 // indirect
+	golang.org/x/net v0.22.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.16.1 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
@@ -44,7 +44,7 @@ require (
 
 replace (
 	// Replace golang.org/x/net as the latest level, thereby logically excluding vulnerable versions prior to v0.17.0
-	golang.org/x/net => golang.org/x/net v0.20.0
+	golang.org/x/net => golang.org/x/net v0.22.0
 	// Replace golang.org/x/text as the latest level, thereby logically excluding vulnerable versions prior to v0.3.7
 	golang.org/x/text => golang.org/x/text v0.14.0
 )
