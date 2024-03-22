@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/IBM/code-engine-go-sdk v0.0.0-00010101000000-000000000000
-	github.com/IBM/go-sdk-core/v5 v5.16.1
+	github.com/IBM/go-sdk-core/v5 v5.16.3
 	k8s.io/apimachinery v0.29.3
 	k8s.io/client-go v0.29.3
 )
