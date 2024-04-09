@@ -3,7 +3,7 @@ module github.com/IBM/code-engine-go-sdk
 go 1.21
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.16.3
+	github.com/IBM/go-sdk-core/v5 v5.16.4
 	github.com/go-openapi/strfmt v0.23.0
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/ginkgo/v2 v2.17.1
