@@ -6,7 +6,7 @@ toolchain go1.22.4
 
 require (
 	github.com/IBM/code-engine-go-sdk v0.0.0-20240126185534-a6e054aa01ed
-	github.com/IBM/go-sdk-core/v5 v5.17.3
+	github.com/IBM/go-sdk-core/v5 v5.17.4
 	k8s.io/apimachinery v0.30.2
 	k8s.io/client-go v0.30.2
 )
@@ -31,7 +31,7 @@ require (
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-retryablehttp v0.7.5 // indirect
+	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
