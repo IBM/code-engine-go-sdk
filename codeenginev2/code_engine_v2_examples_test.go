@@ -358,6 +358,32 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(appRevision).ToNot(BeNil())
 		})
+		It(`ListAppInstances request example`, func() {
+			fmt.Println("\nListAppInstances() result:")
+			// begin-list_app_instances
+			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				AppName: core.StringPtr("my-app"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.AppInstance
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_app_instances
+		})
 		It(`ListJobs request example`, func() {
 			fmt.Println("\nListJobs() result:")
 			// begin-list_jobs
@@ -525,6 +551,125 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(jobRun).ToNot(BeNil())
+		})
+		It(`ListFunctionRuntimes request example`, func() {
+			fmt.Println("\nListFunctionRuntimes() result:")
+			// begin-list_function_runtimes
+
+			listFunctionRuntimesOptions := codeEngineService.NewListFunctionRuntimesOptions()
+
+			functionRuntimeList, response, err := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(functionRuntimeList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_function_runtimes
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(functionRuntimeList).ToNot(BeNil())
+		})
+		It(`ListFunctions request example`, func() {
+			fmt.Println("\nListFunctions() result:")
+			// begin-list_functions
+			listFunctionsOptions := &codeenginev2.ListFunctionsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewFunctionsPager(listFunctionsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.Function
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_functions
+		})
+		It(`CreateFunction request example`, func() {
+			fmt.Println("\nCreateFunction() result:")
+			// begin-create_function
+
+			createFunctionOptions := codeEngineService.NewCreateFunctionOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"data:text/plain;base64,<base64encoded-source-code>",
+				"my-function",
+				"nodejs-18",
+			)
+
+			function, response, err := codeEngineService.CreateFunction(createFunctionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(function, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_function
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(function).ToNot(BeNil())
+		})
+		It(`GetFunction request example`, func() {
+			fmt.Println("\nGetFunction() result:")
+			// begin-get_function
+
+			getFunctionOptions := codeEngineService.NewGetFunctionOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-function",
+			)
+
+			function, response, err := codeEngineService.GetFunction(getFunctionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(function, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_function
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(function).ToNot(BeNil())
+		})
+		It(`UpdateFunction request example`, func() {
+			fmt.Println("\nUpdateFunction() result:")
+			// begin-update_function
+
+			functionPatchModel := &codeenginev2.FunctionPatch{
+			}
+			functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateFunctionOptions := codeEngineService.NewUpdateFunctionOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-function",
+				"testString",
+				functionPatchModelAsPatch,
+			)
+
+			function, response, err := codeEngineService.UpdateFunction(updateFunctionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(function, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_function
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(function).ToNot(BeNil())
 		})
 		It(`ListBindings request example`, func() {
 			fmt.Println("\nListBindings() result:")
@@ -772,6 +917,111 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(buildRun).ToNot(BeNil())
 		})
+		It(`ListDomainMappings request example`, func() {
+			fmt.Println("\nListDomainMappings() result:")
+			// begin-list_domain_mappings
+			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.DomainMapping
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_domain_mappings
+		})
+		It(`CreateDomainMapping request example`, func() {
+			fmt.Println("\nCreateDomainMapping() result:")
+			// begin-create_domain_mapping
+
+			componentRefModel := &codeenginev2.ComponentRef{
+				Name: core.StringPtr("my-app-1"),
+				ResourceType: core.StringPtr("app_v2"),
+			}
+
+			createDomainMappingOptions := codeEngineService.NewCreateDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				componentRefModel,
+				"www.example.com",
+				"my-tls-secret",
+			)
+
+			domainMapping, response, err := codeEngineService.CreateDomainMapping(createDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+		It(`GetDomainMapping request example`, func() {
+			fmt.Println("\nGetDomainMapping() result:")
+			// begin-get_domain_mapping
+
+			getDomainMappingOptions := codeEngineService.NewGetDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+			)
+
+			domainMapping, response, err := codeEngineService.GetDomainMapping(getDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
+		})
+		It(`UpdateDomainMapping request example`, func() {
+			fmt.Println("\nUpdateDomainMapping() result:")
+			// begin-update_domain_mapping
+
+			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{
+			}
+			domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateDomainMappingOptions := codeEngineService.NewUpdateDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+				"testString",
+				domainMappingPatchModelAsPatch,
+			)
+
+			domainMapping, response, err := codeEngineService.UpdateDomainMapping(updateDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(domainMapping, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(domainMapping).ToNot(BeNil())
+		})
 		It(`ListConfigMaps request example`, func() {
 			fmt.Println("\nListConfigMaps() result:")
 			// begin-list_config_maps
@@ -958,111 +1208,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
 		})
-		It(`ListDomainMappings request example`, func() {
-			fmt.Println("\nListDomainMappings() result:")
-			// begin-list_domain_mappings
-			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []codeenginev2.DomainMapping
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_domain_mappings
-		})
-		It(`CreateDomainMapping request example`, func() {
-			fmt.Println("\nCreateDomainMapping() result:")
-			// begin-create_domain_mapping
-
-			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
-				ResourceType: core.StringPtr("app_v2"),
-			}
-
-			createDomainMappingOptions := codeEngineService.NewCreateDomainMappingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				componentRefModel,
-				"www.example.com",
-				"my-tls-secret",
-			)
-
-			domainMapping, response, err := codeEngineService.CreateDomainMapping(createDomainMappingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(domainMapping, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_domain_mapping
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(domainMapping).ToNot(BeNil())
-		})
-		It(`GetDomainMapping request example`, func() {
-			fmt.Println("\nGetDomainMapping() result:")
-			// begin-get_domain_mapping
-
-			getDomainMappingOptions := codeEngineService.NewGetDomainMappingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"www.example.com",
-			)
-
-			domainMapping, response, err := codeEngineService.GetDomainMapping(getDomainMappingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(domainMapping, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_domain_mapping
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(domainMapping).ToNot(BeNil())
-		})
-		It(`UpdateDomainMapping request example`, func() {
-			fmt.Println("\nUpdateDomainMapping() result:")
-			// begin-update_domain_mapping
-
-			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{
-			}
-			domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-			Expect(asPatchErr).To(BeNil())
-
-			updateDomainMappingOptions := codeEngineService.NewUpdateDomainMappingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"www.example.com",
-				"testString",
-				domainMappingPatchModelAsPatch,
-			)
-
-			domainMapping, response, err := codeEngineService.UpdateDomainMapping(updateDomainMappingOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(domainMapping, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_domain_mapping
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(domainMapping).ToNot(BeNil())
-		})
 		It(`DeleteProject request example`, func() {
 			// begin-delete_project
 
@@ -1168,6 +1313,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
+		It(`DeleteFunction request example`, func() {
+			// begin-delete_function
+
+			deleteFunctionOptions := codeEngineService.NewDeleteFunctionOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-function",
+			)
+
+			response, err := codeEngineService.DeleteFunction(deleteFunctionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteFunction(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_function
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
 		It(`DeleteBinding request example`, func() {
 			// begin-delete_binding
 
@@ -1231,6 +1397,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
+		It(`DeleteDomainMapping request example`, func() {
+			// begin-delete_domain_mapping
+
+			deleteDomainMappingOptions := codeEngineService.NewDeleteDomainMappingOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"www.example.com",
+			)
+
+			response, err := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteDomainMapping(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_domain_mapping
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
 		It(`DeleteConfigMap request example`, func() {
 			// begin-delete_config_map
 
@@ -1269,27 +1456,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_secret
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-		It(`DeleteDomainMapping request example`, func() {
-			// begin-delete_domain_mapping
-
-			deleteDomainMappingOptions := codeEngineService.NewDeleteDomainMappingOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"www.example.com",
-			)
-
-			response, err := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 202 {
-				fmt.Printf("\nUnexpected response status code received from DeleteDomainMapping(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_domain_mapping
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
