@@ -549,6 +549,100 @@ func main() {
 	}
 	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
+	// List Function Runtimes
+	listFunctionRuntimesOptions := codeEngineService.NewListFunctionRuntimesOptions()
+
+	functionRuntimeList, _, err := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptions)
+	if err != nil {
+		fmt.Printf("ListFunctionRuntimes error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained Function runtime list '%d'", len(functionRuntimeList.FunctionRuntimes))
+
+	// List Functions
+	listFunctionsOptions := codeEngineService.NewListFunctionsOptions(
+		*createdProject.ID,
+	)
+
+	functionsList, _, err := codeEngineService.ListFunctions(listFunctionsOptions)
+	if err != nil {
+		fmt.Printf("ListFunctions error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained Functions list '%d'", len(functionsList.Functions))
+
+	// Create Function
+	createFunctionOptions := codeEngineService.NewCreateFunctionOptions(
+		*createdProject.ID,
+		"data:text/plain;base64,YXN5bmMgZnVuY3Rpb24gbWFpbihwYXJhbXMpIHsKICByZXR1cm4gewogICAgICBzdGF0dXNDb2RlOiAyMDAsCiAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICBib2R5OiBwYXJhbXMgfTsKfQptb2R1bGUuZXhwb3J0cy5tYWluID0gbWFpbjs=",
+		"my-function",
+		"nodejs-18",
+	)
+
+	createdFunction, _, err := codeEngineService.CreateFunction(createFunctionOptions)
+	if err != nil {
+		fmt.Printf("CreateFunction error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created Function '%s'\n", *createdFunction.Name)
+
+	//Get Function
+	getFunctionOptions := codeEngineService.NewGetFunctionOptions(
+		*createdProject.ID,
+		"my-function",
+	)
+
+	obtainedFunction, _, err := codeEngineService.GetFunction(getFunctionOptions)
+	if err != nil {
+		fmt.Printf("GetFunction error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained Function '%s'\n", *obtainedFunction.Name)
+
+	// Update Function
+	functionUpdateModel := &codeenginev2.FunctionPatch{
+		ScaleMaxExecutionTime: core.Int64Ptr(30),
+	}
+	updateFunctionAsPatch, err := functionUpdateModel.AsPatch()
+	if err != nil {
+		fmt.Printf("functionUpdateModel.AsPatch error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	updateFunctionOptions := codeEngineService.NewUpdateFunctionOptions(
+		*createdProject.ID,
+		"my-function",
+		"*",
+		updateFunctionAsPatch,
+	)
+	updatedFunction, _, err := codeEngineService.UpdateFunction(updateFunctionOptions)
+	if err != nil {
+		fmt.Printf("UpdateFunction error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated Function '%s'\n", *updatedFunction.Name)
+
+	// Delete Function
+	deleteFunctionOptions := codeEngineService.NewDeleteFunctionOptions(
+		*createdProject.ID,
+		"my-function",
+	)
+
+	resp, err = codeEngineService.DeleteFunction(deleteFunctionOptions)
+	if err != nil {
+		fmt.Printf("DeleteFunction error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted Function: '%d'\n", resp.StatusCode)
+
+	// Delete Project
 	deleteProjectOptions := codeEngineService.NewDeleteProjectOptions(
 		*createdProject.ID,
 	)

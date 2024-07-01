@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
+ * IBM OpenAPI SDK Code Generator Version: 3.86.0-bc6f14b3-20240221-193958
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -1086,6 +1086,74 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 	return
 }
 
+// ListAppInstances : List application instances
+// List all instances of an application.
+func (codeEngine *CodeEngineV2) ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListAppInstancesWithContext(context.Background(), listAppInstancesOptions)
+}
+
+// ListAppInstancesWithContext is an alternate form of the ListAppInstances method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context, listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAppInstancesOptions, "listAppInstancesOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listAppInstancesOptions, "listAppInstancesOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listAppInstancesOptions.ProjectID,
+		"app_name": *listAppInstancesOptions.AppName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/instances`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listAppInstancesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAppInstances")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listAppInstancesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAppInstancesOptions.Limit))
+	}
+	if listAppInstancesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAppInstancesOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppInstanceList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListJobs : List jobs
 // List all jobs in a project.
 func (codeEngine *CodeEngineV2) ListJobs(listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
@@ -1745,6 +1813,411 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// ListFunctionRuntimes : List the function runtimes
+// List all valid function runtimes.
+func (codeEngine *CodeEngineV2) ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions) (result *FunctionRuntimeList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListFunctionRuntimesWithContext(context.Background(), listFunctionRuntimesOptions)
+}
+
+// ListFunctionRuntimesWithContext is an alternate form of the ListFunctionRuntimes method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListFunctionRuntimesWithContext(ctx context.Context, listFunctionRuntimesOptions *ListFunctionRuntimesOptions) (result *FunctionRuntimeList, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listFunctionRuntimesOptions, "listFunctionRuntimesOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/function_runtimes`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listFunctionRuntimesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListFunctionRuntimes")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunctionRuntimeList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListFunctions : List functions
+// List all functions in a project.
+func (codeEngine *CodeEngineV2) ListFunctions(listFunctionsOptions *ListFunctionsOptions) (result *FunctionList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListFunctionsWithContext(context.Background(), listFunctionsOptions)
+}
+
+// ListFunctionsWithContext is an alternate form of the ListFunctions method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, listFunctionsOptions *ListFunctionsOptions) (result *FunctionList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listFunctionsOptions, "listFunctionsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listFunctionsOptions, "listFunctionsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listFunctionsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listFunctionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListFunctions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listFunctionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listFunctionsOptions.Limit))
+	}
+	if listFunctionsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listFunctionsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunctionList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateFunction : Create a function
+// Create a function.
+func (codeEngine *CodeEngineV2) CreateFunction(createFunctionOptions *CreateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateFunctionWithContext(context.Background(), createFunctionOptions)
+}
+
+// CreateFunctionWithContext is an alternate form of the CreateFunction method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, createFunctionOptions *CreateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createFunctionOptions, "createFunctionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createFunctionOptions, "createFunctionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createFunctionOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createFunctionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateFunction")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createFunctionOptions.CodeReference != nil {
+		body["code_reference"] = createFunctionOptions.CodeReference
+	}
+	if createFunctionOptions.Name != nil {
+		body["name"] = createFunctionOptions.Name
+	}
+	if createFunctionOptions.Runtime != nil {
+		body["runtime"] = createFunctionOptions.Runtime
+	}
+	if createFunctionOptions.CodeBinary != nil {
+		body["code_binary"] = createFunctionOptions.CodeBinary
+	}
+	if createFunctionOptions.CodeMain != nil {
+		body["code_main"] = createFunctionOptions.CodeMain
+	}
+	if createFunctionOptions.CodeSecret != nil {
+		body["code_secret"] = createFunctionOptions.CodeSecret
+	}
+	if createFunctionOptions.ManagedDomainMappings != nil {
+		body["managed_domain_mappings"] = createFunctionOptions.ManagedDomainMappings
+	}
+	if createFunctionOptions.RunEnvVariables != nil {
+		body["run_env_variables"] = createFunctionOptions.RunEnvVariables
+	}
+	if createFunctionOptions.ScaleConcurrency != nil {
+		body["scale_concurrency"] = createFunctionOptions.ScaleConcurrency
+	}
+	if createFunctionOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = createFunctionOptions.ScaleCpuLimit
+	}
+	if createFunctionOptions.ScaleDownDelay != nil {
+		body["scale_down_delay"] = createFunctionOptions.ScaleDownDelay
+	}
+	if createFunctionOptions.ScaleMaxExecutionTime != nil {
+		body["scale_max_execution_time"] = createFunctionOptions.ScaleMaxExecutionTime
+	}
+	if createFunctionOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = createFunctionOptions.ScaleMemoryLimit
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetFunction : Get a function
+// Display the details of a function.
+func (codeEngine *CodeEngineV2) GetFunction(getFunctionOptions *GetFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	return codeEngine.GetFunctionWithContext(context.Background(), getFunctionOptions)
+}
+
+// GetFunctionWithContext is an alternate form of the GetFunction method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getFunctionOptions *GetFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getFunctionOptions, "getFunctionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getFunctionOptions, "getFunctionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getFunctionOptions.ProjectID,
+		"name": *getFunctionOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getFunctionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetFunction")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteFunction : Delete a function
+// Delete a function.
+func (codeEngine *CodeEngineV2) DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteFunctionWithContext(context.Background(), deleteFunctionOptions)
+}
+
+// DeleteFunctionWithContext is an alternate form of the DeleteFunction method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteFunctionOptions, "deleteFunctionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteFunctionOptions, "deleteFunctionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteFunctionOptions.ProjectID,
+		"name": *deleteFunctionOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteFunctionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteFunction")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateFunction : Update a function
+// Update the given function.
+func (codeEngine *CodeEngineV2) UpdateFunction(updateFunctionOptions *UpdateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateFunctionWithContext(context.Background(), updateFunctionOptions)
+}
+
+// UpdateFunctionWithContext is an alternate form of the UpdateFunction method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, updateFunctionOptions *UpdateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateFunctionOptions, "updateFunctionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateFunctionOptions, "updateFunctionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateFunctionOptions.ProjectID,
+		"name": *updateFunctionOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateFunctionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateFunction")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateFunctionOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateFunctionOptions.IfMatch))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateFunctionOptions.Function)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -2642,6 +3115,329 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 	return
 }
 
+// ListDomainMappings : List domain mappings
+// List all domain mappings in a project.
+func (codeEngine *CodeEngineV2) ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
+	return codeEngine.ListDomainMappingsWithContext(context.Background(), listDomainMappingsOptions)
+}
+
+// ListDomainMappingsWithContext is an alternate form of the ListDomainMappings method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Context, listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listDomainMappingsOptions, "listDomainMappingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listDomainMappingsOptions, "listDomainMappingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listDomainMappingsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listDomainMappingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListDomainMappings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listDomainMappingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listDomainMappingsOptions.Limit))
+	}
+	if listDomainMappingsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listDomainMappingsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMappingList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateDomainMapping : Create a domain mapping
+// Create a domain mapping.
+func (codeEngine *CodeEngineV2) CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.CreateDomainMappingWithContext(context.Background(), createDomainMappingOptions)
+}
+
+// CreateDomainMappingWithContext is an alternate form of the CreateDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Context, createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createDomainMappingOptions, "createDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createDomainMappingOptions, "createDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createDomainMappingOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createDomainMappingOptions.Component != nil {
+		body["component"] = createDomainMappingOptions.Component
+	}
+	if createDomainMappingOptions.Name != nil {
+		body["name"] = createDomainMappingOptions.Name
+	}
+	if createDomainMappingOptions.TlsSecret != nil {
+		body["tls_secret"] = createDomainMappingOptions.TlsSecret
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetDomainMapping : Get a domain mapping
+// Get domain mapping.
+func (codeEngine *CodeEngineV2) GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.GetDomainMappingWithContext(context.Background(), getDomainMappingOptions)
+}
+
+// GetDomainMappingWithContext is an alternate form of the GetDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context, getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getDomainMappingOptions, "getDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getDomainMappingOptions, "getDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getDomainMappingOptions.ProjectID,
+		"name": *getDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteDomainMapping : Delete a domain mapping
+// Delete a domain mapping.
+func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	return codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
+}
+
+// DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteDomainMappingOptions.ProjectID,
+		"name": *deleteDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateDomainMapping : Update a domain mapping
+// Update a domain mapping.
+func (codeEngine *CodeEngineV2) UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	return codeEngine.UpdateDomainMappingWithContext(context.Background(), updateDomainMappingOptions)
+}
+
+// UpdateDomainMappingWithContext is an alternate form of the UpdateDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Context, updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateDomainMappingOptions, "updateDomainMappingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateDomainMappingOptions, "updateDomainMappingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateDomainMappingOptions.ProjectID,
+		"name": *updateDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateDomainMappingOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateDomainMappingOptions.IfMatch))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateDomainMappingOptions.DomainMapping)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListConfigMaps : List config maps
 // List all config maps in a project.
 func (codeEngine *CodeEngineV2) ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
@@ -3302,345 +4098,22 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	return
 }
 
-// ListDomainMappings : List domain mappings
-// List all domain mappings in a project.
-func (codeEngine *CodeEngineV2) ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListDomainMappingsWithContext(context.Background(), listDomainMappingsOptions)
-}
-
-// ListDomainMappingsWithContext is an alternate form of the ListDomainMappings method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Context, listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listDomainMappingsOptions, "listDomainMappingsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(listDomainMappingsOptions, "listDomainMappingsOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *listDomainMappingsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listDomainMappingsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListDomainMappings")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listDomainMappingsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listDomainMappingsOptions.Limit))
-	}
-	if listDomainMappingsOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listDomainMappingsOptions.Start))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMappingList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// CreateDomainMapping : Create a domain mapping
-// Create a domain mapping.
-func (codeEngine *CodeEngineV2) CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateDomainMappingWithContext(context.Background(), createDomainMappingOptions)
-}
-
-// CreateDomainMappingWithContext is an alternate form of the CreateDomainMapping method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Context, createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createDomainMappingOptions, "createDomainMappingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(createDomainMappingOptions, "createDomainMappingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *createDomainMappingOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range createDomainMappingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateDomainMapping")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if createDomainMappingOptions.Component != nil {
-		body["component"] = createDomainMappingOptions.Component
-	}
-	if createDomainMappingOptions.Name != nil {
-		body["name"] = createDomainMappingOptions.Name
-	}
-	if createDomainMappingOptions.TlsSecret != nil {
-		body["tls_secret"] = createDomainMappingOptions.TlsSecret
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetDomainMapping : Get a domain mapping
-// Get domain mapping.
-func (codeEngine *CodeEngineV2) GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.GetDomainMappingWithContext(context.Background(), getDomainMappingOptions)
-}
-
-// GetDomainMappingWithContext is an alternate form of the GetDomainMapping method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context, getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getDomainMappingOptions, "getDomainMappingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getDomainMappingOptions, "getDomainMappingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *getDomainMappingOptions.ProjectID,
-		"name": *getDomainMappingOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getDomainMappingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetDomainMapping")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// DeleteDomainMapping : Delete a domain mapping
-// Delete a domain mapping.
-func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
-}
-
-// DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteDomainMappingOptions.ProjectID,
-		"name": *deleteDomainMappingOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteDomainMappingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteDomainMapping")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-
-	return
-}
-
-// UpdateDomainMapping : Update a domain mapping
-// Update a domain mapping.
-func (codeEngine *CodeEngineV2) UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateDomainMappingWithContext(context.Background(), updateDomainMappingOptions)
-}
-
-// UpdateDomainMappingWithContext is an alternate form of the UpdateDomainMapping method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Context, updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateDomainMappingOptions, "updateDomainMappingOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(updateDomainMappingOptions, "updateDomainMappingOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *updateDomainMappingOptions.ProjectID,
-		"name": *updateDomainMappingOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.PATCH)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range updateDomainMappingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateDomainMapping")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/merge-patch+json")
-	if updateDomainMappingOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateDomainMappingOptions.IfMatch))
-	}
-
-	_, err = builder.SetBodyContentJSON(updateDomainMappingOptions.DomainMapping)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
 // App : App is the response model for app resources.
 type App struct {
 	// Reference to a build that is associated with the application.
 	Build *string `json:"build,omitempty"`
 
-	// Reference to a buildrun that is associated with the application.
+	// Reference to a build run that is associated with the application.
 	BuildRun *string `json:"build_run,omitempty"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
-	// Optional URL to invoke app. Depending on visibility this is accessible publicly or in the private network only.
-	// Empty in case 'managed_domain_mappings' is set to 'local'.
+	// Optional URL to invoke the app. Depending on visibility,  this is accessible publicly or in the private network
+	// only. Empty in case 'managed_domain_mappings' is set to 'local'.
 	Endpoint *string `json:"endpoint,omitempty"`
 
-	// URL to app that is only visible within the project.
+	// The URL to the app that is only visible within the project.
 	EndpointInternal *string `json:"endpoint_internal,omitempty"`
 
 	// The version of the app instance, which is used to achieve optimistic locking.
@@ -3681,7 +4154,7 @@ type App struct {
 	// Response model for probes.
 	ProbeReadiness *Probe `json:"probe_readiness,omitempty"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -3695,7 +4168,7 @@ type App struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// Optional user ID (UID) to run the app (e.g., `1001`).
+	// Optional user ID (UID) to run the app.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Optional commands for the app that are passed to start the container. If not specified an empty string array will be
@@ -3724,7 +4197,7 @@ type App struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	// Optional amount of time in seconds that delays the scale-down behavior for an app instance.
 	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
@@ -3948,6 +4421,197 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 	return
 }
 
+// AppInstance : AppInstance is the response model for app instance resources.
+type AppInstance struct {
+	// The name of the application that is associated with this instance.
+	AppName *string `json:"app_name" validate:"required"`
+
+	// The timestamp when the resource was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// When you provision a new app instance, a URL is created identifying the location of the instance.
+	Href *string `json:"href,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the app instance.
+	Name *string `json:"name,omitempty"`
+
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
+	// The type of the app instance.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// The number of restarts of the app instance.
+	Restarts *int64 `json:"restarts,omitempty"`
+
+	// The name of the revision that is associated with this instance.
+	RevisionName *string `json:"revision_name" validate:"required"`
+
+	// The number of CPU set for the instance. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
+
+	// The amount of ephemeral storage set for the instance. The amount specified as ephemeral storage, must not exceed the
+	// amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or Gigabyte (G), whereas
+	// G and M are the shorthand expressions for GB and MB. For more information see [Units of
+	// measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+	ScaleEphemeralStorageLimit *string `json:"scale_ephemeral_storage_limit" validate:"required"`
+
+	// The amount of memory set for the instance. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
+
+	// The current status of the instance.
+	Status *string `json:"status,omitempty"`
+
+	// The status of a container.
+	SystemContainer *ContainerStatus `json:"system_container,omitempty"`
+
+	// The status of a container.
+	UserContainer *ContainerStatus `json:"user_container,omitempty"`
+}
+
+// Constants associated with the AppInstance.ResourceType property.
+// The type of the app instance.
+const (
+	AppInstance_ResourceType_AppInstanceV2 = "app_instance_v2"
+)
+
+// Constants associated with the AppInstance.Status property.
+// The current status of the instance.
+const (
+	AppInstance_Status_Failed = "failed"
+	AppInstance_Status_Pending = "pending"
+	AppInstance_Status_Running = "running"
+	AppInstance_Status_Succeeded = "succeeded"
+)
+
+// UnmarshalAppInstance unmarshals an instance of AppInstance from the specified map of raw messages.
+func UnmarshalAppInstance(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppInstance)
+	err = core.UnmarshalPrimitive(m, "app_name", &obj.AppName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restarts", &obj.Restarts)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "revision_name", &obj.RevisionName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "system_container", &obj.SystemContainer, UnmarshalContainerStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "user_container", &obj.UserContainer, UnmarshalContainerStatus)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AppInstanceList : Contains a list of app instances and pagination information.
+type AppInstanceList struct {
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// List of all app instances.
+	Instances []AppInstance `json:"instances" validate:"required"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalAppInstanceList unmarshals an instance of AppInstanceList from the specified map of raw messages.
+func UnmarshalAppInstanceList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppInstanceList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "instances", &obj.Instances, UnmarshalAppInstance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *AppInstanceList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
 // AppList : Contains a list of apps and pagination information.
 type AppList struct {
 	// List of all apps.
@@ -4026,7 +4690,7 @@ type AppPatch struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// Optional user ID (UID) to run the app (e.g., `1001`).
+	// Optional user ID (UID) to run the app.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Optional commands for the app that are passed to start the container. If not specified an empty string array will be
@@ -4056,7 +4720,7 @@ type AppPatch struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	// Optional amount of time in seconds that delays the scale-down behavior for an app instance.
 	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
@@ -4245,7 +4909,7 @@ type AppRevision struct {
 	// The name of the app revison.
 	Name *string `json:"name,omitempty"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -4259,7 +4923,7 @@ type AppRevision struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// Optional user ID (UID) to run the app (e.g., `1001`).
+	// Optional user ID (UID) to run the app.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Optional commands for the app that are passed to start the container. If not specified an empty string array will be
@@ -4288,7 +4952,7 @@ type AppRevision struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
 
-	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	// Optional amount of time in seconds that delays the scale-down behavior for an app instance.
 	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
@@ -4618,10 +5282,10 @@ type Binding struct {
 	// The ID of the binding.
 	ID *string `json:"id,omitempty"`
 
-	// The value that is set as prefix in the component that is bound.
+	// The value that is set as a prefix in the component that is bound.
 	Prefix *string `json:"prefix" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The type of the binding.
@@ -4749,7 +5413,7 @@ type Build struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -4759,7 +5423,7 @@ type Build struct {
 	// The type of the build.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// Option directory in the repository that contains the buildpacks file or the Dockerfile.
+	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
 	// Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is `git` and
@@ -4971,7 +5635,7 @@ type BuildPatch struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// Option directory in the repository that contains the buildpacks file or the Dockerfile.
+	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
 	// Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is `git` and
@@ -5105,7 +5769,7 @@ type BuildRun struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -5115,10 +5779,11 @@ type BuildRun struct {
 	// The type of the build run.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// Optional service account which is used for resource control.
+	// Optional service account, which is used for resource control.” or “Optional service account that is used for
+	// resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
 
-	// Option directory in the repository that contains the buildpacks file or the Dockerfile.
+	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
 	// Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is `git` and
@@ -5169,7 +5834,8 @@ const (
 )
 
 // Constants associated with the BuildRun.ServiceAccount property.
-// Optional service account which is used for resource control.
+// Optional service account, which is used for resource control.” or “Optional service account that is used for resource
+// control.
 const (
 	BuildRun_ServiceAccount_Default = "default"
 	BuildRun_ServiceAccount_Manager = "manager"
@@ -5484,7 +6150,7 @@ type ConfigMap struct {
 	// The name of the config map.
 	Name *string `json:"name" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -5544,9 +6210,9 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// ConfigMapList : Contains a list of configmaps and pagination information.
+// ConfigMapList : Contains a list of config maps and pagination information.
 type ConfigMapList struct {
-	// List of all configmaps.
+	// List of all config maps.
 	ConfigMaps []ConfigMap `json:"config_maps" validate:"required"`
 
 	// Describes properties needed to retrieve the first page of a result list.
@@ -5590,6 +6256,97 @@ func (resp *ConfigMapList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// ContainerStatus : The status of a container.
+type ContainerStatus struct {
+	// Details of the observed container status.
+	CurrentState *ContainerStatusDetails `json:"current_state,omitempty"`
+
+	// Details of the observed container status.
+	LastObservedState *ContainerStatusDetails `json:"last_observed_state,omitempty"`
+}
+
+// UnmarshalContainerStatus unmarshals an instance of ContainerStatus from the specified map of raw messages.
+func UnmarshalContainerStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ContainerStatus)
+	err = core.UnmarshalModel(m, "current_state", &obj.CurrentState, UnmarshalContainerStatusDetails)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "last_observed_state", &obj.LastObservedState, UnmarshalContainerStatusDetails)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ContainerStatusDetails : Details of the observed container status.
+type ContainerStatusDetails struct {
+	// The time the container terminated. Only populated in an observed failure state.
+	CompletedAt *string `json:"completed_at,omitempty"`
+
+	// The status of the container.
+	ContainerStatus *string `json:"container_status,omitempty"`
+
+	// The exit code of the last termination of the container. Only populated in an observed failure state.
+	ExitCode *int64 `json:"exit_code,omitempty"`
+
+	// The reason the container is not yet running or has failed. Only populated in non-running states.
+	Reason *string `json:"reason,omitempty"`
+
+	// The time the container started.
+	StartedAt *string `json:"started_at,omitempty"`
+}
+
+// Constants associated with the ContainerStatusDetails.Reason property.
+// The reason the container is not yet running or has failed. Only populated in non-running states.
+const (
+	ContainerStatusDetails_Reason_ContainerFailedExitCode0 = "container_failed_exit_code_0"
+	ContainerStatusDetails_Reason_ContainerFailedExitCode1 = "container_failed_exit_code_1"
+	ContainerStatusDetails_Reason_ContainerFailedExitCode139 = "container_failed_exit_code_139"
+	ContainerStatusDetails_Reason_ContainerFailedExitCode24 = "container_failed_exit_code_24"
+	ContainerStatusDetails_Reason_Deploying = "deploying"
+	ContainerStatusDetails_Reason_DeployingWaitingForResources = "deploying_waiting_for_resources"
+	ContainerStatusDetails_Reason_FetchImageFailedMissingPullCredentials = "fetch_image_failed_missing_pull_credentials"
+	ContainerStatusDetails_Reason_FetchImageFailedMissingPullSecret = "fetch_image_failed_missing_pull_secret"
+	ContainerStatusDetails_Reason_FetchImageFailedRegistryNotFound = "fetch_image_failed_registry_not_found"
+	ContainerStatusDetails_Reason_FetchImageFailedUnknownManifest = "fetch_image_failed_unknown_manifest"
+	ContainerStatusDetails_Reason_FetchImageFailedUnknownRepository = "fetch_image_failed_unknown_repository"
+	ContainerStatusDetails_Reason_FetchImageFailedWrongPullCredentials = "fetch_image_failed_wrong_pull_credentials"
+	ContainerStatusDetails_Reason_ImagePullBackOff = "image_pull_back_off"
+	ContainerStatusDetails_Reason_InitialScaleNeverAchieved = "initial_scale_never_achieved"
+	ContainerStatusDetails_Reason_InvalidTarHeaderImagePullErr = "invalid_tar_header_image_pull_err"
+	ContainerStatusDetails_Reason_Ready = "ready"
+	ContainerStatusDetails_Reason_Waiting = "waiting"
+)
+
+// UnmarshalContainerStatusDetails unmarshals an instance of ContainerStatusDetails from the specified map of raw messages.
+func UnmarshalContainerStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ContainerStatusDetails)
+	err = core.UnmarshalPrimitive(m, "completed_at", &obj.CompletedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "container_status", &obj.ContainerStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "exit_code", &obj.ExitCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "started_at", &obj.StartedAt)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateAppOptions : The CreateApp options.
 type CreateAppOptions struct {
 	// The ID of the project.
@@ -5628,7 +6385,7 @@ type CreateAppOptions struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// Optional user ID (UID) to run the app (e.g., `1001`).
+	// Optional user ID (UID) to run the app.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Optional commands for the app that are passed to start the container. If not specified an empty string array will be
@@ -5658,7 +6415,7 @@ type CreateAppOptions struct {
 	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
 	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
 
-	// Optional amount of time in seconds that delays the scale down behavior for an app instance.
+	// Optional amount of time in seconds that delays the scale-down behavior for an app instance.
 	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
 
 	// Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral storage,
@@ -5883,7 +6640,7 @@ type CreateBindingOptions struct {
 	// Optional value that is set as prefix in the component that is bound. Will be generated if not provided.
 	Prefix *string `json:"prefix" validate:"required"`
 
-	// The service access secret that is binding to a component.
+	// The service access secret that is bound to a component.
 	SecretName *string `json:"secret_name" validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -5948,7 +6705,7 @@ type CreateBuildOptions struct {
 	// The strategy to use for building the image.
 	StrategyType *string `json:"strategy_type" validate:"required"`
 
-	// Option directory in the repository that contains the buildpacks file or the Dockerfile.
+	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
 	// Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is `git` and
@@ -6111,10 +6868,11 @@ type CreateBuildRunOptions struct {
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
 
-	// Optional service account which is used for resource control.
+	// Optional service account, which is used for resource control.” or “Optional service account that is used for
+	// resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
 
-	// Option directory in the repository that contains the buildpacks file or the Dockerfile.
+	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
 	// Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is `git` and
@@ -6156,7 +6914,8 @@ type CreateBuildRunOptions struct {
 }
 
 // Constants associated with the CreateBuildRunOptions.ServiceAccount property.
-// Optional service account which is used for resource control.
+// Optional service account, which is used for resource control.” or “Optional service account that is used for resource
+// control.
 const (
 	CreateBuildRunOptions_ServiceAccount_Default = "default"
 	CreateBuildRunOptions_ServiceAccount_Manager = "manager"
@@ -6337,7 +7096,7 @@ type CreateDomainMappingOptions struct {
 	// The name of the domain mapping.
 	Name *string `json:"name" validate:"required"`
 
-	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	// The name of the TLS secret that includes the certificate and private key of this domain mapping.
 	TlsSecret *string `json:"tls_secret" validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -6384,6 +7143,174 @@ func (options *CreateDomainMappingOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
+// CreateFunctionOptions : The CreateFunction options.
+type CreateFunctionOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the data
+	// URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+	// 2397](https://tools.ietf.org/html/rfc2397).
+	CodeReference *string `json:"code_reference" validate:"required"`
+
+	// The name of the function. Use a name that is unique within the project.
+	Name *string `json:"name" validate:"required"`
+
+	// The managed runtime used to execute the injected code.
+	Runtime *string `json:"runtime" validate:"required"`
+
+	// Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL. When
+	// `code_reference` is set to a code bundle URL, this field is always true.
+	CodeBinary *bool `json:"code_binary,omitempty"`
+
+	// Specifies the name of the function that should be invoked.
+	CodeMain *string `json:"code_main,omitempty"`
+
+	// The name of the secret that is used to access the specified `code_reference`. The secret is used to authenticate
+	// with a non-public endpoint that is specified as`code_reference`.
+	CodeSecret *string `json:"code_secret,omitempty"`
+
+	// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+	// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// function private visibility.
+	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
+
+	// Optional references to config maps, secrets or literal values.
+	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
+
+	// Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for a function.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
+
+	// Timeout in secs after which the function is terminated.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
+
+	// Optional amount of memory set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreateFunctionOptions.ManagedDomainMappings property.
+// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// function private visibility.
+const (
+	CreateFunctionOptions_ManagedDomainMappings_Local = "local"
+	CreateFunctionOptions_ManagedDomainMappings_LocalPrivate = "local_private"
+	CreateFunctionOptions_ManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// NewCreateFunctionOptions : Instantiate CreateFunctionOptions
+func (*CodeEngineV2) NewCreateFunctionOptions(projectID string, codeReference string, name string, runtime string) *CreateFunctionOptions {
+	return &CreateFunctionOptions{
+		ProjectID: core.StringPtr(projectID),
+		CodeReference: core.StringPtr(codeReference),
+		Name: core.StringPtr(name),
+		Runtime: core.StringPtr(runtime),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateFunctionOptions) SetProjectID(projectID string) *CreateFunctionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetCodeReference : Allow user to set CodeReference
+func (_options *CreateFunctionOptions) SetCodeReference(codeReference string) *CreateFunctionOptions {
+	_options.CodeReference = core.StringPtr(codeReference)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateFunctionOptions) SetName(name string) *CreateFunctionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRuntime : Allow user to set Runtime
+func (_options *CreateFunctionOptions) SetRuntime(runtime string) *CreateFunctionOptions {
+	_options.Runtime = core.StringPtr(runtime)
+	return _options
+}
+
+// SetCodeBinary : Allow user to set CodeBinary
+func (_options *CreateFunctionOptions) SetCodeBinary(codeBinary bool) *CreateFunctionOptions {
+	_options.CodeBinary = core.BoolPtr(codeBinary)
+	return _options
+}
+
+// SetCodeMain : Allow user to set CodeMain
+func (_options *CreateFunctionOptions) SetCodeMain(codeMain string) *CreateFunctionOptions {
+	_options.CodeMain = core.StringPtr(codeMain)
+	return _options
+}
+
+// SetCodeSecret : Allow user to set CodeSecret
+func (_options *CreateFunctionOptions) SetCodeSecret(codeSecret string) *CreateFunctionOptions {
+	_options.CodeSecret = core.StringPtr(codeSecret)
+	return _options
+}
+
+// SetManagedDomainMappings : Allow user to set ManagedDomainMappings
+func (_options *CreateFunctionOptions) SetManagedDomainMappings(managedDomainMappings string) *CreateFunctionOptions {
+	_options.ManagedDomainMappings = core.StringPtr(managedDomainMappings)
+	return _options
+}
+
+// SetRunEnvVariables : Allow user to set RunEnvVariables
+func (_options *CreateFunctionOptions) SetRunEnvVariables(runEnvVariables []EnvVarPrototype) *CreateFunctionOptions {
+	_options.RunEnvVariables = runEnvVariables
+	return _options
+}
+
+// SetScaleConcurrency : Allow user to set ScaleConcurrency
+func (_options *CreateFunctionOptions) SetScaleConcurrency(scaleConcurrency int64) *CreateFunctionOptions {
+	_options.ScaleConcurrency = core.Int64Ptr(scaleConcurrency)
+	return _options
+}
+
+// SetScaleCpuLimit : Allow user to set ScaleCpuLimit
+func (_options *CreateFunctionOptions) SetScaleCpuLimit(scaleCpuLimit string) *CreateFunctionOptions {
+	_options.ScaleCpuLimit = core.StringPtr(scaleCpuLimit)
+	return _options
+}
+
+// SetScaleDownDelay : Allow user to set ScaleDownDelay
+func (_options *CreateFunctionOptions) SetScaleDownDelay(scaleDownDelay int64) *CreateFunctionOptions {
+	_options.ScaleDownDelay = core.Int64Ptr(scaleDownDelay)
+	return _options
+}
+
+// SetScaleMaxExecutionTime : Allow user to set ScaleMaxExecutionTime
+func (_options *CreateFunctionOptions) SetScaleMaxExecutionTime(scaleMaxExecutionTime int64) *CreateFunctionOptions {
+	_options.ScaleMaxExecutionTime = core.Int64Ptr(scaleMaxExecutionTime)
+	return _options
+}
+
+// SetScaleMemoryLimit : Allow user to set ScaleMemoryLimit
+func (_options *CreateFunctionOptions) SetScaleMemoryLimit(scaleMemoryLimit string) *CreateFunctionOptions {
+	_options.ScaleMemoryLimit = core.StringPtr(scaleMemoryLimit)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateFunctionOptions) SetHeaders(param map[string]string) *CreateFunctionOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateJobOptions : The CreateJob options.
 type CreateJobOptions struct {
 	// The ID of the project.
@@ -6408,7 +7335,7 @@ type CreateJobOptions struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the job (e.g., 1001).
+	// The user ID (UID) to run the job.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
@@ -6430,9 +7357,9 @@ type CreateJobOptions struct {
 	// Optional mounts of config maps or a secrets.
 	RunVolumeMounts []VolumeMountPrototype `json:"run_volume_mounts,omitempty"`
 
-	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-	// unique array indices specified here determines the number of job instances to run.
+	// Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated ranges,
+	// such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX. The number
+	// of unique array indices that you specify with this parameter determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
 	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -6628,7 +7555,7 @@ type CreateJobRunOptions struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the job (e.g., 1001).
+	// The user ID (UID) to run the job.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
@@ -6653,9 +7580,9 @@ type CreateJobRunOptions struct {
 	// Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
 	ScaleArraySizeVariableOverride *int64 `json:"scale_array_size_variable_override,omitempty"`
 
-	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-	// unique array indices specified here determines the number of job instances to run.
+	// Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated ranges,
+	// such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX. The number
+	// of unique array indices that you specify with this parameter determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
 	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -6898,10 +7825,10 @@ type CreateSecretOptions struct {
 	// field can consists of any character and must not exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
 
-	// Properties for Service Access Secret Prototypes.
+	// Properties for Service Access Secrets.
 	ServiceAccess *ServiceAccessSecretPrototypeProps `json:"service_access,omitempty"`
 
-	// Properties for the IBM Cloud Operator Secret Prototype.
+	// Properties for the IBM Cloud Operator Secrets.
 	ServiceOperator *OperatorSecretPrototypeProps `json:"service_operator,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -7248,6 +8175,44 @@ func (options *DeleteDomainMappingOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
+// DeleteFunctionOptions : The DeleteFunction options.
+type DeleteFunctionOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your function.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteFunctionOptions : Instantiate DeleteFunctionOptions
+func (*CodeEngineV2) NewDeleteFunctionOptions(projectID string, name string) *DeleteFunctionOptions {
+	return &DeleteFunctionOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteFunctionOptions) SetProjectID(projectID string) *DeleteFunctionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DeleteFunctionOptions) SetName(name string) *DeleteFunctionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteFunctionOptions) SetHeaders(param map[string]string) *DeleteFunctionOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteJobOptions : The DeleteJob options.
 type DeleteJobOptions struct {
 	// The ID of the project.
@@ -7392,8 +8357,8 @@ func (options *DeleteSecretOptions) SetHeaders(param map[string]string) *DeleteS
 
 // DomainMapping : Response model for domain mapping definitions.
 type DomainMapping struct {
-	// Exposes the value of the CNAME record that needs to be configured in the DNS settings of the domain, to route
-	// traffic properly to the target Code Engine region.
+	// The value of the CNAME record that must be configured in the DNS settings of the domain, to route traffic properly
+	// to the target Code Engine region.
 	CnameTarget *string `json:"cname_target,omitempty"`
 
 	// A reference to another component.
@@ -7414,14 +8379,14 @@ type DomainMapping struct {
 	// The name of the domain mapping.
 	Name *string `json:"name" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
 	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
 	Region *string `json:"region,omitempty"`
 
-	// The type of the CE Resource.
+	// The type of the Code Engine resource.
 	ResourceType *string `json:"resource_type,omitempty"`
 
 	// The current status of the domain mapping.
@@ -7430,19 +8395,19 @@ type DomainMapping struct {
 	// The detailed status of the domain mapping.
 	StatusDetails *DomainMappingStatus `json:"status_details,omitempty"`
 
-	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	// The name of the TLS secret that includes the certificate and private key of this domain mapping.
 	TlsSecret *string `json:"tls_secret" validate:"required"`
 
-	// Exposes whether the domain mapping is managed by the user or by Code Engine.
+	// Specifies whether the domain mapping is managed by the user or by Code Engine.
 	UserManaged *bool `json:"user_managed,omitempty"`
 
-	// Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only through
-	// other components within the same Code Engine project.
+	// Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only
+	// through other components within the same Code Engine project.
 	Visibility *string `json:"visibility,omitempty"`
 }
 
 // Constants associated with the DomainMapping.ResourceType property.
-// The type of the CE Resource.
+// The type of the Code Engine resource.
 const (
 	DomainMapping_ResourceType_DomainMappingV2 = "domain_mapping_v2"
 )
@@ -7456,8 +8421,8 @@ const (
 )
 
 // Constants associated with the DomainMapping.Visibility property.
-// Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only through
-// other components within the same Code Engine project.
+// Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only
+// through other components within the same Code Engine project.
 const (
 	DomainMapping_Visibility_Custom = "custom"
 	DomainMapping_Visibility_Private = "private"
@@ -7583,7 +8548,7 @@ type DomainMappingPatch struct {
 	// A reference to another component.
 	Component *ComponentRef `json:"component,omitempty"`
 
-	// The name of the TLS secret that holds the certificate and private key of this domain mapping.
+	// The name of the TLS secret that includes the certificate and private key of this domain mapping.
 	TlsSecret *string `json:"tls_secret,omitempty"`
 }
 
@@ -7757,6 +8722,489 @@ func UnmarshalEnvVarPrototype(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Function : Function is the response model for function resources.
+type Function struct {
+	// Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL. When
+	// `code_reference` is set to a code bundle URL, this field is always true.
+	CodeBinary *bool `json:"code_binary" validate:"required"`
+
+	// Specifies the name of the function that should be invoked.
+	CodeMain *string `json:"code_main,omitempty"`
+
+	// Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the data
+	// URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+	// 2397](https://tools.ietf.org/html/rfc2397).
+	CodeReference *string `json:"code_reference" validate:"required"`
+
+	// The name of the secret that is used to access the specified `code_reference`. The secret is used to authenticate
+	// with a non-public endpoint that is specified as`code_reference`.
+	CodeSecret *string `json:"code_secret,omitempty"`
+
+	// The timestamp when the resource was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// URL to invoke the function.
+	Endpoint *string `json:"endpoint,omitempty"`
+
+	// URL to function that is only visible within the project.
+	EndpointInternal *string `json:"endpoint_internal,omitempty"`
+
+	// The version of the function instance, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// When you provision a new function, a relative URL path is created identifying the location of the instance.
+	Href *string `json:"href,omitempty"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+	// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// function private visibility.
+	ManagedDomainMappings *string `json:"managed_domain_mappings" validate:"required"`
+
+	// The name of the function.
+	Name *string `json:"name" validate:"required"`
+
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
+	// The type of the function.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// References to config maps, secrets or literal values, which are exposed as environment variables in the function.
+	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
+
+	// The managed runtime used to execute the injected code.
+	Runtime *string `json:"runtime" validate:"required"`
+
+	// Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`.
+	ScaleConcurrency *int64 `json:"scale_concurrency" validate:"required"`
+
+	// Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	ScaleCpuLimit *string `json:"scale_cpu_limit" validate:"required"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for a function.
+	ScaleDownDelay *int64 `json:"scale_down_delay" validate:"required"`
+
+	// Timeout in secs after which the function is terminated.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time" validate:"required"`
+
+	// Optional amount of memory set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+	ScaleMemoryLimit *string `json:"scale_memory_limit" validate:"required"`
+
+	// The current status of the function.
+	Status *string `json:"status,omitempty"`
+
+	// The detailed status of the function.
+	StatusDetails *FunctionStatus `json:"status_details" validate:"required"`
+}
+
+// Constants associated with the Function.ManagedDomainMappings property.
+// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// function private visibility.
+const (
+	Function_ManagedDomainMappings_Local = "local"
+	Function_ManagedDomainMappings_LocalPrivate = "local_private"
+	Function_ManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// Constants associated with the Function.ResourceType property.
+// The type of the function.
+const (
+	Function_ResourceType_FunctionV2 = "function_v2"
+)
+
+// Constants associated with the Function.Status property.
+// The current status of the function.
+const (
+	Function_Status_Deploying = "deploying"
+	Function_Status_Failed = "failed"
+	Function_Status_Offline = "offline"
+	Function_Status_Ready = "ready"
+)
+
+// UnmarshalFunction unmarshals an instance of Function from the specified map of raw messages.
+func UnmarshalFunction(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Function)
+	err = core.UnmarshalPrimitive(m, "code_binary", &obj.CodeBinary)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_main", &obj.CodeMain)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_reference", &obj.CodeReference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_secret", &obj.CodeSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "endpoint_internal", &obj.EndpointInternal)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "runtime", &obj.Runtime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalFunctionStatus)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// FunctionList : Contains a list of functions and pagination information.
+type FunctionList struct {
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// List of all functions.
+	Functions []Function `json:"functions" validate:"required"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalFunctionList unmarshals an instance of FunctionList from the specified map of raw messages.
+func UnmarshalFunctionList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(FunctionList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "functions", &obj.Functions, UnmarshalFunction)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *FunctionList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// FunctionPatch : Request model for function update operations.
+type FunctionPatch struct {
+	// Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL. When
+	// `code_reference` is set to a code bundle URL, this field is always true.
+	CodeBinary *bool `json:"code_binary,omitempty"`
+
+	// Specifies the name of the function that should be invoked.
+	CodeMain *string `json:"code_main,omitempty"`
+
+	// Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the data
+	// URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+	// 2397](https://tools.ietf.org/html/rfc2397).
+	CodeReference *string `json:"code_reference,omitempty"`
+
+	// The name of the secret that is used to access the specified `code_reference`. The secret is used to authenticate
+	// with a non-public endpoint that is specified as`code_reference`.
+	CodeSecret *string `json:"code_secret,omitempty"`
+
+	// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+	// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+	// function private visibility.
+	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
+
+	// Optional references to config maps, secrets or literal values.
+	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
+
+	// The managed runtime used to execute the injected code.
+	Runtime *string `json:"runtime,omitempty"`
+
+	// Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`.
+	ScaleConcurrency *int64 `json:"scale_concurrency,omitempty"`
+
+	// Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+	ScaleCpuLimit *string `json:"scale_cpu_limit,omitempty"`
+
+	// Optional amount of time in seconds that delays the scale down behavior for a function.
+	ScaleDownDelay *int64 `json:"scale_down_delay,omitempty"`
+
+	// Timeout in secs after which the function is terminated.
+	ScaleMaxExecutionTime *int64 `json:"scale_max_execution_time,omitempty"`
+
+	// Optional amount of memory set for the instance of the function. For valid values see [Supported memory and CPU
+	// combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying memory
+	// are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
+	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
+}
+
+// Constants associated with the FunctionPatch.ManagedDomainMappings property.
+// Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values
+// are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
+// function private visibility.
+const (
+	FunctionPatch_ManagedDomainMappings_Local = "local"
+	FunctionPatch_ManagedDomainMappings_LocalPrivate = "local_private"
+	FunctionPatch_ManagedDomainMappings_LocalPublic = "local_public"
+)
+
+// UnmarshalFunctionPatch unmarshals an instance of FunctionPatch from the specified map of raw messages.
+func UnmarshalFunctionPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(FunctionPatch)
+	err = core.UnmarshalPrimitive(m, "code_binary", &obj.CodeBinary)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_main", &obj.CodeMain)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_reference", &obj.CodeReference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code_secret", &obj.CodeSecret)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "runtime", &obj.Runtime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the FunctionPatch
+func (functionPatch *FunctionPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	var jsonData []byte
+	jsonData, err = json.Marshal(functionPatch)
+	if err == nil {
+		err = json.Unmarshal(jsonData, &_patch)
+	}
+	return
+}
+
+// FunctionRuntime : Response model for Function runtime objects.
+type FunctionRuntime struct {
+	// Whether the function runtime is the default for the code bundle family.
+	Default *bool `json:"default,omitempty"`
+
+	// Whether the function runtime is deprecated.
+	Deprecated *bool `json:"deprecated,omitempty"`
+
+	// The code bundle family of the function runtime.
+	Family *string `json:"family,omitempty"`
+
+	// The ID of the function runtime.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the function runtime.
+	Name *string `json:"name,omitempty"`
+
+	// Whether the function runtime is optimized.
+	Optimized *bool `json:"optimized,omitempty"`
+}
+
+// UnmarshalFunctionRuntime unmarshals an instance of FunctionRuntime from the specified map of raw messages.
+func UnmarshalFunctionRuntime(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(FunctionRuntime)
+	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deprecated", &obj.Deprecated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "family", &obj.Family)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "optimized", &obj.Optimized)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// FunctionRuntimeList : Contains a list of Function runtimes.
+type FunctionRuntimeList struct {
+	// List of all Function runtimes.
+	FunctionRuntimes []FunctionRuntime `json:"function_runtimes,omitempty"`
+}
+
+// UnmarshalFunctionRuntimeList unmarshals an instance of FunctionRuntimeList from the specified map of raw messages.
+func UnmarshalFunctionRuntimeList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(FunctionRuntimeList)
+	err = core.UnmarshalModel(m, "function_runtimes", &obj.FunctionRuntimes, UnmarshalFunctionRuntime)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// FunctionStatus : The detailed status of the function.
+type FunctionStatus struct {
+	// Provides additional information about the status of the function.
+	Reason *string `json:"reason,omitempty"`
+}
+
+// Constants associated with the FunctionStatus.Reason property.
+// Provides additional information about the status of the function.
+const (
+	FunctionStatus_Reason_Deploying = "deploying"
+	FunctionStatus_Reason_DeployingConfiguringRoutes = "deploying_configuring_routes"
+	FunctionStatus_Reason_NoCodeBundle = "no_code_bundle"
+	FunctionStatus_Reason_Offline = "offline"
+	FunctionStatus_Reason_Ready = "ready"
+	FunctionStatus_Reason_ReadyLastUpdateFailed = "ready_last_update_failed"
+	FunctionStatus_Reason_ReadyUpdateInProgress = "ready_update_in_progress"
+	FunctionStatus_Reason_UnknownReason = "unknown_reason"
+)
+
+// UnmarshalFunctionStatus unmarshals an instance of FunctionStatus from the specified map of raw messages.
+func UnmarshalFunctionStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(FunctionStatus)
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
 		return
 	}
@@ -8040,6 +9488,44 @@ func (options *GetDomainMappingOptions) SetHeaders(param map[string]string) *Get
 	return options
 }
 
+// GetFunctionOptions : The GetFunction options.
+type GetFunctionOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your function.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetFunctionOptions : Instantiate GetFunctionOptions
+func (*CodeEngineV2) NewGetFunctionOptions(projectID string, name string) *GetFunctionOptions {
+	return &GetFunctionOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetFunctionOptions) SetProjectID(projectID string) *GetFunctionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *GetFunctionOptions) SetName(name string) *GetFunctionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetFunctionOptions) SetHeaders(param map[string]string) *GetFunctionOptions {
+	options.Headers = param
+	return options
+}
+
 // GetJobOptions : The GetJob options.
 type GetJobOptions struct {
 	// The ID of the project.
@@ -8243,7 +9729,7 @@ type Job struct {
 	// Reference to a build that is associated with the job.
 	Build *string `json:"build,omitempty"`
 
-	// Reference to a buildrun that is associated with the job.
+	// Reference to a build run that is associated with the job.
 	BuildRun *string `json:"build_run,omitempty"`
 
 	// The timestamp when the resource was created.
@@ -8273,7 +9759,7 @@ type Job struct {
 	// The name of the job.
 	Name *string `json:"name" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -8287,7 +9773,7 @@ type Job struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// The user ID (UID) to run the job (e.g., 1001).
+	// The user ID (UID) to run the job.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
@@ -8306,12 +9792,12 @@ type Job struct {
 	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
-	// Optional mounts of config maps or a secrets.
+	// Optional mounts of config maps or secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
 
-	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-	// unique array indices specified here determines the number of job instances to run.
+	// Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated ranges,
+	// such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX. The number
+	// of unique array indices that you specify with this parameter determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec" validate:"required"`
 
 	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -8536,7 +10022,7 @@ type JobPatch struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments,omitempty"`
 
-	// The user ID (UID) to run the job (e.g., 1001).
+	// The user ID (UID) to run the job.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
@@ -8559,9 +10045,9 @@ type JobPatch struct {
 	// overwritten.
 	RunVolumeMounts []VolumeMountPrototype `json:"run_volume_mounts,omitempty"`
 
-	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-	// unique array indices specified here determines the number of job instances to run.
+	// Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated ranges,
+	// such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX. The number
+	// of unique array indices that you specify with this parameter determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
 	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -8716,7 +10202,7 @@ type JobRun struct {
 	// The name of the job run.
 	Name *string `json:"name,omitempty"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -8730,7 +10216,7 @@ type JobRun struct {
 	// be applied and the arguments specified by the container image, will be used to start the container.
 	RunArguments []string `json:"run_arguments" validate:"required"`
 
-	// The user ID (UID) to run the job (e.g., 1001).
+	// The user ID (UID) to run the job.
 	RunAsUser *int64 `json:"run_as_user,omitempty"`
 
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
@@ -8749,15 +10235,15 @@ type JobRun struct {
 	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
 	RunServiceAccount *string `json:"run_service_account,omitempty"`
 
-	// Optional mounts of config maps or a secrets.
+	// Optional mounts of config maps or secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
 
 	// Optional value to override the JOB_ARRAY_SIZE environment variable for a job run.
 	ScaleArraySizeVariableOverride *int64 `json:"scale_array_size_variable_override,omitempty"`
 
-	// Define a custom set of array indices as comma-separated list containing single values and hyphen-separated ranges
-	// like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The number of
-	// unique array indices specified here determines the number of job instances to run.
+	// Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated ranges,
+	// such as  5,12-14,23,27. Each instance gets its array index value from the environment variable JOB_INDEX. The number
+	// of unique array indices that you specify with this parameter determines the number of job instances to run.
 	ScaleArraySpec *string `json:"scale_array_spec,omitempty"`
 
 	// Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -9049,6 +10535,64 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
+// ListAppInstancesOptions : The ListAppInstances options.
+type ListAppInstancesOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your application.
+	AppName *string `json:"app_name" validate:"required,ne="`
+
+	// Optional maximum number of apps per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListAppInstancesOptions : Instantiate ListAppInstancesOptions
+func (*CodeEngineV2) NewListAppInstancesOptions(projectID string, appName string) *ListAppInstancesOptions {
+	return &ListAppInstancesOptions{
+		ProjectID: core.StringPtr(projectID),
+		AppName: core.StringPtr(appName),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListAppInstancesOptions) SetProjectID(projectID string) *ListAppInstancesOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetAppName : Allow user to set AppName
+func (_options *ListAppInstancesOptions) SetAppName(appName string) *ListAppInstancesOptions {
+	_options.AppName = core.StringPtr(appName)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListAppInstancesOptions) SetLimit(limit int64) *ListAppInstancesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListAppInstancesOptions) SetStart(start string) *ListAppInstancesOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListAppInstancesOptions) SetHeaders(param map[string]string) *ListAppInstancesOptions {
+	options.Headers = param
+	return options
+}
+
 // ListAppRevisionsOptions : The ListAppRevisions options.
 type ListAppRevisionsOptions struct {
 	// The ID of the project.
@@ -9268,7 +10812,9 @@ type ListBuildsOptions struct {
 	// Optional maximum number of builds per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The token to continue traversing paginated list of builds.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -9362,7 +10908,9 @@ type ListDomainMappingsOptions struct {
 	// Optional maximum number of domain mappings per page.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The token to continue traversing paginated list of domain mappings.
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
 	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -9417,12 +10965,78 @@ func UnmarshalListFirstMetadata(m map[string]json.RawMessage, result interface{}
 	return
 }
 
+// ListFunctionRuntimesOptions : The ListFunctionRuntimes options.
+type ListFunctionRuntimesOptions struct {
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListFunctionRuntimesOptions : Instantiate ListFunctionRuntimesOptions
+func (*CodeEngineV2) NewListFunctionRuntimesOptions() *ListFunctionRuntimesOptions {
+	return &ListFunctionRuntimesOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListFunctionRuntimesOptions) SetHeaders(param map[string]string) *ListFunctionRuntimesOptions {
+	options.Headers = param
+	return options
+}
+
+// ListFunctionsOptions : The ListFunctions options.
+type ListFunctionsOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Optional maximum number of functions per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of the
+	// operation response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListFunctionsOptions : Instantiate ListFunctionsOptions
+func (*CodeEngineV2) NewListFunctionsOptions(projectID string) *ListFunctionsOptions {
+	return &ListFunctionsOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListFunctionsOptions) SetProjectID(projectID string) *ListFunctionsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListFunctionsOptions) SetLimit(limit int64) *ListFunctionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListFunctionsOptions) SetStart(start string) *ListFunctionsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListFunctionsOptions) SetHeaders(param map[string]string) *ListFunctionsOptions {
+	options.Headers = param
+	return options
+}
+
 // ListJobRunsOptions : The ListJobRuns options.
 type ListJobRunsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// Optional name of the job that should be filtered for.
+	// Optional name of the job that you want to use to filter.
 	JobName *string `json:"job_name,omitempty"`
 
 	// Optional maximum number of job runs per page.
@@ -9669,7 +11283,7 @@ func UnmarshalOperatorSecretProps(m map[string]json.RawMessage, result interface
 	return
 }
 
-// OperatorSecretPrototypeProps : Properties for the IBM Cloud Operator Secret Prototype.
+// OperatorSecretPrototypeProps : Properties for the IBM Cloud Operator Secrets.
 type OperatorSecretPrototypeProps struct {
 	// The list of resource groups (by ID) that the operator secret can bind services in.
 	ResourceGroupIds []string `json:"resource_group_ids,omitempty"`
@@ -9857,8 +11471,8 @@ type Project struct {
 	// The type of the project.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// The current state of the project. For example, if the project is created and ready to get used, it will return
-	// active.
+	// The current state of the project. For example, when the project is created and is ready for use, the status of the
+	// project is active.
 	Status *string `json:"status,omitempty"`
 }
 
@@ -9869,8 +11483,8 @@ const (
 )
 
 // Constants associated with the Project.Status property.
-// The current state of the project. For example, if the project is created and ready to get used, it will return
-// active.
+// The current state of the project. For example, when the project is created and is ready for use, the status of the
+// project is active.
 const (
 	Project_Status_Active = "active"
 	Project_Status_Creating = "creating"
@@ -10293,7 +11907,7 @@ type Secret struct {
 	// The name of the secret.
 	Name *string `json:"name" validate:"required"`
 
-	// The ID of the project the resource is located in.
+	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
 
 	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
@@ -10556,7 +12170,7 @@ type SecretList struct {
 	// Describes properties needed to retrieve the next page of a result list.
 	Next *ListNextMetadata `json:"next,omitempty"`
 
-	// List of Secrets.
+	// List of secrets.
 	Secrets []Secret `json:"secrets" validate:"required"`
 }
 
@@ -10629,7 +12243,7 @@ func UnmarshalServiceAccessSecretProps(m map[string]json.RawMessage, result inte
 	return
 }
 
-// ServiceAccessSecretPrototypeProps : Properties for Service Access Secret Prototypes.
+// ServiceAccessSecretPrototypeProps : Properties for Service Access Secrets.
 type ServiceAccessSecretPrototypeProps struct {
 	// The service credential associated with the secret.
 	ResourceKey *ResourceKeyRefPrototype `json:"resource_key" validate:"required"`
@@ -10935,6 +12549,66 @@ func (_options *UpdateDomainMappingOptions) SetDomainMapping(domainMapping map[s
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateDomainMappingOptions) SetHeaders(param map[string]string) *UpdateDomainMappingOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateFunctionOptions : The UpdateFunction options.
+type UpdateFunctionOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your function.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Version of the function settings to be updated. Specify the version that you retrieved as entity_tag (ETag header)
+	// when reading the function. This value helps identifying parallel usage of this API. Pass * to indicate to update any
+	// version available. This might result in stale updates.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Function patch.
+	Function map[string]interface{} `json:"function" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateFunctionOptions : Instantiate UpdateFunctionOptions
+func (*CodeEngineV2) NewUpdateFunctionOptions(projectID string, name string, ifMatch string, function map[string]interface{}) *UpdateFunctionOptions {
+	return &UpdateFunctionOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+		IfMatch: core.StringPtr(ifMatch),
+		Function: function,
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateFunctionOptions) SetProjectID(projectID string) *UpdateFunctionOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateFunctionOptions) SetName(name string) *UpdateFunctionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateFunctionOptions) SetIfMatch(ifMatch string) *UpdateFunctionOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetFunction : Allow user to set Function
+func (_options *UpdateFunctionOptions) SetFunction(function map[string]interface{}) *UpdateFunctionOptions {
+	_options.Function = function
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateFunctionOptions) SetHeaders(param map[string]string) *UpdateFunctionOptions {
 	options.Headers = param
 	return options
 }
@@ -11824,6 +13498,87 @@ func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
 }
 
 //
+// AppInstancesPager can be used to simplify the use of the "ListAppInstances" method.
+//
+type AppInstancesPager struct {
+	hasNext bool
+	options *ListAppInstancesOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewAppInstancesPager returns a new AppInstancesPager instance.
+func (codeEngine *CodeEngineV2) NewAppInstancesPager(options *ListAppInstancesOptions) (pager *AppInstancesPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListAppInstancesOptions = *options
+	pager = &AppInstancesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *AppInstancesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *AppInstancesPager) GetNextWithContext(ctx context.Context) (page []AppInstance, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListAppInstancesWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Instances
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *AppInstancesPager) GetAllWithContext(ctx context.Context) (allItems []AppInstance, err error) {
+	for pager.HasNext() {
+		var nextPage []AppInstance
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *AppInstancesPager) GetNext() (page []AppInstance, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *AppInstancesPager) GetAll() (allItems []AppInstance, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
 // JobsPager can be used to simplify the use of the "ListJobs" method.
 //
 type JobsPager struct {
@@ -11982,6 +13737,87 @@ func (pager *JobRunsPager) GetNext() (page []JobRun, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *JobRunsPager) GetAll() (allItems []JobRun, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// FunctionsPager can be used to simplify the use of the "ListFunctions" method.
+//
+type FunctionsPager struct {
+	hasNext bool
+	options *ListFunctionsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewFunctionsPager returns a new FunctionsPager instance.
+func (codeEngine *CodeEngineV2) NewFunctionsPager(options *ListFunctionsOptions) (pager *FunctionsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListFunctionsOptions = *options
+	pager = &FunctionsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *FunctionsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *FunctionsPager) GetNextWithContext(ctx context.Context) (page []Function, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListFunctionsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Functions
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *FunctionsPager) GetAllWithContext(ctx context.Context) (allItems []Function, err error) {
+	for pager.HasNext() {
+		var nextPage []Function
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *FunctionsPager) GetNext() (page []Function, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *FunctionsPager) GetAll() (allItems []Function, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
@@ -12229,6 +14065,87 @@ func (pager *BuildRunsPager) GetAll() (allItems []BuildRun, err error) {
 }
 
 //
+// DomainMappingsPager can be used to simplify the use of the "ListDomainMappings" method.
+//
+type DomainMappingsPager struct {
+	hasNext bool
+	options *ListDomainMappingsOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewDomainMappingsPager returns a new DomainMappingsPager instance.
+func (codeEngine *CodeEngineV2) NewDomainMappingsPager(options *ListDomainMappingsOptions) (pager *DomainMappingsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListDomainMappingsOptions = *options
+	pager = &DomainMappingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *DomainMappingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *DomainMappingsPager) GetNextWithContext(ctx context.Context) (page []DomainMapping, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListDomainMappingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.DomainMappings
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *DomainMappingsPager) GetAllWithContext(ctx context.Context) (allItems []DomainMapping, err error) {
+	for pager.HasNext() {
+		var nextPage []DomainMapping
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *DomainMappingsPager) GetNext() (page []DomainMapping, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *DomainMappingsPager) GetAll() (allItems []DomainMapping, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
 // ConfigMapsPager can be used to simplify the use of the "ListConfigMaps" method.
 //
 type ConfigMapsPager struct {
@@ -12387,86 +14304,5 @@ func (pager *SecretsPager) GetNext() (page []Secret, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
-	return pager.GetAllWithContext(context.Background())
-}
-
-//
-// DomainMappingsPager can be used to simplify the use of the "ListDomainMappings" method.
-//
-type DomainMappingsPager struct {
-	hasNext bool
-	options *ListDomainMappingsOptions
-	client  *CodeEngineV2
-	pageContext struct {
-		next *string
-	}
-}
-
-// NewDomainMappingsPager returns a new DomainMappingsPager instance.
-func (codeEngine *CodeEngineV2) NewDomainMappingsPager(options *ListDomainMappingsOptions) (pager *DomainMappingsPager, err error) {
-	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
-		return
-	}
-
-	var optionsCopy ListDomainMappingsOptions = *options
-	pager = &DomainMappingsPager{
-		hasNext: true,
-		options: &optionsCopy,
-		client:  codeEngine,
-	}
-	return
-}
-
-// HasNext returns true if there are potentially more results to be retrieved.
-func (pager *DomainMappingsPager) HasNext() bool {
-	return pager.hasNext
-}
-
-// GetNextWithContext returns the next page of results using the specified Context.
-func (pager *DomainMappingsPager) GetNextWithContext(ctx context.Context) (page []DomainMapping, err error) {
-	if !pager.HasNext() {
-		return nil, fmt.Errorf("no more results available")
-	}
-
-	pager.options.Start = pager.pageContext.next
-
-	result, _, err := pager.client.ListDomainMappingsWithContext(ctx, pager.options)
-	if err != nil {
-		return
-	}
-
-	var next *string
-	if result.Next != nil {
-		next = result.Next.Start
-	}
-	pager.pageContext.next = next
-	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.DomainMappings
-
-	return
-}
-
-// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
-// until all pages of results have been retrieved.
-func (pager *DomainMappingsPager) GetAllWithContext(ctx context.Context) (allItems []DomainMapping, err error) {
-	for pager.HasNext() {
-		var nextPage []DomainMapping
-		nextPage, err = pager.GetNextWithContext(ctx)
-		if err != nil {
-			return
-		}
-		allItems = append(allItems, nextPage...)
-	}
-	return
-}
-
-// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *DomainMappingsPager) GetNext() (page []DomainMapping, err error) {
-	return pager.GetNextWithContext(context.Background())
-}
-
-// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *DomainMappingsPager) GetAll() (allItems []DomainMapping, err error) {
 	return pager.GetAllWithContext(context.Background())
 }

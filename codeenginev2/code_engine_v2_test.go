@@ -19,6 +19,7 @@ package codeenginev2_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -3671,6 +3672,332 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) - Operation response error`, func() {
+		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAppInstancesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAppInstances with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAppInstancesOptions model
+				listAppInstancesOptionsModel := new(codeenginev2.ListAppInstancesOptions)
+				listAppInstancesOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.AppName = core.StringPtr("my-app")
+				listAppInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAppInstancesOptionsModel.Start = core.StringPtr("testString")
+				listAppInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions)`, func() {
+		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAppInstancesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "restarts": 4, "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListAppInstances successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAppInstancesOptions model
+				listAppInstancesOptionsModel := new(codeenginev2.ListAppInstancesOptions)
+				listAppInstancesOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.AppName = core.StringPtr("my-app")
+				listAppInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAppInstancesOptionsModel.Start = core.StringPtr("testString")
+				listAppInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListAppInstancesWithContext(ctx, listAppInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListAppInstancesWithContext(ctx, listAppInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAppInstancesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "restarts": 4, "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "ContainerStatus", "exit_code": 100, "reason": "ready", "started_at": "2022-09-22T17:34:00Z"}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListAppInstances successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListAppInstances(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAppInstancesOptions model
+				listAppInstancesOptionsModel := new(codeenginev2.ListAppInstancesOptions)
+				listAppInstancesOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.AppName = core.StringPtr("my-app")
+				listAppInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAppInstancesOptionsModel.Start = core.StringPtr("testString")
+				listAppInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAppInstances with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAppInstancesOptions model
+				listAppInstancesOptionsModel := new(codeenginev2.ListAppInstancesOptions)
+				listAppInstancesOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.AppName = core.StringPtr("my-app")
+				listAppInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAppInstancesOptionsModel.Start = core.StringPtr("testString")
+				listAppInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListAppInstancesOptions model with no property values
+				listAppInstancesOptionsModelNew := new(codeenginev2.ListAppInstancesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListAppInstances(listAppInstancesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAppInstances successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAppInstancesOptions model
+				listAppInstancesOptionsModel := new(codeenginev2.ListAppInstancesOptions)
+				listAppInstancesOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.AppName = core.StringPtr("my-app")
+				listAppInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAppInstancesOptionsModel.Start = core.StringPtr("testString")
+				listAppInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListAppInstances(listAppInstancesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.AppInstanceList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.AppInstanceList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAppInstancesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"ContainerStatus","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use AppInstancesPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listAppInstancesOptionsModel := &codeenginev2.ListAppInstancesOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					AppName: core.StringPtr("my-app"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.AppInstance
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use AppInstancesPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listAppInstancesOptionsModel := &codeenginev2.ListAppInstancesOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					AppName: core.StringPtr("my-app"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
 	Describe(`ListJobs(listJobsOptions *ListJobsOptions) - Operation response error`, func() {
 		listJobsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -6150,6 +6477,1561 @@ var _ = Describe(`CodeEngineV2`, func() {
 				response, operationErr = codeEngineService.DeleteJobRun(deleteJobRunOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions) - Operation response error`, func() {
+		listFunctionRuntimesPath := "/function_runtimes"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionRuntimesPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListFunctionRuntimes with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := new(codeenginev2.ListFunctionRuntimesOptions)
+				listFunctionRuntimesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions)`, func() {
+		listFunctionRuntimesPath := "/function_runtimes"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionRuntimesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"function_runtimes": [{"default": true, "deprecated": false, "family": "nodejs", "id": "nodejs-18", "name": "Node.js 18", "optimized": true}]}`)
+				}))
+			})
+			It(`Invoke ListFunctionRuntimes successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := new(codeenginev2.ListFunctionRuntimesOptions)
+				listFunctionRuntimesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListFunctionRuntimesWithContext(ctx, listFunctionRuntimesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListFunctionRuntimesWithContext(ctx, listFunctionRuntimesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionRuntimesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"function_runtimes": [{"default": true, "deprecated": false, "family": "nodejs", "id": "nodejs-18", "name": "Node.js 18", "optimized": true}]}`)
+				}))
+			})
+			It(`Invoke ListFunctionRuntimes successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListFunctionRuntimes(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := new(codeenginev2.ListFunctionRuntimesOptions)
+				listFunctionRuntimesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListFunctionRuntimes with error: Operation request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := new(codeenginev2.ListFunctionRuntimesOptions)
+				listFunctionRuntimesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListFunctionRuntimes successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := new(codeenginev2.ListFunctionRuntimesOptions)
+				listFunctionRuntimesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) - Operation response error`, func() {
+		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListFunctions with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionsOptions model
+				listFunctionsOptionsModel := new(codeenginev2.ListFunctionsOptions)
+				listFunctionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listFunctionsOptionsModel.Start = core.StringPtr("testString")
+				listFunctionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions)`, func() {
+		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "functions": [{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListFunctions successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListFunctionsOptions model
+				listFunctionsOptionsModel := new(codeenginev2.ListFunctionsOptions)
+				listFunctionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listFunctionsOptionsModel.Start = core.StringPtr("testString")
+				listFunctionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListFunctionsWithContext(ctx, listFunctionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListFunctionsWithContext(ctx, listFunctionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "functions": [{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListFunctions successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListFunctions(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListFunctionsOptions model
+				listFunctionsOptionsModel := new(codeenginev2.ListFunctionsOptions)
+				listFunctionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listFunctionsOptionsModel.Start = core.StringPtr("testString")
+				listFunctionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListFunctions with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionsOptions model
+				listFunctionsOptionsModel := new(codeenginev2.ListFunctionsOptions)
+				listFunctionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listFunctionsOptionsModel.Start = core.StringPtr("testString")
+				listFunctionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListFunctionsOptions model with no property values
+				listFunctionsOptionsModelNew := new(codeenginev2.ListFunctionsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListFunctions(listFunctionsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListFunctions successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListFunctionsOptions model
+				listFunctionsOptionsModel := new(codeenginev2.ListFunctionsOptions)
+				listFunctionsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listFunctionsOptionsModel.Start = core.StringPtr("testString")
+				listFunctionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListFunctions(listFunctionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.FunctionList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.FunctionList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use FunctionsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listFunctionsOptionsModel := &codeenginev2.ListFunctionsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewFunctionsPager(listFunctionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.Function
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use FunctionsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listFunctionsOptionsModel := &codeenginev2.ListFunctionsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewFunctionsPager(listFunctionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions) - Operation response error`, func() {
+		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createFunctionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateFunction with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the CreateFunctionOptions model
+				createFunctionOptionsModel := new(codeenginev2.CreateFunctionOptions)
+				createFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.Name = core.StringPtr("my-function")
+				createFunctionOptionsModel.Runtime = core.StringPtr("nodejs-18")
+				createFunctionOptionsModel.CodeBinary = core.BoolPtr(false)
+				createFunctionOptionsModel.CodeMain = core.StringPtr("main")
+				createFunctionOptionsModel.CodeSecret = core.StringPtr("my-secret")
+				createFunctionOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createFunctionOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createFunctionOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				createFunctionOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createFunctionOptionsModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				createFunctionOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				createFunctionOptionsModel.ScaleMemoryLimit = core.StringPtr("1G")
+				createFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions)`, func() {
+		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createFunctionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke CreateFunction successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the CreateFunctionOptions model
+				createFunctionOptionsModel := new(codeenginev2.CreateFunctionOptions)
+				createFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.Name = core.StringPtr("my-function")
+				createFunctionOptionsModel.Runtime = core.StringPtr("nodejs-18")
+				createFunctionOptionsModel.CodeBinary = core.BoolPtr(false)
+				createFunctionOptionsModel.CodeMain = core.StringPtr("main")
+				createFunctionOptionsModel.CodeSecret = core.StringPtr("my-secret")
+				createFunctionOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createFunctionOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createFunctionOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				createFunctionOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createFunctionOptionsModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				createFunctionOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				createFunctionOptionsModel.ScaleMemoryLimit = core.StringPtr("1G")
+				createFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateFunctionWithContext(ctx, createFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateFunctionWithContext(ctx, createFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createFunctionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke CreateFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateFunction(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the CreateFunctionOptions model
+				createFunctionOptionsModel := new(codeenginev2.CreateFunctionOptions)
+				createFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.Name = core.StringPtr("my-function")
+				createFunctionOptionsModel.Runtime = core.StringPtr("nodejs-18")
+				createFunctionOptionsModel.CodeBinary = core.BoolPtr(false)
+				createFunctionOptionsModel.CodeMain = core.StringPtr("main")
+				createFunctionOptionsModel.CodeSecret = core.StringPtr("my-secret")
+				createFunctionOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createFunctionOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createFunctionOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				createFunctionOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createFunctionOptionsModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				createFunctionOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				createFunctionOptionsModel.ScaleMemoryLimit = core.StringPtr("1G")
+				createFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateFunction with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the CreateFunctionOptions model
+				createFunctionOptionsModel := new(codeenginev2.CreateFunctionOptions)
+				createFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.Name = core.StringPtr("my-function")
+				createFunctionOptionsModel.Runtime = core.StringPtr("nodejs-18")
+				createFunctionOptionsModel.CodeBinary = core.BoolPtr(false)
+				createFunctionOptionsModel.CodeMain = core.StringPtr("main")
+				createFunctionOptionsModel.CodeSecret = core.StringPtr("my-secret")
+				createFunctionOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createFunctionOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createFunctionOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				createFunctionOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createFunctionOptionsModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				createFunctionOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				createFunctionOptionsModel.ScaleMemoryLimit = core.StringPtr("1G")
+				createFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateFunctionOptions model with no property values
+				createFunctionOptionsModelNew := new(codeenginev2.CreateFunctionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateFunction(createFunctionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the CreateFunctionOptions model
+				createFunctionOptionsModel := new(codeenginev2.CreateFunctionOptions)
+				createFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.Name = core.StringPtr("my-function")
+				createFunctionOptionsModel.Runtime = core.StringPtr("nodejs-18")
+				createFunctionOptionsModel.CodeBinary = core.BoolPtr(false)
+				createFunctionOptionsModel.CodeMain = core.StringPtr("main")
+				createFunctionOptionsModel.CodeSecret = core.StringPtr("my-secret")
+				createFunctionOptionsModel.ManagedDomainMappings = core.StringPtr("local_public")
+				createFunctionOptionsModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				createFunctionOptionsModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				createFunctionOptionsModel.ScaleCpuLimit = core.StringPtr("1")
+				createFunctionOptionsModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				createFunctionOptionsModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				createFunctionOptionsModel.ScaleMemoryLimit = core.StringPtr("1G")
+				createFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateFunction(createFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions) - Operation response error`, func() {
+		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetFunction with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetFunctionOptions model
+				getFunctionOptionsModel := new(codeenginev2.GetFunctionOptions)
+				getFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.Name = core.StringPtr("my-function")
+				getFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions)`, func() {
+		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke GetFunction successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetFunctionOptions model
+				getFunctionOptionsModel := new(codeenginev2.GetFunctionOptions)
+				getFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.Name = core.StringPtr("my-function")
+				getFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetFunctionWithContext(ctx, getFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetFunctionWithContext(ctx, getFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke GetFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetFunction(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetFunctionOptions model
+				getFunctionOptionsModel := new(codeenginev2.GetFunctionOptions)
+				getFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.Name = core.StringPtr("my-function")
+				getFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetFunction with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetFunctionOptions model
+				getFunctionOptionsModel := new(codeenginev2.GetFunctionOptions)
+				getFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.Name = core.StringPtr("my-function")
+				getFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetFunctionOptions model with no property values
+				getFunctionOptionsModelNew := new(codeenginev2.GetFunctionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetFunction(getFunctionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetFunctionOptions model
+				getFunctionOptionsModel := new(codeenginev2.GetFunctionOptions)
+				getFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.Name = core.StringPtr("my-function")
+				getFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetFunction(getFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions)`, func() {
+		deleteFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteFunctionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteFunction(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteFunctionOptions model
+				deleteFunctionOptionsModel := new(codeenginev2.DeleteFunctionOptions)
+				deleteFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteFunctionOptionsModel.Name = core.StringPtr("my-function")
+				deleteFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteFunction(deleteFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteFunction with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteFunctionOptions model
+				deleteFunctionOptionsModel := new(codeenginev2.DeleteFunctionOptions)
+				deleteFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteFunctionOptionsModel.Name = core.StringPtr("my-function")
+				deleteFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteFunction(deleteFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteFunctionOptions model with no property values
+				deleteFunctionOptionsModelNew := new(codeenginev2.DeleteFunctionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteFunction(deleteFunctionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions) - Operation response error`, func() {
+		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateFunctionPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateFunction with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the FunctionPatch model
+				functionPatchModel := new(codeenginev2.FunctionPatch)
+				functionPatchModel.CodeBinary = core.BoolPtr(false)
+				functionPatchModel.CodeMain = core.StringPtr("main")
+				functionPatchModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				functionPatchModel.CodeSecret = core.StringPtr("my-secret")
+				functionPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				functionPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				functionPatchModel.Runtime = core.StringPtr("nodejs-18")
+				functionPatchModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				functionPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				functionPatchModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				functionPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				functionPatchModel.ScaleMemoryLimit = core.StringPtr("1G")
+				functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateFunctionOptions model
+				updateFunctionOptionsModel := new(codeenginev2.UpdateFunctionOptions)
+				updateFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.Name = core.StringPtr("my-function")
+				updateFunctionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateFunctionOptionsModel.Function = functionPatchModelAsPatch
+				updateFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions)`, func() {
+		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateFunctionPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke UpdateFunction successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the FunctionPatch model
+				functionPatchModel := new(codeenginev2.FunctionPatch)
+				functionPatchModel.CodeBinary = core.BoolPtr(false)
+				functionPatchModel.CodeMain = core.StringPtr("main")
+				functionPatchModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				functionPatchModel.CodeSecret = core.StringPtr("my-secret")
+				functionPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				functionPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				functionPatchModel.Runtime = core.StringPtr("nodejs-18")
+				functionPatchModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				functionPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				functionPatchModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				functionPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				functionPatchModel.ScaleMemoryLimit = core.StringPtr("1G")
+				functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateFunctionOptions model
+				updateFunctionOptionsModel := new(codeenginev2.UpdateFunctionOptions)
+				updateFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.Name = core.StringPtr("my-function")
+				updateFunctionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateFunctionOptionsModel.Function = functionPatchModelAsPatch
+				updateFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateFunctionWithContext(ctx, updateFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateFunctionWithContext(ctx, updateFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateFunctionPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"code_binary": false, "code_main": "main", "code_reference": "data:text/plain;base64,<base64encoded-source-code>", "code_secret": "my-secret", "created_at": "2022-09-13T11:41:35+02:00", "endpoint": "https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud", "endpoint_internal": "http://my-function.vg67hzldruk.svc.cluster.local", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "managed_domain_mappings": "local_public", "name": "my-function", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "function_v2", "run_env_variables": [{"key": "MY_VARIABLE", "name": "SOME", "prefix": "PREFIX_", "reference": "my-secret", "type": "literal", "value": "VALUE"}], "runtime": "nodejs-18", "scale_concurrency": 1, "scale_cpu_limit": "1", "scale_down_delay": 300, "scale_max_execution_time": 60, "scale_memory_limit": "1G", "status": "offline", "status_details": {"reason": "offline"}}`)
+				}))
+			})
+			It(`Invoke UpdateFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateFunction(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the FunctionPatch model
+				functionPatchModel := new(codeenginev2.FunctionPatch)
+				functionPatchModel.CodeBinary = core.BoolPtr(false)
+				functionPatchModel.CodeMain = core.StringPtr("main")
+				functionPatchModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				functionPatchModel.CodeSecret = core.StringPtr("my-secret")
+				functionPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				functionPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				functionPatchModel.Runtime = core.StringPtr("nodejs-18")
+				functionPatchModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				functionPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				functionPatchModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				functionPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				functionPatchModel.ScaleMemoryLimit = core.StringPtr("1G")
+				functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateFunctionOptions model
+				updateFunctionOptionsModel := new(codeenginev2.UpdateFunctionOptions)
+				updateFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.Name = core.StringPtr("my-function")
+				updateFunctionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateFunctionOptionsModel.Function = functionPatchModelAsPatch
+				updateFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateFunction with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the FunctionPatch model
+				functionPatchModel := new(codeenginev2.FunctionPatch)
+				functionPatchModel.CodeBinary = core.BoolPtr(false)
+				functionPatchModel.CodeMain = core.StringPtr("main")
+				functionPatchModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				functionPatchModel.CodeSecret = core.StringPtr("my-secret")
+				functionPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				functionPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				functionPatchModel.Runtime = core.StringPtr("nodejs-18")
+				functionPatchModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				functionPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				functionPatchModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				functionPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				functionPatchModel.ScaleMemoryLimit = core.StringPtr("1G")
+				functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateFunctionOptions model
+				updateFunctionOptionsModel := new(codeenginev2.UpdateFunctionOptions)
+				updateFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.Name = core.StringPtr("my-function")
+				updateFunctionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateFunctionOptionsModel.Function = functionPatchModelAsPatch
+				updateFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateFunctionOptions model with no property values
+				updateFunctionOptionsModelNew := new(codeenginev2.UpdateFunctionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateFunction(updateFunctionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateFunction successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+
+				// Construct an instance of the FunctionPatch model
+				functionPatchModel := new(codeenginev2.FunctionPatch)
+				functionPatchModel.CodeBinary = core.BoolPtr(false)
+				functionPatchModel.CodeMain = core.StringPtr("main")
+				functionPatchModel.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+				functionPatchModel.CodeSecret = core.StringPtr("my-secret")
+				functionPatchModel.ManagedDomainMappings = core.StringPtr("local_public")
+				functionPatchModel.RunEnvVariables = []codeenginev2.EnvVarPrototype{*envVarPrototypeModel}
+				functionPatchModel.Runtime = core.StringPtr("nodejs-18")
+				functionPatchModel.ScaleConcurrency = core.Int64Ptr(int64(1))
+				functionPatchModel.ScaleCpuLimit = core.StringPtr("1")
+				functionPatchModel.ScaleDownDelay = core.Int64Ptr(int64(300))
+				functionPatchModel.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+				functionPatchModel.ScaleMemoryLimit = core.StringPtr("1G")
+				functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateFunctionOptions model
+				updateFunctionOptionsModel := new(codeenginev2.UpdateFunctionOptions)
+				updateFunctionOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.Name = core.StringPtr("my-function")
+				updateFunctionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateFunctionOptionsModel.Function = functionPatchModelAsPatch
+				updateFunctionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateFunction(updateFunctionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -9231,6 +11113,1221 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) - Operation response error`, func() {
+		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListDomainMappings with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions)`, func() {
+		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListDomainMappings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListDomainMappings with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListDomainMappingsOptions model with no property values
+				listDomainMappingsOptionsModelNew := new(codeenginev2.ListDomainMappingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListDomainMappings successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListDomainMappingsOptions model
+				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
+				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
+				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.DomainMappingList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.DomainMappingList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use DomainMappingsPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.DomainMapping
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use DomainMappingsPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) - Operation response error`, func() {
+		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
+		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateDomainMappingOptions model with no property values
+				createDomainMappingOptionsModelNew := new(codeenginev2.CreateDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the CreateDomainMappingOptions model
+				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
+				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createDomainMappingOptionsModel.Component = componentRefModel
+				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
+				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) - Operation response error`, func() {
+		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
+		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetDomainMappingOptions model with no property values
+				getDomainMappingOptionsModelNew := new(codeenginev2.GetDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetDomainMappingOptions model
+				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
+				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
+		deleteDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteDomainMappingPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteDomainMappingOptions model
+				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
+				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteDomainMappingOptions model
+				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
+				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteDomainMappingOptions model with no property values
+				deleteDomainMappingOptionsModelNew := new(codeenginev2.DeleteDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) - Operation response error`, func() {
+		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
+		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateDomainMapping with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateDomainMappingOptions model with no property values
+				updateDomainMappingOptionsModelNew := new(codeenginev2.UpdateDomainMappingOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateDomainMapping successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ComponentRef model
+				componentRefModel := new(codeenginev2.ComponentRef)
+				componentRefModel.Name = core.StringPtr("my-app-1")
+				componentRefModel.ResourceType = core.StringPtr("app_v2")
+
+				// Construct an instance of the DomainMappingPatch model
+				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
+				domainMappingPatchModel.Component = componentRefModel
+				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
+				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateDomainMappingOptions model
+				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
+				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
+				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
+				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
+				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) - Operation response error`, func() {
 		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -11726,1221 +14823,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) - Operation response error`, func() {
-		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListDomainMappings with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListDomainMappingsOptions model
-				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
-				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
-				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions)`, func() {
-		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListDomainMappings successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListDomainMappingsOptions model
-				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
-				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
-				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListDomainMappingsWithContext(ctx, listDomainMappingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"domain_mappings": [{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
-				}))
-			})
-			It(`Invoke ListDomainMappings successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListDomainMappings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListDomainMappingsOptions model
-				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
-				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
-				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListDomainMappings with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListDomainMappingsOptions model
-				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
-				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
-				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListDomainMappingsOptions model with no property values
-				listDomainMappingsOptionsModelNew := new(codeenginev2.ListDomainMappingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListDomainMappings(listDomainMappingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListDomainMappings successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ListDomainMappingsOptions model
-				listDomainMappingsOptionsModel := new(codeenginev2.ListDomainMappingsOptions)
-				listDomainMappingsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listDomainMappingsOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listDomainMappingsOptionsModel.Start = core.StringPtr("testString")
-				listDomainMappingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.ListDomainMappings(listDomainMappingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(codeenginev2.DomainMappingList)
-				nextObject := new(codeenginev2.ListNextMetadata)
-				nextObject.Start = core.StringPtr("abc-123")
-				responseObject.Next = nextObject
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(codeenginev2.DomainMappingList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listDomainMappingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":false,"visibility":"public"}],"total_count":2,"limit":1}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use DomainMappingsPager.GetNext successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
-					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []codeenginev2.DomainMapping
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use DomainMappingsPager.GetAll successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				listDomainMappingsOptionsModel := &codeenginev2.ListDomainMappingsOptions{
-					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-					Limit: core.Int64Ptr(int64(100)),
-				}
-
-				pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) - Operation response error`, func() {
-		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateDomainMapping with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the CreateDomainMappingOptions model
-				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
-				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createDomainMappingOptionsModel.Component = componentRefModel
-				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
-				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
-		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke CreateDomainMapping successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the CreateDomainMappingOptions model
-				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
-				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createDomainMappingOptionsModel.Component = componentRefModel
-				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
-				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.CreateDomainMappingWithContext(ctx, createDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDomainMappingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke CreateDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.CreateDomainMapping(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the CreateDomainMappingOptions model
-				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
-				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createDomainMappingOptionsModel.Component = componentRefModel
-				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
-				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateDomainMapping with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the CreateDomainMappingOptions model
-				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
-				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createDomainMappingOptionsModel.Component = componentRefModel
-				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
-				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateDomainMappingOptions model with no property values
-				createDomainMappingOptionsModelNew := new(codeenginev2.CreateDomainMappingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.CreateDomainMapping(createDomainMappingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the CreateDomainMappingOptions model
-				createDomainMappingOptionsModel := new(codeenginev2.CreateDomainMappingOptions)
-				createDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				createDomainMappingOptionsModel.Component = componentRefModel
-				createDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				createDomainMappingOptionsModel.TlsSecret = core.StringPtr("my-tls-secret")
-				createDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.CreateDomainMapping(createDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) - Operation response error`, func() {
-		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetDomainMapping with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetDomainMappingOptions model
-				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
-				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
-		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke GetDomainMapping successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetDomainMappingOptions model
-				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
-				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.GetDomainMappingWithContext(ctx, getDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getDomainMappingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke GetDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.GetDomainMapping(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetDomainMappingOptions model
-				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
-				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetDomainMapping with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetDomainMappingOptions model
-				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
-				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetDomainMappingOptions model with no property values
-				getDomainMappingOptionsModelNew := new(codeenginev2.GetDomainMappingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.GetDomainMapping(getDomainMappingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the GetDomainMappingOptions model
-				getDomainMappingOptionsModel := new(codeenginev2.GetDomainMappingOptions)
-				getDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				getDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				getDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.GetDomainMapping(getDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
-		deleteDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteDomainMappingPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke DeleteDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := codeEngineService.DeleteDomainMapping(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteDomainMappingOptions model
-				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
-				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteDomainMapping with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteDomainMappingOptions model
-				deleteDomainMappingOptionsModel := new(codeenginev2.DeleteDomainMappingOptions)
-				deleteDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				deleteDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				deleteDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteDomainMappingOptions model with no property values
-				deleteDomainMappingOptionsModelNew := new(codeenginev2.DeleteDomainMappingOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = codeEngineService.DeleteDomainMapping(deleteDomainMappingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) - Operation response error`, func() {
-		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateDomainMapping with error: Operation response processing error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the DomainMappingPatch model
-				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
-				domainMappingPatchModel.Component = componentRefModel
-				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
-				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-				Expect(asPatchErr).To(BeNil())
-
-				// Construct an instance of the UpdateDomainMappingOptions model
-				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
-				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
-				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
-				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
-		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke UpdateDomainMapping successfully with retries`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-				codeEngineService.EnableRetries(0, 0)
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the DomainMappingPatch model
-				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
-				domainMappingPatchModel.Component = componentRefModel
-				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
-				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-				Expect(asPatchErr).To(BeNil())
-
-				// Construct an instance of the UpdateDomainMappingOptions model
-				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
-				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
-				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
-				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.UpdateDomainMappingWithContext(ctx, updateDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateDomainMappingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cname_target": "custom.abcdabcdabc.us-east.codeengine.appdomain.cloud", "component": {"name": "my-app-1", "resource_type": "app_v2"}, "created_at": "2022-09-13T11:41:35+02:00", "entity_tag": "2385407409", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "www.example.com", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "domain_mapping_v2", "status": "ready", "status_details": {"reason": "ready"}, "tls_secret": "my-tls-secret", "user_managed": false, "visibility": "public"}`)
-				}))
-			})
-			It(`Invoke UpdateDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.UpdateDomainMapping(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the DomainMappingPatch model
-				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
-				domainMappingPatchModel.Component = componentRefModel
-				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
-				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-				Expect(asPatchErr).To(BeNil())
-
-				// Construct an instance of the UpdateDomainMappingOptions model
-				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
-				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
-				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
-				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateDomainMapping with error: Operation validation and request error`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the DomainMappingPatch model
-				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
-				domainMappingPatchModel.Component = componentRefModel
-				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
-				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-				Expect(asPatchErr).To(BeNil())
-
-				// Construct an instance of the UpdateDomainMappingOptions model
-				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
-				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
-				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
-				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := codeEngineService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateDomainMappingOptions model with no property values
-				updateDomainMappingOptionsModelNew := new(codeenginev2.UpdateDomainMappingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateDomainMapping successfully`, func() {
-				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(codeEngineService).ToNot(BeNil())
-
-				// Construct an instance of the ComponentRef model
-				componentRefModel := new(codeenginev2.ComponentRef)
-				componentRefModel.Name = core.StringPtr("my-app-1")
-				componentRefModel.ResourceType = core.StringPtr("app_v2")
-
-				// Construct an instance of the DomainMappingPatch model
-				domainMappingPatchModel := new(codeenginev2.DomainMappingPatch)
-				domainMappingPatchModel.Component = componentRefModel
-				domainMappingPatchModel.TlsSecret = core.StringPtr("my-tls-secret")
-				domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
-				Expect(asPatchErr).To(BeNil())
-
-				// Construct an instance of the UpdateDomainMappingOptions model
-				updateDomainMappingOptionsModel := new(codeenginev2.UpdateDomainMappingOptions)
-				updateDomainMappingOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				updateDomainMappingOptionsModel.Name = core.StringPtr("www.example.com")
-				updateDomainMappingOptionsModel.IfMatch = core.StringPtr("testString")
-				updateDomainMappingOptionsModel.DomainMapping = domainMappingPatchModelAsPatch
-				updateDomainMappingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := codeEngineService.UpdateDomainMapping(updateDomainMappingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			codeEngineService, _ := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
@@ -13202,6 +15084,61 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
 				Expect(createDomainMappingOptionsModel.TlsSecret).To(Equal(core.StringPtr("my-tls-secret")))
 				Expect(createDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateFunctionOptions successfully`, func() {
+				// Construct an instance of the EnvVarPrototype model
+				envVarPrototypeModel := new(codeenginev2.EnvVarPrototype)
+				Expect(envVarPrototypeModel).ToNot(BeNil())
+				envVarPrototypeModel.Key = core.StringPtr("MY_VARIABLE")
+				envVarPrototypeModel.Name = core.StringPtr("SOME")
+				envVarPrototypeModel.Prefix = core.StringPtr("PREFIX_")
+				envVarPrototypeModel.Reference = core.StringPtr("my-secret")
+				envVarPrototypeModel.Type = core.StringPtr("literal")
+				envVarPrototypeModel.Value = core.StringPtr("VALUE")
+				Expect(envVarPrototypeModel.Key).To(Equal(core.StringPtr("MY_VARIABLE")))
+				Expect(envVarPrototypeModel.Name).To(Equal(core.StringPtr("SOME")))
+				Expect(envVarPrototypeModel.Prefix).To(Equal(core.StringPtr("PREFIX_")))
+				Expect(envVarPrototypeModel.Reference).To(Equal(core.StringPtr("my-secret")))
+				Expect(envVarPrototypeModel.Type).To(Equal(core.StringPtr("literal")))
+				Expect(envVarPrototypeModel.Value).To(Equal(core.StringPtr("VALUE")))
+
+				// Construct an instance of the CreateFunctionOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				createFunctionOptionsCodeReference := "data:text/plain;base64,<base64encoded-source-code>"
+				createFunctionOptionsName := "my-function"
+				createFunctionOptionsRuntime := "nodejs-18"
+				createFunctionOptionsModel := codeEngineService.NewCreateFunctionOptions(projectID, createFunctionOptionsCodeReference, createFunctionOptionsName, createFunctionOptionsRuntime)
+				createFunctionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createFunctionOptionsModel.SetCodeReference("data:text/plain;base64,<base64encoded-source-code>")
+				createFunctionOptionsModel.SetName("my-function")
+				createFunctionOptionsModel.SetRuntime("nodejs-18")
+				createFunctionOptionsModel.SetCodeBinary(false)
+				createFunctionOptionsModel.SetCodeMain("main")
+				createFunctionOptionsModel.SetCodeSecret("my-secret")
+				createFunctionOptionsModel.SetManagedDomainMappings("local_public")
+				createFunctionOptionsModel.SetRunEnvVariables([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel})
+				createFunctionOptionsModel.SetScaleConcurrency(int64(1))
+				createFunctionOptionsModel.SetScaleCpuLimit("1")
+				createFunctionOptionsModel.SetScaleDownDelay(int64(300))
+				createFunctionOptionsModel.SetScaleMaxExecutionTime(int64(60))
+				createFunctionOptionsModel.SetScaleMemoryLimit("1G")
+				createFunctionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createFunctionOptionsModel).ToNot(BeNil())
+				Expect(createFunctionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createFunctionOptionsModel.CodeReference).To(Equal(core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")))
+				Expect(createFunctionOptionsModel.Name).To(Equal(core.StringPtr("my-function")))
+				Expect(createFunctionOptionsModel.Runtime).To(Equal(core.StringPtr("nodejs-18")))
+				Expect(createFunctionOptionsModel.CodeBinary).To(Equal(core.BoolPtr(false)))
+				Expect(createFunctionOptionsModel.CodeMain).To(Equal(core.StringPtr("main")))
+				Expect(createFunctionOptionsModel.CodeSecret).To(Equal(core.StringPtr("my-secret")))
+				Expect(createFunctionOptionsModel.ManagedDomainMappings).To(Equal(core.StringPtr("local_public")))
+				Expect(createFunctionOptionsModel.RunEnvVariables).To(Equal([]codeenginev2.EnvVarPrototype{*envVarPrototypeModel}))
+				Expect(createFunctionOptionsModel.ScaleConcurrency).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(createFunctionOptionsModel.ScaleCpuLimit).To(Equal(core.StringPtr("1")))
+				Expect(createFunctionOptionsModel.ScaleDownDelay).To(Equal(core.Int64Ptr(int64(300))))
+				Expect(createFunctionOptionsModel.ScaleMaxExecutionTime).To(Equal(core.Int64Ptr(int64(60))))
+				Expect(createFunctionOptionsModel.ScaleMemoryLimit).To(Equal(core.StringPtr("1G")))
+				Expect(createFunctionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateJobOptions successfully`, func() {
 				// Construct an instance of the EnvVarPrototype model
@@ -13551,6 +15488,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(deleteDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
 				Expect(deleteDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteFunctionOptions successfully`, func() {
+				// Construct an instance of the DeleteFunctionOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-function"
+				deleteFunctionOptionsModel := codeEngineService.NewDeleteFunctionOptions(projectID, name)
+				deleteFunctionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteFunctionOptionsModel.SetName("my-function")
+				deleteFunctionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteFunctionOptionsModel).ToNot(BeNil())
+				Expect(deleteFunctionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteFunctionOptionsModel.Name).To(Equal(core.StringPtr("my-function")))
+				Expect(deleteFunctionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteJobOptions successfully`, func() {
 				// Construct an instance of the DeleteJobOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -13694,6 +15644,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getDomainMappingOptionsModel.Name).To(Equal(core.StringPtr("www.example.com")))
 				Expect(getDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetFunctionOptions successfully`, func() {
+				// Construct an instance of the GetFunctionOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-function"
+				getFunctionOptionsModel := codeEngineService.NewGetFunctionOptions(projectID, name)
+				getFunctionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getFunctionOptionsModel.SetName("my-function")
+				getFunctionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getFunctionOptionsModel).ToNot(BeNil())
+				Expect(getFunctionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getFunctionOptionsModel.Name).To(Equal(core.StringPtr("my-function")))
+				Expect(getFunctionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetJobOptions successfully`, func() {
 				// Construct an instance of the GetJobOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -13762,6 +15725,23 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListAppInstancesOptions successfully`, func() {
+				// Construct an instance of the ListAppInstancesOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				appName := "my-app"
+				listAppInstancesOptionsModel := codeEngineService.NewListAppInstancesOptions(projectID, appName)
+				listAppInstancesOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAppInstancesOptionsModel.SetAppName("my-app")
+				listAppInstancesOptionsModel.SetLimit(int64(100))
+				listAppInstancesOptionsModel.SetStart("testString")
+				listAppInstancesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAppInstancesOptionsModel).ToNot(BeNil())
+				Expect(listAppInstancesOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listAppInstancesOptionsModel.AppName).To(Equal(core.StringPtr("my-app")))
+				Expect(listAppInstancesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listAppInstancesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listAppInstancesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAppRevisionsOptions successfully`, func() {
 				// Construct an instance of the ListAppRevisionsOptions model
@@ -13865,6 +15845,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listDomainMappingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listDomainMappingsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listDomainMappingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListFunctionRuntimesOptions successfully`, func() {
+				// Construct an instance of the ListFunctionRuntimesOptions model
+				listFunctionRuntimesOptionsModel := codeEngineService.NewListFunctionRuntimesOptions()
+				listFunctionRuntimesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listFunctionRuntimesOptionsModel).ToNot(BeNil())
+				Expect(listFunctionRuntimesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListFunctionsOptions successfully`, func() {
+				// Construct an instance of the ListFunctionsOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listFunctionsOptionsModel := codeEngineService.NewListFunctionsOptions(projectID)
+				listFunctionsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listFunctionsOptionsModel.SetLimit(int64(100))
+				listFunctionsOptionsModel.SetStart("testString")
+				listFunctionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listFunctionsOptionsModel).ToNot(BeNil())
+				Expect(listFunctionsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listFunctionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listFunctionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listFunctionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListJobRunsOptions successfully`, func() {
 				// Construct an instance of the ListJobRunsOptions model
@@ -14043,6 +16044,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(updateDomainMappingOptionsModel.DomainMapping).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(updateDomainMappingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewUpdateFunctionOptions successfully`, func() {
+				// Construct an instance of the UpdateFunctionOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-function"
+				ifMatch := "testString"
+				function := map[string]interface{}{"anyKey": "anyValue"}
+				updateFunctionOptionsModel := codeEngineService.NewUpdateFunctionOptions(projectID, name, ifMatch, function)
+				updateFunctionOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateFunctionOptionsModel.SetName("my-function")
+				updateFunctionOptionsModel.SetIfMatch("testString")
+				updateFunctionOptionsModel.SetFunction(map[string]interface{}{"anyKey": "anyValue"})
+				updateFunctionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateFunctionOptionsModel).ToNot(BeNil())
+				Expect(updateFunctionOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateFunctionOptionsModel.Name).To(Equal(core.StringPtr("my-function")))
+				Expect(updateFunctionOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateFunctionOptionsModel.Function).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(updateFunctionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewUpdateJobOptions successfully`, func() {
 				// Construct an instance of the UpdateJobOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -14101,6 +16121,494 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAppPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AppPatch)
+			model.ImagePort = core.Int64Ptr(int64(8080))
+			model.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+			model.ImageSecret = core.StringPtr("my-secret")
+			model.ManagedDomainMappings = core.StringPtr("local_public")
+			model.ProbeLiveness = nil
+			model.ProbeReadiness = nil
+			model.RunArguments = []string{"testString"}
+			model.RunAsUser = core.Int64Ptr(int64(1001))
+			model.RunCommands = []string{"testString"}
+			model.RunEnvVariables = nil
+			model.RunServiceAccount = core.StringPtr("default")
+			model.RunVolumeMounts = nil
+			model.ScaleConcurrency = core.Int64Ptr(int64(100))
+			model.ScaleConcurrencyTarget = core.Int64Ptr(int64(80))
+			model.ScaleCpuLimit = core.StringPtr("1")
+			model.ScaleDownDelay = core.Int64Ptr(int64(300))
+			model.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+			model.ScaleInitialInstances = core.Int64Ptr(int64(1))
+			model.ScaleMaxInstances = core.Int64Ptr(int64(10))
+			model.ScaleMemoryLimit = core.StringPtr("4G")
+			model.ScaleMinInstances = core.Int64Ptr(int64(1))
+			model.ScaleRequestTimeout = core.Int64Ptr(int64(300))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AppPatch
+			err = codeenginev2.UnmarshalAppPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalBuildPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.BuildPatch)
+			model.OutputImage = core.StringPtr("private.de.icr.io/icr_namespace/image-name")
+			model.OutputSecret = core.StringPtr("ce-auto-icr-private-eu-de")
+			model.SourceContextDir = core.StringPtr("some/subfolder")
+			model.SourceRevision = core.StringPtr("main")
+			model.SourceSecret = core.StringPtr("testString")
+			model.SourceType = core.StringPtr("git")
+			model.SourceURL = core.StringPtr("https://github.com/IBM/CodeEngine")
+			model.StrategySize = core.StringPtr("medium")
+			model.StrategySpecFile = core.StringPtr("Dockerfile")
+			model.StrategyType = core.StringPtr("dockerfile")
+			model.Timeout = core.Int64Ptr(int64(600))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.BuildPatch
+			err = codeenginev2.UnmarshalBuildPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalComponentRef successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ComponentRef)
+			model.Name = core.StringPtr("my-app-1")
+			model.ResourceType = core.StringPtr("app_v2")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ComponentRef
+			err = codeenginev2.UnmarshalComponentRef(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDomainMappingPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.DomainMappingPatch)
+			model.Component = nil
+			model.TlsSecret = core.StringPtr("my-tls-secret")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.DomainMappingPatch
+			err = codeenginev2.UnmarshalDomainMappingPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalEnvVarPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.EnvVarPrototype)
+			model.Key = core.StringPtr("MY_VARIABLE")
+			model.Name = core.StringPtr("SOME")
+			model.Prefix = core.StringPtr("PREFIX_")
+			model.Reference = core.StringPtr("my-secret")
+			model.Type = core.StringPtr("literal")
+			model.Value = core.StringPtr("VALUE")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.EnvVarPrototype
+			err = codeenginev2.UnmarshalEnvVarPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFunctionPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.FunctionPatch)
+			model.CodeBinary = core.BoolPtr(false)
+			model.CodeMain = core.StringPtr("main")
+			model.CodeReference = core.StringPtr("data:text/plain;base64,<base64encoded-source-code>")
+			model.CodeSecret = core.StringPtr("my-secret")
+			model.ManagedDomainMappings = core.StringPtr("local_public")
+			model.RunEnvVariables = nil
+			model.Runtime = core.StringPtr("nodejs-18")
+			model.ScaleConcurrency = core.Int64Ptr(int64(1))
+			model.ScaleCpuLimit = core.StringPtr("1")
+			model.ScaleDownDelay = core.Int64Ptr(int64(300))
+			model.ScaleMaxExecutionTime = core.Int64Ptr(int64(60))
+			model.ScaleMemoryLimit = core.StringPtr("1G")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.FunctionPatch
+			err = codeenginev2.UnmarshalFunctionPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalJobPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.JobPatch)
+			model.ImageReference = core.StringPtr("icr.io/codeengine/helloworld")
+			model.ImageSecret = core.StringPtr("my-secret")
+			model.RunArguments = []string{"testString"}
+			model.RunAsUser = core.Int64Ptr(int64(1001))
+			model.RunCommands = []string{"testString"}
+			model.RunEnvVariables = nil
+			model.RunMode = core.StringPtr("task")
+			model.RunServiceAccount = core.StringPtr("default")
+			model.RunVolumeMounts = nil
+			model.ScaleArraySpec = core.StringPtr("1-5,7-8,10")
+			model.ScaleCpuLimit = core.StringPtr("1")
+			model.ScaleEphemeralStorageLimit = core.StringPtr("4G")
+			model.ScaleMaxExecutionTime = core.Int64Ptr(int64(7200))
+			model.ScaleMemoryLimit = core.StringPtr("4G")
+			model.ScaleRetryLimit = core.Int64Ptr(int64(3))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.JobPatch
+			err = codeenginev2.UnmarshalJobPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOperatorSecretPrototypeProps successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.OperatorSecretPrototypeProps)
+			model.ResourceGroupIds = []string{"testString"}
+			model.Serviceid = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.OperatorSecretPrototypeProps
+			err = codeenginev2.UnmarshalOperatorSecretPrototypeProps(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProbePrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ProbePrototype)
+			model.FailureThreshold = core.Int64Ptr(int64(5))
+			model.InitialDelay = core.Int64Ptr(int64(5))
+			model.Interval = core.Int64Ptr(int64(5))
+			model.Path = core.StringPtr("testString")
+			model.Port = core.Int64Ptr(int64(8080))
+			model.Timeout = core.Int64Ptr(int64(300))
+			model.Type = core.StringPtr("tcp")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ProbePrototype
+			err = codeenginev2.UnmarshalProbePrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResourceKeyRefPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ResourceKeyRefPrototype)
+			model.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ResourceKeyRefPrototype
+			err = codeenginev2.UnmarshalResourceKeyRefPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRoleRefPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.RoleRefPrototype)
+			model.Crn = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.RoleRefPrototype
+			err = codeenginev2.UnmarshalRoleRefPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretData)
+			model.SshKey = core.StringPtr("testString")
+			model.KnownHosts = core.StringPtr("testString")
+			model.Username = core.StringPtr("testString")
+			model.Password = core.StringPtr("testString")
+			model.Server = core.StringPtr("testString")
+			model.Email = core.StringPtr("testString")
+			model.TlsCert = core.StringPtr("testString")
+			model.TlsKey = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretData
+			err = codeenginev2.UnmarshalSecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalServiceAccessSecretPrototypeProps successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ServiceAccessSecretPrototypeProps)
+			model.ResourceKey = nil
+			model.Role = nil
+			model.ServiceInstance = nil
+			model.Serviceid = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ServiceAccessSecretPrototypeProps
+			err = codeenginev2.UnmarshalServiceAccessSecretPrototypeProps(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalServiceIDRef successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ServiceIDRef)
+			model.Crn = core.StringPtr("testString")
+			model.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ServiceIDRef
+			err = codeenginev2.UnmarshalServiceIDRef(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalServiceIDRefPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ServiceIDRefPrototype)
+			model.ID = core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ServiceIDRefPrototype
+			err = codeenginev2.UnmarshalServiceIDRefPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalServiceInstanceRefPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.ServiceInstanceRefPrototype)
+			model.ID = core.StringPtr("4e49b3e0-27a8-48d2-a784-c7ee48bb863b")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.ServiceInstanceRefPrototype
+			err = codeenginev2.UnmarshalServiceInstanceRefPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVolumeMountPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.VolumeMountPrototype)
+			model.MountPath = core.StringPtr("/app")
+			model.Name = core.StringPtr("codeengine-mount-b69u90")
+			model.Reference = core.StringPtr("my-secret")
+			model.Type = core.StringPtr("secret")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.VolumeMountPrototype
+			err = codeenginev2.UnmarshalVolumeMountPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretDataBasicAuthSecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretDataBasicAuthSecretData)
+			model.Username = core.StringPtr("testString")
+			model.Password = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretDataBasicAuthSecretData
+			err = codeenginev2.UnmarshalSecretDataBasicAuthSecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretDataGenericSecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretDataGenericSecretData)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretDataGenericSecretData
+			err = codeenginev2.UnmarshalSecretDataGenericSecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretDataRegistrySecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretDataRegistrySecretData)
+			model.Username = core.StringPtr("testString")
+			model.Password = core.StringPtr("testString")
+			model.Server = core.StringPtr("testString")
+			model.Email = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretDataRegistrySecretData
+			err = codeenginev2.UnmarshalSecretDataRegistrySecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretDataSSHSecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretDataSSHSecretData)
+			model.SshKey = core.StringPtr("testString")
+			model.KnownHosts = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretDataSSHSecretData
+			err = codeenginev2.UnmarshalSecretDataSSHSecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSecretDataTLSSecretData successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.SecretDataTLSSecretData)
+			model.TlsCert = core.StringPtr("testString")
+			model.TlsKey = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.SecretDataTLSSecretData
+			err = codeenginev2.UnmarshalSecretDataTLSSecretData(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -14130,8 +16638,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 
