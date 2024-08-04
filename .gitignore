@@ -22,7 +22,5 @@ openapi-sdkgen
 
 # example binary ignore
 example/example
+example/v2/example_v2
 coverage.txt
-
-package.json
-package-lock.json

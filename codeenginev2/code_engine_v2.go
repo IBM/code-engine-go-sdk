@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.86.0-bc6f14b3-20240221-193958
+ * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -38,6 +38,10 @@ import (
 // API Version: 2.0.0
 type CodeEngineV2 struct {
 	Service *core.BaseService
+
+	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
+	// and `2024-08-04`.
+	Version *string
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
@@ -51,6 +55,10 @@ type CodeEngineV2Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
+
+	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
+	// and `2024-08-04`.
+	Version *string 
 }
 
 // NewCodeEngineV2UsingExternalConfig : constructs an instance of CodeEngineV2 with passed in options and external configuration.
@@ -62,22 +70,26 @@ func NewCodeEngineV2UsingExternalConfig(options *CodeEngineV2Options) (codeEngin
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	codeEngine, err = NewCodeEngineV2(options)
+	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = codeEngine.Service.ConfigureService(options.ServiceName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = codeEngine.Service.SetServiceURL(options.URL)
+		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -89,20 +101,29 @@ func NewCodeEngineV2(options *CodeEngineV2Options) (service *CodeEngineV2, err e
 		Authenticator: options.Authenticator,
 	}
 
+	err = core.ValidateStruct(options, "options")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "invalid-global-options", common.GetComponentInfo())
+		return
+	}
+
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	service = &CodeEngineV2{
 		Service: baseService,
+		Version: options.Version,
 	}
 
 	return
@@ -110,7 +131,7 @@ func NewCodeEngineV2(options *CodeEngineV2Options) (service *CodeEngineV2, err e
 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
-	return "", fmt.Errorf("service does not support regional URLs")
+	return "", core.SDKErrorf(nil, "service does not support regional URLs", "no-regional-support", common.GetComponentInfo())
 }
 
 // Clone makes a copy of "codeEngine" suitable for processing requests.
@@ -125,7 +146,11 @@ func (codeEngine *CodeEngineV2) Clone() *CodeEngineV2 {
 
 // SetServiceURL sets the service URL
 func (codeEngine *CodeEngineV2) SetServiceURL(url string) error {
-	return codeEngine.Service.SetServiceURL(url)
+	err := codeEngine.Service.SetServiceURL(url)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
+	}
+	return err
 }
 
 // GetServiceURL returns the service URL
@@ -162,13 +187,16 @@ func (codeEngine *CodeEngineV2) DisableRetries() {
 // ListProjects : List all projects
 // List all projects in the current account.
 func (codeEngine *CodeEngineV2) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListProjectsWithContext(context.Background(), listProjectsOptions)
+	result, response, err = codeEngine.ListProjectsWithContext(context.Background(), listProjectsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListProjectsWithContext is an alternate form of the ListProjects method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ProjectList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listProjectsOptions, "listProjectsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -177,6 +205,7 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -199,17 +228,21 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_projects", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -222,17 +255,21 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 // Create a Code Engine project on IBM Cloud. The project will be created in the region that corresponds to the API
 // endpoint that is being called.
 func (codeEngine *CodeEngineV2) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateProjectWithContext(context.Background(), createProjectOptions)
+	result, response, err = codeEngine.CreateProjectWithContext(context.Background(), createProjectOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateProjectWithContext is an alternate form of the CreateProject method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createProjectOptions, "createProjectOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createProjectOptions, "createProjectOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -241,6 +278,7 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -267,22 +305,27 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_project", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -294,17 +337,21 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 // GetProject : Get a project
 // Display the details of a single project.
 func (codeEngine *CodeEngineV2) GetProject(getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
-	return codeEngine.GetProjectWithContext(context.Background(), getProjectOptions)
+	result, response, err = codeEngine.GetProjectWithContext(context.Background(), getProjectOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetProjectWithContext is an alternate form of the GetProject method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectOptions, "getProjectOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getProjectOptions, "getProjectOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -317,6 +364,7 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -332,17 +380,21 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_project", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -354,17 +406,21 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 // DeleteProject : Delete a project
 // Delete a project.
 func (codeEngine *CodeEngineV2) DeleteProject(deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteProjectWithContext(context.Background(), deleteProjectOptions)
+	response, err = codeEngine.DeleteProjectWithContext(context.Background(), deleteProjectOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteProjectWithContext is an alternate form of the DeleteProject method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteProjectOptions, "deleteProjectOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteProjectOptions, "deleteProjectOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -377,6 +433,7 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -391,10 +448,16 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_project", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -404,17 +467,21 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 // information about using egress IP addresses, see [Code Engine public and private IP
 // addresses](https://cloud.ibm.com/docs/codeengine?topic=codeengine-network-addresses).
 func (codeEngine *CodeEngineV2) GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) (result *ProjectEgressIPAddresses, response *core.DetailedResponse, err error) {
-	return codeEngine.GetProjectEgressIpsWithContext(context.Background(), getProjectEgressIpsOptions)
+	result, response, err = codeEngine.GetProjectEgressIpsWithContext(context.Background(), getProjectEgressIpsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetProjectEgressIpsWithContext is an alternate form of the GetProjectEgressIps method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Context, getProjectEgressIpsOptions *GetProjectEgressIpsOptions) (result *ProjectEgressIPAddresses, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectEgressIpsOptions, "getProjectEgressIpsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getProjectEgressIpsOptions, "getProjectEgressIpsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -427,6 +494,7 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/egress_ips`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -442,17 +510,21 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_project_egress_ips", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectEgressIPAddresses)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -464,17 +536,21 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 // GetProjectStatusDetails : Get the status details for a project
 // Retrieves status details about the given project.
 func (codeEngine *CodeEngineV2) GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
-	return codeEngine.GetProjectStatusDetailsWithContext(context.Background(), getProjectStatusDetailsOptions)
+	result, response, err = codeEngine.GetProjectStatusDetailsWithContext(context.Background(), getProjectStatusDetailsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetProjectStatusDetailsWithContext is an alternate form of the GetProjectStatusDetails method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.Context, getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) (result *ProjectStatusDetails, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getProjectStatusDetailsOptions, "getProjectStatusDetailsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -487,6 +563,7 @@ func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.C
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/status_details`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -502,17 +579,21 @@ func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.C
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_project_status_details", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectStatusDetails)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -524,17 +605,21 @@ func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.C
 // ListApps : List applications
 // List all applications in a project.
 func (codeEngine *CodeEngineV2) ListApps(listAppsOptions *ListAppsOptions) (result *AppList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListAppsWithContext(context.Background(), listAppsOptions)
+	result, response, err = codeEngine.ListAppsWithContext(context.Background(), listAppsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListAppsWithContext is an alternate form of the ListApps method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listAppsOptions *ListAppsOptions) (result *AppList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAppsOptions, "listAppsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listAppsOptions, "listAppsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -547,6 +632,7 @@ func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listApp
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -560,6 +646,9 @@ func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listApp
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listAppsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAppsOptions.Limit))
 	}
@@ -569,17 +658,21 @@ func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listApp
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_apps", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -591,17 +684,21 @@ func (codeEngine *CodeEngineV2) ListAppsWithContext(ctx context.Context, listApp
 // CreateApp : Create an application
 // Create an application.
 func (codeEngine *CodeEngineV2) CreateApp(createAppOptions *CreateAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateAppWithContext(context.Background(), createAppOptions)
+	result, response, err = codeEngine.CreateAppWithContext(context.Background(), createAppOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateAppWithContext is an alternate form of the CreateApp method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, createAppOptions *CreateAppOptions) (result *App, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createAppOptions, "createAppOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createAppOptions, "createAppOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -614,6 +711,7 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -627,6 +725,10 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createAppOptions.ImageReference != nil {
@@ -700,22 +802,27 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_app", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -727,17 +834,21 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 // GetApp : Get an application
 // Display the details of an application.
 func (codeEngine *CodeEngineV2) GetApp(getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	return codeEngine.GetAppWithContext(context.Background(), getAppOptions)
+	result, response, err = codeEngine.GetAppWithContext(context.Background(), getAppOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAppWithContext is an alternate form of the GetApp method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAppOptions, "getAppOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getAppOptions, "getAppOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -751,6 +862,7 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -764,19 +876,27 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_app", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -788,17 +908,21 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 // DeleteApp : Delete an application
 // Delete an application.
 func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
+	response, err = codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -812,6 +936,7 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -824,12 +949,22 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_app", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -839,17 +974,21 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 // properties of the application. Each update of an application configuration property creates a new revision of the
 // application. [Learn more](https://cloud.ibm.com/docs/codeengine?topic=codeengine-update-app).
 func (codeEngine *CodeEngineV2) UpdateApp(updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateAppWithContext(context.Background(), updateAppOptions)
+	result, response, err = codeEngine.UpdateAppWithContext(context.Background(), updateAppOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateAppWithContext is an alternate form of the UpdateApp method which supports a Context parameter
 func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAppOptions, "updateAppOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateAppOptions, "updateAppOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -863,6 +1002,7 @@ func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, update
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -880,24 +1020,33 @@ func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, update
 		builder.AddHeader("If-Match", fmt.Sprint(*updateAppOptions.IfMatch))
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	_, err = builder.SetBodyContentJSON(updateAppOptions.App)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_app", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -909,17 +1058,21 @@ func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, update
 // ListAppRevisions : List application revisions
 // List all application revisions in a particular application.
 func (codeEngine *CodeEngineV2) ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) (result *AppRevisionList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListAppRevisionsWithContext(context.Background(), listAppRevisionsOptions)
+	result, response, err = codeEngine.ListAppRevisionsWithContext(context.Background(), listAppRevisionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListAppRevisionsWithContext is an alternate form of the ListAppRevisions method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context, listAppRevisionsOptions *ListAppRevisionsOptions) (result *AppRevisionList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAppRevisionsOptions, "listAppRevisionsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listAppRevisionsOptions, "listAppRevisionsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -933,6 +1086,7 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -952,20 +1106,27 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 	if listAppRevisionsOptions.Start != nil {
 		builder.AddQuery("start", fmt.Sprint(*listAppRevisionsOptions.Start))
 	}
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_app_revisions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppRevisionList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -977,17 +1138,21 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 // GetAppRevision : Get an application revision
 // Display the details of an application revision.
 func (codeEngine *CodeEngineV2) GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) (result *AppRevision, response *core.DetailedResponse, err error) {
-	return codeEngine.GetAppRevisionWithContext(context.Background(), getAppRevisionOptions)
+	result, response, err = codeEngine.GetAppRevisionWithContext(context.Background(), getAppRevisionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAppRevisionWithContext is an alternate form of the GetAppRevision method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, getAppRevisionOptions *GetAppRevisionOptions) (result *AppRevision, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAppRevisionOptions, "getAppRevisionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getAppRevisionOptions, "getAppRevisionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1002,6 +1167,7 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1015,19 +1181,27 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_app_revision", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppRevision)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1039,17 +1213,21 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 // DeleteAppRevision : Delete an application revision
 // Delete an application revision.
 func (codeEngine *CodeEngineV2) DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteAppRevisionWithContext(context.Background(), deleteAppRevisionOptions)
+	response, err = codeEngine.DeleteAppRevisionWithContext(context.Background(), deleteAppRevisionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteAppRevisionWithContext is an alternate form of the DeleteAppRevision method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context, deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteAppRevisionOptions, "deleteAppRevisionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteAppRevisionOptions, "deleteAppRevisionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1064,6 +1242,7 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1078,10 +1257,16 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_app_revision", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -1089,17 +1274,21 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 // ListAppInstances : List application instances
 // List all instances of an application.
 func (codeEngine *CodeEngineV2) ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListAppInstancesWithContext(context.Background(), listAppInstancesOptions)
+	result, response, err = codeEngine.ListAppInstancesWithContext(context.Background(), listAppInstancesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListAppInstancesWithContext is an alternate form of the ListAppInstances method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context, listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAppInstancesOptions, "listAppInstancesOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listAppInstancesOptions, "listAppInstancesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1113,6 +1302,7 @@ func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context,
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/instances`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1135,17 +1325,21 @@ func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context,
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_app_instances", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppInstanceList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1157,17 +1351,21 @@ func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context,
 // ListJobs : List jobs
 // List all jobs in a project.
 func (codeEngine *CodeEngineV2) ListJobs(listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListJobsWithContext(context.Background(), listJobsOptions)
+	result, response, err = codeEngine.ListJobsWithContext(context.Background(), listJobsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListJobsWithContext is an alternate form of the ListJobs method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listJobsOptions, "listJobsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listJobsOptions, "listJobsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1180,6 +1378,7 @@ func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJob
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1193,6 +1392,9 @@ func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJob
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listJobsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listJobsOptions.Limit))
 	}
@@ -1202,17 +1404,21 @@ func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJob
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_jobs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1224,17 +1430,21 @@ func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJob
 // CreateJob : Create a job
 // Create a job.
 func (codeEngine *CodeEngineV2) CreateJob(createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateJobWithContext(context.Background(), createJobOptions)
+	result, response, err = codeEngine.CreateJobWithContext(context.Background(), createJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateJobWithContext is an alternate form of the CreateJob method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createJobOptions, "createJobOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createJobOptions, "createJobOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1247,6 +1457,7 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1260,6 +1471,10 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createJobOptions.ImageReference != nil {
@@ -1312,22 +1527,27 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1339,17 +1559,21 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 // GetJob : Get a job
 // Display the details of a job.
 func (codeEngine *CodeEngineV2) GetJob(getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	return codeEngine.GetJobWithContext(context.Background(), getJobOptions)
+	result, response, err = codeEngine.GetJobWithContext(context.Background(), getJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetJobWithContext is an alternate form of the GetJob method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getJobOptions, "getJobOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getJobOptions, "getJobOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1363,6 +1587,7 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1376,19 +1601,27 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1400,17 +1633,21 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 // DeleteJob : Delete a job
 // Delete a job.
 func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
+	response, err = codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1424,6 +1661,7 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1436,12 +1674,22 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -1449,17 +1697,21 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 // UpdateJob : Update a job
 // Update the given job.
 func (codeEngine *CodeEngineV2) UpdateJob(updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateJobWithContext(context.Background(), updateJobOptions)
+	result, response, err = codeEngine.UpdateJobWithContext(context.Background(), updateJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateJobWithContext is an alternate form of the UpdateJob method which supports a Context parameter
 func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateJobOptions, "updateJobOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateJobOptions, "updateJobOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1473,6 +1725,7 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1490,24 +1743,33 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 		builder.AddHeader("If-Match", fmt.Sprint(*updateJobOptions.IfMatch))
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	_, err = builder.SetBodyContentJSON(updateJobOptions.Job)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1519,17 +1781,21 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 // ListJobRuns : List job runs
 // List all job runs in a project.
 func (codeEngine *CodeEngineV2) ListJobRuns(listJobRunsOptions *ListJobRunsOptions) (result *JobRunList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListJobRunsWithContext(context.Background(), listJobRunsOptions)
+	result, response, err = codeEngine.ListJobRunsWithContext(context.Background(), listJobRunsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListJobRunsWithContext is an alternate form of the ListJobRuns method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, listJobRunsOptions *ListJobRunsOptions) (result *JobRunList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listJobRunsOptions, "listJobRunsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listJobRunsOptions, "listJobRunsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1542,6 +1808,7 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1555,6 +1822,9 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listJobRunsOptions.JobName != nil {
 		builder.AddQuery("job_name", fmt.Sprint(*listJobRunsOptions.JobName))
 	}
@@ -1567,17 +1837,21 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_job_runs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobRunList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1589,17 +1863,21 @@ func (codeEngine *CodeEngineV2) ListJobRunsWithContext(ctx context.Context, list
 // CreateJobRun : Create a job run
 // Create an job run.
 func (codeEngine *CodeEngineV2) CreateJobRun(createJobRunOptions *CreateJobRunOptions) (result *JobRun, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateJobRunWithContext(context.Background(), createJobRunOptions)
+	result, response, err = codeEngine.CreateJobRunWithContext(context.Background(), createJobRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateJobRunWithContext is an alternate form of the CreateJobRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, createJobRunOptions *CreateJobRunOptions) (result *JobRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createJobRunOptions, "createJobRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createJobRunOptions, "createJobRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1612,6 +1890,7 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1625,6 +1904,10 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createJobRunOptions.ImageReference != nil {
@@ -1683,22 +1966,27 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_job_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1710,17 +1998,21 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 // GetJobRun : Get a job run
 // Display the details of a job run.
 func (codeEngine *CodeEngineV2) GetJobRun(getJobRunOptions *GetJobRunOptions) (result *JobRun, response *core.DetailedResponse, err error) {
-	return codeEngine.GetJobRunWithContext(context.Background(), getJobRunOptions)
+	result, response, err = codeEngine.GetJobRunWithContext(context.Background(), getJobRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetJobRunWithContext is an alternate form of the GetJobRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJobRunOptions *GetJobRunOptions) (result *JobRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getJobRunOptions, "getJobRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getJobRunOptions, "getJobRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1734,6 +2026,7 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1747,19 +2040,27 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_job_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1771,17 +2072,21 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 // DeleteJobRun : Delete a job run
 // Delete a job run.
 func (codeEngine *CodeEngineV2) DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteJobRunWithContext(context.Background(), deleteJobRunOptions)
+	response, err = codeEngine.DeleteJobRunWithContext(context.Background(), deleteJobRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteJobRunWithContext is an alternate form of the DeleteJobRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteJobRunOptions, "deleteJobRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteJobRunOptions, "deleteJobRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1795,6 +2100,7 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1809,10 +2115,16 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_job_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -1820,13 +2132,16 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 // ListFunctionRuntimes : List the function runtimes
 // List all valid function runtimes.
 func (codeEngine *CodeEngineV2) ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions) (result *FunctionRuntimeList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListFunctionRuntimesWithContext(context.Background(), listFunctionRuntimesOptions)
+	result, response, err = codeEngine.ListFunctionRuntimesWithContext(context.Background(), listFunctionRuntimesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListFunctionRuntimesWithContext is an alternate form of the ListFunctionRuntimes method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListFunctionRuntimesWithContext(ctx context.Context, listFunctionRuntimesOptions *ListFunctionRuntimesOptions) (result *FunctionRuntimeList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listFunctionRuntimesOptions, "listFunctionRuntimesOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1835,6 +2150,7 @@ func (codeEngine *CodeEngineV2) ListFunctionRuntimesWithContext(ctx context.Cont
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/function_runtimes`, nil)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1850,17 +2166,21 @@ func (codeEngine *CodeEngineV2) ListFunctionRuntimesWithContext(ctx context.Cont
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_function_runtimes", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunctionRuntimeList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1872,17 +2192,21 @@ func (codeEngine *CodeEngineV2) ListFunctionRuntimesWithContext(ctx context.Cont
 // ListFunctions : List functions
 // List all functions in a project.
 func (codeEngine *CodeEngineV2) ListFunctions(listFunctionsOptions *ListFunctionsOptions) (result *FunctionList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListFunctionsWithContext(context.Background(), listFunctionsOptions)
+	result, response, err = codeEngine.ListFunctionsWithContext(context.Background(), listFunctionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListFunctionsWithContext is an alternate form of the ListFunctions method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, listFunctionsOptions *ListFunctionsOptions) (result *FunctionList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listFunctionsOptions, "listFunctionsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listFunctionsOptions, "listFunctionsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1895,6 +2219,7 @@ func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, li
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1908,6 +2233,9 @@ func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, li
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listFunctionsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listFunctionsOptions.Limit))
 	}
@@ -1917,17 +2245,21 @@ func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, li
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_functions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunctionList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1939,17 +2271,21 @@ func (codeEngine *CodeEngineV2) ListFunctionsWithContext(ctx context.Context, li
 // CreateFunction : Create a function
 // Create a function.
 func (codeEngine *CodeEngineV2) CreateFunction(createFunctionOptions *CreateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateFunctionWithContext(context.Background(), createFunctionOptions)
+	result, response, err = codeEngine.CreateFunctionWithContext(context.Background(), createFunctionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateFunctionWithContext is an alternate form of the CreateFunction method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, createFunctionOptions *CreateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createFunctionOptions, "createFunctionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createFunctionOptions, "createFunctionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1962,6 +2298,7 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1975,6 +2312,10 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createFunctionOptions.CodeReference != nil {
@@ -2018,22 +2359,27 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_function", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2045,17 +2391,21 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 // GetFunction : Get a function
 // Display the details of a function.
 func (codeEngine *CodeEngineV2) GetFunction(getFunctionOptions *GetFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
-	return codeEngine.GetFunctionWithContext(context.Background(), getFunctionOptions)
+	result, response, err = codeEngine.GetFunctionWithContext(context.Background(), getFunctionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetFunctionWithContext is an alternate form of the GetFunction method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getFunctionOptions *GetFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getFunctionOptions, "getFunctionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getFunctionOptions, "getFunctionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2069,6 +2419,7 @@ func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getF
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2082,19 +2433,27 @@ func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getF
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_function", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2106,17 +2465,21 @@ func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getF
 // DeleteFunction : Delete a function
 // Delete a function.
 func (codeEngine *CodeEngineV2) DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteFunctionWithContext(context.Background(), deleteFunctionOptions)
+	response, err = codeEngine.DeleteFunctionWithContext(context.Background(), deleteFunctionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteFunctionWithContext is an alternate form of the DeleteFunction method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteFunctionOptions, "deleteFunctionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteFunctionOptions, "deleteFunctionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2130,6 +2493,7 @@ func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, d
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2142,12 +2506,22 @@ func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, d
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_function", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -2155,17 +2529,21 @@ func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, d
 // UpdateFunction : Update a function
 // Update the given function.
 func (codeEngine *CodeEngineV2) UpdateFunction(updateFunctionOptions *UpdateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateFunctionWithContext(context.Background(), updateFunctionOptions)
+	result, response, err = codeEngine.UpdateFunctionWithContext(context.Background(), updateFunctionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateFunctionWithContext is an alternate form of the UpdateFunction method which supports a Context parameter
 func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, updateFunctionOptions *UpdateFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateFunctionOptions, "updateFunctionOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateFunctionOptions, "updateFunctionOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2179,6 +2557,7 @@ func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, u
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2196,24 +2575,33 @@ func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, u
 		builder.AddHeader("If-Match", fmt.Sprint(*updateFunctionOptions.IfMatch))
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	_, err = builder.SetBodyContentJSON(updateFunctionOptions.Function)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_function", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalFunction)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2225,17 +2613,21 @@ func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, u
 // ListBindings : List bindings
 // List all bindings in a project.
 func (codeEngine *CodeEngineV2) ListBindings(listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListBindingsWithContext(context.Background(), listBindingsOptions)
+	result, response, err = codeEngine.ListBindingsWithContext(context.Background(), listBindingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListBindingsWithContext is an alternate form of the ListBindings method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, listBindingsOptions *ListBindingsOptions) (result *BindingList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listBindingsOptions, "listBindingsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listBindingsOptions, "listBindingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2248,6 +2640,7 @@ func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, lis
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2270,17 +2663,21 @@ func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, lis
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_bindings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBindingList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2293,17 +2690,21 @@ func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, lis
 // Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision. For
 // more information see the [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
 func (codeEngine *CodeEngineV2) CreateBinding(createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
+	result, response, err = codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateBindingWithContext is an alternate form of the CreateBinding method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createBindingOptions, "createBindingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createBindingOptions, "createBindingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2316,6 +2717,7 @@ func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, cr
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2342,22 +2744,27 @@ func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, cr
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_binding", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2369,17 +2776,21 @@ func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, cr
 // GetBinding : Get a binding
 // Display the details of a binding.
 func (codeEngine *CodeEngineV2) GetBinding(getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
-	return codeEngine.GetBindingWithContext(context.Background(), getBindingOptions)
+	result, response, err = codeEngine.GetBindingWithContext(context.Background(), getBindingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetBindingWithContext is an alternate form of the GetBinding method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBindingOptions, "getBindingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getBindingOptions, "getBindingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2393,6 +2804,7 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2408,17 +2820,21 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_binding", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2430,17 +2846,21 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 // DeleteBinding : Delete a binding
 // Delete a binding.
 func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
+	response, err = codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2454,6 +2874,7 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2468,10 +2889,16 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_binding", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -2479,17 +2906,21 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 // ListBuilds : List builds
 // List all builds in a project.
 func (codeEngine *CodeEngineV2) ListBuilds(listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListBuildsWithContext(context.Background(), listBuildsOptions)
+	result, response, err = codeEngine.ListBuildsWithContext(context.Background(), listBuildsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListBuildsWithContext is an alternate form of the ListBuilds method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listBuildsOptions, "listBuildsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listBuildsOptions, "listBuildsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2502,6 +2933,7 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2524,17 +2956,21 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_builds", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2546,17 +2982,21 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 // CreateBuild : Create a build
 // Create a build.
 func (codeEngine *CodeEngineV2) CreateBuild(createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateBuildWithContext(context.Background(), createBuildOptions)
+	result, response, err = codeEngine.CreateBuildWithContext(context.Background(), createBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateBuildWithContext is an alternate form of the CreateBuild method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createBuildOptions, "createBuildOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createBuildOptions, "createBuildOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2569,6 +3009,7 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2622,22 +3063,27 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2649,17 +3095,21 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 // GetBuild : Get a build
 // Display the details of a build.
 func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	return codeEngine.GetBuildWithContext(context.Background(), getBuildOptions)
+	result, response, err = codeEngine.GetBuildWithContext(context.Background(), getBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetBuildWithContext is an alternate form of the GetBuild method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBuildOptions, "getBuildOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getBuildOptions, "getBuildOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2673,6 +3123,7 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2688,17 +3139,21 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2710,17 +3165,21 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 // DeleteBuild : Delete a build
 // Delete a build.
 func (codeEngine *CodeEngineV2) DeleteBuild(deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
+	response, err = codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteBuildWithContext is an alternate form of the DeleteBuild method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteBuildOptions, "deleteBuildOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteBuildOptions, "deleteBuildOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2734,6 +3193,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2748,10 +3208,16 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -2759,17 +3225,21 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 // UpdateBuild : Update a build
 // Update a build.
 func (codeEngine *CodeEngineV2) UpdateBuild(updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateBuildWithContext(context.Background(), updateBuildOptions)
+	result, response, err = codeEngine.UpdateBuildWithContext(context.Background(), updateBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateBuildWithContext is an alternate form of the UpdateBuild method which supports a Context parameter
 func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateBuildOptions, "updateBuildOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateBuildOptions, "updateBuildOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2783,6 +3253,7 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2802,22 +3273,27 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 
 	_, err = builder.SetBodyContentJSON(updateBuildOptions.Build)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2829,17 +3305,21 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 // ListBuildRuns : List build runs
 // List all build runs in a project.
 func (codeEngine *CodeEngineV2) ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) (result *BuildRunList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListBuildRunsWithContext(context.Background(), listBuildRunsOptions)
+	result, response, err = codeEngine.ListBuildRunsWithContext(context.Background(), listBuildRunsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListBuildRunsWithContext is an alternate form of the ListBuildRuns method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, listBuildRunsOptions *ListBuildRunsOptions) (result *BuildRunList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listBuildRunsOptions, "listBuildRunsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listBuildRunsOptions, "listBuildRunsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2852,6 +3332,7 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2877,17 +3358,21 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_build_runs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRunList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2899,17 +3384,21 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 // CreateBuildRun : Create a build run
 // Create a build run.
 func (codeEngine *CodeEngineV2) CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateBuildRunWithContext(context.Background(), createBuildRunOptions)
+	result, response, err = codeEngine.CreateBuildRunWithContext(context.Background(), createBuildRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateBuildRunWithContext is an alternate form of the CreateBuildRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, createBuildRunOptions *CreateBuildRunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createBuildRunOptions, "createBuildRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createBuildRunOptions, "createBuildRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2922,6 +3411,7 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2981,22 +3471,27 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_build_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3008,17 +3503,21 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 // GetBuildRun : Get a build run
 // Display the details of a build run.
 func (codeEngine *CodeEngineV2) GetBuildRun(getBuildRunOptions *GetBuildRunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
-	return codeEngine.GetBuildRunWithContext(context.Background(), getBuildRunOptions)
+	result, response, err = codeEngine.GetBuildRunWithContext(context.Background(), getBuildRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetBuildRunWithContext is an alternate form of the GetBuildRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getBuildRunOptions *GetBuildRunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBuildRunOptions, "getBuildRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getBuildRunOptions, "getBuildRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3032,6 +3531,7 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3047,17 +3547,21 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_build_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRun)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3069,17 +3573,21 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 // DeleteBuildRun : Delete a build run
 // Delete a build run.
 func (codeEngine *CodeEngineV2) DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteBuildRunWithContext(context.Background(), deleteBuildRunOptions)
+	response, err = codeEngine.DeleteBuildRunWithContext(context.Background(), deleteBuildRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteBuildRunWithContext is an alternate form of the DeleteBuildRun method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteBuildRunOptions, "deleteBuildRunOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteBuildRunOptions, "deleteBuildRunOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3093,6 +3601,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3107,10 +3616,16 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_build_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -3118,17 +3633,21 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 // ListDomainMappings : List domain mappings
 // List all domain mappings in a project.
 func (codeEngine *CodeEngineV2) ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListDomainMappingsWithContext(context.Background(), listDomainMappingsOptions)
+	result, response, err = codeEngine.ListDomainMappingsWithContext(context.Background(), listDomainMappingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListDomainMappingsWithContext is an alternate form of the ListDomainMappings method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Context, listDomainMappingsOptions *ListDomainMappingsOptions) (result *DomainMappingList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listDomainMappingsOptions, "listDomainMappingsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listDomainMappingsOptions, "listDomainMappingsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3141,6 +3660,7 @@ func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Contex
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3163,17 +3683,21 @@ func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Contex
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_domain_mappings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMappingList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3185,17 +3709,21 @@ func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Contex
 // CreateDomainMapping : Create a domain mapping
 // Create a domain mapping.
 func (codeEngine *CodeEngineV2) CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateDomainMappingWithContext(context.Background(), createDomainMappingOptions)
+	result, response, err = codeEngine.CreateDomainMappingWithContext(context.Background(), createDomainMappingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateDomainMappingWithContext is an alternate form of the CreateDomainMapping method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Context, createDomainMappingOptions *CreateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createDomainMappingOptions, "createDomainMappingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createDomainMappingOptions, "createDomainMappingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3208,6 +3736,7 @@ func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Conte
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3234,22 +3763,27 @@ func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Conte
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_domain_mapping", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3261,17 +3795,21 @@ func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Conte
 // GetDomainMapping : Get a domain mapping
 // Get domain mapping.
 func (codeEngine *CodeEngineV2) GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.GetDomainMappingWithContext(context.Background(), getDomainMappingOptions)
+	result, response, err = codeEngine.GetDomainMappingWithContext(context.Background(), getDomainMappingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetDomainMappingWithContext is an alternate form of the GetDomainMapping method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context, getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getDomainMappingOptions, "getDomainMappingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getDomainMappingOptions, "getDomainMappingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3285,6 +3823,7 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3300,17 +3839,21 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_domain_mapping", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3322,17 +3865,21 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 // DeleteDomainMapping : Delete a domain mapping
 // Delete a domain mapping.
 func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
+	response, err = codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3346,6 +3893,7 @@ func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Conte
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3360,10 +3908,16 @@ func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Conte
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_domain_mapping", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -3371,17 +3925,21 @@ func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Conte
 // UpdateDomainMapping : Update a domain mapping
 // Update a domain mapping.
 func (codeEngine *CodeEngineV2) UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
-	return codeEngine.UpdateDomainMappingWithContext(context.Background(), updateDomainMappingOptions)
+	result, response, err = codeEngine.UpdateDomainMappingWithContext(context.Background(), updateDomainMappingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // UpdateDomainMappingWithContext is an alternate form of the UpdateDomainMapping method which supports a Context parameter
 func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Context, updateDomainMappingOptions *UpdateDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateDomainMappingOptions, "updateDomainMappingOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updateDomainMappingOptions, "updateDomainMappingOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3395,6 +3953,7 @@ func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Conte
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3414,22 +3973,27 @@ func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Conte
 
 	_, err = builder.SetBodyContentJSON(updateDomainMappingOptions.DomainMapping)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "update_domain_mapping", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDomainMapping)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3441,17 +4005,21 @@ func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Conte
 // ListConfigMaps : List config maps
 // List all config maps in a project.
 func (codeEngine *CodeEngineV2) ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListConfigMapsWithContext(context.Background(), listConfigMapsOptions)
+	result, response, err = codeEngine.ListConfigMapsWithContext(context.Background(), listConfigMapsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListConfigMapsWithContext is an alternate form of the ListConfigMaps method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, listConfigMapsOptions *ListConfigMapsOptions) (result *ConfigMapList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigMapsOptions, "listConfigMapsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listConfigMapsOptions, "listConfigMapsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3464,6 +4032,7 @@ func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, l
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3486,17 +4055,21 @@ func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, l
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_config_maps", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMapList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3508,17 +4081,21 @@ func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, l
 // CreateConfigMap : Create a config map
 // Create a config map.
 func (codeEngine *CodeEngineV2) CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateConfigMapWithContext(context.Background(), createConfigMapOptions)
+	result, response, err = codeEngine.CreateConfigMapWithContext(context.Background(), createConfigMapOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateConfigMapWithContext is an alternate form of the CreateConfigMap method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, createConfigMapOptions *CreateConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createConfigMapOptions, "createConfigMapOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createConfigMapOptions, "createConfigMapOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3531,6 +4108,7 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3554,22 +4132,27 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_config_map", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3581,17 +4164,21 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 // GetConfigMap : Get a config map
 // Display the details of a config map.
 func (codeEngine *CodeEngineV2) GetConfigMap(getConfigMapOptions *GetConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
-	return codeEngine.GetConfigMapWithContext(context.Background(), getConfigMapOptions)
+	result, response, err = codeEngine.GetConfigMapWithContext(context.Background(), getConfigMapOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetConfigMapWithContext is an alternate form of the GetConfigMap method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, getConfigMapOptions *GetConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getConfigMapOptions, "getConfigMapOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getConfigMapOptions, "getConfigMapOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3605,6 +4192,7 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3620,17 +4208,21 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_config_map", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3642,17 +4234,21 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 // ReplaceConfigMap : Update a config map
 // Update a config map.
 func (codeEngine *CodeEngineV2) ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
-	return codeEngine.ReplaceConfigMapWithContext(context.Background(), replaceConfigMapOptions)
+	result, response, err = codeEngine.ReplaceConfigMapWithContext(context.Background(), replaceConfigMapOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceConfigMapWithContext is an alternate form of the ReplaceConfigMap method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context, replaceConfigMapOptions *ReplaceConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceConfigMapOptions, "replaceConfigMapOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceConfigMapOptions, "replaceConfigMapOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3666,6 +4262,7 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3689,22 +4286,27 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_config_map", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigMap)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3716,17 +4318,21 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 // DeleteConfigMap : Delete a config map
 // Delete a config map.
 func (codeEngine *CodeEngineV2) DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteConfigMapWithContext(context.Background(), deleteConfigMapOptions)
+	response, err = codeEngine.DeleteConfigMapWithContext(context.Background(), deleteConfigMapOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteConfigMapWithContext is an alternate form of the DeleteConfigMap method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteConfigMapOptions, "deleteConfigMapOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteConfigMapOptions, "deleteConfigMapOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3740,6 +4346,7 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3754,10 +4361,16 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_config_map", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
 }
@@ -3765,17 +4378,21 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 // ListSecrets : List secrets
 // List all secrets in a project.
 func (codeEngine *CodeEngineV2) ListSecrets(listSecretsOptions *ListSecretsOptions) (result *SecretList, response *core.DetailedResponse, err error) {
-	return codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
+	result, response, err = codeEngine.ListSecretsWithContext(context.Background(), listSecretsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ListSecretsWithContext is an alternate form of the ListSecrets method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, listSecretsOptions *ListSecretsOptions) (result *SecretList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listSecretsOptions, "listSecretsOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listSecretsOptions, "listSecretsOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3788,6 +4405,7 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3810,17 +4428,21 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "list_secrets", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecretList)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3832,17 +4454,21 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 // CreateSecret : Create a secret
 // Create a secret.
 func (codeEngine *CodeEngineV2) CreateSecret(createSecretOptions *CreateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
-	return codeEngine.CreateSecretWithContext(context.Background(), createSecretOptions)
+	result, response, err = codeEngine.CreateSecretWithContext(context.Background(), createSecretOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // CreateSecretWithContext is an alternate form of the CreateSecret method which supports a Context parameter
 func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, createSecretOptions *CreateSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createSecretOptions, "createSecretOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createSecretOptions, "createSecretOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3855,6 +4481,7 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3887,22 +4514,27 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "create_secret", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3914,17 +4546,21 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 // GetSecret : Get a secret
 // Get a secret.
 func (codeEngine *CodeEngineV2) GetSecret(getSecretOptions *GetSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
-	return codeEngine.GetSecretWithContext(context.Background(), getSecretOptions)
+	result, response, err = codeEngine.GetSecretWithContext(context.Background(), getSecretOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetSecretWithContext is an alternate form of the GetSecret method which supports a Context parameter
 func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSecretOptions *GetSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getSecretOptions, "getSecretOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getSecretOptions, "getSecretOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3938,6 +4574,7 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3953,17 +4590,21 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "get_secret", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -3975,17 +4616,21 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 // ReplaceSecret : Update a secret
 // Update a secret.
 func (codeEngine *CodeEngineV2) ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
-	return codeEngine.ReplaceSecretWithContext(context.Background(), replaceSecretOptions)
+	result, response, err = codeEngine.ReplaceSecretWithContext(context.Background(), replaceSecretOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // ReplaceSecretWithContext is an alternate form of the ReplaceSecret method which supports a Context parameter
 func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, replaceSecretOptions *ReplaceSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceSecretOptions, "replaceSecretOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceSecretOptions, "replaceSecretOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -3999,6 +4644,7 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -4025,22 +4671,27 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
+		core.EnrichHTTPProblem(err, "replace_secret", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSecret)
 		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -4052,17 +4703,21 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 // DeleteSecret : Delete a secret
 // Delete a secret.
 func (codeEngine *CodeEngineV2) DeleteSecret(deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
-	return codeEngine.DeleteSecretWithContext(context.Background(), deleteSecretOptions)
+	response, err = codeEngine.DeleteSecretWithContext(context.Background(), deleteSecretOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // DeleteSecretWithContext is an alternate form of the DeleteSecret method which supports a Context parameter
 func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteSecretOptions, "deleteSecretOptions cannot be nil")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteSecretOptions, "deleteSecretOptions")
 	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -4076,6 +4731,7 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -4090,12 +4746,21 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 
 	request, err := builder.Build()
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_secret", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
 
 	return
+}
+func getServiceComponentInfo() *core.ProblemComponent {
+	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
 // App : App is the response model for app resources.
@@ -4105,6 +4770,10 @@ type App struct {
 
 	// Reference to a build run that is associated with the application.
 	BuildRun *string `json:"build_run,omitempty"`
+
+	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+	// environment variables in the application.
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -4175,7 +4844,8 @@ type App struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or literal values, which are exposed as environment variables in the application.
+	// References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+	// environment variables in the application.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
@@ -4275,146 +4945,187 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 	obj := new(App)
 	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "build_run", &obj.BuildRun)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build_run-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "computed_env_variables", &obj.ComputedEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "computed_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "endpoint_internal", &obj.EndpointInternal)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint_internal-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_port", &obj.ImagePort)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_port-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_domain_mappings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "probe_liveness", &obj.ProbeLiveness, UnmarshalProbe)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_liveness-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "probe_readiness", &obj.ProbeReadiness, UnmarshalProbe)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_readiness-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency_target", &obj.ScaleConcurrencyTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency_target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_down_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_initial_instances", &obj.ScaleInitialInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_initial_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_instances", &obj.ScaleMaxInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_min_instances", &obj.ScaleMinInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_min_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_request_timeout", &obj.ScaleRequestTimeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_request_timeout-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAppStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4500,66 +5211,82 @@ func UnmarshalAppInstance(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(AppInstance)
 	err = core.UnmarshalPrimitive(m, "app_name", &obj.AppName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "app_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "restarts", &obj.Restarts)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "restarts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "revision_name", &obj.RevisionName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "revision_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "system_container", &obj.SystemContainer, UnmarshalContainerStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "system_container-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "user_container", &obj.UserContainer, UnmarshalContainerStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "user_container-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4586,18 +5313,22 @@ func UnmarshalAppInstanceList(m map[string]json.RawMessage, result interface{}) 
 	obj := new(AppInstanceList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "instances", &obj.Instances, UnmarshalAppInstance)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4632,18 +5363,22 @@ func UnmarshalAppList(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(AppList)
 	err = core.UnmarshalModel(m, "apps", &obj.Apps, UnmarshalApp)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "apps-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4777,90 +5512,112 @@ func UnmarshalAppPatch(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(AppPatch)
 	err = core.UnmarshalPrimitive(m, "image_port", &obj.ImagePort)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_port-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_domain_mappings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "probe_liveness", &obj.ProbeLiveness, UnmarshalProbePrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_liveness-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "probe_readiness", &obj.ProbeReadiness, UnmarshalProbePrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_readiness-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMountPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency_target", &obj.ScaleConcurrencyTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency_target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_down_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_initial_instances", &obj.ScaleInitialInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_initial_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_instances", &obj.ScaleMaxInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_min_instances", &obj.ScaleMinInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_min_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_request_timeout", &obj.ScaleRequestTimeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_request_timeout-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4874,6 +5631,9 @@ func (appPatch *AppPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	if err == nil {
 		err = json.Unmarshal(jsonData, &_patch)
 	}
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -4881,6 +5641,10 @@ func (appPatch *AppPatch) AsPatch() (_patch map[string]interface{}, err error) {
 type AppRevision struct {
 	// Name of the associated app.
 	AppName *string `json:"app_name,omitempty"`
+
+	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+	// environment variables in the application.
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -4906,8 +5670,14 @@ type AppRevision struct {
 	// authentication, the app will be created but cannot reach the ready status, until this property is provided, too.
 	ImageSecret *string `json:"image_secret,omitempty"`
 
-	// The name of the app revison.
+	// The name of the app revision.
 	Name *string `json:"name,omitempty"`
+
+	// Response model for probes.
+	ProbeLiveness *Probe `json:"probe_liveness,omitempty"`
+
+	// Response model for probes.
+	ProbeReadiness *Probe `json:"probe_readiness,omitempty"`
 
 	// The ID of the project in which the resource is located.
 	ProjectID *string `json:"project_id,omitempty"`
@@ -4930,7 +5700,8 @@ type AppRevision struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or literal values, which are exposed as environment variables in the application.
+	// References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+	// environment variables in the application.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
@@ -5020,118 +5791,162 @@ func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(AppRevision)
 	err = core.UnmarshalPrimitive(m, "app_name", &obj.AppName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "app_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "computed_env_variables", &obj.ComputedEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "computed_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_port", &obj.ImagePort)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_port-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_liveness", &obj.ProbeLiveness, UnmarshalProbe)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_liveness-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "probe_readiness", &obj.ProbeReadiness, UnmarshalProbe)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "probe_readiness-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency_target", &obj.ScaleConcurrencyTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency_target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_down_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_initial_instances", &obj.ScaleInitialInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_initial_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_instances", &obj.ScaleMaxInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_min_instances", &obj.ScaleMinInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_min_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_request_timeout", &obj.ScaleRequestTimeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_request_timeout-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAppRevisionStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5158,18 +5973,22 @@ func UnmarshalAppRevisionList(m map[string]json.RawMessage, result interface{}) 
 	obj := new(AppRevisionList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "revisions", &obj.Revisions, UnmarshalAppRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "revisions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5220,10 +6039,12 @@ func UnmarshalAppRevisionStatus(m map[string]json.RawMessage, result interface{}
 	obj := new(AppRevisionStatus)
 	err = core.UnmarshalPrimitive(m, "actual_instances", &obj.ActualInstances)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "actual_instances-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5257,14 +6078,17 @@ func UnmarshalAppStatus(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(AppStatus)
 	err = core.UnmarshalPrimitive(m, "latest_created_revision", &obj.LatestCreatedRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "latest_created_revision-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "latest_ready_revision", &obj.LatestReadyRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "latest_ready_revision-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5309,34 +6133,42 @@ func UnmarshalBinding(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Binding)
 	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "component-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "prefix", &obj.Prefix)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "prefix-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "secret_name", &obj.SecretName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secret_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5363,18 +6195,22 @@ func UnmarshalBindingList(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(BindingList)
 	err = core.UnmarshalModel(m, "bindings", &obj.Bindings, UnmarshalBinding)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "bindings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5494,86 +6330,107 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Build)
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_image-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_context_dir-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_revision-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalBuildStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_size-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_spec_file", &obj.StrategySpecFile)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_spec_file-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_type", &obj.StrategyType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timeout-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5600,18 +6457,22 @@ func UnmarshalBuildList(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(BuildList)
 	err = core.UnmarshalModel(m, "builds", &obj.Builds, UnmarshalBuild)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "builds-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5687,46 +6548,57 @@ func UnmarshalBuildPatch(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(BuildPatch)
 	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_image-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_context_dir-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_revision-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_size-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_spec_file", &obj.StrategySpecFile)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_spec_file-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_type", &obj.StrategyType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timeout-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5739,6 +6611,9 @@ func (buildPatch *BuildPatch) AsPatch() (_patch map[string]interface{}, err erro
 	jsonData, err = json.Marshal(buildPatch)
 	if err == nil {
 		err = json.Unmarshal(jsonData, &_patch)
+	}
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
 	}
 	return
 }
@@ -5867,90 +6742,112 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(BuildRun)
 	err = core.UnmarshalPrimitive(m, "build_name", &obj.BuildName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_image", &obj.OutputImage)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_image-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_secret", &obj.OutputSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_context_dir-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_revision", &obj.SourceRevision)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_revision-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_secret", &obj.SourceSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_type", &obj.SourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "source_url-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalBuildRunStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_size", &obj.StrategySize)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_size-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_spec_file", &obj.StrategySpecFile)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_spec_file-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "strategy_type", &obj.StrategyType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "strategy_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timeout-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5977,18 +6874,22 @@ func UnmarshalBuildRunList(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(BuildRunList)
 	err = core.UnmarshalModel(m, "build_runs", &obj.BuildRuns, UnmarshalBuildRun)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6045,18 +6946,22 @@ func UnmarshalBuildRunStatus(m map[string]json.RawMessage, result interface{}) (
 	obj := new(BuildRunStatus)
 	err = core.UnmarshalPrimitive(m, "completion_time", &obj.CompletionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "completion_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "output_digest", &obj.OutputDigest)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "output_digest-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start_time-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6090,6 +6995,7 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(BuildStatus)
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6112,6 +7018,9 @@ func (*CodeEngineV2) NewComponentRef(name string, resourceType string) (_model *
 		ResourceType: core.StringPtr(resourceType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -6120,10 +7029,12 @@ func UnmarshalComponentRef(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(ComponentRef)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6172,38 +7083,47 @@ func UnmarshalConfigMap(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(ConfigMap)
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "data-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6230,18 +7150,22 @@ func UnmarshalConfigMapList(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(ConfigMapList)
 	err = core.UnmarshalModel(m, "config_maps", &obj.ConfigMaps, UnmarshalConfigMap)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "config_maps-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6270,10 +7194,12 @@ func UnmarshalContainerStatus(m map[string]json.RawMessage, result interface{}) 
 	obj := new(ContainerStatus)
 	err = core.UnmarshalModel(m, "current_state", &obj.CurrentState, UnmarshalContainerStatusDetails)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "current_state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "last_observed_state", &obj.LastObservedState, UnmarshalContainerStatusDetails)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "last_observed_state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6325,22 +7251,27 @@ func UnmarshalContainerStatusDetails(m map[string]json.RawMessage, result interf
 	obj := new(ContainerStatusDetails)
 	err = core.UnmarshalPrimitive(m, "completed_at", &obj.CompletedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "completed_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "container_status", &obj.ContainerStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "container_status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "exit_code", &obj.ExitCode)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "exit_code-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "started_at", &obj.StartedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "started_at-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8435,62 +9366,77 @@ func UnmarshalDomainMapping(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(DomainMapping)
 	err = core.UnmarshalPrimitive(m, "cname_target", &obj.CnameTarget)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "cname_target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "component-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalDomainMappingStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tls_secret", &obj.TlsSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "user_managed", &obj.UserManaged)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "user_managed-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "visibility", &obj.Visibility)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "visibility-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8517,18 +9463,22 @@ func UnmarshalDomainMappingList(m map[string]json.RawMessage, result interface{}
 	obj := new(DomainMappingList)
 	err = core.UnmarshalModel(m, "domain_mappings", &obj.DomainMappings, UnmarshalDomainMapping)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "domain_mappings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8557,10 +9507,12 @@ func UnmarshalDomainMappingPatch(m map[string]json.RawMessage, result interface{
 	obj := new(DomainMappingPatch)
 	err = core.UnmarshalModel(m, "component", &obj.Component, UnmarshalComponentRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "component-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tls_secret", &obj.TlsSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_secret-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8573,6 +9525,9 @@ func (domainMappingPatch *DomainMappingPatch) AsPatch() (_patch map[string]inter
 	jsonData, err = json.Marshal(domainMappingPatch)
 	if err == nil {
 		err = json.Unmarshal(jsonData, &_patch)
+	}
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
 	}
 	return
 }
@@ -8599,6 +9554,7 @@ func UnmarshalDomainMappingStatus(m map[string]json.RawMessage, result interface
 	obj := new(DomainMappingStatus)
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8641,26 +9597,32 @@ func UnmarshalEnvVar(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(EnvVar)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "prefix", &obj.Prefix)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "prefix-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8703,26 +9665,32 @@ func UnmarshalEnvVarPrototype(m map[string]json.RawMessage, result interface{}) 
 	obj := new(EnvVarPrototype)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "prefix", &obj.Prefix)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "prefix-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8746,6 +9714,10 @@ type Function struct {
 	// The name of the secret that is used to access the specified `code_reference`. The secret is used to authenticate
 	// with a non-public endpoint that is specified as`code_reference`.
 	CodeSecret *string `json:"code_secret,omitempty"`
+
+	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+	// environment variables in the function.
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -8783,7 +9755,8 @@ type Function struct {
 	// The type of the function.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// References to config maps, secrets or literal values, which are exposed as environment variables in the function.
+	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
+	// environment variables in the function.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The managed runtime used to execute the injected code.
@@ -8845,98 +9818,127 @@ func UnmarshalFunction(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(Function)
 	err = core.UnmarshalPrimitive(m, "code_binary", &obj.CodeBinary)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_binary-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_main", &obj.CodeMain)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_main-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_reference", &obj.CodeReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_secret", &obj.CodeSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_secret-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "computed_env_variables", &obj.ComputedEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "computed_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "endpoint_internal", &obj.EndpointInternal)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint_internal-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_domain_mappings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "runtime", &obj.Runtime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "runtime-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_down_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_execution_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalFunctionStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8963,18 +9965,22 @@ func UnmarshalFunctionList(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(FunctionList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "functions", &obj.Functions, UnmarshalFunction)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "functions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9053,50 +10059,62 @@ func UnmarshalFunctionPatch(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(FunctionPatch)
 	err = core.UnmarshalPrimitive(m, "code_binary", &obj.CodeBinary)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_binary-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_main", &obj.CodeMain)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_main-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_reference", &obj.CodeReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "code_secret", &obj.CodeSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "code_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "managed_domain_mappings", &obj.ManagedDomainMappings)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "managed_domain_mappings-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "runtime", &obj.Runtime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "runtime-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_concurrency", &obj.ScaleConcurrency)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_concurrency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_down_delay", &obj.ScaleDownDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_down_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_execution_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9109,6 +10127,9 @@ func (functionPatch *FunctionPatch) AsPatch() (_patch map[string]interface{}, er
 	jsonData, err = json.Marshal(functionPatch)
 	if err == nil {
 		err = json.Unmarshal(jsonData, &_patch)
+	}
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
 	}
 	return
 }
@@ -9139,26 +10160,32 @@ func UnmarshalFunctionRuntime(m map[string]json.RawMessage, result interface{}) 
 	obj := new(FunctionRuntime)
 	err = core.UnmarshalPrimitive(m, "default", &obj.Default)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "default-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "deprecated", &obj.Deprecated)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "deprecated-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "family", &obj.Family)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "family-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "optimized", &obj.Optimized)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "optimized-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9176,6 +10203,7 @@ func UnmarshalFunctionRuntimeList(m map[string]json.RawMessage, result interface
 	obj := new(FunctionRuntimeList)
 	err = core.UnmarshalModel(m, "function_runtimes", &obj.FunctionRuntimes, UnmarshalFunctionRuntime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "function_runtimes-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9206,6 +10234,7 @@ func UnmarshalFunctionStatus(m map[string]json.RawMessage, result interface{}) (
 	obj := new(FunctionStatus)
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9732,6 +10761,10 @@ type Job struct {
 	// Reference to a build run that is associated with the job.
 	BuildRun *string `json:"build_run,omitempty"`
 
+	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+	// environment variables in the job run.
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
@@ -9780,7 +10813,8 @@ type Job struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
+	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
+	// environment variables in the job run.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -9856,102 +10890,132 @@ func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) 
 	obj := new(Job)
 	err = core.UnmarshalPrimitive(m, "build", &obj.Build)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "build_run", &obj.BuildRun)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "build_run-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "computed_env_variables", &obj.ComputedEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "computed_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_mode", &obj.RunMode)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_mode-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_array_spec", &obj.ScaleArraySpec)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_array_spec-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_execution_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_retry_limit", &obj.ScaleRetryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_retry_limit-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9978,18 +11042,22 @@ func UnmarshalJobList(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(JobList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "jobs", &obj.Jobs, UnmarshalJob)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "jobs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -10100,62 +11168,77 @@ func UnmarshalJobPatch(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(JobPatch)
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_mode", &obj.RunMode)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_mode-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMountPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_array_spec", &obj.ScaleArraySpec)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_array_spec-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_execution_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_retry_limit", &obj.ScaleRetryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_retry_limit-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -10169,11 +11252,18 @@ func (jobPatch *JobPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	if err == nil {
 		err = json.Unmarshal(jsonData, &_patch)
 	}
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	}
 	return
 }
 
 // JobRun : Response model for job run resources.
 type JobRun struct {
+	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
+	// environment variables in the job run.
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 
@@ -10223,7 +11313,8 @@ type JobRun struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
-	// References to config maps, secrets or literal values, which are exposed as environment variables in the job run.
+	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
+	// environment variables in the job run.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
 
 	// The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and
@@ -10315,108 +11406,139 @@ const (
 // UnmarshalJobRun unmarshals an instance of JobRun from the specified map of raw messages.
 func UnmarshalJobRun(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(JobRun)
+	err = core.UnmarshalModel(m, "computed_env_variables", &obj.ComputedEnvVariables, UnmarshalEnvVar)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "computed_env_variables-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_reference", &obj.ImageReference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_secret", &obj.ImageSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "image_secret-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "job_name", &obj.JobName)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "job_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_arguments", &obj.RunArguments)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_arguments-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_as_user", &obj.RunAsUser)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_as_user-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_mode", &obj.RunMode)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_mode-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "run_service_account", &obj.RunServiceAccount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_service_account-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_volume_mounts", &obj.RunVolumeMounts, UnmarshalVolumeMount)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "run_volume_mounts-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_array_size_variable_override", &obj.ScaleArraySizeVariableOverride)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_array_size_variable_override-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_array_spec", &obj.ScaleArraySpec)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_array_spec-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_cpu_limit", &obj.ScaleCpuLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_cpu_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_ephemeral_storage_limit", &obj.ScaleEphemeralStorageLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_ephemeral_storage_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_max_execution_time", &obj.ScaleMaxExecutionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_max_execution_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_memory_limit", &obj.ScaleMemoryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_memory_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "scale_retry_limit", &obj.ScaleRetryLimit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "scale_retry_limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalJobRunStatus)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -10443,18 +11565,22 @@ func UnmarshalJobRunList(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(JobRunList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "job_runs", &obj.JobRuns, UnmarshalJobRun)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "job_runs-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -10477,8 +11603,14 @@ type JobRunStatus struct {
 	// Number of failed job run instances.
 	Failed *int64 `json:"failed,omitempty"`
 
+	// List of job run indices that failed.
+	FailedIndices *string `json:"failed_indices,omitempty"`
+
 	// Number of pending job run instances.
 	Pending *int64 `json:"pending,omitempty"`
+
+	// List of job run indices that are pending.
+	PendingIndices *string `json:"pending_indices,omitempty"`
 
 	// Number of requested job run instances.
 	Requested *int64 `json:"requested,omitempty"`
@@ -10486,11 +11618,17 @@ type JobRunStatus struct {
 	// Number of running job run instances.
 	Running *int64 `json:"running,omitempty"`
 
+	// List of job run indices that are running.
+	RunningIndices *string `json:"running_indices,omitempty"`
+
 	// Time the job run started.
 	StartTime *string `json:"start_time,omitempty"`
 
 	// Number of succeeded job run instances.
 	Succeeded *int64 `json:"succeeded,omitempty"`
+
+	// List of job run indices that succeeded.
+	SucceededIndices *string `json:"succeeded_indices,omitempty"`
 
 	// Number of job run instances with unknown state.
 	Unknown *int64 `json:"unknown,omitempty"`
@@ -10501,34 +11639,62 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(JobRunStatus)
 	err = core.UnmarshalPrimitive(m, "completion_time", &obj.CompletionTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "completion_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "failed", &obj.Failed)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "failed-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "failed_indices", &obj.FailedIndices)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "failed_indices-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pending", &obj.Pending)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "pending-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pending_indices", &obj.PendingIndices)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "pending_indices-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "requested", &obj.Requested)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "requested-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "running", &obj.Running)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "running-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "running_indices", &obj.RunningIndices)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "running_indices-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start_time-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "succeeded", &obj.Succeeded)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "succeeded-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "succeeded_indices", &obj.SucceededIndices)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "succeeded_indices-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "unknown", &obj.Unknown)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "unknown-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -10959,6 +12125,7 @@ func UnmarshalListFirstMetadata(m map[string]json.RawMessage, result interface{}
 	obj := new(ListFirstMetadata)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11150,10 +12317,12 @@ func UnmarshalListNextMetadata(m map[string]json.RawMessage, result interface{})
 	obj := new(ListNextMetadata)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11265,18 +12434,22 @@ func UnmarshalOperatorSecretProps(m map[string]json.RawMessage, result interface
 	obj := new(OperatorSecretProps)
 	err = core.UnmarshalPrimitive(m, "apikey_id", &obj.ApikeyID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "apikey_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_ids", &obj.ResourceGroupIds)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_ids-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "user_managed", &obj.UserManaged)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "user_managed-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11297,10 +12470,12 @@ func UnmarshalOperatorSecretPrototypeProps(m map[string]json.RawMessage, result 
 	obj := new(OperatorSecretPrototypeProps)
 	err = core.UnmarshalPrimitive(m, "resource_group_ids", &obj.ResourceGroupIds)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_ids-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRefPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11344,30 +12519,37 @@ func UnmarshalProbe(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Probe)
 	err = core.UnmarshalPrimitive(m, "failure_threshold", &obj.FailureThreshold)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "failure_threshold-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "initial_delay", &obj.InitialDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "initial_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "interval-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "port", &obj.Port)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "port-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timeout-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11411,30 +12593,37 @@ func UnmarshalProbePrototype(m map[string]json.RawMessage, result interface{}) (
 	obj := new(ProbePrototype)
 	err = core.UnmarshalPrimitive(m, "failure_threshold", &obj.FailureThreshold)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "failure_threshold-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "initial_delay", &obj.InitialDelay)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "initial_delay-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "interval-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "port", &obj.Port)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "port-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "timeout", &obj.Timeout)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "timeout-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11505,42 +12694,52 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Project)
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_group_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11561,10 +12760,12 @@ func UnmarshalProjectEgressIPAddresses(m map[string]json.RawMessage, result inte
 	obj := new(ProjectEgressIPAddresses)
 	err = core.UnmarshalPrimitive(m, "private", &obj.Private)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "private-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "public", &obj.Public)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "public-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11591,18 +12792,22 @@ func UnmarshalProjectList(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(ProjectList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProject)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "projects-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11645,10 +12850,12 @@ func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interfac
 	obj := new(ProjectStatusDetails)
 	err = core.UnmarshalPrimitive(m, "domain", &obj.Domain)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "domain-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project", &obj.Project)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11814,10 +13021,12 @@ func UnmarshalResourceKeyRef(m map[string]json.RawMessage, result interface{}) (
 	obj := new(ResourceKeyRef)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11835,6 +13044,7 @@ func UnmarshalResourceKeyRefPrototype(m map[string]json.RawMessage, result inter
 	obj := new(ResourceKeyRefPrototype)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11855,10 +13065,12 @@ func UnmarshalRoleRef(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(RoleRef)
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11876,6 +13088,7 @@ func UnmarshalRoleRefPrototype(m map[string]json.RawMessage, result interface{})
 	obj := new(RoleRefPrototype)
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11942,50 +13155,62 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(Secret)
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "data-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "format", &obj.Format)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "format-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "service_access", &obj.ServiceAccess, UnmarshalServiceAccessSecretProps)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_access-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "service_operator", &obj.ServiceOperator, UnmarshalOperatorSecretProps)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_operator-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -11996,22 +13221,16 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 // consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
 // field can consists of any character and must not exceed a max length of 1048576 characters.
 // Models which "extend" this model:
-// - SecretDataSSHSecretData
-// - SecretDataRegistrySecretData
-// - SecretDataTLSSecretData
 // - SecretDataGenericSecretData
 // - SecretDataBasicAuthSecretData
+// - SecretDataRegistrySecretData
+// - SecretDataSSHSecretData
+// - SecretDataTLSSecretData
 type SecretData struct {
-	// SSH key.
-	SshKey *string `json:"ssh_key,omitempty"`
-
-	// Known hosts.
-	KnownHosts *string `json:"known_hosts,omitempty"`
-
-	// Registry username.
+	// Basic auth username.
 	Username *string `json:"username,omitempty"`
 
-	// Registry password.
+	// Basic auth password.
 	Password *string `json:"password,omitempty"`
 
 	// Registry server.
@@ -12019,6 +13238,12 @@ type SecretData struct {
 
 	// Registry email address.
 	Email *string `json:"email,omitempty"`
+
+	// SSH key.
+	SshKey *string `json:"ssh_key,omitempty"`
+
+	// Known hosts.
+	KnownHosts *string `json:"known_hosts,omitempty"`
 
 	// The TLS certificate used in a TLS secret.
 	TlsCert *string `json:"tls_cert,omitempty"`
@@ -12075,12 +13300,6 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	if o.SshKey != nil {
-		m["ssh_key"] = o.SshKey
-	}
-	if o.KnownHosts != nil {
-		m["known_hosts"] = o.KnownHosts
-	}
 	if o.Username != nil {
 		m["username"] = o.Username
 	}
@@ -12093,6 +13312,12 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 	if o.Email != nil {
 		m["email"] = o.Email
 	}
+	if o.SshKey != nil {
+		m["ssh_key"] = o.SshKey
+	}
+	if o.KnownHosts != nil {
+		m["known_hosts"] = o.KnownHosts
+	}
 	if o.TlsCert != nil {
 		m["tls_cert"] = o.TlsCert
 	}
@@ -12100,49 +13325,60 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 		m["tls_key"] = o.TlsKey
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
 // UnmarshalSecretData unmarshals an instance of SecretData from the specified map of raw messages.
 func UnmarshalSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretData)
-	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
-	if err != nil {
-		return
-	}
-	delete(m, "ssh_key")
-	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
-	if err != nil {
-		return
-	}
-	delete(m, "known_hosts")
 	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "password")
 	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "server-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "server")
 	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "email")
+	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "ssh_key")
+	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "known_hosts-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "known_hosts")
 	err = core.UnmarshalPrimitive(m, "tls_cert", &obj.TlsCert)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_cert-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "tls_cert")
 	err = core.UnmarshalPrimitive(m, "tls_key", &obj.TlsKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_key-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "tls_key")
@@ -12150,7 +13386,7 @@ func UnmarshalSecretData(m map[string]json.RawMessage, result interface{}) (err 
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -12179,18 +13415,22 @@ func UnmarshalSecretList(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(SecretList)
 	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "secrets", &obj.Secrets, UnmarshalSecret)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "secrets-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12225,18 +13465,22 @@ func UnmarshalServiceAccessSecretProps(m map[string]json.RawMessage, result inte
 	obj := new(ServiceAccessSecretProps)
 	err = core.UnmarshalModel(m, "resource_key", &obj.ResourceKey, UnmarshalResourceKeyRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "role", &obj.Role, UnmarshalRoleRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "role-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_instance-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12265,6 +13509,9 @@ func (*CodeEngineV2) NewServiceAccessSecretPrototypeProps(resourceKey *ResourceK
 		ServiceInstance: serviceInstance,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -12273,18 +13520,22 @@ func UnmarshalServiceAccessSecretPrototypeProps(m map[string]json.RawMessage, re
 	obj := new(ServiceAccessSecretPrototypeProps)
 	err = core.UnmarshalModel(m, "resource_key", &obj.ResourceKey, UnmarshalResourceKeyRefPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "role", &obj.Role, UnmarshalRoleRefPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "role-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "service_instance", &obj.ServiceInstance, UnmarshalServiceInstanceRefPrototype)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "service_instance-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalServiceIDRef)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "serviceid-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12305,10 +13556,12 @@ func UnmarshalServiceIDRef(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(ServiceIDRef)
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12326,6 +13579,7 @@ func UnmarshalServiceIDRefPrototype(m map[string]json.RawMessage, result interfa
 	obj := new(ServiceIDRefPrototype)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12346,10 +13600,12 @@ func UnmarshalServiceInstanceRef(m map[string]json.RawMessage, result interface{
 	obj := new(ServiceInstanceRef)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12367,6 +13623,7 @@ func UnmarshalServiceInstanceRefPrototype(m map[string]json.RawMessage, result i
 	obj := new(ServiceInstanceRefPrototype)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12700,18 +13957,22 @@ func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(VolumeMount)
 	err = core.UnmarshalPrimitive(m, "mount_path", &obj.MountPath)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "mount_path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12749,6 +14010,9 @@ func (*CodeEngineV2) NewVolumeMountPrototype(mountPath string, reference string,
 		Type: core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -12757,18 +14021,22 @@ func UnmarshalVolumeMountPrototype(m map[string]json.RawMessage, result interfac
 	obj := new(VolumeMountPrototype)
 	err = core.UnmarshalPrimitive(m, "mount_path", &obj.MountPath)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "mount_path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12795,6 +14063,9 @@ func (*CodeEngineV2) NewSecretDataBasicAuthSecretData(username string, password 
 		Password: core.StringPtr(password),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -12843,6 +14114,9 @@ func (o *SecretDataBasicAuthSecretData) MarshalJSON() (buffer []byte, err error)
 		m["password"] = o.Password
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -12851,11 +14125,13 @@ func UnmarshalSecretDataBasicAuthSecretData(m map[string]json.RawMessage, result
 	obj := new(SecretDataBasicAuthSecretData)
 	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "password")
@@ -12863,7 +14139,7 @@ func UnmarshalSecretDataBasicAuthSecretData(m map[string]json.RawMessage, result
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -12921,6 +14197,9 @@ func (o *SecretDataGenericSecretData) MarshalJSON() (buffer []byte, err error) {
 		}
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -12931,7 +14210,7 @@ func UnmarshalSecretDataGenericSecretData(m map[string]json.RawMessage, result i
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -12953,21 +14232,23 @@ type SecretDataRegistrySecretData struct {
 	Server *string `json:"server" validate:"required"`
 
 	// Registry email address.
-	Email *string `json:"email" validate:"required"`
+	Email *string `json:"email,omitempty"`
 
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]*string
 }
 
 // NewSecretDataRegistrySecretData : Instantiate SecretDataRegistrySecretData (Generic Model Constructor)
-func (*CodeEngineV2) NewSecretDataRegistrySecretData(username string, password string, server string, email string) (_model *SecretDataRegistrySecretData, err error) {
+func (*CodeEngineV2) NewSecretDataRegistrySecretData(username string, password string, server string) (_model *SecretDataRegistrySecretData, err error) {
 	_model = &SecretDataRegistrySecretData{
 		Username: core.StringPtr(username),
 		Password: core.StringPtr(password),
 		Server: core.StringPtr(server),
-		Email: core.StringPtr(email),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13022,6 +14303,9 @@ func (o *SecretDataRegistrySecretData) MarshalJSON() (buffer []byte, err error) 
 		m["email"] = o.Email
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13030,21 +14314,25 @@ func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result 
 	obj := new(SecretDataRegistrySecretData)
 	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "password")
 	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "server-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "server")
 	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "email")
@@ -13052,7 +14340,7 @@ func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result 
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -13080,6 +14368,9 @@ func (*CodeEngineV2) NewSecretDataSSHSecretData(sshKey string) (_model *SecretDa
 		SshKey: core.StringPtr(sshKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13128,6 +14419,9 @@ func (o *SecretDataSSHSecretData) MarshalJSON() (buffer []byte, err error) {
 		m["known_hosts"] = o.KnownHosts
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13136,11 +14430,13 @@ func UnmarshalSecretDataSSHSecretData(m map[string]json.RawMessage, result inter
 	obj := new(SecretDataSSHSecretData)
 	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "ssh_key")
 	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "known_hosts-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "known_hosts")
@@ -13148,7 +14444,7 @@ func UnmarshalSecretDataSSHSecretData(m map[string]json.RawMessage, result inter
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -13177,6 +14473,9 @@ func (*CodeEngineV2) NewSecretDataTLSSecretData(tlsCert string, tlsKey string) (
 		TlsKey: core.StringPtr(tlsKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13225,6 +14524,9 @@ func (o *SecretDataTLSSecretData) MarshalJSON() (buffer []byte, err error) {
 		m["tls_key"] = o.TlsKey
 	}
 	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
 	return
 }
 
@@ -13233,11 +14535,13 @@ func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result inter
 	obj := new(SecretDataTLSSecretData)
 	err = core.UnmarshalPrimitive(m, "tls_cert", &obj.TlsCert)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_cert-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "tls_cert")
 	err = core.UnmarshalPrimitive(m, "tls_key", &obj.TlsKey)
 	if err != nil {
+		err = core.SDKErrorf(err, "", "tls_key-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "tls_key")
@@ -13245,7 +14549,7 @@ func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result inter
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
-			err = e
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
 			return
 		}
 		obj.SetProperty(k, v)
@@ -13269,7 +14573,7 @@ type ProjectsPager struct {
 // NewProjectsPager returns a new ProjectsPager instance.
 func (codeEngine *CodeEngineV2) NewProjectsPager(options *ListProjectsOptions) (pager *ProjectsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13297,6 +14601,7 @@ func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Proj
 
 	result, _, err := pager.client.ListProjectsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13318,6 +14623,7 @@ func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []P
 		var nextPage []Project
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13327,12 +14633,16 @@ func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []P
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *ProjectsPager) GetNext() (page []Project, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13350,7 +14660,7 @@ type AppsPager struct {
 // NewAppsPager returns a new AppsPager instance.
 func (codeEngine *CodeEngineV2) NewAppsPager(options *ListAppsOptions) (pager *AppsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13378,6 +14688,7 @@ func (pager *AppsPager) GetNextWithContext(ctx context.Context) (page []App, err
 
 	result, _, err := pager.client.ListAppsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13399,6 +14710,7 @@ func (pager *AppsPager) GetAllWithContext(ctx context.Context) (allItems []App, 
 		var nextPage []App
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13408,12 +14720,16 @@ func (pager *AppsPager) GetAllWithContext(ctx context.Context) (allItems []App, 
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *AppsPager) GetNext() (page []App, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *AppsPager) GetAll() (allItems []App, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13431,7 +14747,7 @@ type AppRevisionsPager struct {
 // NewAppRevisionsPager returns a new AppRevisionsPager instance.
 func (codeEngine *CodeEngineV2) NewAppRevisionsPager(options *ListAppRevisionsOptions) (pager *AppRevisionsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13459,6 +14775,7 @@ func (pager *AppRevisionsPager) GetNextWithContext(ctx context.Context) (page []
 
 	result, _, err := pager.client.ListAppRevisionsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13480,6 +14797,7 @@ func (pager *AppRevisionsPager) GetAllWithContext(ctx context.Context) (allItems
 		var nextPage []AppRevision
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13489,12 +14807,16 @@ func (pager *AppRevisionsPager) GetAllWithContext(ctx context.Context) (allItems
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *AppRevisionsPager) GetNext() (page []AppRevision, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13512,7 +14834,7 @@ type AppInstancesPager struct {
 // NewAppInstancesPager returns a new AppInstancesPager instance.
 func (codeEngine *CodeEngineV2) NewAppInstancesPager(options *ListAppInstancesOptions) (pager *AppInstancesPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13540,6 +14862,7 @@ func (pager *AppInstancesPager) GetNextWithContext(ctx context.Context) (page []
 
 	result, _, err := pager.client.ListAppInstancesWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13561,6 +14884,7 @@ func (pager *AppInstancesPager) GetAllWithContext(ctx context.Context) (allItems
 		var nextPage []AppInstance
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13570,12 +14894,16 @@ func (pager *AppInstancesPager) GetAllWithContext(ctx context.Context) (allItems
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *AppInstancesPager) GetNext() (page []AppInstance, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *AppInstancesPager) GetAll() (allItems []AppInstance, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13593,7 +14921,7 @@ type JobsPager struct {
 // NewJobsPager returns a new JobsPager instance.
 func (codeEngine *CodeEngineV2) NewJobsPager(options *ListJobsOptions) (pager *JobsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13621,6 +14949,7 @@ func (pager *JobsPager) GetNextWithContext(ctx context.Context) (page []Job, err
 
 	result, _, err := pager.client.ListJobsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13642,6 +14971,7 @@ func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, 
 		var nextPage []Job
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13651,12 +14981,16 @@ func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, 
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *JobsPager) GetNext() (page []Job, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *JobsPager) GetAll() (allItems []Job, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13674,7 +15008,7 @@ type JobRunsPager struct {
 // NewJobRunsPager returns a new JobRunsPager instance.
 func (codeEngine *CodeEngineV2) NewJobRunsPager(options *ListJobRunsOptions) (pager *JobRunsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13702,6 +15036,7 @@ func (pager *JobRunsPager) GetNextWithContext(ctx context.Context) (page []JobRu
 
 	result, _, err := pager.client.ListJobRunsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13723,6 +15058,7 @@ func (pager *JobRunsPager) GetAllWithContext(ctx context.Context) (allItems []Jo
 		var nextPage []JobRun
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13732,12 +15068,16 @@ func (pager *JobRunsPager) GetAllWithContext(ctx context.Context) (allItems []Jo
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *JobRunsPager) GetNext() (page []JobRun, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *JobRunsPager) GetAll() (allItems []JobRun, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13755,7 +15095,7 @@ type FunctionsPager struct {
 // NewFunctionsPager returns a new FunctionsPager instance.
 func (codeEngine *CodeEngineV2) NewFunctionsPager(options *ListFunctionsOptions) (pager *FunctionsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13783,6 +15123,7 @@ func (pager *FunctionsPager) GetNextWithContext(ctx context.Context) (page []Fun
 
 	result, _, err := pager.client.ListFunctionsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13804,6 +15145,7 @@ func (pager *FunctionsPager) GetAllWithContext(ctx context.Context) (allItems []
 		var nextPage []Function
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13813,12 +15155,16 @@ func (pager *FunctionsPager) GetAllWithContext(ctx context.Context) (allItems []
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *FunctionsPager) GetNext() (page []Function, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *FunctionsPager) GetAll() (allItems []Function, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13836,7 +15182,7 @@ type BindingsPager struct {
 // NewBindingsPager returns a new BindingsPager instance.
 func (codeEngine *CodeEngineV2) NewBindingsPager(options *ListBindingsOptions) (pager *BindingsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13864,6 +15210,7 @@ func (pager *BindingsPager) GetNextWithContext(ctx context.Context) (page []Bind
 
 	result, _, err := pager.client.ListBindingsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13885,6 +15232,7 @@ func (pager *BindingsPager) GetAllWithContext(ctx context.Context) (allItems []B
 		var nextPage []Binding
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13894,12 +15242,16 @@ func (pager *BindingsPager) GetAllWithContext(ctx context.Context) (allItems []B
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *BindingsPager) GetNext() (page []Binding, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *BindingsPager) GetAll() (allItems []Binding, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13917,7 +15269,7 @@ type BuildsPager struct {
 // NewBuildsPager returns a new BuildsPager instance.
 func (codeEngine *CodeEngineV2) NewBuildsPager(options *ListBuildsOptions) (pager *BuildsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -13945,6 +15297,7 @@ func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []Build,
 
 	result, _, err := pager.client.ListBuildsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -13966,6 +15319,7 @@ func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []Bui
 		var nextPage []Build
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -13975,12 +15329,16 @@ func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []Bui
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *BuildsPager) GetNext() (page []Build, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *BuildsPager) GetAll() (allItems []Build, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -13998,7 +15356,7 @@ type BuildRunsPager struct {
 // NewBuildRunsPager returns a new BuildRunsPager instance.
 func (codeEngine *CodeEngineV2) NewBuildRunsPager(options *ListBuildRunsOptions) (pager *BuildRunsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -14026,6 +15384,7 @@ func (pager *BuildRunsPager) GetNextWithContext(ctx context.Context) (page []Bui
 
 	result, _, err := pager.client.ListBuildRunsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -14047,6 +15406,7 @@ func (pager *BuildRunsPager) GetAllWithContext(ctx context.Context) (allItems []
 		var nextPage []BuildRun
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -14056,12 +15416,16 @@ func (pager *BuildRunsPager) GetAllWithContext(ctx context.Context) (allItems []
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *BuildRunsPager) GetNext() (page []BuildRun, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *BuildRunsPager) GetAll() (allItems []BuildRun, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -14079,7 +15443,7 @@ type DomainMappingsPager struct {
 // NewDomainMappingsPager returns a new DomainMappingsPager instance.
 func (codeEngine *CodeEngineV2) NewDomainMappingsPager(options *ListDomainMappingsOptions) (pager *DomainMappingsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -14107,6 +15471,7 @@ func (pager *DomainMappingsPager) GetNextWithContext(ctx context.Context) (page 
 
 	result, _, err := pager.client.ListDomainMappingsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -14128,6 +15493,7 @@ func (pager *DomainMappingsPager) GetAllWithContext(ctx context.Context) (allIte
 		var nextPage []DomainMapping
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -14137,12 +15503,16 @@ func (pager *DomainMappingsPager) GetAllWithContext(ctx context.Context) (allIte
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *DomainMappingsPager) GetNext() (page []DomainMapping, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *DomainMappingsPager) GetAll() (allItems []DomainMapping, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -14160,7 +15530,7 @@ type ConfigMapsPager struct {
 // NewConfigMapsPager returns a new ConfigMapsPager instance.
 func (codeEngine *CodeEngineV2) NewConfigMapsPager(options *ListConfigMapsOptions) (pager *ConfigMapsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -14188,6 +15558,7 @@ func (pager *ConfigMapsPager) GetNextWithContext(ctx context.Context) (page []Co
 
 	result, _, err := pager.client.ListConfigMapsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -14209,6 +15580,7 @@ func (pager *ConfigMapsPager) GetAllWithContext(ctx context.Context) (allItems [
 		var nextPage []ConfigMap
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -14218,12 +15590,16 @@ func (pager *ConfigMapsPager) GetAllWithContext(ctx context.Context) (allItems [
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *ConfigMapsPager) GetNext() (page []ConfigMap, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ConfigMapsPager) GetAll() (allItems []ConfigMap, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 //
@@ -14241,7 +15617,7 @@ type SecretsPager struct {
 // NewSecretsPager returns a new SecretsPager instance.
 func (codeEngine *CodeEngineV2) NewSecretsPager(options *ListSecretsOptions) (pager *SecretsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
-		err = fmt.Errorf("the 'options.Start' field should not be set")
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
@@ -14269,6 +15645,7 @@ func (pager *SecretsPager) GetNextWithContext(ctx context.Context) (page []Secre
 
 	result, _, err := pager.client.ListSecretsWithContext(ctx, pager.options)
 	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
 	}
 
@@ -14290,6 +15667,7 @@ func (pager *SecretsPager) GetAllWithContext(ctx context.Context) (allItems []Se
 		var nextPage []Secret
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 			return
 		}
 		allItems = append(allItems, nextPage...)
@@ -14299,10 +15677,14 @@ func (pager *SecretsPager) GetAllWithContext(ctx context.Context) (allItems []Se
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetNext() (page []Secret, err error) {
-	return pager.GetNextWithContext(context.Background())
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
-	return pager.GetAllWithContext(context.Background())
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
 }

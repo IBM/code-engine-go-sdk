@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,5 +16,14 @@
 
 package common
 
-// Version of the SDK
-const Version = "4.5.5"
+import (
+	"github.com/IBM/go-sdk-core/v5/core"
+)
+
+func GetComponentInfo() *core.ProblemComponent {
+	component := core.ProblemComponent{
+		Name:    "code-engine-go-sdk",
+		Version: Version,
+	}
+	return &component
+}

@@ -1768,9 +1768,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
-			secretDataModel := &codeenginev2.SecretDataSSHSecretData{
-				SshKey: core.StringPtr("testString"),
-				KnownHosts: core.StringPtr("testString"),
+			secretDataModel := &codeenginev2.SecretDataGenericSecretData{
 			}
 			secretDataModel.SetProperty("foo", core.StringPtr("testString"))
 
@@ -1845,9 +1843,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions)`, func() {
-			secretDataModel := &codeenginev2.SecretDataSSHSecretData{
-				SshKey: core.StringPtr("testString"),
-				KnownHosts: core.StringPtr("testString"),
+			secretDataModel := &codeenginev2.SecretDataGenericSecretData{
 			}
 			secretDataModel.SetProperty("foo", core.StringPtr("testString"))
 
