@@ -2,7 +2,7 @@ language: go
 dist: focal
 
 go:
-- 1.18.x
+- 1.21.x
 
 # Only run on main (still tests PRs)
 branches:

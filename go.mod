@@ -48,5 +48,5 @@ replace (
 	// Replace golang.org/x/net as the latest level, thereby logically excluding vulnerable versions prior to v0.17.0
 	golang.org/x/net => golang.org/x/net v0.27.0
 	// Replace golang.org/x/text as the latest level, thereby logically excluding vulnerable versions prior to v0.3.7
-	golang.org/x/text => golang.org/x/text v0.16.0
+	golang.org/x/text => golang.org/x/text v0.17.0
 )

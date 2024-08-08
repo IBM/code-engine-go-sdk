@@ -2,7 +2,7 @@
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Code Engine Go SDK 4.6.0
+# IBM Cloud Code Engine Go SDK 4.6.1
 Go client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 ## Table of Contents
@@ -18,7 +18,7 @@ Go client library to interact with the [Code Engine API](https://cloud.ibm.com/a
 
 <!-- toc -->
 
-- [IBM Cloud Code Engine Go SDK 4.6.0](#ibm-cloud-code-engine-go-sdk-310)
+- [IBM Cloud Code Engine Go SDK 4.6.1](#ibm-cloud-code-engine-go-sdk-310)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Prerequisites](#prerequisites)
@@ -41,8 +41,8 @@ The IBM Cloud Code Engine Go SDK allows developers to programmatically interact 
 
 Service Name | Package name 
 --- | --- 
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | codeenginev2 
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v1.0.0) | ibmcloudcodeenginev1 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/v2) | codeenginev2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/v1) | ibmcloudcodeenginev1 
 
 ## Prerequisites
 
@@ -50,10 +50,10 @@ Service Name | Package name
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.18 or above.
+* Go version 1.21 or above.
 
 ## Installation
-The current version of this SDK: 4.6.0
+The current version of this SDK: 4.6.1
 
 There are a few different ways to download and install the Code Engine Go SDK project for use by your
 Go application:
@@ -86,7 +86,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/code-engine-go-sdk"
-  version = "4.6.0"
+  version = "4.6.1"
 
 ```
 
