@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-08-04`.
+	// and `2024-09-27`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-08-04`.
+	// and `2024-09-27`.
 	Version *string 
 }
 
@@ -5626,14 +5626,82 @@ func UnmarshalAppPatch(m map[string]json.RawMessage, result interface{}) (err er
 
 // AsPatch returns a generic map representation of the AppPatch
 func (appPatch *AppPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(appPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(appPatch.ImagePort) {
+		_patch["image_port"] = appPatch.ImagePort
 	}
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	if !core.IsNil(appPatch.ImageReference) {
+		_patch["image_reference"] = appPatch.ImageReference
 	}
+	if !core.IsNil(appPatch.ImageSecret) {
+		_patch["image_secret"] = appPatch.ImageSecret
+	}
+	if !core.IsNil(appPatch.ManagedDomainMappings) {
+		_patch["managed_domain_mappings"] = appPatch.ManagedDomainMappings
+	}
+	if !core.IsNil(appPatch.ProbeLiveness) {
+		_patch["probe_liveness"] = appPatch.ProbeLiveness.asPatch()
+	}
+	if !core.IsNil(appPatch.ProbeReadiness) {
+		_patch["probe_readiness"] = appPatch.ProbeReadiness.asPatch()
+	}
+	if !core.IsNil(appPatch.RunArguments) {
+		_patch["run_arguments"] = appPatch.RunArguments
+	}
+	if !core.IsNil(appPatch.RunAsUser) {
+		_patch["run_as_user"] = appPatch.RunAsUser
+	}
+	if !core.IsNil(appPatch.RunCommands) {
+		_patch["run_commands"] = appPatch.RunCommands
+	}
+	if !core.IsNil(appPatch.RunEnvVariables) {
+		var runEnvVariablesPatches []map[string]interface{}
+		for _, runEnvVariables := range appPatch.RunEnvVariables {
+			runEnvVariablesPatches = append(runEnvVariablesPatches, runEnvVariables.asPatch())
+		}
+		_patch["run_env_variables"] = runEnvVariablesPatches
+	}
+	if !core.IsNil(appPatch.RunServiceAccount) {
+		_patch["run_service_account"] = appPatch.RunServiceAccount
+	}
+	if !core.IsNil(appPatch.RunVolumeMounts) {
+		var runVolumeMountsPatches []map[string]interface{}
+		for _, runVolumeMounts := range appPatch.RunVolumeMounts {
+			runVolumeMountsPatches = append(runVolumeMountsPatches, runVolumeMounts.asPatch())
+		}
+		_patch["run_volume_mounts"] = runVolumeMountsPatches
+	}
+	if !core.IsNil(appPatch.ScaleConcurrency) {
+		_patch["scale_concurrency"] = appPatch.ScaleConcurrency
+	}
+	if !core.IsNil(appPatch.ScaleConcurrencyTarget) {
+		_patch["scale_concurrency_target"] = appPatch.ScaleConcurrencyTarget
+	}
+	if !core.IsNil(appPatch.ScaleCpuLimit) {
+		_patch["scale_cpu_limit"] = appPatch.ScaleCpuLimit
+	}
+	if !core.IsNil(appPatch.ScaleDownDelay) {
+		_patch["scale_down_delay"] = appPatch.ScaleDownDelay
+	}
+	if !core.IsNil(appPatch.ScaleEphemeralStorageLimit) {
+		_patch["scale_ephemeral_storage_limit"] = appPatch.ScaleEphemeralStorageLimit
+	}
+	if !core.IsNil(appPatch.ScaleInitialInstances) {
+		_patch["scale_initial_instances"] = appPatch.ScaleInitialInstances
+	}
+	if !core.IsNil(appPatch.ScaleMaxInstances) {
+		_patch["scale_max_instances"] = appPatch.ScaleMaxInstances
+	}
+	if !core.IsNil(appPatch.ScaleMemoryLimit) {
+		_patch["scale_memory_limit"] = appPatch.ScaleMemoryLimit
+	}
+	if !core.IsNil(appPatch.ScaleMinInstances) {
+		_patch["scale_min_instances"] = appPatch.ScaleMinInstances
+	}
+	if !core.IsNil(appPatch.ScaleRequestTimeout) {
+		_patch["scale_request_timeout"] = appPatch.ScaleRequestTimeout
+	}
+
 	return
 }
 
@@ -6607,14 +6675,41 @@ func UnmarshalBuildPatch(m map[string]json.RawMessage, result interface{}) (err 
 
 // AsPatch returns a generic map representation of the BuildPatch
 func (buildPatch *BuildPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(buildPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(buildPatch.OutputImage) {
+		_patch["output_image"] = buildPatch.OutputImage
 	}
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	if !core.IsNil(buildPatch.OutputSecret) {
+		_patch["output_secret"] = buildPatch.OutputSecret
 	}
+	if !core.IsNil(buildPatch.SourceContextDir) {
+		_patch["source_context_dir"] = buildPatch.SourceContextDir
+	}
+	if !core.IsNil(buildPatch.SourceRevision) {
+		_patch["source_revision"] = buildPatch.SourceRevision
+	}
+	if !core.IsNil(buildPatch.SourceSecret) {
+		_patch["source_secret"] = buildPatch.SourceSecret
+	}
+	if !core.IsNil(buildPatch.SourceType) {
+		_patch["source_type"] = buildPatch.SourceType
+	}
+	if !core.IsNil(buildPatch.SourceURL) {
+		_patch["source_url"] = buildPatch.SourceURL
+	}
+	if !core.IsNil(buildPatch.StrategySize) {
+		_patch["strategy_size"] = buildPatch.StrategySize
+	}
+	if !core.IsNil(buildPatch.StrategySpecFile) {
+		_patch["strategy_spec_file"] = buildPatch.StrategySpecFile
+	}
+	if !core.IsNil(buildPatch.StrategyType) {
+		_patch["strategy_type"] = buildPatch.StrategyType
+	}
+	if !core.IsNil(buildPatch.Timeout) {
+		_patch["timeout"] = buildPatch.Timeout
+	}
+
 	return
 }
 
@@ -6909,11 +7004,23 @@ type BuildRunStatus struct {
 	// Time the build run completed.
 	CompletionTime *string `json:"completion_time,omitempty"`
 
+	// The default branch name of the git source.
+	GitBranchName *string `json:"git_branch_name,omitempty"`
+
+	// The commit author of a git source.
+	GitCommitAuthor *string `json:"git_commit_author,omitempty"`
+
+	// The commit sha of the git source.
+	GitCommitSha *string `json:"git_commit_sha,omitempty"`
+
 	// Describes the time the build run completed.
 	OutputDigest *string `json:"output_digest,omitempty"`
 
 	// Optional information to provide more context in case of a 'failed' or 'warning' status.
 	Reason *string `json:"reason,omitempty"`
+
+	// The timestamp of the source.
+	SourceTimestamp *string `json:"source_timestamp,omitempty"`
 
 	// Time the build run started.
 	StartTime *string `json:"start_time,omitempty"`
@@ -6949,6 +7056,21 @@ func UnmarshalBuildRunStatus(m map[string]json.RawMessage, result interface{}) (
 		err = core.SDKErrorf(err, "", "completion_time-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "git_branch_name", &obj.GitBranchName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "git_branch_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "git_commit_author", &obj.GitCommitAuthor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "git_commit_author-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "git_commit_sha", &obj.GitCommitSha)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "git_commit_sha-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "output_digest", &obj.OutputDigest)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "output_digest-error", common.GetComponentInfo())
@@ -6957,6 +7079,11 @@ func UnmarshalBuildRunStatus(m map[string]json.RawMessage, result interface{}) (
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_timestamp", &obj.SourceTimestamp)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "source_timestamp-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
@@ -7038,6 +7165,19 @@ func UnmarshalComponentRef(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the ComponentRef
+func (componentRef *ComponentRef) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(componentRef.Name) {
+		_patch["name"] = componentRef.Name
+	}
+	if !core.IsNil(componentRef.ResourceType) {
+		_patch["resource_type"] = componentRef.ResourceType
+	}
+
 	return
 }
 
@@ -7376,7 +7516,7 @@ type CreateAppOptions struct {
 	// Optional amount of time in seconds that is allowed for a running app to respond to a request.
 	ScaleRequestTimeout *int64 `json:"scale_request_timeout,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7574,7 +7714,7 @@ type CreateBindingOptions struct {
 	// The service access secret that is bound to a component.
 	SecretName *string `json:"secret_name" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7670,7 +7810,7 @@ type CreateBuildOptions struct {
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7840,7 +7980,7 @@ type CreateBuildRunOptions struct {
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7980,7 +8120,7 @@ type CreateConfigMapOptions struct {
 	// field can consists of any character and must not be exceed a max length of 1048576 characters.
 	Data map[string]string `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8030,7 +8170,7 @@ type CreateDomainMappingOptions struct {
 	// The name of the TLS secret that includes the certificate and private key of this domain mapping.
 	TlsSecret *string `json:"tls_secret" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8128,7 +8268,7 @@ type CreateFunctionOptions struct {
 	// see [Units of measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
 	ScaleMemoryLimit *string `json:"scale_memory_limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8317,7 +8457,7 @@ type CreateJobOptions struct {
 	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8540,7 +8680,7 @@ type CreateJobRunOptions struct {
 	// specified if `run_mode` is `task`.
 	ScaleRetryLimit *int64 `json:"scale_retry_limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8705,7 +8845,7 @@ type CreateProjectOptions struct {
 	// [Global Tagging API docs](https://cloud.ibm.com/apidocs/tagging).
 	Tags []string `json:"tags,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8762,7 +8902,7 @@ type CreateSecretOptions struct {
 	// Properties for the IBM Cloud Operator Secrets.
 	ServiceOperator *OperatorSecretPrototypeProps `json:"service_operator,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8838,7 +8978,7 @@ type DeleteAppOptions struct {
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8879,7 +9019,7 @@ type DeleteAppRevisionOptions struct {
 	// The name of your application revision.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8924,7 +9064,7 @@ type DeleteBindingOptions struct {
 	// The id of your binding.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8962,7 +9102,7 @@ type DeleteBuildOptions struct {
 	// The name of your build.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9000,7 +9140,7 @@ type DeleteBuildRunOptions struct {
 	// The name of your build run.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9038,7 +9178,7 @@ type DeleteConfigMapOptions struct {
 	// The name of your configmap.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9076,7 +9216,7 @@ type DeleteDomainMappingOptions struct {
 	// The name of your domain mapping.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9114,7 +9254,7 @@ type DeleteFunctionOptions struct {
 	// The name of your function.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9152,7 +9292,7 @@ type DeleteJobOptions struct {
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9190,7 +9330,7 @@ type DeleteJobRunOptions struct {
 	// The name of your job run.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9225,7 +9365,7 @@ type DeleteProjectOptions struct {
 	// The ID of the project.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9256,7 +9396,7 @@ type DeleteSecretOptions struct {
 	// The name of your secret.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9521,14 +9661,14 @@ func UnmarshalDomainMappingPatch(m map[string]json.RawMessage, result interface{
 
 // AsPatch returns a generic map representation of the DomainMappingPatch
 func (domainMappingPatch *DomainMappingPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(domainMappingPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(domainMappingPatch.Component) {
+		_patch["component"] = domainMappingPatch.Component.asPatch()
 	}
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	if !core.IsNil(domainMappingPatch.TlsSecret) {
+		_patch["tls_secret"] = domainMappingPatch.TlsSecret
 	}
+
 	return
 }
 
@@ -9694,6 +9834,31 @@ func UnmarshalEnvVarPrototype(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the EnvVarPrototype
+func (envVarPrototype *EnvVarPrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(envVarPrototype.Key) {
+		_patch["key"] = envVarPrototype.Key
+	}
+	if !core.IsNil(envVarPrototype.Name) {
+		_patch["name"] = envVarPrototype.Name
+	}
+	if !core.IsNil(envVarPrototype.Prefix) {
+		_patch["prefix"] = envVarPrototype.Prefix
+	}
+	if !core.IsNil(envVarPrototype.Reference) {
+		_patch["reference"] = envVarPrototype.Reference
+	}
+	if !core.IsNil(envVarPrototype.Type) {
+		_patch["type"] = envVarPrototype.Type
+	}
+	if !core.IsNil(envVarPrototype.Value) {
+		_patch["value"] = envVarPrototype.Value
+	}
+
 	return
 }
 
@@ -10123,14 +10288,48 @@ func UnmarshalFunctionPatch(m map[string]json.RawMessage, result interface{}) (e
 
 // AsPatch returns a generic map representation of the FunctionPatch
 func (functionPatch *FunctionPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(functionPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(functionPatch.CodeBinary) {
+		_patch["code_binary"] = functionPatch.CodeBinary
 	}
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	if !core.IsNil(functionPatch.CodeMain) {
+		_patch["code_main"] = functionPatch.CodeMain
 	}
+	if !core.IsNil(functionPatch.CodeReference) {
+		_patch["code_reference"] = functionPatch.CodeReference
+	}
+	if !core.IsNil(functionPatch.CodeSecret) {
+		_patch["code_secret"] = functionPatch.CodeSecret
+	}
+	if !core.IsNil(functionPatch.ManagedDomainMappings) {
+		_patch["managed_domain_mappings"] = functionPatch.ManagedDomainMappings
+	}
+	if !core.IsNil(functionPatch.RunEnvVariables) {
+		var runEnvVariablesPatches []map[string]interface{}
+		for _, runEnvVariables := range functionPatch.RunEnvVariables {
+			runEnvVariablesPatches = append(runEnvVariablesPatches, runEnvVariables.asPatch())
+		}
+		_patch["run_env_variables"] = runEnvVariablesPatches
+	}
+	if !core.IsNil(functionPatch.Runtime) {
+		_patch["runtime"] = functionPatch.Runtime
+	}
+	if !core.IsNil(functionPatch.ScaleConcurrency) {
+		_patch["scale_concurrency"] = functionPatch.ScaleConcurrency
+	}
+	if !core.IsNil(functionPatch.ScaleCpuLimit) {
+		_patch["scale_cpu_limit"] = functionPatch.ScaleCpuLimit
+	}
+	if !core.IsNil(functionPatch.ScaleDownDelay) {
+		_patch["scale_down_delay"] = functionPatch.ScaleDownDelay
+	}
+	if !core.IsNil(functionPatch.ScaleMaxExecutionTime) {
+		_patch["scale_max_execution_time"] = functionPatch.ScaleMaxExecutionTime
+	}
+	if !core.IsNil(functionPatch.ScaleMemoryLimit) {
+		_patch["scale_memory_limit"] = functionPatch.ScaleMemoryLimit
+	}
+
 	return
 }
 
@@ -10249,7 +10448,7 @@ type GetAppOptions struct {
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10290,7 +10489,7 @@ type GetAppRevisionOptions struct {
 	// The name of your application revision.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10335,7 +10534,7 @@ type GetBindingOptions struct {
 	// The id of your binding.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10373,7 +10572,7 @@ type GetBuildOptions struct {
 	// The name of your build.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10411,7 +10610,7 @@ type GetBuildRunOptions struct {
 	// The name of your build run.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10449,7 +10648,7 @@ type GetConfigMapOptions struct {
 	// The name of your configmap.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10487,7 +10686,7 @@ type GetDomainMappingOptions struct {
 	// The name of your domain mapping.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10525,7 +10724,7 @@ type GetFunctionOptions struct {
 	// The name of your function.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10563,7 +10762,7 @@ type GetJobOptions struct {
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10601,7 +10800,7 @@ type GetJobRunOptions struct {
 	// The name of your job run.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10636,7 +10835,7 @@ type GetProjectEgressIpsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10664,7 +10863,7 @@ type GetProjectOptions struct {
 	// The ID of the project.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10692,7 +10891,7 @@ type GetProjectStatusDetailsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10723,7 +10922,7 @@ type GetSecretOptions struct {
 	// The name of your secret.
 	Name *string `json:"name" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11247,14 +11446,61 @@ func UnmarshalJobPatch(m map[string]json.RawMessage, result interface{}) (err er
 
 // AsPatch returns a generic map representation of the JobPatch
 func (jobPatch *JobPatch) AsPatch() (_patch map[string]interface{}, err error) {
-	var jsonData []byte
-	jsonData, err = json.Marshal(jobPatch)
-	if err == nil {
-		err = json.Unmarshal(jsonData, &_patch)
+	_patch = map[string]interface{}{}
+	if !core.IsNil(jobPatch.ImageReference) {
+		_patch["image_reference"] = jobPatch.ImageReference
 	}
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unmarshal-patch-data-error", common.GetComponentInfo())
+	if !core.IsNil(jobPatch.ImageSecret) {
+		_patch["image_secret"] = jobPatch.ImageSecret
 	}
+	if !core.IsNil(jobPatch.RunArguments) {
+		_patch["run_arguments"] = jobPatch.RunArguments
+	}
+	if !core.IsNil(jobPatch.RunAsUser) {
+		_patch["run_as_user"] = jobPatch.RunAsUser
+	}
+	if !core.IsNil(jobPatch.RunCommands) {
+		_patch["run_commands"] = jobPatch.RunCommands
+	}
+	if !core.IsNil(jobPatch.RunEnvVariables) {
+		var runEnvVariablesPatches []map[string]interface{}
+		for _, runEnvVariables := range jobPatch.RunEnvVariables {
+			runEnvVariablesPatches = append(runEnvVariablesPatches, runEnvVariables.asPatch())
+		}
+		_patch["run_env_variables"] = runEnvVariablesPatches
+	}
+	if !core.IsNil(jobPatch.RunMode) {
+		_patch["run_mode"] = jobPatch.RunMode
+	}
+	if !core.IsNil(jobPatch.RunServiceAccount) {
+		_patch["run_service_account"] = jobPatch.RunServiceAccount
+	}
+	if !core.IsNil(jobPatch.RunVolumeMounts) {
+		var runVolumeMountsPatches []map[string]interface{}
+		for _, runVolumeMounts := range jobPatch.RunVolumeMounts {
+			runVolumeMountsPatches = append(runVolumeMountsPatches, runVolumeMounts.asPatch())
+		}
+		_patch["run_volume_mounts"] = runVolumeMountsPatches
+	}
+	if !core.IsNil(jobPatch.ScaleArraySpec) {
+		_patch["scale_array_spec"] = jobPatch.ScaleArraySpec
+	}
+	if !core.IsNil(jobPatch.ScaleCpuLimit) {
+		_patch["scale_cpu_limit"] = jobPatch.ScaleCpuLimit
+	}
+	if !core.IsNil(jobPatch.ScaleEphemeralStorageLimit) {
+		_patch["scale_ephemeral_storage_limit"] = jobPatch.ScaleEphemeralStorageLimit
+	}
+	if !core.IsNil(jobPatch.ScaleMaxExecutionTime) {
+		_patch["scale_max_execution_time"] = jobPatch.ScaleMaxExecutionTime
+	}
+	if !core.IsNil(jobPatch.ScaleMemoryLimit) {
+		_patch["scale_memory_limit"] = jobPatch.ScaleMemoryLimit
+	}
+	if !core.IsNil(jobPatch.ScaleRetryLimit) {
+		_patch["scale_retry_limit"] = jobPatch.ScaleRetryLimit
+	}
+
 	return
 }
 
@@ -11717,7 +11963,7 @@ type ListAppInstancesOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11775,7 +12021,7 @@ type ListAppRevisionsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11830,7 +12076,7 @@ type ListAppsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11878,7 +12124,7 @@ type ListBindingsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11929,7 +12175,7 @@ type ListBuildRunsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11983,7 +12229,7 @@ type ListBuildsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12031,7 +12277,7 @@ type ListConfigMapsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12079,7 +12325,7 @@ type ListDomainMappingsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12135,7 +12381,7 @@ func UnmarshalListFirstMetadata(m map[string]json.RawMessage, result interface{}
 // ListFunctionRuntimesOptions : The ListFunctionRuntimes options.
 type ListFunctionRuntimesOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12163,7 +12409,7 @@ type ListFunctionsOptions struct {
 	// operation response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12214,7 +12460,7 @@ type ListJobRunsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12268,7 +12514,7 @@ type ListJobsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12339,7 +12585,7 @@ type ListProjectsOptions struct {
 	// obtained from the 'start' query parameter in the `next` object of the operation response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12379,7 +12625,7 @@ type ListSecretsOptions struct {
 	// response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12630,6 +12876,34 @@ func UnmarshalProbePrototype(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// asPatch returns a generic map representation of the ProbePrototype
+func (probePrototype *ProbePrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(probePrototype.FailureThreshold) {
+		_patch["failure_threshold"] = probePrototype.FailureThreshold
+	}
+	if !core.IsNil(probePrototype.InitialDelay) {
+		_patch["initial_delay"] = probePrototype.InitialDelay
+	}
+	if !core.IsNil(probePrototype.Interval) {
+		_patch["interval"] = probePrototype.Interval
+	}
+	if !core.IsNil(probePrototype.Path) {
+		_patch["path"] = probePrototype.Path
+	}
+	if !core.IsNil(probePrototype.Port) {
+		_patch["port"] = probePrototype.Port
+	}
+	if !core.IsNil(probePrototype.Timeout) {
+		_patch["timeout"] = probePrototype.Timeout
+	}
+	if !core.IsNil(probePrototype.Type) {
+		_patch["type"] = probePrototype.Type
+	}
+
+	return
+}
+
 // Project : Describes the model of a project.
 type Project struct {
 	// An alphanumeric value identifying the account ID.
@@ -12829,6 +13103,9 @@ type ProjectStatusDetails struct {
 
 	// Defines whether a project is enabled for management and consumption.
 	Project *string `json:"project" validate:"required"`
+
+	// Return true when project is not VPE enabled.
+	VpeNotEnabled *bool `json:"vpe_not_enabled,omitempty"`
 }
 
 // Constants associated with the ProjectStatusDetails.Domain property.
@@ -12858,6 +13135,11 @@ func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interfac
 		err = core.SDKErrorf(err, "", "project-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "vpe_not_enabled", &obj.VpeNotEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "vpe_not_enabled-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -12880,7 +13162,7 @@ type ReplaceConfigMapOptions struct {
 	// field can consists of any character and must not be exceed a max length of 1048576 characters.
 	Data map[string]string `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12944,7 +13226,7 @@ type ReplaceSecretOptions struct {
 	// field can consists of any character and must not exceed a max length of 1048576 characters.
 	Data SecretDataIntf `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13220,6 +13502,7 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 // SecretData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 // consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
 // field can consists of any character and must not exceed a max length of 1048576 characters.
+// This type supports additional properties of type *string.
 // Models which "extend" this model:
 // - SecretDataGenericSecretData
 // - SecretDataBasicAuthSecretData
@@ -13251,7 +13534,7 @@ type SecretData struct {
 	// The TLS key used in a TLS secret.
 	TlsKey *string `json:"tls_key,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 func (*SecretData) isaSecretData() bool {
@@ -13266,7 +13549,7 @@ type SecretDataIntf interface {
 	GetProperties() map[string]*string
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretData.
 func (o *SecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -13274,7 +13557,7 @@ func (o *SecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretData.
 func (o *SecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -13282,12 +13565,12 @@ func (o *SecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretData.
 func (o *SecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretData.
 func (o *SecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
@@ -13646,7 +13929,7 @@ type UpdateAppOptions struct {
 	// App patch.
 	App map[string]interface{} `json:"app" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13706,7 +13989,7 @@ type UpdateBuildOptions struct {
 	// Build patch.
 	Build map[string]interface{} `json:"build" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13766,7 +14049,7 @@ type UpdateDomainMappingOptions struct {
 	// DomainMapping patch.
 	DomainMapping map[string]interface{} `json:"domain_mapping" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13826,7 +14109,7 @@ type UpdateFunctionOptions struct {
 	// Function patch.
 	Function map[string]interface{} `json:"function" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13886,7 +14169,7 @@ type UpdateJobOptions struct {
 	// Job patch prototype.
 	Job map[string]interface{} `json:"job" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14043,7 +14326,27 @@ func UnmarshalVolumeMountPrototype(m map[string]json.RawMessage, result interfac
 	return
 }
 
+// asPatch returns a generic map representation of the VolumeMountPrototype
+func (volumeMountPrototype *VolumeMountPrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(volumeMountPrototype.MountPath) {
+		_patch["mount_path"] = volumeMountPrototype.MountPath
+	}
+	if !core.IsNil(volumeMountPrototype.Name) {
+		_patch["name"] = volumeMountPrototype.Name
+	}
+	if !core.IsNil(volumeMountPrototype.Reference) {
+		_patch["reference"] = volumeMountPrototype.Reference
+	}
+	if !core.IsNil(volumeMountPrototype.Type) {
+		_patch["type"] = volumeMountPrototype.Type
+	}
+
+	return
+}
+
 // SecretDataBasicAuthSecretData : SecretDataBasicAuthSecretData struct
+// This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataBasicAuthSecretData struct {
 	// Basic auth username.
@@ -14052,7 +14355,7 @@ type SecretDataBasicAuthSecretData struct {
 	// Basic auth password.
 	Password *string `json:"password" validate:"required"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
@@ -14073,7 +14376,7 @@ func (*SecretDataBasicAuthSecretData) isaSecretData() bool {
 	return true
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretDataBasicAuthSecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataBasicAuthSecretData.
 func (o *SecretDataBasicAuthSecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -14081,7 +14384,7 @@ func (o *SecretDataBasicAuthSecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataBasicAuthSecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataBasicAuthSecretData.
 func (o *SecretDataBasicAuthSecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -14089,12 +14392,12 @@ func (o *SecretDataBasicAuthSecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataBasicAuthSecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataBasicAuthSecretData.
 func (o *SecretDataBasicAuthSecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataBasicAuthSecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataBasicAuthSecretData.
 func (o *SecretDataBasicAuthSecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
@@ -14151,10 +14454,11 @@ func UnmarshalSecretDataBasicAuthSecretData(m map[string]json.RawMessage, result
 // SecretDataGenericSecretData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
 // consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value
 // field can consists of any character and must not be exceed a max length of 1048576 characters.
+// This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataGenericSecretData struct {
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
@@ -14162,7 +14466,7 @@ func (*SecretDataGenericSecretData) isaSecretData() bool {
 	return true
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretDataGenericSecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataGenericSecretData.
 func (o *SecretDataGenericSecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -14170,7 +14474,7 @@ func (o *SecretDataGenericSecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataGenericSecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataGenericSecretData.
 func (o *SecretDataGenericSecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -14178,12 +14482,12 @@ func (o *SecretDataGenericSecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataGenericSecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataGenericSecretData.
 func (o *SecretDataGenericSecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataGenericSecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataGenericSecretData.
 func (o *SecretDataGenericSecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
@@ -14220,6 +14524,7 @@ func UnmarshalSecretDataGenericSecretData(m map[string]json.RawMessage, result i
 }
 
 // SecretDataRegistrySecretData : SecretDataRegistrySecretData struct
+// This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataRegistrySecretData struct {
 	// Registry username.
@@ -14234,7 +14539,7 @@ type SecretDataRegistrySecretData struct {
 	// Registry email address.
 	Email *string `json:"email,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
@@ -14256,7 +14561,7 @@ func (*SecretDataRegistrySecretData) isaSecretData() bool {
 	return true
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretDataRegistrySecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataRegistrySecretData.
 func (o *SecretDataRegistrySecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -14264,7 +14569,7 @@ func (o *SecretDataRegistrySecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataRegistrySecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataRegistrySecretData.
 func (o *SecretDataRegistrySecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -14272,12 +14577,12 @@ func (o *SecretDataRegistrySecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataRegistrySecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataRegistrySecretData.
 func (o *SecretDataRegistrySecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataRegistrySecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataRegistrySecretData.
 func (o *SecretDataRegistrySecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
@@ -14350,6 +14655,7 @@ func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result 
 }
 
 // SecretDataSSHSecretData : Secret Data field used by SSH secrets.
+// This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataSSHSecretData struct {
 	// SSH key.
@@ -14358,7 +14664,7 @@ type SecretDataSSHSecretData struct {
 	// Known hosts.
 	KnownHosts *string `json:"known_hosts,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
@@ -14378,7 +14684,7 @@ func (*SecretDataSSHSecretData) isaSecretData() bool {
 	return true
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretDataSSHSecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataSSHSecretData.
 func (o *SecretDataSSHSecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -14386,7 +14692,7 @@ func (o *SecretDataSSHSecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataSSHSecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataSSHSecretData.
 func (o *SecretDataSSHSecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -14394,12 +14700,12 @@ func (o *SecretDataSSHSecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataSSHSecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataSSHSecretData.
 func (o *SecretDataSSHSecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataSSHSecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataSSHSecretData.
 func (o *SecretDataSSHSecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
@@ -14454,6 +14760,7 @@ func UnmarshalSecretDataSSHSecretData(m map[string]json.RawMessage, result inter
 }
 
 // SecretDataTLSSecretData : SecretDataTLSSecretData struct
+// This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataTLSSecretData struct {
 	// The TLS certificate used in a TLS secret.
@@ -14462,7 +14769,7 @@ type SecretDataTLSSecretData struct {
 	// The TLS key used in a TLS secret.
 	TlsKey *string `json:"tls_key" validate:"required"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
@@ -14483,7 +14790,7 @@ func (*SecretDataTLSSecretData) isaSecretData() bool {
 	return true
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of SecretDataTLSSecretData
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataTLSSecretData.
 func (o *SecretDataTLSSecretData) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]*string)
@@ -14491,7 +14798,7 @@ func (o *SecretDataTLSSecretData) SetProperty(key string, value *string) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataTLSSecretData
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataTLSSecretData.
 func (o *SecretDataTLSSecretData) SetProperties(m map[string]*string) {
 	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
@@ -14499,12 +14806,12 @@ func (o *SecretDataTLSSecretData) SetProperties(m map[string]*string) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataTLSSecretData
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataTLSSecretData.
 func (o *SecretDataTLSSecretData) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataTLSSecretData
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataTLSSecretData.
 func (o *SecretDataTLSSecretData) GetProperties() map[string]*string {
 	return o.additionalProperties
 }

@@ -578,7 +578,7 @@ func main() {
 		*createdProject.ID,
 		"data:text/plain;base64,YXN5bmMgZnVuY3Rpb24gbWFpbihwYXJhbXMpIHsKICByZXR1cm4gewogICAgICBzdGF0dXNDb2RlOiAyMDAsCiAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICBib2R5OiBwYXJhbXMgfTsKfQptb2R1bGUuZXhwb3J0cy5tYWluID0gbWFpbjs=",
 		"my-function",
-		"nodejs-18",
+		"nodejs-20",
 	)
 
 	createdFunction, _, err := codeEngineService.CreateFunction(createFunctionOptions)
