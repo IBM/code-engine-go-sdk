@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-09-27`.
+	// and `2024-11-18`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-09-27`.
+	// and `2024-11-18`.
 	Version *string 
 }
 
@@ -457,6 +457,384 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 		core.EnrichHTTPProblem(err, "delete_project", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+
+	return
+}
+
+// ListAllowedOutboundDestination : List allowed outbound destinations
+// List all allowed outbound destinations in a project.
+func (codeEngine *CodeEngineV2) ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListAllowedOutboundDestinationWithContext(context.Background(), listAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListAllowedOutboundDestinationWithContext is an alternate form of the ListAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinationWithContext(ctx context.Context, listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAllowedOutboundDestinationOptions, "listAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listAllowedOutboundDestinationOptions, "listAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listAllowedOutboundDestinationOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range listAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listAllowedOutboundDestinationOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAllowedOutboundDestinationOptions.Limit))
+	}
+	if listAllowedOutboundDestinationOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAllowedOutboundDestinationOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAllowedOutboundDestinationList)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateAllowedOutboundDestination : Create an allowed outbound destination
+// Create an allowed outbound destination.
+func (codeEngine *CodeEngineV2) CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.CreateAllowedOutboundDestinationWithContext(context.Background(), createAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateAllowedOutboundDestinationWithContext is an alternate form of the CreateAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateAllowedOutboundDestinationWithContext(ctx context.Context, createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createAllowedOutboundDestinationOptions, "createAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createAllowedOutboundDestinationOptions, "createAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createAllowedOutboundDestinationOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range createAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	_, err = builder.SetBodyContentJSON(createAllowedOutboundDestinationOptions.AllowedOutboundDestination)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAllowedOutboundDestination)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetAllowedOutboundDestination : Get an allowed outbound destination
+// Display the details of an allowed outbound destination.
+func (codeEngine *CodeEngineV2) GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.GetAllowedOutboundDestinationWithContext(context.Background(), getAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAllowedOutboundDestinationWithContext is an alternate form of the GetAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetAllowedOutboundDestinationWithContext(ctx context.Context, getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAllowedOutboundDestinationOptions, "getAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getAllowedOutboundDestinationOptions, "getAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getAllowedOutboundDestinationOptions.ProjectID,
+		"name": *getAllowedOutboundDestinationOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAllowedOutboundDestination)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteAllowedOutboundDestination : Delete an allowed outbound destination
+// Delete an allowed outbound destination.
+func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteAllowedOutboundDestinationWithContext(context.Background(), deleteAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteAllowedOutboundDestinationWithContext is an alternate form of the DeleteAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestinationWithContext(ctx context.Context, deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteAllowedOutboundDestinationOptions.ProjectID,
+		"name": *deleteAllowedOutboundDestinationOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// UpdateAllowedOutboundDestination : Update an allowed outbound destination
+// Update an allowed outbound destination.
+func (codeEngine *CodeEngineV2) UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.UpdateAllowedOutboundDestinationWithContext(context.Background(), updateAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateAllowedOutboundDestinationWithContext is an alternate form of the UpdateAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateAllowedOutboundDestinationWithContext(ctx context.Context, updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAllowedOutboundDestinationOptions, "updateAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateAllowedOutboundDestinationOptions, "updateAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateAllowedOutboundDestinationOptions.ProjectID,
+		"name": *updateAllowedOutboundDestinationOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range updateAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateAllowedOutboundDestinationOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateAllowedOutboundDestinationOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateAllowedOutboundDestinationOptions.AllowedOutboundDestination)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAllowedOutboundDestination)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
 	}
 
 	return
@@ -4763,6 +5141,216 @@ func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "2.0.0")
 }
 
+// AllowedOutboundDestination : AllowedOutboundDestination Describes the model of an allowed outbound destination.
+// Models which "extend" this model:
+// - AllowedOutboundDestinationCidrBlockData
+type AllowedOutboundDestination struct {
+	// The version of the allowed outbound destination, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type" validate:"required"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block,omitempty"`
+
+	// The name of the CIDR block.
+	Name *string `json:"name,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestination.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestination_Type_CidrBlock = "cidr_block"
+)
+func (*AllowedOutboundDestination) isaAllowedOutboundDestination() bool {
+	return true
+}
+
+type AllowedOutboundDestinationIntf interface {
+	isaAllowedOutboundDestination() bool
+}
+
+// UnmarshalAllowedOutboundDestination unmarshals an instance of AllowedOutboundDestination from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestination(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestination)
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundDestinationList : Contains a list of allowed outbound destinations and pagination information.
+type AllowedOutboundDestinationList struct {
+	// List of all allowed outbound destinations.
+	AllowedOutboundDestinations []AllowedOutboundDestinationIntf `json:"allowed_outbound_destinations" validate:"required"`
+
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+}
+
+// UnmarshalAllowedOutboundDestinationList unmarshals an instance of AllowedOutboundDestinationList from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationList)
+	err = core.UnmarshalModel(m, "allowed_outbound_destinations", &obj.AllowedOutboundDestinations, UnmarshalAllowedOutboundDestination)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "allowed_outbound_destinations-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *AllowedOutboundDestinationList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// AllowedOutboundDestinationPatch : AllowedOutboundDestinationPatch is the request model for allowed outbound destination update operations.
+// Models which "extend" this model:
+// - AllowedOutboundDestinationPatchCidrBlockDataPatch
+type AllowedOutboundDestinationPatch struct {
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type,omitempty"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPatch.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestinationPatch_Type_CidrBlock = "cidr_block"
+)
+func (*AllowedOutboundDestinationPatch) isaAllowedOutboundDestinationPatch() bool {
+	return true
+}
+
+type AllowedOutboundDestinationPatchIntf interface {
+	isaAllowedOutboundDestinationPatch() bool
+}
+
+// UnmarshalAllowedOutboundDestinationPatch unmarshals an instance of AllowedOutboundDestinationPatch from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPatch)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the AllowedOutboundDestinationPatch
+func (allowedOutboundDestinationPatch *AllowedOutboundDestinationPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(allowedOutboundDestinationPatch.Type) {
+		_patch["type"] = allowedOutboundDestinationPatch.Type
+	}
+	if !core.IsNil(allowedOutboundDestinationPatch.CidrBlock) {
+		_patch["cidr_block"] = allowedOutboundDestinationPatch.CidrBlock
+	}
+
+	return
+}
+
+// AllowedOutboundDestinationPrototype : AllowedOutboundDestinationPrototype is the request model for allowed outbound destination create operations.
+// Models which "extend" this model:
+// - AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+type AllowedOutboundDestinationPrototype struct {
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type" validate:"required"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block,omitempty"`
+
+	// The name of the CIDR block.
+	Name *string `json:"name,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPrototype.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestinationPrototype_Type_CidrBlock = "cidr_block"
+)
+func (*AllowedOutboundDestinationPrototype) isaAllowedOutboundDestinationPrototype() bool {
+	return true
+}
+
+type AllowedOutboundDestinationPrototypeIntf interface {
+	isaAllowedOutboundDestinationPrototype() bool
+}
+
+// UnmarshalAllowedOutboundDestinationPrototype unmarshals an instance of AllowedOutboundDestinationPrototype from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPrototype)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // App : App is the response model for app resources.
 type App struct {
 	// Reference to a build that is associated with the application.
@@ -7418,6 +8006,44 @@ func UnmarshalContainerStatusDetails(m map[string]json.RawMessage, result interf
 	return
 }
 
+// CreateAllowedOutboundDestinationOptions : The CreateAllowedOutboundDestination options.
+type CreateAllowedOutboundDestinationOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// AllowedOutboundDestination prototype.
+	AllowedOutboundDestination AllowedOutboundDestinationPrototypeIntf `json:"allowed_outbound_destination" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewCreateAllowedOutboundDestinationOptions : Instantiate CreateAllowedOutboundDestinationOptions
+func (*CodeEngineV2) NewCreateAllowedOutboundDestinationOptions(projectID string, allowedOutboundDestination AllowedOutboundDestinationPrototypeIntf) *CreateAllowedOutboundDestinationOptions {
+	return &CreateAllowedOutboundDestinationOptions{
+		ProjectID: core.StringPtr(projectID),
+		AllowedOutboundDestination: allowedOutboundDestination,
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreateAllowedOutboundDestinationOptions) SetProjectID(projectID string) *CreateAllowedOutboundDestinationOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetAllowedOutboundDestination : Allow user to set AllowedOutboundDestination
+func (_options *CreateAllowedOutboundDestinationOptions) SetAllowedOutboundDestination(allowedOutboundDestination AllowedOutboundDestinationPrototypeIntf) *CreateAllowedOutboundDestinationOptions {
+	_options.AllowedOutboundDestination = allowedOutboundDestination
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *CreateAllowedOutboundDestinationOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateAppOptions : The CreateApp options.
 type CreateAppOptions struct {
 	// The ID of the project.
@@ -8970,6 +9596,44 @@ func (options *CreateSecretOptions) SetHeaders(param map[string]string) *CreateS
 	return options
 }
 
+// DeleteAllowedOutboundDestinationOptions : The DeleteAllowedOutboundDestination options.
+type DeleteAllowedOutboundDestinationOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your allowed outbound destination.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeleteAllowedOutboundDestinationOptions : Instantiate DeleteAllowedOutboundDestinationOptions
+func (*CodeEngineV2) NewDeleteAllowedOutboundDestinationOptions(projectID string, name string) *DeleteAllowedOutboundDestinationOptions {
+	return &DeleteAllowedOutboundDestinationOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeleteAllowedOutboundDestinationOptions) SetProjectID(projectID string) *DeleteAllowedOutboundDestinationOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DeleteAllowedOutboundDestinationOptions) SetName(name string) *DeleteAllowedOutboundDestinationOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *DeleteAllowedOutboundDestinationOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteAppOptions : The DeleteApp options.
 type DeleteAppOptions struct {
 	// The ID of the project.
@@ -10438,6 +11102,44 @@ func UnmarshalFunctionStatus(m map[string]json.RawMessage, result interface{}) (
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// GetAllowedOutboundDestinationOptions : The GetAllowedOutboundDestination options.
+type GetAllowedOutboundDestinationOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your allowed outbound destination.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetAllowedOutboundDestinationOptions : Instantiate GetAllowedOutboundDestinationOptions
+func (*CodeEngineV2) NewGetAllowedOutboundDestinationOptions(projectID string, name string) *GetAllowedOutboundDestinationOptions {
+	return &GetAllowedOutboundDestinationOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetAllowedOutboundDestinationOptions) SetProjectID(projectID string) *GetAllowedOutboundDestinationOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *GetAllowedOutboundDestinationOptions) SetName(name string) *GetAllowedOutboundDestinationOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *GetAllowedOutboundDestinationOptions {
+	options.Headers = param
+	return options
 }
 
 // GetAppOptions : The GetApp options.
@@ -11945,6 +12647,54 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// ListAllowedOutboundDestinationOptions : The ListAllowedOutboundDestination options.
+type ListAllowedOutboundDestinationOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Optional maximum number of allowed outbound destinations per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListAllowedOutboundDestinationOptions : Instantiate ListAllowedOutboundDestinationOptions
+func (*CodeEngineV2) NewListAllowedOutboundDestinationOptions(projectID string) *ListAllowedOutboundDestinationOptions {
+	return &ListAllowedOutboundDestinationOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListAllowedOutboundDestinationOptions) SetProjectID(projectID string) *ListAllowedOutboundDestinationOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListAllowedOutboundDestinationOptions) SetLimit(limit int64) *ListAllowedOutboundDestinationOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListAllowedOutboundDestinationOptions) SetStart(start string) *ListAllowedOutboundDestinationOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *ListAllowedOutboundDestinationOptions {
+	options.Headers = param
+	return options
 }
 
 // ListAppInstancesOptions : The ListAppInstances options.
@@ -13913,6 +14663,66 @@ func UnmarshalServiceInstanceRefPrototype(m map[string]json.RawMessage, result i
 	return
 }
 
+// UpdateAllowedOutboundDestinationOptions : The UpdateAllowedOutboundDestination options.
+type UpdateAllowedOutboundDestinationOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your allowed outbound destination.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Version of the allowed outbound destination to be updated. Specify the version that you retrieved as entity_tag
+	// (ETag header) when reading the allowed outbound destination. This value helps identifying parallel usage of this
+	// API. Pass * to indicate to update any version available. This might result in stale updates.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// AllowedOutboundDestination patch.
+	AllowedOutboundDestination map[string]interface{} `json:"allowed_outbound_destination" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateAllowedOutboundDestinationOptions : Instantiate UpdateAllowedOutboundDestinationOptions
+func (*CodeEngineV2) NewUpdateAllowedOutboundDestinationOptions(projectID string, name string, ifMatch string, allowedOutboundDestination map[string]interface{}) *UpdateAllowedOutboundDestinationOptions {
+	return &UpdateAllowedOutboundDestinationOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+		IfMatch: core.StringPtr(ifMatch),
+		AllowedOutboundDestination: allowedOutboundDestination,
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *UpdateAllowedOutboundDestinationOptions) SetProjectID(projectID string) *UpdateAllowedOutboundDestinationOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateAllowedOutboundDestinationOptions) SetName(name string) *UpdateAllowedOutboundDestinationOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateAllowedOutboundDestinationOptions) SetIfMatch(ifMatch string) *UpdateAllowedOutboundDestinationOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetAllowedOutboundDestination : Allow user to set AllowedOutboundDestination
+func (_options *UpdateAllowedOutboundDestinationOptions) SetAllowedOutboundDestination(allowedOutboundDestination map[string]interface{}) *UpdateAllowedOutboundDestinationOptions {
+	_options.AllowedOutboundDestination = allowedOutboundDestination
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *UpdateAllowedOutboundDestinationOptions {
+	options.Headers = param
+	return options
+}
+
 // UpdateAppOptions : The UpdateApp options.
 type UpdateAppOptions struct {
 	// The ID of the project.
@@ -14342,6 +15152,168 @@ func (volumeMountPrototype *VolumeMountPrototype) asPatch() (_patch map[string]i
 		_patch["type"] = volumeMountPrototype.Type
 	}
 
+	return
+}
+
+// AllowedOutboundDestinationPatchCidrBlockDataPatch : Update an allowed outbound destination by using a CIDR block.
+// This model "extends" AllowedOutboundDestinationPatch
+type AllowedOutboundDestinationPatchCidrBlockDataPatch struct {
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type,omitempty"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPatchCidrBlockDataPatch.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestinationPatchCidrBlockDataPatch_Type_CidrBlock = "cidr_block"
+)
+
+func (*AllowedOutboundDestinationPatchCidrBlockDataPatch) isaAllowedOutboundDestinationPatch() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch unmarshals an instance of AllowedOutboundDestinationPatchCidrBlockDataPatch from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPatchCidrBlockDataPatch)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the AllowedOutboundDestinationPatchCidrBlockDataPatch
+func (allowedOutboundDestinationPatchCidrBlockDataPatch *AllowedOutboundDestinationPatchCidrBlockDataPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(allowedOutboundDestinationPatchCidrBlockDataPatch.Type) {
+		_patch["type"] = allowedOutboundDestinationPatchCidrBlockDataPatch.Type
+	}
+	if !core.IsNil(allowedOutboundDestinationPatchCidrBlockDataPatch.CidrBlock) {
+		_patch["cidr_block"] = allowedOutboundDestinationPatchCidrBlockDataPatch.CidrBlock
+	}
+
+	return
+}
+
+// AllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Create an allowed outbound destination by using a CIDR block.
+// This model "extends" AllowedOutboundDestinationPrototype
+type AllowedOutboundDestinationPrototypeCidrBlockDataPrototype struct {
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type" validate:"required"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block" validate:"required"`
+
+	// The name of the CIDR block.
+	Name *string `json:"name" validate:"required"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_CidrBlock = "cidr_block"
+)
+
+// NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Instantiate AllowedOutboundDestinationPrototypeCidrBlockDataPrototype (Generic Model Constructor)
+func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar string, cidrBlock string, name string) (_model *AllowedOutboundDestinationPrototypeCidrBlockDataPrototype, err error) {
+	_model = &AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
+		Type: core.StringPtr(typeVar),
+		CidrBlock: core.StringPtr(cidrBlock),
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*AllowedOutboundDestinationPrototypeCidrBlockDataPrototype) isaAllowedOutboundDestinationPrototype() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype unmarshals an instance of AllowedOutboundDestinationPrototypeCidrBlockDataPrototype from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundDestinationCidrBlockData : Allowed outbound destination CIDR block.
+// This model "extends" AllowedOutboundDestination
+type AllowedOutboundDestinationCidrBlockData struct {
+	// The version of the allowed outbound destination, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	Type *string `json:"type" validate:"required"`
+
+	// The IP address range.
+	CidrBlock *string `json:"cidr_block" validate:"required"`
+
+	// The name of the CIDR block.
+	Name *string `json:"name" validate:"required"`
+}
+
+// Constants associated with the AllowedOutboundDestinationCidrBlockData.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+const (
+	AllowedOutboundDestinationCidrBlockData_Type_CidrBlock = "cidr_block"
+)
+
+func (*AllowedOutboundDestinationCidrBlockData) isaAllowedOutboundDestination() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationCidrBlockData unmarshals an instance of AllowedOutboundDestinationCidrBlockData from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationCidrBlockData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationCidrBlockData)
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -14947,6 +15919,93 @@ func (pager *ProjectsPager) GetNext() (page []Project, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// AllowedOutboundDestinationPager can be used to simplify the use of the "ListAllowedOutboundDestination" method.
+//
+type AllowedOutboundDestinationPager struct {
+	hasNext bool
+	options *ListAllowedOutboundDestinationOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewAllowedOutboundDestinationPager returns a new AllowedOutboundDestinationPager instance.
+func (codeEngine *CodeEngineV2) NewAllowedOutboundDestinationPager(options *ListAllowedOutboundDestinationOptions) (pager *AllowedOutboundDestinationPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListAllowedOutboundDestinationOptions = *options
+	pager = &AllowedOutboundDestinationPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *AllowedOutboundDestinationPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *AllowedOutboundDestinationPager) GetNextWithContext(ctx context.Context) (page []AllowedOutboundDestinationIntf, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListAllowedOutboundDestinationWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.AllowedOutboundDestinations
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *AllowedOutboundDestinationPager) GetAllWithContext(ctx context.Context) (allItems []AllowedOutboundDestinationIntf, err error) {
+	for pager.HasNext() {
+		var nextPage []AllowedOutboundDestinationIntf
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *AllowedOutboundDestinationPager) GetNext() (page []AllowedOutboundDestinationIntf, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *AllowedOutboundDestinationPager) GetAll() (allItems []AllowedOutboundDestinationIntf, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return

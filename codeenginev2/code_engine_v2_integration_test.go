@@ -187,6 +187,136 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListAllowedOutboundDestination - List allowed outbound destinations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) with pagination`, func(){
+			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+				Start: core.StringPtr("testString"),
+			}
+
+			listAllowedOutboundDestinationOptions.Start = nil
+			listAllowedOutboundDestinationOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.AllowedOutboundDestinationIntf
+			for {
+				allowedOutboundDestinationList, response, err := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(allowedOutboundDestinationList).ToNot(BeNil())
+				allResults = append(allResults, allowedOutboundDestinationList.AllowedOutboundDestinations...)
+
+				listAllowedOutboundDestinationOptions.Start, err = allowedOutboundDestinationList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listAllowedOutboundDestinationOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) using AllowedOutboundDestinationPager`, func(){
+			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.AllowedOutboundDestinationIntf
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListAllowedOutboundDestination() returned a total of %d item(s) using AllowedOutboundDestinationPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateAllowedOutboundDestination - Create an allowed outbound destination`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions)`, func() {
+			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
+				Type: core.StringPtr("cidr_block"),
+				CidrBlock: core.StringPtr("testString"),
+				Name: core.StringPtr("testString"),
+			}
+
+			createAllowedOutboundDestinationOptions := &codeenginev2.CreateAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				AllowedOutboundDestination: allowedOutboundDestinationPrototypeModel,
+			}
+
+			allowedOutboundDestination, response, err := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetAllowedOutboundDestination - Get an allowed outbound destination`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions)`, func() {
+			getAllowedOutboundDestinationOptions := &codeenginev2.GetAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-allowed-outbound-destination"),
+			}
+
+			allowedOutboundDestination, response, err := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateAllowedOutboundDestination - Update an allowed outbound destination`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions)`, func() {
+			allowedOutboundDestinationPatchModel := &codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch{
+				Type: core.StringPtr("cidr_block"),
+				CidrBlock: core.StringPtr("testString"),
+			}
+			allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateAllowedOutboundDestinationOptions := &codeenginev2.UpdateAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-allowed-outbound-destination"),
+				IfMatch: core.StringPtr("testString"),
+				AllowedOutboundDestination: allowedOutboundDestinationPatchModelAsPatch,
+			}
+
+			allowedOutboundDestination, response, err := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
+	})
+
 	Describe(`GetProjectEgressIps - List egress IP addresses`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1872,6 +2002,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			response, err := codeEngineService.DeleteProject(deleteProjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeleteAllowedOutboundDestination - Delete an allowed outbound destination`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions)`, func() {
+			deleteAllowedOutboundDestinationOptions := &codeenginev2.DeleteAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-allowed-outbound-destination"),
+			}
+
+			response, err := codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})

@@ -168,6 +168,110 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(project).ToNot(BeNil())
 		})
+		It(`ListAllowedOutboundDestination request example`, func() {
+			fmt.Println("\nListAllowedOutboundDestination() result:")
+			// begin-list_allowed_outbound_destination
+			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.AllowedOutboundDestinationIntf
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_allowed_outbound_destination
+		})
+		It(`CreateAllowedOutboundDestination request example`, func() {
+			fmt.Println("\nCreateAllowedOutboundDestination() result:")
+			// begin-create_allowed_outbound_destination
+
+			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
+				Type: core.StringPtr("cidr_block"),
+				CidrBlock: core.StringPtr("testString"),
+				Name: core.StringPtr("testString"),
+			}
+
+			createAllowedOutboundDestinationOptions := codeEngineService.NewCreateAllowedOutboundDestinationOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				allowedOutboundDestinationPrototypeModel,
+			)
+
+			allowedOutboundDestination, response, err := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(allowedOutboundDestination, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_allowed_outbound_destination
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
+		It(`GetAllowedOutboundDestination request example`, func() {
+			fmt.Println("\nGetAllowedOutboundDestination() result:")
+			// begin-get_allowed_outbound_destination
+
+			getAllowedOutboundDestinationOptions := codeEngineService.NewGetAllowedOutboundDestinationOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-allowed-outbound-destination",
+			)
+
+			allowedOutboundDestination, response, err := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(allowedOutboundDestination, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_allowed_outbound_destination
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
+		It(`UpdateAllowedOutboundDestination request example`, func() {
+			fmt.Println("\nUpdateAllowedOutboundDestination() result:")
+			// begin-update_allowed_outbound_destination
+
+			allowedOutboundDestinationPatchModel := &codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch{
+			}
+			allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateAllowedOutboundDestinationOptions := codeEngineService.NewUpdateAllowedOutboundDestinationOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-allowed-outbound-destination",
+				"testString",
+				allowedOutboundDestinationPatchModelAsPatch,
+			)
+
+			allowedOutboundDestination, response, err := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(allowedOutboundDestination, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_allowed_outbound_destination
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(allowedOutboundDestination).ToNot(BeNil())
+		})
 		It(`GetProjectEgressIps request example`, func() {
 			fmt.Println("\nGetProjectEgressIps() result:")
 			// begin-get_project_egress_ips
@@ -1224,6 +1328,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_project
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteAllowedOutboundDestination request example`, func() {
+			// begin-delete_allowed_outbound_destination
+
+			deleteAllowedOutboundDestinationOptions := codeEngineService.NewDeleteAllowedOutboundDestinationOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-allowed-outbound-destination",
+			)
+
+			response, err := codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteAllowedOutboundDestination(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_allowed_outbound_destination
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))

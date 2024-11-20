@@ -166,7 +166,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListProjects(listProjectsOptions *ListProjectsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listProjectsPath := "/projects"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -216,7 +216,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListProjects(listProjectsOptions *ListProjectsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listProjectsPath := "/projects"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -480,7 +480,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateProject(createProjectOptions *CreateProjectOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createProjectPath := "/projects"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -529,7 +529,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateProject(createProjectOptions *CreateProjectOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createProjectPath := "/projects"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -741,7 +741,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProject(getProjectOptions *GetProjectOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -788,7 +788,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProject(getProjectOptions *GetProjectOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -960,7 +960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteProject(deleteProjectOptions *DeleteProjectOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -1030,8 +1030,1236 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
+	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) - Operation response error`, func() {
+		version := "2024-11-18"
+		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAllowedOutboundDestination with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions)`, func() {
+		version := "2024-11-18"
+		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListAllowedOutboundDestination successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.ListAllowedOutboundDestinationWithContext(ctx, listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.ListAllowedOutboundDestinationWithContext(ctx, listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+				}))
+			})
+			It(`Invoke ListAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAllowedOutboundDestination with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListAllowedOutboundDestinationOptions model with no property values
+				listAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(codeenginev2.AllowedOutboundDestinationList)
+				nextObject := new(codeenginev2.ListNextMetadata)
+				nextObject.Start = core.StringPtr("abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(codeenginev2.AllowedOutboundDestinationList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"CidrBlock","name":"Name"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"CidrBlock","name":"Name"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use AllowedOutboundDestinationPager.GetNext successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listAllowedOutboundDestinationOptionsModel := &codeenginev2.ListAllowedOutboundDestinationOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []codeenginev2.AllowedOutboundDestinationIntf
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use AllowedOutboundDestinationPager.GetAll successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				listAllowedOutboundDestinationOptionsModel := &codeenginev2.ListAllowedOutboundDestinationOptions{
+					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions) - Operation response error`, func() {
+		version := "2024-11-18"
+		createAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateAllowedOutboundDestination with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				createAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPrototypeModel
+				createAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions)`, func() {
+		version := "2024-11-18"
+		createAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke CreateAllowedOutboundDestination successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				createAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPrototypeModel
+				createAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.CreateAllowedOutboundDestinationWithContext(ctx, createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.CreateAllowedOutboundDestinationWithContext(ctx, createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke CreateAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.CreateAllowedOutboundDestination(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				createAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPrototypeModel
+				createAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateAllowedOutboundDestination with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				createAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPrototypeModel
+				createAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateAllowedOutboundDestinationOptions model with no property values
+				createAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
+				createAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPrototypeModel
+				createAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions) - Operation response error`, func() {
+		version := "2024-11-18"
+		getAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAllowedOutboundDestination with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				getAllowedOutboundDestinationOptionsModel := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				getAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions)`, func() {
+		version := "2024-11-18"
+		getAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke GetAllowedOutboundDestination successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				getAllowedOutboundDestinationOptionsModel := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				getAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.GetAllowedOutboundDestinationWithContext(ctx, getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.GetAllowedOutboundDestinationWithContext(ctx, getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke GetAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.GetAllowedOutboundDestination(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				getAllowedOutboundDestinationOptionsModel := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				getAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAllowedOutboundDestination with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				getAllowedOutboundDestinationOptionsModel := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				getAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAllowedOutboundDestinationOptions model with no property values
+				getAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				getAllowedOutboundDestinationOptionsModel := new(codeenginev2.GetAllowedOutboundDestinationOptions)
+				getAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions)`, func() {
+		version := "2024-11-18"
+		deleteAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := codeEngineService.DeleteAllowedOutboundDestination(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAllowedOutboundDestinationOptions model
+				deleteAllowedOutboundDestinationOptionsModel := new(codeenginev2.DeleteAllowedOutboundDestinationOptions)
+				deleteAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				deleteAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAllowedOutboundDestination with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAllowedOutboundDestinationOptions model
+				deleteAllowedOutboundDestinationOptionsModel := new(codeenginev2.DeleteAllowedOutboundDestinationOptions)
+				deleteAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				deleteAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAllowedOutboundDestinationOptions model with no property values
+				deleteAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.DeleteAllowedOutboundDestinationOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions) - Operation response error`, func() {
+		version := "2024-11-18"
+		updateAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateAllowedOutboundDestination with error: Operation response processing error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				updateAllowedOutboundDestinationOptionsModel := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				updateAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPatchModelAsPatch
+				updateAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				codeEngineService.EnableRetries(0, 0)
+				result, response, operationErr = codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions)`, func() {
+		version := "2024-11-18"
+		updateAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke UpdateAllowedOutboundDestination successfully with retries`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+				codeEngineService.EnableRetries(0, 0)
+
+				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				updateAllowedOutboundDestinationOptionsModel := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				updateAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPatchModelAsPatch
+				updateAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := codeEngineService.UpdateAllowedOutboundDestinationWithContext(ctx, updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				codeEngineService.DisableRetries()
+				result, response, operationErr := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = codeEngineService.UpdateAllowedOutboundDestinationWithContext(ctx, updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAllowedOutboundDestinationPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke UpdateAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := codeEngineService.UpdateAllowedOutboundDestination(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				updateAllowedOutboundDestinationOptionsModel := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				updateAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPatchModelAsPatch
+				updateAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateAllowedOutboundDestination with error: Operation validation and request error`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				updateAllowedOutboundDestinationOptionsModel := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				updateAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPatchModelAsPatch
+				updateAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := codeEngineService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateAllowedOutboundDestinationOptions model with no property values
+				updateAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAllowedOutboundDestination successfully`, func() {
+				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+					Version: core.StringPtr(version),
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(codeEngineService).ToNot(BeNil())
+
+				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
+				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
+				Expect(asPatchErr).To(BeNil())
+
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				updateAllowedOutboundDestinationOptionsModel := new(codeenginev2.UpdateAllowedOutboundDestinationOptions)
+				updateAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.Name = core.StringPtr("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination = allowedOutboundDestinationPatchModelAsPatch
+				updateAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1078,7 +2306,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1250,7 +2478,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1297,7 +2525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1469,7 +2697,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1479,7 +2707,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -1521,7 +2749,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1532,7 +2760,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -1595,7 +2823,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -1800,7 +3028,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateApp(createAppOptions *CreateAppOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1810,7 +3038,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAppPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1897,7 +3125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateApp(createAppOptions *CreateAppOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1924,7 +3152,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2048,7 +3276,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -2299,7 +3527,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetApp(getAppOptions *GetAppOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -2309,7 +3537,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2348,7 +3576,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetApp(getAppOptions *GetAppOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2359,7 +3587,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2419,7 +3647,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2526,7 +3754,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteApp(deleteAppOptions *DeleteAppOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -2537,7 +3765,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteAppPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -2600,7 +3828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateApp(updateAppOptions *UpdateAppOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -2612,7 +3840,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2706,7 +3934,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateApp(updateAppOptions *UpdateAppOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2735,7 +3963,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2868,7 +4096,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3140,7 +4368,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppRevisionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3152,7 +4380,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3193,7 +4421,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppRevisionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -3206,7 +4434,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3270,7 +4498,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3478,7 +4706,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3488,7 +4716,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3528,7 +4756,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -3539,7 +4767,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3600,7 +4828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3710,7 +4938,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -3785,7 +5013,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3837,7 +5065,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4120,7 +5348,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobs(listJobsOptions *ListJobsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listJobsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -4130,7 +5358,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -4172,7 +5400,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobs(listJobsOptions *ListJobsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listJobsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4183,7 +5411,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -4246,7 +5474,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -4451,7 +5679,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJob(createJobOptions *CreateJobOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -4461,7 +5689,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createJobPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4531,7 +5759,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJob(createJobOptions *CreateJobOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4558,7 +5786,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4665,7 +5893,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -4865,7 +6093,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJob(getJobOptions *GetJobOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -4875,7 +6103,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4914,7 +6142,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJob(getJobOptions *GetJobOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4925,7 +6153,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4985,7 +6213,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -5092,7 +6320,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteJob(deleteJobOptions *DeleteJobOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -5103,7 +6331,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteJobPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -5166,7 +6394,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateJob(updateJobOptions *UpdateJobOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5178,7 +6406,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -5255,7 +6483,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateJob(updateJobOptions *UpdateJobOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -5284,7 +6512,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -5400,7 +6628,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -5621,7 +6849,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5631,7 +6859,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -5675,7 +6903,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -5686,7 +6914,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -5751,7 +6979,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -5962,7 +7190,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5972,7 +7200,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createJobRunPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6044,7 +7272,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6071,7 +7299,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -6180,7 +7408,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -6386,7 +7614,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6396,7 +7624,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6435,7 +7663,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6446,7 +7674,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -6506,7 +7734,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -6613,7 +7841,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -6686,7 +7914,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listFunctionRuntimesPath := "/function_runtimes"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6732,7 +7960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listFunctionRuntimesPath := "/function_runtimes"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6893,7 +8121,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6903,7 +8131,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -6945,7 +8173,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6956,7 +8184,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -7019,7 +8247,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -7224,7 +8452,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7234,7 +8462,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createFunctionPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7294,7 +8522,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -7321,7 +8549,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -7418,7 +8646,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -7588,7 +8816,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7598,7 +8826,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7637,7 +8865,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -7648,7 +8876,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -7708,7 +8936,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -7815,7 +9043,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -7826,7 +9054,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteFunctionPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -7889,7 +9117,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7901,7 +9129,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7968,7 +9196,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -7997,7 +9225,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -8103,7 +9331,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-09-27"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -8294,7 +9522,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8345,7 +9573,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8622,7 +9850,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8677,7 +9905,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8913,7 +10141,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBinding(getBindingOptions *GetBindingOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8961,7 +10189,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -9137,7 +10365,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -9210,7 +10438,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9261,7 +10489,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -9538,7 +10766,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9597,7 +10825,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -9849,7 +11077,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuild(getBuildOptions *GetBuildOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9897,7 +11125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10073,7 +11301,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -10146,7 +11374,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10214,7 +11442,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10498,7 +11726,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10551,7 +11779,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10836,7 +12064,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10897,7 +12125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11157,7 +12385,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11205,7 +12433,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11381,7 +12609,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -11454,7 +12682,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11505,7 +12733,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11782,7 +13010,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11837,7 +13065,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12073,7 +13301,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12121,7 +13349,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12297,7 +13525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -12370,7 +13598,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12434,7 +13662,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12702,7 +13930,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12753,7 +13981,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13030,7 +14258,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13079,7 +14307,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13291,7 +14519,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13339,7 +14567,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13515,7 +14743,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13567,7 +14795,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13787,7 +15015,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -13860,7 +15088,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13911,7 +15139,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14188,7 +15416,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14277,7 +15505,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14649,7 +15877,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetSecret(getSecretOptions *GetSecretOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14697,7 +15925,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14873,7 +16101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions) - Operation response error`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14930,7 +16158,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -15170,7 +16398,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
-		version := "2024-09-27"
+		version := "2024-11-18"
 		deleteSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -15244,7 +16472,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			version := "2024-09-27"
+			version := "2024-11-18"
 			codeEngineService, _ := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 				URL:           "http://codeenginev2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
@@ -15256,6 +16484,29 @@ var _ = Describe(`CodeEngineV2`, func() {
 				_model, err := codeEngineService.NewComponentRef(name, resourceType)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewCreateAllowedOutboundDestinationOptions successfully`, func() {
+				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
+				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+				Expect(allowedOutboundDestinationPrototypeModel).ToNot(BeNil())
+				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
+				Expect(allowedOutboundDestinationPrototypeModel.Type).To(Equal(core.StringPtr("cidr_block")))
+				Expect(allowedOutboundDestinationPrototypeModel.CidrBlock).To(Equal(core.StringPtr("testString")))
+				Expect(allowedOutboundDestinationPrototypeModel.Name).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				var allowedOutboundDestination codeenginev2.AllowedOutboundDestinationPrototypeIntf = nil
+				createAllowedOutboundDestinationOptionsModel := codeEngineService.NewCreateAllowedOutboundDestinationOptions(projectID, allowedOutboundDestination)
+				createAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				createAllowedOutboundDestinationOptionsModel.SetAllowedOutboundDestination(allowedOutboundDestinationPrototypeModel)
+				createAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
+				Expect(createAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(createAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination).To(Equal(allowedOutboundDestinationPrototypeModel))
+				Expect(createAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateAppOptions successfully`, func() {
 				// Construct an instance of the ProbePrototype model
@@ -15811,6 +17062,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(createSecretOptionsModel.ServiceOperator).To(Equal(operatorSecretPrototypePropsModel))
 				Expect(createSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteAllowedOutboundDestinationOptions successfully`, func() {
+				// Construct an instance of the DeleteAllowedOutboundDestinationOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-allowed-outbound-destination"
+				deleteAllowedOutboundDestinationOptionsModel := codeEngineService.NewDeleteAllowedOutboundDestinationOptions(projectID, name)
+				deleteAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				deleteAllowedOutboundDestinationOptionsModel.SetName("my-allowed-outbound-destination")
+				deleteAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
+				Expect(deleteAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(deleteAllowedOutboundDestinationOptionsModel.Name).To(Equal(core.StringPtr("my-allowed-outbound-destination")))
+				Expect(deleteAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteAppOptions successfully`, func() {
 				// Construct an instance of the DeleteAppOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -15966,6 +17230,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(deleteSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(deleteSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(deleteSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAllowedOutboundDestinationOptions successfully`, func() {
+				// Construct an instance of the GetAllowedOutboundDestinationOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-allowed-outbound-destination"
+				getAllowedOutboundDestinationOptionsModel := codeEngineService.NewGetAllowedOutboundDestinationOptions(projectID, name)
+				getAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				getAllowedOutboundDestinationOptionsModel.SetName("my-allowed-outbound-destination")
+				getAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
+				Expect(getAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(getAllowedOutboundDestinationOptionsModel.Name).To(Equal(core.StringPtr("my-allowed-outbound-destination")))
+				Expect(getAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAppOptions successfully`, func() {
 				// Construct an instance of the GetAppOptions model
@@ -16142,6 +17419,20 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getSecretOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
 				Expect(getSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListAllowedOutboundDestinationOptions successfully`, func() {
+				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				listAllowedOutboundDestinationOptionsModel := codeEngineService.NewListAllowedOutboundDestinationOptions(projectID)
+				listAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationOptionsModel.SetLimit(int64(100))
+				listAllowedOutboundDestinationOptionsModel.SetStart("testString")
+				listAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
+				Expect(listAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listAllowedOutboundDestinationOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listAllowedOutboundDestinationOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAppInstancesOptions successfully`, func() {
 				// Construct an instance of the ListAppInstancesOptions model
@@ -16400,6 +17691,25 @@ var _ = Describe(`CodeEngineV2`, func() {
 				_, err := codeEngineService.NewServiceAccessSecretPrototypeProps(resourceKey, serviceInstance)
 				Expect(err).ToNot(BeNil())
 			})
+			It(`Invoke NewUpdateAllowedOutboundDestinationOptions successfully`, func() {
+				// Construct an instance of the UpdateAllowedOutboundDestinationOptions model
+				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
+				name := "my-allowed-outbound-destination"
+				ifMatch := "testString"
+				allowedOutboundDestination := map[string]interface{}{"anyKey": "anyValue"}
+				updateAllowedOutboundDestinationOptionsModel := codeEngineService.NewUpdateAllowedOutboundDestinationOptions(projectID, name, ifMatch, allowedOutboundDestination)
+				updateAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				updateAllowedOutboundDestinationOptionsModel.SetName("my-allowed-outbound-destination")
+				updateAllowedOutboundDestinationOptionsModel.SetIfMatch("testString")
+				updateAllowedOutboundDestinationOptionsModel.SetAllowedOutboundDestination(map[string]interface{}{"anyKey": "anyValue"})
+				updateAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
+				Expect(updateAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(updateAllowedOutboundDestinationOptionsModel.Name).To(Equal(core.StringPtr("my-allowed-outbound-destination")))
+				Expect(updateAllowedOutboundDestinationOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateAllowedOutboundDestinationOptionsModel.AllowedOutboundDestination).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(updateAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewUpdateAppOptions successfully`, func() {
 				// Construct an instance of the UpdateAppOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -16503,6 +17813,14 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype successfully`, func() {
+				typeVar := "cidr_block"
+				cidrBlock := "testString"
+				name := "testString"
+				_model, err := codeEngineService.NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar, cidrBlock, name)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewSecretDataBasicAuthSecretData successfully`, func() {
 				username := "testString"
 				password := "testString"
@@ -16534,6 +17852,45 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAllowedOutboundDestinationPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPatch)
+			model.Type = core.StringPtr("cidr_block")
+			model.CidrBlock = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPatch
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAllowedOutboundDestinationPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPrototype)
+			model.Type = core.StringPtr("cidr_block")
+			model.CidrBlock = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPrototype
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalAppPatch successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.AppPatch)
@@ -16920,6 +18277,45 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 			var result *codeenginev2.VolumeMountPrototype
 			err = codeenginev2.UnmarshalVolumeMountPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
+			model.Type = core.StringPtr("cidr_block")
+			model.CidrBlock = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
+			model.Type = core.StringPtr("cidr_block")
+			model.CidrBlock = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))

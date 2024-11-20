@@ -344,6 +344,97 @@ func main() {
 	}
 	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
+	// List Allowed Outbound Destinations
+	listAllowedOutboundDestinationOptions := codeEngineService.NewListAllowedOutboundDestinationOptions(
+		*createdProject.ID,
+	)
+
+	allowedOutboundDestinationList, _, err := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions)
+	if err != nil {
+		fmt.Printf("ListAllowedOutboundDestination error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained AllowedOutboundDestination list '%d'", len(allowedOutboundDestinationList.AllowedOutboundDestinations))
+
+	var cidrTypeDefault = "cidr_block"
+	var cidrBlock = "192.68.4.0/24"
+	var cidrBlockName = "my-allowed-outbound-destination"
+
+	// Create allowed outbound destination
+	createAllowedOutboundDestinationOpts := codeEngineService.NewCreateAllowedOutboundDestinationOptions(
+		*createdProject.ID,
+		&codeenginev2.AllowedOutboundDestinationPrototype{
+			Type:      &cidrTypeDefault,
+			CidrBlock: &cidrBlock,
+			Name:      &cidrBlockName,
+		},
+	)
+
+	createdAllowedOutboundDestination, _, err := codeEngineService.CreateAllowedOutboundDestination(createAllowedOutboundDestinationOpts)
+	if err != nil {
+		fmt.Printf("CreateAllowedOutboundDestination error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created allowed outbound destination '%s'\n", createdAllowedOutboundDestination)
+
+	// Get allowed outbound destination
+	getAllowedOutboundDestinationOpts := codeEngineService.NewGetAllowedOutboundDestinationOptions(
+		*createdProject.ID,
+		cidrBlockName,
+	)
+
+	obtainedAllowedOutboundDestination, _, err := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOpts)
+	if err != nil {
+		fmt.Printf("GetAllowedOutboundDestination error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained allowed outbound destination '%s'\n", obtainedAllowedOutboundDestination)
+
+	var updatedCidrBlock = "192.68.3.0/24"
+
+	// Update allowed outbound destination
+	allowedOutboundDestinationUpdateModel := &codeenginev2.AllowedOutboundDestinationPatch{
+		Type:      &cidrTypeDefault,
+		CidrBlock: &updatedCidrBlock,
+	}
+	updateAllowedOutboundDestinationAsPatch, err := allowedOutboundDestinationUpdateModel.AsPatch()
+	if err != nil {
+		fmt.Printf("allowedOutboundDestinationUpdateModel.AsPatch error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	updateAllowedOutboundDestinationOptions := codeEngineService.NewUpdateAllowedOutboundDestinationOptions(
+		*createdProject.ID,
+		cidrBlockName,
+		"*",
+		updateAllowedOutboundDestinationAsPatch,
+	)
+	updatedAllowedOutboundDestination, _, err := codeEngineService.UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions)
+	if err != nil {
+		fmt.Printf("UpdateAllowedOutboundDestination error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated allowed outbound destination'%s'\n", updatedAllowedOutboundDestination)
+
+	// Delete allowed outbound destination
+	deleteAllowedOutboundDestinationOpts := codeEngineService.NewDeleteAllowedOutboundDestinationOptions(
+		*createdProject.ID,
+		cidrBlockName,
+	)
+
+	resp, err = codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOpts)
+	if err != nil {
+		fmt.Printf("DeleteAllowedOutboundDestination error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted allowed outbound destination: '%d'\n", resp.StatusCode)
+
 	// Create app
 	createAppOpts := codeEngineService.NewCreateAppOptions(
 		*createdProject.ID,
