@@ -166,7 +166,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListProjects(listProjectsOptions *ListProjectsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listProjectsPath := "/projects"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -216,7 +216,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListProjects(listProjectsOptions *ListProjectsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listProjectsPath := "/projects"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -480,7 +480,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateProject(createProjectOptions *CreateProjectOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createProjectPath := "/projects"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -529,7 +529,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateProject(createProjectOptions *CreateProjectOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createProjectPath := "/projects"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -741,7 +741,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProject(getProjectOptions *GetProjectOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -788,7 +788,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProject(getProjectOptions *GetProjectOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -960,7 +960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteProject(deleteProjectOptions *DeleteProjectOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteProjectPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -1031,7 +1031,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1082,7 +1082,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1359,7 +1359,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1369,7 +1369,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAllowedOutboundDestinationPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1414,7 +1414,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1441,7 +1441,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1523,7 +1523,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -1648,7 +1648,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1658,7 +1658,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1697,7 +1697,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1708,7 +1708,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1768,7 +1768,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAllowedOutboundDestinationPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1875,7 +1875,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -1886,7 +1886,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteAllowedOutboundDestinationPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -1949,7 +1949,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1961,7 +1961,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2009,7 +2009,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations/my-allowed-outbound-destination"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2038,7 +2038,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2125,7 +2125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2259,7 +2259,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -2306,7 +2306,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectEgressIps(getProjectEgressIpsOptions *GetProjectEgressIpsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectEgressIpsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/egress_ips"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2478,7 +2478,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -2525,7 +2525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetProjectStatusDetails(getProjectStatusDetailsOptions *GetProjectStatusDetailsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getProjectStatusDetailsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/status_details"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2697,7 +2697,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -2707,7 +2707,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -2749,7 +2749,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListApps(listAppsOptions *ListAppsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -2760,7 +2760,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -2823,7 +2823,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAppsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -3028,7 +3028,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateApp(createAppOptions *CreateAppOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3038,7 +3038,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAppPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3125,7 +3125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateApp(createAppOptions *CreateAppOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -3152,7 +3152,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3276,7 +3276,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -3527,7 +3527,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetApp(getAppOptions *GetAppOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3537,7 +3537,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3576,7 +3576,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetApp(getAppOptions *GetAppOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -3587,7 +3587,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3647,7 +3647,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3754,7 +3754,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteApp(deleteAppOptions *DeleteAppOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -3765,7 +3765,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteAppPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -3828,7 +3828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateApp(updateAppOptions *UpdateAppOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -3840,7 +3840,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3934,7 +3934,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateApp(updateAppOptions *UpdateAppOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateAppPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -3963,7 +3963,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4096,7 +4096,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4368,7 +4368,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppRevisionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -4380,7 +4380,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4421,7 +4421,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppRevisionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4434,7 +4434,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4498,7 +4498,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4706,7 +4706,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -4716,7 +4716,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4756,7 +4756,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -4767,7 +4767,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4828,7 +4828,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAppRevisionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4938,7 +4938,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteAppRevisionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions/my-app-00001"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -5013,7 +5013,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5065,7 +5065,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listAppInstancesPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -5348,7 +5348,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobs(listJobsOptions *ListJobsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listJobsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5358,7 +5358,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -5400,7 +5400,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobs(listJobsOptions *ListJobsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listJobsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -5411,7 +5411,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -5474,7 +5474,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -5679,7 +5679,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJob(createJobOptions *CreateJobOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -5689,7 +5689,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createJobPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -5759,7 +5759,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJob(createJobOptions *CreateJobOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -5786,7 +5786,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -5893,7 +5893,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -6093,7 +6093,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJob(getJobOptions *GetJobOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6103,7 +6103,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6142,7 +6142,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJob(getJobOptions *GetJobOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6153,7 +6153,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -6213,7 +6213,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -6320,7 +6320,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteJob(deleteJobOptions *DeleteJobOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -6331,7 +6331,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteJobPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -6394,7 +6394,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateJob(updateJobOptions *UpdateJobOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6406,7 +6406,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6483,7 +6483,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateJob(updateJobOptions *UpdateJobOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateJobPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs/my-job"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6512,7 +6512,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -6628,7 +6628,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -6849,7 +6849,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -6859,7 +6859,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -6903,7 +6903,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listJobRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -6914,7 +6914,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -6979,7 +6979,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listJobRunsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["job_name"]).To(Equal([]string{"my-job"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -7190,7 +7190,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7200,7 +7200,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createJobRunPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7272,7 +7272,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateJobRun(createJobRunOptions *CreateJobRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -7299,7 +7299,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -7408,7 +7408,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -7614,7 +7614,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7624,7 +7624,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -7663,7 +7663,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetJobRun(getJobRunOptions *GetJobRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -7674,7 +7674,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -7734,7 +7734,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getJobRunPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -7841,7 +7841,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteJobRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs/my-job-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -7914,7 +7914,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listFunctionRuntimesPath := "/function_runtimes"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -7960,7 +7960,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listFunctionRuntimesPath := "/function_runtimes"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8121,7 +8121,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8131,7 +8131,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -8173,7 +8173,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListFunctions(listFunctionsOptions *ListFunctionsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listFunctionsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8184,7 +8184,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -8247,7 +8247,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listFunctionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -8452,7 +8452,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8462,7 +8462,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createFunctionPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -8522,7 +8522,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateFunction(createFunctionOptions *CreateFunctionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8549,7 +8549,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -8646,7 +8646,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -8816,7 +8816,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -8826,7 +8826,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -8865,7 +8865,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetFunction(getFunctionOptions *GetFunctionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -8876,7 +8876,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -8936,7 +8936,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getFunctionPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -9043,7 +9043,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -9054,7 +9054,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteFunctionPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.WriteHeader(202)
 				}))
 			})
@@ -9117,7 +9117,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9129,7 +9129,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -9196,7 +9196,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateFunctionPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions/my-function"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -9225,7 +9225,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -9331,7 +9331,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-11-18"}))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"2024-12-10"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -9522,7 +9522,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9573,7 +9573,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBindings(listBindingsOptions *ListBindingsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBindingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -9850,7 +9850,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -9905,7 +9905,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10141,7 +10141,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBinding(getBindingOptions *GetBindingOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10189,7 +10189,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10365,7 +10365,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteBindingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings/a172ced-b5f21bc-71ba50c-1638604"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -10438,7 +10438,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10489,7 +10489,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuilds(listBuildsOptions *ListBuildsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBuildsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -10766,7 +10766,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -10825,7 +10825,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11077,7 +11077,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuild(getBuildOptions *GetBuildOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11125,7 +11125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11301,7 +11301,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -11374,7 +11374,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11442,7 +11442,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateBuildPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds/my-build"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -11726,7 +11726,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -11779,7 +11779,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listBuildRunsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12064,7 +12064,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12125,7 +12125,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12385,7 +12385,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12433,7 +12433,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -12609,7 +12609,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteBuildRunPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs/my-build-run"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -12682,7 +12682,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -12733,7 +12733,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listDomainMappingsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13010,7 +13010,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13065,7 +13065,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13301,7 +13301,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13349,7 +13349,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13525,7 +13525,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -13598,7 +13598,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13662,7 +13662,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		updateDomainMappingPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings/www.example.com"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -13930,7 +13930,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -13981,7 +13981,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listConfigMapsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14258,7 +14258,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14307,7 +14307,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14519,7 +14519,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14567,7 +14567,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -14743,7 +14743,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -14795,7 +14795,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		replaceConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -15015,7 +15015,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteConfigMapPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/config_maps/my-config-map"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -15088,7 +15088,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -15139,7 +15139,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ListSecrets(listSecretsOptions *ListSecretsOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		listSecretsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -15416,7 +15416,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -15505,7 +15505,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		createSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -15877,7 +15877,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetSecret(getSecretOptions *GetSecretOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -15925,7 +15925,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		getSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -16101,7 +16101,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions) - Operation response error`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -16158,7 +16158,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		replaceSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -16398,7 +16398,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		})
 	})
 	Describe(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
-		version := "2024-11-18"
+		version := "2024-12-10"
 		deleteSecretPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets/my-secret"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -16472,7 +16472,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			version := "2024-11-18"
+			version := "2024-12-10"
 			codeEngineService, _ := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 				URL:           "http://codeenginev2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},

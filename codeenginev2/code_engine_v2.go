@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-11-18`.
+	// and `2024-12-10`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-11-18`.
+	// and `2024-12-10`.
 	Version *string 
 }
 
@@ -5151,7 +5151,7 @@ type AllowedOutboundDestination struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type" validate:"required"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 
 	// The name of the CIDR block.
@@ -5255,7 +5255,7 @@ type AllowedOutboundDestinationPatch struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type,omitempty"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 }
 
@@ -5309,7 +5309,7 @@ type AllowedOutboundDestinationPrototype struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type" validate:"required"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 
 	// The name of the CIDR block.
@@ -15161,7 +15161,7 @@ type AllowedOutboundDestinationPatchCidrBlockDataPatch struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type,omitempty"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 }
 
@@ -15211,7 +15211,7 @@ type AllowedOutboundDestinationPrototypeCidrBlockDataPrototype struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type" validate:"required"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block" validate:"required"`
 
 	// The name of the CIDR block.
@@ -15273,7 +15273,7 @@ type AllowedOutboundDestinationCidrBlockData struct {
 	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
 	Type *string `json:"type" validate:"required"`
 
-	// The IP address range.
+	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block" validate:"required"`
 
 	// The name of the CIDR block.
