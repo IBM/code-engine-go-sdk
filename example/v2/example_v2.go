@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -56,10 +57,14 @@ func main() {
 	}
 	fmt.Printf("Using Code Engine API endpoint: '%s'\n", codeEngineApiEndpoint)
 
+	// Set version versioning url param
+	versionDate := "2024-05-13"
+
 	// Setup a Code Engine client
 	codeEngineServiceOptions := &codeenginev2.CodeEngineV2Options{
 		Authenticator: authenticator,
 		URL:           codeEngineApiEndpoint,
+		Version:       &versionDate,
 	}
 	codeEngineService, err := codeenginev2.NewCodeEngineV2UsingExternalConfig(codeEngineServiceOptions)
 	if err != nil {
@@ -450,6 +455,56 @@ func main() {
 	}
 	fmt.Printf("Created app '%s'\n", *createdApp.Name)
 
+	envVarValue := "TESTVALUE"
+	envVarType := "literal"
+	envVarName := "TESTNAME"
+
+	var jobEnvVariables = []codeenginev2.EnvVarPrototype{
+		{
+			Value: &envVarValue,
+			Type:  &envVarType,
+			Name:  &envVarName,
+		},
+	}
+
+	// Create job
+	createJobOpts := codeEngineService.NewCreateJobOptions(
+		*createdProject.ID,
+		"icr.io/codeengine/helloworld",
+		"job-1",
+	)
+
+	createJobOpts.RunEnvVariables = jobEnvVariables
+
+	createdJob, _, err := codeEngineService.CreateJob(createJobOpts)
+	if err != nil {
+		fmt.Printf("CreateJob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created job '%s'\n", *createdJob.Name)
+	if createdJob.ComputedEnvVariables != nil {
+		fmt.Printf("Created job contains 'ComputedEnvVariables\n")
+		for _, envVar := range createdJob.ComputedEnvVariables {
+			fmt.Println(*envVar.Name + ":" + *envVar.Value)
+		}
+	} else {
+		err := errors.New("no computed environment variables found")
+		fmt.Printf("CreateJob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	if createdJob.RunEnvVariables != nil {
+		fmt.Printf("Created job contains 'RunEnvVariables\n")
+		fmt.Println(*createdJob.RunEnvVariables[0].Name + " " + *createdJob.RunEnvVariables[0].Value)
+	} else {
+		err := errors.New("no run environment variables found")
+		fmt.Printf("CreateJob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
 	// Create tls secret
 	createTLSSecretOpts := codeEngineService.NewCreateSecretOptions(
 		*createdProject.ID,
@@ -737,6 +792,41 @@ func main() {
 	deleteProjectOptions := codeEngineService.NewDeleteProjectOptions(
 		*createdProject.ID,
 	)
+
+	// Get job
+	getJobOpts := codeEngineService.NewGetJobOptions(
+		*createdProject.ID,
+		"job-1",
+	)
+
+	obtainedJob, _, err := codeEngineService.GetJob(getJobOpts)
+	if err != nil {
+		fmt.Printf("GetJob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained job '%s'\n", *obtainedJob.Name)
+	if obtainedJob.ComputedEnvVariables != nil {
+		fmt.Printf("Obtained job contains 'ComputedEnvVariables\n")
+		for _, envVar := range obtainedJob.ComputedEnvVariables {
+			fmt.Println(*envVar.Name + ":" + *envVar.Value)
+		}
+	} else {
+		err := errors.New("no computed environment variables found")
+		fmt.Printf("GetJob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	if obtainedJob.RunEnvVariables != nil {
+		fmt.Printf("Obtained job contains 'RunEnvVariables\n")
+		fmt.Println(*obtainedJob.RunEnvVariables[0].Name + " " + *obtainedJob.RunEnvVariables[0].Value)
+	} else {
+		err := errors.New("no run environment variables found")
+		fmt.Printf("Getjob error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
 
 	resp, err = codeEngineService.DeleteProject(deleteProjectOptions)
 	if err != nil {
