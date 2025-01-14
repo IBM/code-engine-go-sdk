@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-12-10`.
+	// and `2025-01-10`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2024-12-10`.
+	// and `2025-01-10`.
 	Version *string 
 }
 
@@ -6981,6 +6981,24 @@ const (
 	Build_Status_Ready = "ready"
 )
 
+// Constants associated with the Build.StrategySize property.
+// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+// `large`, `xlarge`, `xxlarge`.
+const (
+	Build_StrategySize_Large = "large"
+	Build_StrategySize_Medium = "medium"
+	Build_StrategySize_Small = "small"
+	Build_StrategySize_Xlarge = "xlarge"
+	Build_StrategySize_Xxlarge = "xxlarge"
+)
+
+// Constants associated with the Build.StrategyType property.
+// The strategy to use for building the image.
+const (
+	Build_StrategyType_Buildpacks = "buildpacks"
+	Build_StrategyType_Dockerfile = "dockerfile"
+)
+
 // UnmarshalBuild unmarshals an instance of Build from the specified map of raw messages.
 func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Build)
@@ -7197,6 +7215,24 @@ type BuildPatch struct {
 const (
 	BuildPatch_SourceType_Git = "git"
 	BuildPatch_SourceType_Local = "local"
+)
+
+// Constants associated with the BuildPatch.StrategySize property.
+// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+// `large`, `xlarge`, `xxlarge`.
+const (
+	BuildPatch_StrategySize_Large = "large"
+	BuildPatch_StrategySize_Medium = "medium"
+	BuildPatch_StrategySize_Small = "small"
+	BuildPatch_StrategySize_Xlarge = "xlarge"
+	BuildPatch_StrategySize_Xxlarge = "xxlarge"
+)
+
+// Constants associated with the BuildPatch.StrategyType property.
+// The strategy to use for building the image.
+const (
+	BuildPatch_StrategyType_Buildpacks = "buildpacks"
+	BuildPatch_StrategyType_Dockerfile = "dockerfile"
 )
 
 // UnmarshalBuildPatch unmarshals an instance of BuildPatch from the specified map of raw messages.
@@ -7418,6 +7454,24 @@ const (
 	BuildRun_Status_Pending = "pending"
 	BuildRun_Status_Running = "running"
 	BuildRun_Status_Succeeded = "succeeded"
+)
+
+// Constants associated with the BuildRun.StrategySize property.
+// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+// `large`, `xlarge`, `xxlarge`.
+const (
+	BuildRun_StrategySize_Large = "large"
+	BuildRun_StrategySize_Medium = "medium"
+	BuildRun_StrategySize_Small = "small"
+	BuildRun_StrategySize_Xlarge = "xlarge"
+	BuildRun_StrategySize_Xxlarge = "xxlarge"
+)
+
+// Constants associated with the BuildRun.StrategyType property.
+// The strategy to use for building the image.
+const (
+	BuildRun_StrategyType_Buildpacks = "buildpacks"
+	BuildRun_StrategyType_Dockerfile = "dockerfile"
 )
 
 // UnmarshalBuildRun unmarshals an instance of BuildRun from the specified map of raw messages.
@@ -8440,6 +8494,13 @@ type CreateBuildOptions struct {
 	Headers map[string]string
 }
 
+// Constants associated with the CreateBuildOptions.StrategyType property.
+// The strategy to use for building the image.
+const (
+	CreateBuildOptions_StrategyType_Buildpacks = "buildpacks"
+	CreateBuildOptions_StrategyType_Dockerfile = "dockerfile"
+)
+
 // Constants associated with the CreateBuildOptions.SourceType property.
 // Specifies the type of source to determine if your build source is in a repository or based on local source code.
 // * local - For builds from local source code.
@@ -8447,6 +8508,17 @@ type CreateBuildOptions struct {
 const (
 	CreateBuildOptions_SourceType_Git = "git"
 	CreateBuildOptions_SourceType_Local = "local"
+)
+
+// Constants associated with the CreateBuildOptions.StrategySize property.
+// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+// `large`, `xlarge`, `xxlarge`.
+const (
+	CreateBuildOptions_StrategySize_Large = "large"
+	CreateBuildOptions_StrategySize_Medium = "medium"
+	CreateBuildOptions_StrategySize_Small = "small"
+	CreateBuildOptions_StrategySize_Xlarge = "xlarge"
+	CreateBuildOptions_StrategySize_Xxlarge = "xxlarge"
 )
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
@@ -8628,6 +8700,24 @@ const (
 const (
 	CreateBuildRunOptions_SourceType_Git = "git"
 	CreateBuildRunOptions_SourceType_Local = "local"
+)
+
+// Constants associated with the CreateBuildRunOptions.StrategySize property.
+// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
+// `large`, `xlarge`, `xxlarge`.
+const (
+	CreateBuildRunOptions_StrategySize_Large = "large"
+	CreateBuildRunOptions_StrategySize_Medium = "medium"
+	CreateBuildRunOptions_StrategySize_Small = "small"
+	CreateBuildRunOptions_StrategySize_Xlarge = "xlarge"
+	CreateBuildRunOptions_StrategySize_Xxlarge = "xxlarge"
+)
+
+// Constants associated with the CreateBuildRunOptions.StrategyType property.
+// The strategy to use for building the image.
+const (
+	CreateBuildRunOptions_StrategyType_Buildpacks = "buildpacks"
+	CreateBuildRunOptions_StrategyType_Dockerfile = "dockerfile"
 )
 
 // NewCreateBuildRunOptions : Instantiate CreateBuildRunOptions
@@ -11654,6 +11744,67 @@ func (options *GetSecretOptions) SetHeaders(param map[string]string) *GetSecretO
 	return options
 }
 
+// IndexDetails : IndexDetails struct
+type IndexDetails struct {
+	// The timestamp when the job run index finished processing.
+	FinishedAt *string `json:"finished_at,omitempty"`
+
+	// Reason why latest retry of the job run index failed. Possible values include but are not limited to `OOMKilled`,
+	// `ContainerExitedCode1` or `ExceededEphemeralStorage`.
+	LastFailureReason *string `json:"last_failure_reason,omitempty"`
+
+	// Number of retries of this job run index.
+	Retries *int64 `json:"retries,omitempty"`
+
+	// The timestamp when the job run index started processing.
+	StartedAt *string `json:"started_at,omitempty"`
+
+	// Current status of the job run index.
+	Status *string `json:"status,omitempty"`
+}
+
+// Constants associated with the IndexDetails.Status property.
+// Current status of the job run index.
+const (
+	IndexDetails_Status_Failed = "failed"
+	IndexDetails_Status_Pending = "pending"
+	IndexDetails_Status_Running = "running"
+	IndexDetails_Status_Succeeded = "succeeded"
+	IndexDetails_Status_Unknown = "unknown"
+)
+
+// UnmarshalIndexDetails unmarshals an instance of IndexDetails from the specified map of raw messages.
+func UnmarshalIndexDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IndexDetails)
+	err = core.UnmarshalPrimitive(m, "finished_at", &obj.FinishedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "finished_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_failure_reason", &obj.LastFailureReason)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_failure_reason-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "retries", &obj.Retries)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "retries-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "started_at", &obj.StartedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "started_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Job : Job is the response model for job resources.
 type Job struct {
 	// Reference to a build that is associated with the job.
@@ -12554,6 +12705,9 @@ type JobRunStatus struct {
 	// List of job run indices that failed.
 	FailedIndices *string `json:"failed_indices,omitempty"`
 
+	// Detailed process information per index.
+	IndicesDetails map[string]IndexDetails `json:"indices_details,omitempty"`
+
 	// Number of pending job run instances.
 	Pending *int64 `json:"pending,omitempty"`
 
@@ -12598,6 +12752,11 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 	err = core.UnmarshalPrimitive(m, "failed_indices", &obj.FailedIndices)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "failed_indices-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "indices_details", &obj.IndicesDetails, UnmarshalIndexDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "indices_details-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pending", &obj.Pending)
@@ -14180,6 +14339,20 @@ const (
 	Secret_Format_ServiceOperator = "service_operator"
 	Secret_Format_SshAuth = "ssh_auth"
 	Secret_Format_Tls = "tls"
+)
+
+// Constants associated with the Secret.ResourceType property.
+// The type of the secret.
+const (
+	Secret_ResourceType_SecretAuthSshV2 = "secret_auth_ssh_v2"
+	Secret_ResourceType_SecretBasicAuthV2 = "secret_basic_auth_v2"
+	Secret_ResourceType_SecretGenericV2 = "secret_generic_v2"
+	Secret_ResourceType_SecretOperatorV2 = "secret_operator_v2"
+	Secret_ResourceType_SecretOtherV2 = "secret_other_v2"
+	Secret_ResourceType_SecretRegistryV2 = "secret_registry_v2"
+	Secret_ResourceType_SecretServiceAccessV2 = "secret_service_access_v2"
+	Secret_ResourceType_SecretTlsV2 = "secret_tls_v2"
+	Secret_ResourceType_SecretV2 = "secret_v2"
 )
 
 // UnmarshalSecret unmarshals an instance of Secret from the specified map of raw messages.
