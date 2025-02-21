@@ -1223,6 +1223,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_secrets
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Format: core.StringPtr("ssh_auth"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 

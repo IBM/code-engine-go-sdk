@@ -1387,12 +1387,21 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
+			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
+				Key: core.StringPtr("MY_VARIABLE"),
+				Name: core.StringPtr("SOME"),
+				Reference: core.StringPtr("my-secret"),
+				Type: core.StringPtr("literal"),
+				Value: core.StringPtr("VALUE"),
+			}
+
 			createBuildOptions := &codeenginev2.CreateBuildOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name: core.StringPtr("my-build"),
 				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
 				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
 				StrategyType: core.StringPtr("dockerfile"),
+				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
 				SourceContextDir: core.StringPtr("some/subfolder"),
 				SourceRevision: core.StringPtr("main"),
 				SourceSecret: core.StringPtr("testString"),
@@ -1432,9 +1441,18 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
+			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
+				Key: core.StringPtr("MY_VARIABLE"),
+				Name: core.StringPtr("SOME"),
+				Reference: core.StringPtr("my-secret"),
+				Type: core.StringPtr("literal"),
+				Value: core.StringPtr("VALUE"),
+			}
+
 			buildPatchModel := &codeenginev2.BuildPatch{
 				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
 				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
+				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
 				SourceContextDir: core.StringPtr("some/subfolder"),
 				SourceRevision: core.StringPtr("main"),
 				SourceSecret: core.StringPtr("testString"),
@@ -1533,12 +1551,21 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions)`, func() {
+			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
+				Key: core.StringPtr("MY_VARIABLE"),
+				Name: core.StringPtr("SOME"),
+				Reference: core.StringPtr("my-secret"),
+				Type: core.StringPtr("literal"),
+				Value: core.StringPtr("VALUE"),
+			}
+
 			createBuildRunOptions := &codeenginev2.CreateBuildRunOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				BuildName: core.StringPtr("testString"),
 				Name: core.StringPtr("testString"),
 				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
 				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
+				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
 				ServiceAccount: core.StringPtr("default"),
 				SourceContextDir: core.StringPtr("some/subfolder"),
 				SourceRevision: core.StringPtr("main"),
@@ -1836,6 +1863,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) with pagination`, func(){
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Format: core.StringPtr("ssh_auth"),
 				Limit: core.Int64Ptr(int64(100)),
 				Start: core.StringPtr("testString"),
 			}
@@ -1863,6 +1891,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) using SecretsPager`, func(){
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Format: core.StringPtr("ssh_auth"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 

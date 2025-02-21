@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
+ * IBM OpenAPI SDK Code Generator Version: 3.99.0-d27cee72-20250129-204831
  */
 
 // Package codeenginev2 : Operations and models for the CodeEngineV2 service
@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-01-10`.
+	// and `2025-02-20`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-01-10`.
+	// and `2025-02-20`.
 	Version *string 
 }
 
@@ -3415,6 +3415,9 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	if createBuildOptions.StrategyType != nil {
 		body["strategy_type"] = createBuildOptions.StrategyType
 	}
+	if createBuildOptions.RunBuildParams != nil {
+		body["run_build_params"] = createBuildOptions.RunBuildParams
+	}
 	if createBuildOptions.SourceContextDir != nil {
 		body["source_context_dir"] = createBuildOptions.SourceContextDir
 	}
@@ -3816,6 +3819,9 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	}
 	if createBuildRunOptions.OutputSecret != nil {
 		body["output_secret"] = createBuildRunOptions.OutputSecret
+	}
+	if createBuildRunOptions.RunBuildParams != nil {
+		body["run_build_params"] = createBuildRunOptions.RunBuildParams
 	}
 	if createBuildRunOptions.ServiceAccount != nil {
 		body["service_account"] = createBuildRunOptions.ServiceAccount
@@ -4797,6 +4803,9 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listSecretsOptions.Format != nil {
+		builder.AddQuery("format", fmt.Sprint(*listSecretsOptions.Format))
+	}
 	if listSecretsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listSecretsOptions.Limit))
 	}
@@ -5747,9 +5756,6 @@ type AppInstance struct {
 	// The type of the app instance.
 	ResourceType *string `json:"resource_type,omitempty"`
 
-	// The number of restarts of the app instance.
-	Restarts *int64 `json:"restarts,omitempty"`
-
 	// The name of the revision that is associated with this instance.
 	RevisionName *string `json:"revision_name" validate:"required"`
 
@@ -5772,11 +5778,8 @@ type AppInstance struct {
 	// The current status of the instance.
 	Status *string `json:"status,omitempty"`
 
-	// The status of a container.
-	SystemContainer *ContainerStatus `json:"system_container,omitempty"`
-
-	// The status of a container.
-	UserContainer *ContainerStatus `json:"user_container,omitempty"`
+	// The status of the pod and it's containers.
+	StatusDetails *AppInstanceStatusDetails `json:"status_details,omitempty"`
 }
 
 // Constants associated with the AppInstance.ResourceType property.
@@ -5837,11 +5840,6 @@ func UnmarshalAppInstance(m map[string]json.RawMessage, result interface{}) (err
 		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "restarts", &obj.Restarts)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "restarts-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "revision_name", &obj.RevisionName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "revision_name-error", common.GetComponentInfo())
@@ -5867,14 +5865,9 @@ func UnmarshalAppInstance(m map[string]json.RawMessage, result interface{}) (err
 		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "system_container", &obj.SystemContainer, UnmarshalContainerStatus)
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAppInstanceStatusDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "system_container-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "user_container", &obj.UserContainer, UnmarshalContainerStatus)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "user_container-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5929,6 +5922,40 @@ func (resp *AppInstanceList) GetNextStart() (*string, error) {
 		return nil, nil
 	}
 	return resp.Next.Start, nil
+}
+
+// AppInstanceStatusDetails : The status of the pod and it's containers.
+type AppInstanceStatusDetails struct {
+	// The number of restarts of the app instance.
+	Restarts *int64 `json:"restarts,omitempty"`
+
+	// The status of a container.
+	SystemContainer *ContainerStatus `json:"system_container,omitempty"`
+
+	// The status of a container.
+	UserContainer *ContainerStatus `json:"user_container,omitempty"`
+}
+
+// UnmarshalAppInstanceStatusDetails unmarshals an instance of AppInstanceStatusDetails from the specified map of raw messages.
+func UnmarshalAppInstanceStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AppInstanceStatusDetails)
+	err = core.UnmarshalPrimitive(m, "restarts", &obj.Restarts)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restarts-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "system_container", &obj.SystemContainer, UnmarshalContainerStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_container-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "user_container", &obj.UserContainer, UnmarshalContainerStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user_container-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AppList : Contains a list of apps and pagination information.
@@ -6915,6 +6942,10 @@ type Build struct {
 	// The type of the build.
 	ResourceType *string `json:"resource_type,omitempty"`
 
+	// References to config maps and secret keys, or literal values, which are defined by the build owner and are exposed
+	// as build arguments in Docker files.
+	RunBuildParams []BuildParam `json:"run_build_params,omitempty"`
+
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
@@ -7052,6 +7083,11 @@ func UnmarshalBuild(m map[string]json.RawMessage, result interface{}) (err error
 		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "run_build_params", &obj.RunBuildParams, UnmarshalBuildParam)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_build_params-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "source_context_dir-error", common.GetComponentInfo())
@@ -7161,6 +7197,156 @@ func (resp *BuildList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// BuildParam : Response model for build params.
+type BuildParam struct {
+	// The key to reference as build param.
+	Key *string `json:"key,omitempty"`
+
+	// The name of the build param.
+	Name *string `json:"name,omitempty"`
+
+	// The name of the secret or config map.
+	Reference *string `json:"reference,omitempty"`
+
+	// Specify the type of the build param.
+	Type *string `json:"type" validate:"required"`
+
+	// The literal value of the build param.
+	Value *string `json:"value,omitempty"`
+}
+
+// Constants associated with the BuildParam.Type property.
+// Specify the type of the build param.
+const (
+	BuildParam_Type_ConfigMapKeyReference = "config_map_key_reference"
+	BuildParam_Type_Literal = "literal"
+	BuildParam_Type_SecretKeyReference = "secret_key_reference"
+)
+
+// UnmarshalBuildParam unmarshals an instance of BuildParam from the specified map of raw messages.
+func UnmarshalBuildParam(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildParam)
+	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BuildParamPrototype : Prototype model for build params.
+type BuildParamPrototype struct {
+	// The key to reference as build param.
+	Key *string `json:"key,omitempty"`
+
+	// The name of the build param.
+	Name *string `json:"name,omitempty"`
+
+	// The name of the secret or config map.
+	Reference *string `json:"reference,omitempty"`
+
+	// Specify the type of the build param.
+	Type *string `json:"type" validate:"required"`
+
+	// The literal value of the build param.
+	Value *string `json:"value,omitempty"`
+}
+
+// Constants associated with the BuildParamPrototype.Type property.
+// Specify the type of the build param.
+const (
+	BuildParamPrototype_Type_ConfigMapKeyReference = "config_map_key_reference"
+	BuildParamPrototype_Type_Literal = "literal"
+	BuildParamPrototype_Type_SecretKeyReference = "secret_key_reference"
+)
+
+// NewBuildParamPrototype : Instantiate BuildParamPrototype (Generic Model Constructor)
+func (*CodeEngineV2) NewBuildParamPrototype(typeVar string) (_model *BuildParamPrototype, err error) {
+	_model = &BuildParamPrototype{
+		Type: core.StringPtr(typeVar),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalBuildParamPrototype unmarshals an instance of BuildParamPrototype from the specified map of raw messages.
+func UnmarshalBuildParamPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BuildParamPrototype)
+	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the BuildParamPrototype
+func (buildParamPrototype *BuildParamPrototype) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(buildParamPrototype.Key) {
+		_patch["key"] = buildParamPrototype.Key
+	}
+	if !core.IsNil(buildParamPrototype.Name) {
+		_patch["name"] = buildParamPrototype.Name
+	}
+	if !core.IsNil(buildParamPrototype.Reference) {
+		_patch["reference"] = buildParamPrototype.Reference
+	}
+	if !core.IsNil(buildParamPrototype.Type) {
+		_patch["type"] = buildParamPrototype.Type
+	}
+	if !core.IsNil(buildParamPrototype.Value) {
+		_patch["value"] = buildParamPrototype.Value
+	}
+
+	return
+}
+
 // BuildPatch : Patch a build object.
 type BuildPatch struct {
 	// The name of the image.
@@ -7169,6 +7355,10 @@ type BuildPatch struct {
 	// The secret that is required to access the image registry. Make sure that the secret is granted with push permissions
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// Optional references to config maps and secret keys, or literal values that are exposed as build arguments within the
+	// Docker file.
+	RunBuildParams []BuildParamPrototype `json:"run_build_params,omitempty"`
 
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
@@ -7248,6 +7438,11 @@ func UnmarshalBuildPatch(m map[string]json.RawMessage, result interface{}) (err 
 		err = core.SDKErrorf(err, "", "output_secret-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalModel(m, "run_build_params", &obj.RunBuildParams, UnmarshalBuildParamPrototype)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_build_params-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "source_context_dir", &obj.SourceContextDir)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "source_context_dir-error", common.GetComponentInfo())
@@ -7305,6 +7500,13 @@ func (buildPatch *BuildPatch) AsPatch() (_patch map[string]interface{}, err erro
 	}
 	if !core.IsNil(buildPatch.OutputSecret) {
 		_patch["output_secret"] = buildPatch.OutputSecret
+	}
+	if !core.IsNil(buildPatch.RunBuildParams) {
+		var runBuildParamsPatches []map[string]interface{}
+		for _, runBuildParams := range buildPatch.RunBuildParams {
+			runBuildParamsPatches = append(runBuildParamsPatches, runBuildParams.asPatch())
+		}
+		_patch["run_build_params"] = runBuildParamsPatches
 	}
 	if !core.IsNil(buildPatch.SourceContextDir) {
 		_patch["source_context_dir"] = buildPatch.SourceContextDir
@@ -7372,6 +7574,10 @@ type BuildRun struct {
 
 	// The type of the build run.
 	ResourceType *string `json:"resource_type,omitempty"`
+
+	// References to config maps and secret keys, or literal values, which are defined by the build owner and are exposed
+	// as build arguments in Docker files.
+	RunBuildParams []BuildParam `json:"run_build_params,omitempty"`
 
 	// Optional service account, which is used for resource control.” or “Optional service account that is used for
 	// resource control.
@@ -7525,6 +7731,11 @@ func UnmarshalBuildRun(m map[string]json.RawMessage, result interface{}) (err er
 	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "run_build_params", &obj.RunBuildParams, UnmarshalBuildParam)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_build_params-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_account", &obj.ServiceAccount)
@@ -8006,26 +8217,12 @@ type ContainerStatusDetails struct {
 	StartedAt *string `json:"started_at,omitempty"`
 }
 
-// Constants associated with the ContainerStatusDetails.Reason property.
-// The reason the container is not yet running or has failed. Only populated in non-running states.
+// Constants associated with the ContainerStatusDetails.ContainerStatus property.
+// The status of the container.
 const (
-	ContainerStatusDetails_Reason_ContainerFailedExitCode0 = "container_failed_exit_code_0"
-	ContainerStatusDetails_Reason_ContainerFailedExitCode1 = "container_failed_exit_code_1"
-	ContainerStatusDetails_Reason_ContainerFailedExitCode139 = "container_failed_exit_code_139"
-	ContainerStatusDetails_Reason_ContainerFailedExitCode24 = "container_failed_exit_code_24"
-	ContainerStatusDetails_Reason_Deploying = "deploying"
-	ContainerStatusDetails_Reason_DeployingWaitingForResources = "deploying_waiting_for_resources"
-	ContainerStatusDetails_Reason_FetchImageFailedMissingPullCredentials = "fetch_image_failed_missing_pull_credentials"
-	ContainerStatusDetails_Reason_FetchImageFailedMissingPullSecret = "fetch_image_failed_missing_pull_secret"
-	ContainerStatusDetails_Reason_FetchImageFailedRegistryNotFound = "fetch_image_failed_registry_not_found"
-	ContainerStatusDetails_Reason_FetchImageFailedUnknownManifest = "fetch_image_failed_unknown_manifest"
-	ContainerStatusDetails_Reason_FetchImageFailedUnknownRepository = "fetch_image_failed_unknown_repository"
-	ContainerStatusDetails_Reason_FetchImageFailedWrongPullCredentials = "fetch_image_failed_wrong_pull_credentials"
-	ContainerStatusDetails_Reason_ImagePullBackOff = "image_pull_back_off"
-	ContainerStatusDetails_Reason_InitialScaleNeverAchieved = "initial_scale_never_achieved"
-	ContainerStatusDetails_Reason_InvalidTarHeaderImagePullErr = "invalid_tar_header_image_pull_err"
-	ContainerStatusDetails_Reason_Ready = "ready"
-	ContainerStatusDetails_Reason_Waiting = "waiting"
+	ContainerStatusDetails_ContainerStatus_Pending = "pending"
+	ContainerStatusDetails_ContainerStatus_Running = "running"
+	ContainerStatusDetails_ContainerStatus_Terminated = "terminated"
 )
 
 // UnmarshalContainerStatusDetails unmarshals an instance of ContainerStatusDetails from the specified map of raw messages.
@@ -8456,6 +8653,10 @@ type CreateBuildOptions struct {
 	// The strategy to use for building the image.
 	StrategyType *string `json:"strategy_type" validate:"required"`
 
+	// Optional references to config maps and secret keys, or literal values that are exposed as build arguments within the
+	// Docker file.
+	RunBuildParams []BuildParamPrototype `json:"run_build_params,omitempty"`
+
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
 
@@ -8562,6 +8763,12 @@ func (_options *CreateBuildOptions) SetStrategyType(strategyType string) *Create
 	return _options
 }
 
+// SetRunBuildParams : Allow user to set RunBuildParams
+func (_options *CreateBuildOptions) SetRunBuildParams(runBuildParams []BuildParamPrototype) *CreateBuildOptions {
+	_options.RunBuildParams = runBuildParams
+	return _options
+}
+
 // SetSourceContextDir : Allow user to set SourceContextDir
 func (_options *CreateBuildOptions) SetSourceContextDir(sourceContextDir string) *CreateBuildOptions {
 	_options.SourceContextDir = core.StringPtr(sourceContextDir)
@@ -8636,6 +8843,10 @@ type CreateBuildRunOptions struct {
 	// The secret that is required to access the image registry. Make sure that the secret is granted with push permissions
 	// towards the specified container registry namespace.
 	OutputSecret *string `json:"output_secret,omitempty"`
+
+	// Optional references to config maps and secret keys, or literal values that are exposed as build arguments within the
+	// Docker file.
+	RunBuildParams []BuildParamPrototype `json:"run_build_params,omitempty"`
 
 	// Optional service account, which is used for resource control.” or “Optional service account that is used for
 	// resource control.
@@ -8754,6 +8965,12 @@ func (_options *CreateBuildRunOptions) SetOutputImage(outputImage string) *Creat
 // SetOutputSecret : Allow user to set OutputSecret
 func (_options *CreateBuildRunOptions) SetOutputSecret(outputSecret string) *CreateBuildRunOptions {
 	_options.OutputSecret = core.StringPtr(outputSecret)
+	return _options
+}
+
+// SetRunBuildParams : Allow user to set RunBuildParams
+func (_options *CreateBuildRunOptions) SetRunBuildParams(runBuildParams []BuildParamPrototype) *CreateBuildRunOptions {
+	_options.RunBuildParams = runBuildParams
 	return _options
 }
 
@@ -13526,6 +13743,9 @@ type ListSecretsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
+	// Secret format to filter results by.
+	Format *string `json:"format,omitempty"`
+
 	// Optional maximum number of secrets per page.
 	Limit *int64 `json:"limit,omitempty"`
 
@@ -13538,6 +13758,18 @@ type ListSecretsOptions struct {
 	Headers map[string]string
 }
 
+// Constants associated with the ListSecretsOptions.Format property.
+// Secret format to filter results by.
+const (
+	ListSecretsOptions_Format_BasicAuth = "basic_auth"
+	ListSecretsOptions_Format_Generic = "generic"
+	ListSecretsOptions_Format_Registry = "registry"
+	ListSecretsOptions_Format_ServiceAccess = "service_access"
+	ListSecretsOptions_Format_ServiceOperator = "service_operator"
+	ListSecretsOptions_Format_SshAuth = "ssh_auth"
+	ListSecretsOptions_Format_Tls = "tls"
+)
+
 // NewListSecretsOptions : Instantiate ListSecretsOptions
 func (*CodeEngineV2) NewListSecretsOptions(projectID string) *ListSecretsOptions {
 	return &ListSecretsOptions{
@@ -13548,6 +13780,12 @@ func (*CodeEngineV2) NewListSecretsOptions(projectID string) *ListSecretsOptions
 // SetProjectID : Allow user to set ProjectID
 func (_options *ListSecretsOptions) SetProjectID(projectID string) *ListSecretsOptions {
 	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetFormat : Allow user to set Format
+func (_options *ListSecretsOptions) SetFormat(format string) *ListSecretsOptions {
+	_options.Format = core.StringPtr(format)
 	return _options
 }
 

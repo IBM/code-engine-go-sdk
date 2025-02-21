@@ -440,6 +440,123 @@ func main() {
 	}
 	fmt.Printf("Deleted allowed outbound destination: '%d'\n", resp.StatusCode)
 
+	buildParamValue := "TESTVALUE"
+	buildParamType := "literal"
+	buildParamName := "TESTNAME"
+
+	var buildParams = []codeenginev2.BuildParamPrototype{
+		{
+			Value: &buildParamValue,
+			Type:  &buildParamType,
+			Name:  &buildParamName,
+		},
+	}
+
+	// Create build
+	createBuildOpts := codeEngineService.NewCreateBuildOptions(
+		*createdProject.ID,
+		"my-build",
+		"private.de.icr.io/icr_namespace/image-name",
+		"ce-auto-icr-private-eu-de",
+		"dockerfile",
+	)
+
+	sourceType := "local"
+	createBuildOpts.SourceType = &sourceType
+	createBuildOpts.RunBuildParams = buildParams
+
+	createdBuild, _, err := codeEngineService.CreateBuild(createBuildOpts)
+	if err != nil {
+		fmt.Printf("CreateBuild error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created build '%s'\n", *createdBuild.Name)
+	if createdBuild.RunBuildParams != nil {
+		fmt.Printf("Created build contains 'RunBuildParams\n")
+		for _, buildParam := range createdBuild.RunBuildParams {
+			fmt.Println(*buildParam.Name + ":" + *buildParam.Value)
+		}
+	} else {
+		err := errors.New("no build params found")
+		fmt.Printf("CreateBuild error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	strategyType := "dockerfile"
+	outputImage := "private.de.icr.io/icr_namespace/image-name"
+	outputSecret := "ce-auto-icr-private-eu-de"
+	// Update build
+	buildUpdateModel := &codeenginev2.BuildPatch{
+		OutputImage:    &outputImage,
+		OutputSecret:   &outputSecret,
+		SourceType:     &sourceType,
+		StrategyType:   &strategyType,
+		RunBuildParams: buildParams,
+	}
+
+	buildAsPatch, err := buildUpdateModel.AsPatch()
+	if err != nil {
+		fmt.Printf("buildUpdateModel.AsPatch error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	updateBuildOpts := codeEngineService.NewUpdateBuildOptions(
+		*createdProject.ID,
+		"my-build",
+		"*",
+		buildAsPatch,
+	)
+
+	updatedBuild, _, err := codeEngineService.UpdateBuild(updateBuildOpts)
+	if err != nil {
+		fmt.Printf("UpdateBuild error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated build'%s'\n", updatedBuild)
+
+	// Get build
+	getBuildOpts := codeEngineService.NewGetBuildOptions(
+		*createdProject.ID,
+		"my-build",
+	)
+
+	obtainedBuild, _, err := codeEngineService.GetBuild(getBuildOpts)
+	if err != nil {
+		fmt.Printf("GetBuild error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained build '%s'\n", obtainedBuild)
+	if obtainedBuild.RunBuildParams != nil {
+		fmt.Printf("Obtained build contains 'RunBuildParams\n")
+		for _, buildParam := range obtainedBuild.RunBuildParams {
+			fmt.Println(*buildParam.Name + ":" + *buildParam.Value)
+		}
+	} else {
+		err := errors.New("no build params found")
+		fmt.Printf("GetBuild error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+
+	// Delete build
+	deleteBuildOpts := codeEngineService.NewDeleteBuildOptions(
+		*createdProject.ID,
+		"my-build",
+	)
+
+	resp, err = codeEngineService.DeleteBuild(deleteBuildOpts)
+	if err != nil {
+		fmt.Printf("DeleteBuild error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted build: '%d'\n", resp.StatusCode)
+
 	// Create app
 	createAppOpts := codeEngineService.NewCreateAppOptions(
 		*createdProject.ID,
@@ -827,6 +944,20 @@ func main() {
 		os.Exit(1)
 		return
 	}
+
+	// Delete job
+	deleteJobOpts := codeEngineService.NewDeleteJobOptions(
+		*createdProject.ID,
+		"job-1",
+	)
+
+	resp, err = codeEngineService.DeleteJob(deleteJobOpts)
+	if err != nil {
+		fmt.Printf("DeleteJob error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted job: '%d'\n", resp.StatusCode)
 
 	resp, err = codeEngineService.DeleteProject(deleteProjectOptions)
 	if err != nil {
