@@ -272,6 +272,77 @@ func main() {
 	}
 	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
+	// Create hmac auth secret
+	createHMACAuthSecretOpts := codeEngineService.NewCreateSecretOptions(
+		*createdProject.ID,
+		"hmac_auth",
+		"hmac-auth-secret",
+	)
+
+	accesskeyid := "access-key-id"
+	secretaccesskey := "secret-access-key"
+	createHMACAuthSecretOpts.Data = &codeenginev2.SecretDataHMACAuthSecretData{
+		AccessKeyID:     &accesskeyid,
+		SecretAccessKey: &secretaccesskey,
+	}
+
+	createdHASecret, _, err := codeEngineService.CreateSecret(createHMACAuthSecretOpts)
+	if err != nil {
+		fmt.Printf("CreateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created hmac auth secret '%s'\n", *createdHASecret.Name)
+
+	// Get hmac auth secret
+	getHASecretOpts := codeEngineService.NewGetSecretOptions(
+		*createdProject.ID,
+		"hmac-auth-secret",
+	)
+	obtainedHASecret, _, err := codeEngineService.GetSecret(getHASecretOpts)
+	if err != nil {
+		fmt.Printf("GetSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained secret '%s', format: %s", *obtainedHASecret.Name, *obtainedHASecret.Format)
+
+	// Update hmac auth secret
+	replaceHASecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"hmac-auth-secret",
+		"*",
+		"hmac_auth",
+	)
+	updatedaccesskeyid := "updated-access-key-id"
+	updatedsecretaccesskey := "updated-secret-access-key"
+	replaceHASecretopts.Data = &codeenginev2.SecretDataHMACAuthSecretData{
+		AccessKeyID:     &updatedaccesskeyid,
+		SecretAccessKey: &updatedsecretaccesskey,
+	}
+	format = "hmac_auth"
+	replaceBASecretopts.Format = &format
+	updatedHASecret, _, err := codeEngineService.ReplaceSecret(replaceHASecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedHASecret.Name, *updatedHASecret.Format)
+
+	// Delete hmac auth secret
+	deleteHASecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"hmac-auth-secret",
+	)
+	resp, err = codeEngineService.DeleteSecret(deleteHASecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
 	// Create registry secret
 	createRegistrySecretOpts := codeEngineService.NewCreateSecretOptions(
 		*createdProject.ID,

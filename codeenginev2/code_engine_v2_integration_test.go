@@ -456,6 +456,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				RunServiceAccount: core.StringPtr("default"),
 				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
@@ -536,6 +537,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				RunServiceAccount: core.StringPtr("default"),
 				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
@@ -810,6 +812,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				RunMode: core.StringPtr("task"),
 				RunServiceAccount: core.StringPtr("default"),
@@ -873,6 +876,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				RunMode: core.StringPtr("task"),
 				RunServiceAccount: core.StringPtr("default"),
@@ -997,6 +1001,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				RunArguments: []string{"testString"},
 				RunAsUser: core.Int64Ptr(int64(1001)),
 				RunCommands: []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				RunMode: core.StringPtr("task"),
 				RunServiceAccount: core.StringPtr("default"),
@@ -1131,11 +1136,12 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				CodeReference: core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
 				Name: core.StringPtr("my-function"),
-				Runtime: core.StringPtr("nodejs-18"),
+				Runtime: core.StringPtr("nodejs-20"),
 				CodeBinary: core.BoolPtr(false),
 				CodeMain: core.StringPtr("main"),
 				CodeSecret: core.StringPtr("my-secret"),
 				ManagedDomainMappings: core.StringPtr("local_public"),
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
 				ScaleConcurrency: core.Int64Ptr(int64(1)),
 				ScaleCpuLimit: core.StringPtr("1"),
@@ -1188,8 +1194,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 				CodeReference: core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
 				CodeSecret: core.StringPtr("my-secret"),
 				ManagedDomainMappings: core.StringPtr("local_public"),
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
 				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				Runtime: core.StringPtr("nodejs-18"),
+				Runtime: core.StringPtr("nodejs-20"),
 				ScaleConcurrency: core.Int64Ptr(int64(1)),
 				ScaleCpuLimit: core.StringPtr("1"),
 				ScaleDownDelay: core.Int64Ptr(int64(300)),
@@ -2060,6 +2067,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			deleteAppOptions := &codeenginev2.DeleteAppOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name: core.StringPtr("my-app"),
+				KeepServiceAccess: core.BoolPtr(false),
 			}
 
 			response, err := codeEngineService.DeleteApp(deleteAppOptions)
@@ -2093,6 +2101,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			deleteJobOptions := &codeenginev2.DeleteJobOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name: core.StringPtr("my-job"),
+				KeepServiceAccess: core.BoolPtr(false),
 			}
 
 			response, err := codeEngineService.DeleteJob(deleteJobOptions)
@@ -2125,6 +2134,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			deleteFunctionOptions := &codeenginev2.DeleteFunctionOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Name: core.StringPtr("my-function"),
+				KeepServiceAccess: core.BoolPtr(false),
 			}
 
 			response, err := codeEngineService.DeleteFunction(deleteFunctionOptions)

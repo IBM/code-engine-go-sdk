@@ -708,7 +708,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
 				"data:text/plain;base64,<base64encoded-source-code>",
 				"my-function",
-				"nodejs-18",
+				"nodejs-20",
 			)
 
 			function, response, err := codeEngineService.CreateFunction(createFunctionOptions)

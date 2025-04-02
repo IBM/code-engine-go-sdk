@@ -6,8 +6,8 @@ toolchain go1.23.5
 
 require (
 	github.com/IBM/code-engine-go-sdk/v2 v2.0.3
-	github.com/IBM/go-sdk-core/v5 v5.18.5
-	github.com/IBM/platform-services-go-sdk v0.77.1
+	github.com/IBM/go-sdk-core/v5 v5.19.0
+	github.com/IBM/platform-services-go-sdk v0.79.0
 )
 
 require (
@@ -27,7 +27,7 @@ require (
 	github.com/oklog/ulid v1.3.1 // indirect
 	go.mongodb.org/mongo-driver v1.17.2 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

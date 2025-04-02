@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-02-20`.
+	// and `2025-03-29`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-02-20`.
+	// and `2025-03-29`.
 	Version *string 
 }
 
@@ -219,6 +219,9 @@ func (codeEngine *CodeEngineV2) ListProjectsWithContext(ctx context.Context, lis
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listProjectsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listProjectsOptions.Limit))
 	}
@@ -292,6 +295,10 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createProjectOptions.Name != nil {
@@ -378,6 +385,10 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -444,6 +455,10 @@ func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, de
 	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteProject")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	request, err := builder.Build()
@@ -886,6 +901,10 @@ func (codeEngine *CodeEngineV2) GetProjectEgressIpsWithContext(ctx context.Conte
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -954,6 +973,10 @@ func (codeEngine *CodeEngineV2) GetProjectStatusDetailsWithContext(ctx context.C
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1138,6 +1161,9 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	}
 	if createAppOptions.RunCommands != nil {
 		body["run_commands"] = createAppOptions.RunCommands
+	}
+	if createAppOptions.RunComputeResourceTokenEnabled != nil {
+		body["run_compute_resource_token_enabled"] = createAppOptions.RunComputeResourceTokenEnabled
 	}
 	if createAppOptions.RunEnvVariables != nil {
 		body["run_env_variables"] = createAppOptions.RunEnvVariables
@@ -1329,6 +1355,9 @@ func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, delete
 
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteAppOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteAppOptions.KeepServiceAccess))
 	}
 
 	request, err := builder.Build()
@@ -1633,6 +1662,10 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -1699,6 +1732,9 @@ func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context,
 	}
 	if listAppInstancesOptions.Start != nil {
 		builder.AddQuery("start", fmt.Sprint(*listAppInstancesOptions.Start))
+	}
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	request, err := builder.Build()
@@ -1872,6 +1908,9 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	}
 	if createJobOptions.RunCommands != nil {
 		body["run_commands"] = createJobOptions.RunCommands
+	}
+	if createJobOptions.RunComputeResourceTokenEnabled != nil {
+		body["run_compute_resource_token_enabled"] = createJobOptions.RunComputeResourceTokenEnabled
 	}
 	if createJobOptions.RunEnvVariables != nil {
 		body["run_env_variables"] = createJobOptions.RunEnvVariables
@@ -2054,6 +2093,9 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteJobOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteJobOptions.KeepServiceAccess))
 	}
 
 	request, err := builder.Build()
@@ -2309,6 +2351,9 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	if createJobRunOptions.RunCommands != nil {
 		body["run_commands"] = createJobRunOptions.RunCommands
 	}
+	if createJobRunOptions.RunComputeResourceTokenEnabled != nil {
+		body["run_compute_resource_token_enabled"] = createJobRunOptions.RunComputeResourceTokenEnabled
+	}
 	if createJobRunOptions.RunEnvVariables != nil {
 		body["run_env_variables"] = createJobRunOptions.RunEnvVariables
 	}
@@ -2489,6 +2534,10 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJobRun")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	request, err := builder.Build()
@@ -2717,6 +2766,9 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 	if createFunctionOptions.ManagedDomainMappings != nil {
 		body["managed_domain_mappings"] = createFunctionOptions.ManagedDomainMappings
 	}
+	if createFunctionOptions.RunComputeResourceTokenEnabled != nil {
+		body["run_compute_resource_token_enabled"] = createFunctionOptions.RunComputeResourceTokenEnabled
+	}
 	if createFunctionOptions.RunEnvVariables != nil {
 		body["run_env_variables"] = createFunctionOptions.RunEnvVariables
 	}
@@ -2887,6 +2939,9 @@ func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, d
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
+	if deleteFunctionOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteFunctionOptions.KeepServiceAccess))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -3032,6 +3087,9 @@ func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, lis
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listBindingsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listBindingsOptions.Limit))
 	}
@@ -3109,6 +3167,10 @@ func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, cr
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createBindingOptions.Component != nil {
@@ -3196,6 +3258,10 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -3265,6 +3331,10 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -3325,6 +3395,9 @@ func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listB
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listBuildsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listBuildsOptions.Limit))
 	}
@@ -3401,6 +3474,10 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createBuildOptions.Name != nil {
@@ -3518,6 +3595,10 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -3587,6 +3668,10 @@ func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, dele
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -3650,6 +3735,10 @@ func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, upda
 	builder.AddHeader("Content-Type", "application/merge-patch+json")
 	if updateBuildOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*updateBuildOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	_, err = builder.SetBodyContentJSON(updateBuildOptions.Build)
@@ -3727,6 +3816,9 @@ func (codeEngine *CodeEngineV2) ListBuildRunsWithContext(ctx context.Context, li
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listBuildRunsOptions.BuildName != nil {
 		builder.AddQuery("build_name", fmt.Sprint(*listBuildRunsOptions.BuildName))
 	}
@@ -3806,6 +3898,10 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createBuildRunOptions.BuildName != nil {
@@ -3929,6 +4025,10 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -3998,6 +4098,10 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -4058,6 +4162,9 @@ func (codeEngine *CodeEngineV2) ListDomainMappingsWithContext(ctx context.Contex
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listDomainMappingsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listDomainMappingsOptions.Limit))
 	}
@@ -4134,6 +4241,10 @@ func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Conte
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createDomainMappingOptions.Component != nil {
@@ -4221,6 +4332,10 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -4290,6 +4405,10 @@ func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Conte
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -4353,6 +4472,10 @@ func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Conte
 	builder.AddHeader("Content-Type", "application/merge-patch+json")
 	if updateDomainMappingOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*updateDomainMappingOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	_, err = builder.SetBodyContentJSON(updateDomainMappingOptions.DomainMapping)
@@ -4430,6 +4553,9 @@ func (codeEngine *CodeEngineV2) ListConfigMapsWithContext(ctx context.Context, l
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listConfigMapsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listConfigMapsOptions.Limit))
 	}
@@ -4506,6 +4632,10 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createConfigMapOptions.Name != nil {
@@ -4590,6 +4720,10 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -4662,6 +4796,10 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 	builder.AddHeader("Content-Type", "application/json")
 	if replaceConfigMapOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*replaceConfigMapOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	body := make(map[string]interface{})
@@ -4743,6 +4881,10 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -4803,6 +4945,9 @@ func (codeEngine *CodeEngineV2) ListSecretsWithContext(ctx context.Context, list
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 	if listSecretsOptions.Format != nil {
 		builder.AddQuery("format", fmt.Sprint(*listSecretsOptions.Format))
 	}
@@ -4882,6 +5027,10 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
 
 	body := make(map[string]interface{})
 	if createSecretOptions.Format != nil {
@@ -4975,6 +5124,10 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
@@ -5047,6 +5200,10 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	builder.AddHeader("Content-Type", "application/json")
 	if replaceSecretOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*replaceSecretOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	body := make(map[string]interface{})
@@ -5129,6 +5286,10 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteSecret")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
 	request, err := builder.Build()
@@ -5441,6 +5602,9 @@ type App struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
 	// environment variables in the application.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
@@ -5648,6 +5812,11 @@ func UnmarshalApp(m map[string]json.RawMessage, result interface{}) (err error) 
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
@@ -6047,6 +6216,9 @@ type AppPatch struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
@@ -6170,6 +6342,11 @@ func UnmarshalAppPatch(m map[string]json.RawMessage, result interface{}) (err er
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
@@ -6268,6 +6445,9 @@ func (appPatch *AppPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	}
 	if !core.IsNil(appPatch.RunCommands) {
 		_patch["run_commands"] = appPatch.RunCommands
+	}
+	if !core.IsNil(appPatch.RunComputeResourceTokenEnabled) {
+		_patch["run_compute_resource_token_enabled"] = appPatch.RunComputeResourceTokenEnabled
 	}
 	if !core.IsNil(appPatch.RunEnvVariables) {
 		var runEnvVariablesPatches []map[string]interface{}
@@ -6382,6 +6562,9 @@ type AppRevision struct {
 	// Optional commands for the app that are passed to start the container. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
+
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
 
 	// References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
 	// environment variables in the application.
@@ -6555,6 +6738,11 @@ func UnmarshalAppRevision(m map[string]json.RawMessage, result interface{}) (err
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
@@ -8340,6 +8528,9 @@ type CreateAppOptions struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// Optional references to config maps, secrets or literal values that are exposed as environment variables within the
 	// running application.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
@@ -8490,6 +8681,12 @@ func (_options *CreateAppOptions) SetRunAsUser(runAsUser int64) *CreateAppOption
 // SetRunCommands : Allow user to set RunCommands
 func (_options *CreateAppOptions) SetRunCommands(runCommands []string) *CreateAppOptions {
 	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunComputeResourceTokenEnabled : Allow user to set RunComputeResourceTokenEnabled
+func (_options *CreateAppOptions) SetRunComputeResourceTokenEnabled(runComputeResourceTokenEnabled bool) *CreateAppOptions {
+	_options.RunComputeResourceTokenEnabled = core.BoolPtr(runComputeResourceTokenEnabled)
 	return _options
 }
 
@@ -9179,6 +9376,9 @@ type CreateFunctionOptions struct {
 	// function private visibility.
 	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
@@ -9273,6 +9473,12 @@ func (_options *CreateFunctionOptions) SetManagedDomainMappings(managedDomainMap
 	return _options
 }
 
+// SetRunComputeResourceTokenEnabled : Allow user to set RunComputeResourceTokenEnabled
+func (_options *CreateFunctionOptions) SetRunComputeResourceTokenEnabled(runComputeResourceTokenEnabled bool) *CreateFunctionOptions {
+	_options.RunComputeResourceTokenEnabled = core.BoolPtr(runComputeResourceTokenEnabled)
+	return _options
+}
+
 // SetRunEnvVariables : Allow user to set RunEnvVariables
 func (_options *CreateFunctionOptions) SetRunEnvVariables(runEnvVariables []EnvVarPrototype) *CreateFunctionOptions {
 	_options.RunEnvVariables = runEnvVariables
@@ -9345,6 +9551,9 @@ type CreateJobOptions struct {
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
 
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
@@ -9465,6 +9674,12 @@ func (_options *CreateJobOptions) SetRunCommands(runCommands []string) *CreateJo
 	return _options
 }
 
+// SetRunComputeResourceTokenEnabled : Allow user to set RunComputeResourceTokenEnabled
+func (_options *CreateJobOptions) SetRunComputeResourceTokenEnabled(runComputeResourceTokenEnabled bool) *CreateJobOptions {
+	_options.RunComputeResourceTokenEnabled = core.BoolPtr(runComputeResourceTokenEnabled)
+	return _options
+}
+
 // SetRunEnvVariables : Allow user to set RunEnvVariables
 func (_options *CreateJobOptions) SetRunEnvVariables(runEnvVariables []EnvVarPrototype) *CreateJobOptions {
 	_options.RunEnvVariables = runEnvVariables
@@ -9565,6 +9780,9 @@ type CreateJobRunOptions struct {
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
+
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
 
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
@@ -9689,6 +9907,12 @@ func (_options *CreateJobRunOptions) SetRunAsUser(runAsUser int64) *CreateJobRun
 // SetRunCommands : Allow user to set RunCommands
 func (_options *CreateJobRunOptions) SetRunCommands(runCommands []string) *CreateJobRunOptions {
 	_options.RunCommands = runCommands
+	return _options
+}
+
+// SetRunComputeResourceTokenEnabled : Allow user to set RunComputeResourceTokenEnabled
+func (_options *CreateJobRunOptions) SetRunComputeResourceTokenEnabled(runComputeResourceTokenEnabled bool) *CreateJobRunOptions {
+	_options.RunComputeResourceTokenEnabled = core.BoolPtr(runComputeResourceTokenEnabled)
 	return _options
 }
 
@@ -9844,6 +10068,7 @@ type CreateSecretOptions struct {
 const (
 	CreateSecretOptions_Format_BasicAuth = "basic_auth"
 	CreateSecretOptions_Format_Generic = "generic"
+	CreateSecretOptions_Format_HmacAuth = "hmac_auth"
 	CreateSecretOptions_Format_Other = "other"
 	CreateSecretOptions_Format_Registry = "registry"
 	CreateSecretOptions_Format_ServiceAccess = "service_access"
@@ -9949,6 +10174,9 @@ type DeleteAppOptions struct {
 	// The name of your application.
 	Name *string `json:"name" validate:"required,ne="`
 
+	// Determines if connected service access secrets remain intact after app deletion.
+	KeepServiceAccess *bool `json:"keep_service_access,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -9970,6 +10198,12 @@ func (_options *DeleteAppOptions) SetProjectID(projectID string) *DeleteAppOptio
 // SetName : Allow user to set Name
 func (_options *DeleteAppOptions) SetName(name string) *DeleteAppOptions {
 	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetKeepServiceAccess : Allow user to set KeepServiceAccess
+func (_options *DeleteAppOptions) SetKeepServiceAccess(keepServiceAccess bool) *DeleteAppOptions {
+	_options.KeepServiceAccess = core.BoolPtr(keepServiceAccess)
 	return _options
 }
 
@@ -10225,6 +10459,9 @@ type DeleteFunctionOptions struct {
 	// The name of your function.
 	Name *string `json:"name" validate:"required,ne="`
 
+	// Determines if connected service access secrets remain intact after function deletion.
+	KeepServiceAccess *bool `json:"keep_service_access,omitempty"`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
@@ -10249,6 +10486,12 @@ func (_options *DeleteFunctionOptions) SetName(name string) *DeleteFunctionOptio
 	return _options
 }
 
+// SetKeepServiceAccess : Allow user to set KeepServiceAccess
+func (_options *DeleteFunctionOptions) SetKeepServiceAccess(keepServiceAccess bool) *DeleteFunctionOptions {
+	_options.KeepServiceAccess = core.BoolPtr(keepServiceAccess)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *DeleteFunctionOptions) SetHeaders(param map[string]string) *DeleteFunctionOptions {
 	options.Headers = param
@@ -10262,6 +10505,9 @@ type DeleteJobOptions struct {
 
 	// The name of your job.
 	Name *string `json:"name" validate:"required,ne="`
+
+	// Determines if connected service access secrets remain intact after job deletion.
+	KeepServiceAccess *bool `json:"keep_service_access,omitempty"`
 
 	// Allows users to set headers on API requests.
 	Headers map[string]string
@@ -10284,6 +10530,12 @@ func (_options *DeleteJobOptions) SetProjectID(projectID string) *DeleteJobOptio
 // SetName : Allow user to set Name
 func (_options *DeleteJobOptions) SetName(name string) *DeleteJobOptions {
 	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetKeepServiceAccess : Allow user to set KeepServiceAccess
+func (_options *DeleteJobOptions) SetKeepServiceAccess(keepServiceAccess bool) *DeleteJobOptions {
+	_options.KeepServiceAccess = core.BoolPtr(keepServiceAccess)
 	return _options
 }
 
@@ -10891,6 +11143,9 @@ type Function struct {
 	// The type of the function.
 	ResourceType *string `json:"resource_type,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
 	// environment variables in the function.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
@@ -11032,6 +11287,11 @@ func UnmarshalFunction(m map[string]json.RawMessage, result interface{}) (err er
 		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
@@ -11154,6 +11414,9 @@ type FunctionPatch struct {
 	// function private visibility.
 	ManagedDomainMappings *string `json:"managed_domain_mappings,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
@@ -11218,6 +11481,11 @@ func UnmarshalFunctionPatch(m map[string]json.RawMessage, result interface{}) (e
 		err = core.SDKErrorf(err, "", "managed_domain_mappings-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
@@ -11274,6 +11542,9 @@ func (functionPatch *FunctionPatch) AsPatch() (_patch map[string]interface{}, er
 	}
 	if !core.IsNil(functionPatch.ManagedDomainMappings) {
 		_patch["managed_domain_mappings"] = functionPatch.ManagedDomainMappings
+	}
+	if !core.IsNil(functionPatch.RunComputeResourceTokenEnabled) {
+		_patch["run_compute_resource_token_enabled"] = functionPatch.RunComputeResourceTokenEnabled
 	}
 	if !core.IsNil(functionPatch.RunEnvVariables) {
 		var runEnvVariablesPatches []map[string]interface{}
@@ -12082,6 +12353,9 @@ type Job struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
 	// environment variables in the job run.
 	RunEnvVariables []EnvVar `json:"run_env_variables" validate:"required"`
@@ -12237,6 +12511,11 @@ func UnmarshalJob(m map[string]json.RawMessage, result interface{}) (err error) 
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
@@ -12366,6 +12645,9 @@ type JobPatch struct {
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands,omitempty"`
 
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
+
 	// Optional references to config maps, secrets or literal values.
 	RunEnvVariables []EnvVarPrototype `json:"run_env_variables,omitempty"`
 
@@ -12460,6 +12742,11 @@ func UnmarshalJobPatch(m map[string]json.RawMessage, result interface{}) (err er
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVarPrototype)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_env_variables-error", common.GetComponentInfo())
@@ -12531,6 +12818,9 @@ func (jobPatch *JobPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	}
 	if !core.IsNil(jobPatch.RunCommands) {
 		_patch["run_commands"] = jobPatch.RunCommands
+	}
+	if !core.IsNil(jobPatch.RunComputeResourceTokenEnabled) {
+		_patch["run_compute_resource_token_enabled"] = jobPatch.RunComputeResourceTokenEnabled
 	}
 	if !core.IsNil(jobPatch.RunEnvVariables) {
 		var runEnvVariablesPatches []map[string]interface{}
@@ -12628,6 +12918,9 @@ type JobRun struct {
 	// Set commands for the job that are passed to start job run containers. If not specified an empty string array will be
 	// applied and the command specified by the container image, will be used to start the container.
 	RunCommands []string `json:"run_commands" validate:"required"`
+
+	// Optional flag to enable the use of a compute resource token mounted to the container file system.
+	RunComputeResourceTokenEnabled *bool `json:"run_compute_resource_token_enabled,omitempty"`
 
 	// References to config maps, secrets or literal values, which are defined by the function owner and are exposed as
 	// environment variables in the job run.
@@ -12790,6 +13083,11 @@ func UnmarshalJobRun(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "run_commands", &obj.RunCommands)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "run_commands-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "run_compute_resource_token_enabled", &obj.RunComputeResourceTokenEnabled)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "run_compute_resource_token_enabled-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "run_env_variables", &obj.RunEnvVariables, UnmarshalEnvVar)
@@ -13763,6 +14061,7 @@ type ListSecretsOptions struct {
 const (
 	ListSecretsOptions_Format_BasicAuth = "basic_auth"
 	ListSecretsOptions_Format_Generic = "generic"
+	ListSecretsOptions_Format_HmacAuth = "hmac_auth"
 	ListSecretsOptions_Format_Registry = "registry"
 	ListSecretsOptions_Format_ServiceAccess = "service_access"
 	ListSecretsOptions_Format_ServiceOperator = "service_operator"
@@ -14382,6 +14681,7 @@ type ReplaceSecretOptions struct {
 const (
 	ReplaceSecretOptions_Format_BasicAuth = "basic_auth"
 	ReplaceSecretOptions_Format_Generic = "generic"
+	ReplaceSecretOptions_Format_HmacAuth = "hmac_auth"
 	ReplaceSecretOptions_Format_Other = "other"
 	ReplaceSecretOptions_Format_Registry = "registry"
 	ReplaceSecretOptions_Format_ServiceAccess = "service_access"
@@ -14540,6 +14840,9 @@ type Secret struct {
 	// Specify the format of the secret.
 	Format *string `json:"format,omitempty"`
 
+	// Specifies whether the secret is user generated.
+	GeneratedBy *string `json:"generated_by,omitempty"`
+
 	// When you provision a new secret,  a URL is created identifying the location of the instance.
 	Href *string `json:"href,omitempty"`
 
@@ -14571,6 +14874,7 @@ type Secret struct {
 const (
 	Secret_Format_BasicAuth = "basic_auth"
 	Secret_Format_Generic = "generic"
+	Secret_Format_HmacAuth = "hmac_auth"
 	Secret_Format_Other = "other"
 	Secret_Format_Registry = "registry"
 	Secret_Format_ServiceAccess = "service_access"
@@ -14579,12 +14883,20 @@ const (
 	Secret_Format_Tls = "tls"
 )
 
+// Constants associated with the Secret.GeneratedBy property.
+// Specifies whether the secret is user generated.
+const (
+	Secret_GeneratedBy_System = "system"
+	Secret_GeneratedBy_User = "user"
+)
+
 // Constants associated with the Secret.ResourceType property.
 // The type of the secret.
 const (
 	Secret_ResourceType_SecretAuthSshV2 = "secret_auth_ssh_v2"
 	Secret_ResourceType_SecretBasicAuthV2 = "secret_basic_auth_v2"
 	Secret_ResourceType_SecretGenericV2 = "secret_generic_v2"
+	Secret_ResourceType_SecretHmacAuthV2 = "secret_hmac_auth_v2"
 	Secret_ResourceType_SecretOperatorV2 = "secret_operator_v2"
 	Secret_ResourceType_SecretOtherV2 = "secret_other_v2"
 	Secret_ResourceType_SecretRegistryV2 = "secret_registry_v2"
@@ -14614,6 +14926,11 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalPrimitive(m, "format", &obj.Format)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "format-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "generated_by", &obj.GeneratedBy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "generated_by-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
@@ -14669,6 +14986,7 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 // - SecretDataBasicAuthSecretData
 // - SecretDataRegistrySecretData
 // - SecretDataSSHSecretData
+// - SecretDataHMACAuthSecretData
 // - SecretDataTLSSecretData
 type SecretData struct {
 	// Basic auth username.
@@ -14688,6 +15006,12 @@ type SecretData struct {
 
 	// Known hosts.
 	KnownHosts *string `json:"known_hosts,omitempty"`
+
+	// HMAC access key id.
+	AccessKeyID *string `json:"access_key_id,omitempty"`
+
+	// HMAC secret access key.
+	SecretAccessKey *string `json:"secret_access_key,omitempty"`
 
 	// The TLS certificate used in a TLS secret.
 	TlsCert *string `json:"tls_cert,omitempty"`
@@ -14762,6 +15086,12 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 	if o.KnownHosts != nil {
 		m["known_hosts"] = o.KnownHosts
 	}
+	if o.AccessKeyID != nil {
+		m["access_key_id"] = o.AccessKeyID
+	}
+	if o.SecretAccessKey != nil {
+		m["secret_access_key"] = o.SecretAccessKey
+	}
 	if o.TlsCert != nil {
 		m["tls_cert"] = o.TlsCert
 	}
@@ -14814,6 +15144,18 @@ func UnmarshalSecretData(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	delete(m, "known_hosts")
+	err = core.UnmarshalPrimitive(m, "access_key_id", &obj.AccessKeyID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "access_key_id-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "access_key_id")
+	err = core.UnmarshalPrimitive(m, "secret_access_key", &obj.SecretAccessKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secret_access_key-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "secret_access_key")
 	err = core.UnmarshalPrimitive(m, "tls_cert", &obj.TlsCert)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "tls_cert-error", common.GetComponentInfo())
@@ -14892,7 +15234,7 @@ func (resp *SecretList) GetNextStart() (*string, error) {
 // ServiceAccessSecretProps : Properties for Service Access Secrets.
 type ServiceAccessSecretProps struct {
 	// The service credential associated with the secret.
-	ResourceKey *ResourceKeyRef `json:"resource_key" validate:"required"`
+	ResourceKey *ResourceKeyRef `json:"resource_key,omitempty"`
 
 	// A reference to the Role and Role CRN for service binding.
 	Role *RoleRef `json:"role,omitempty"`
@@ -14934,7 +15276,7 @@ func UnmarshalServiceAccessSecretProps(m map[string]json.RawMessage, result inte
 // ServiceAccessSecretPrototypeProps : Properties for Service Access Secrets.
 type ServiceAccessSecretPrototypeProps struct {
 	// The service credential associated with the secret.
-	ResourceKey *ResourceKeyRefPrototype `json:"resource_key" validate:"required"`
+	ResourceKey *ResourceKeyRefPrototype `json:"resource_key,omitempty"`
 
 	// A reference to the Role and Role CRN for service binding.
 	Role *RoleRefPrototype `json:"role,omitempty"`
@@ -14947,9 +15289,8 @@ type ServiceAccessSecretPrototypeProps struct {
 }
 
 // NewServiceAccessSecretPrototypeProps : Instantiate ServiceAccessSecretPrototypeProps (Generic Model Constructor)
-func (*CodeEngineV2) NewServiceAccessSecretPrototypeProps(resourceKey *ResourceKeyRefPrototype, serviceInstance *ServiceInstanceRefPrototype) (_model *ServiceAccessSecretPrototypeProps, err error) {
+func (*CodeEngineV2) NewServiceAccessSecretPrototypeProps(serviceInstance *ServiceInstanceRefPrototype) (_model *ServiceAccessSecretPrototypeProps, err error) {
 	_model = &ServiceAccessSecretPrototypeProps{
-		ResourceKey: resourceKey,
 		ServiceInstance: serviceInstance,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -15893,6 +16234,112 @@ func (o *SecretDataGenericSecretData) MarshalJSON() (buffer []byte, err error) {
 // UnmarshalSecretDataGenericSecretData unmarshals an instance of SecretDataGenericSecretData from the specified map of raw messages.
 func UnmarshalSecretDataGenericSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretDataGenericSecretData)
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SecretDataHMACAuthSecretData : Secret Data field used by HMAC secrets.
+// This type supports additional properties of type *string.
+// This model "extends" SecretData
+type SecretDataHMACAuthSecretData struct {
+	// HMAC access key id.
+	AccessKeyID *string `json:"access_key_id" validate:"required"`
+
+	// HMAC secret access key.
+	SecretAccessKey *string `json:"secret_access_key" validate:"required"`
+
+	// Allows users to set arbitrary properties of type *string.
+	additionalProperties map[string]*string
+}
+
+// NewSecretDataHMACAuthSecretData : Instantiate SecretDataHMACAuthSecretData (Generic Model Constructor)
+func (*CodeEngineV2) NewSecretDataHMACAuthSecretData(accessKeyID string, secretAccessKey string) (_model *SecretDataHMACAuthSecretData, err error) {
+	_model = &SecretDataHMACAuthSecretData{
+		AccessKeyID: core.StringPtr(accessKeyID),
+		SecretAccessKey: core.StringPtr(secretAccessKey),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*SecretDataHMACAuthSecretData) isaSecretData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of SecretDataHMACAuthSecretData.
+func (o *SecretDataHMACAuthSecretData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of SecretDataHMACAuthSecretData.
+func (o *SecretDataHMACAuthSecretData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of SecretDataHMACAuthSecretData.
+func (o *SecretDataHMACAuthSecretData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of SecretDataHMACAuthSecretData.
+func (o *SecretDataHMACAuthSecretData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of SecretDataHMACAuthSecretData
+func (o *SecretDataHMACAuthSecretData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.AccessKeyID != nil {
+		m["access_key_id"] = o.AccessKeyID
+	}
+	if o.SecretAccessKey != nil {
+		m["secret_access_key"] = o.SecretAccessKey
+	}
+	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalSecretDataHMACAuthSecretData unmarshals an instance of SecretDataHMACAuthSecretData from the specified map of raw messages.
+func UnmarshalSecretDataHMACAuthSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SecretDataHMACAuthSecretData)
+	err = core.UnmarshalPrimitive(m, "access_key_id", &obj.AccessKeyID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "access_key_id-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "access_key_id")
+	err = core.UnmarshalPrimitive(m, "secret_access_key", &obj.SecretAccessKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secret_access_key-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "secret_access_key")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
