@@ -587,7 +587,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated build'%s'\n", updatedBuild)
+	fmt.Printf("Updated build '%s'\n", *updatedBuild.Name)
 
 	// Get build
 	getBuildOpts := codeEngineService.NewGetBuildOptions(
@@ -601,7 +601,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained build '%s'\n", obtainedBuild)
+	fmt.Printf("Obtained build '%s'\n", *obtainedBuild.Name)
 	if obtainedBuild.RunBuildParams != nil {
 		fmt.Printf("Obtained build contains 'RunBuildParams\n")
 		for _, buildParam := range obtainedBuild.RunBuildParams {
