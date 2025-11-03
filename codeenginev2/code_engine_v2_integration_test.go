@@ -440,7 +440,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
 				Name: core.StringPtr("codeengine-mount-b69u90"),
+				ReadOnly: core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
+				SubPath: core.StringPtr("some-path"),
 				Type: core.StringPtr("secret"),
 			}
 
@@ -523,7 +525,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
 				Name: core.StringPtr("codeengine-mount-b69u90"),
+				ReadOnly: core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
+				SubPath: core.StringPtr("some-path"),
 				Type: core.StringPtr("secret"),
 			}
 
@@ -800,7 +804,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
 				Name: core.StringPtr("codeengine-mount-b69u90"),
+				ReadOnly: core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
+				SubPath: core.StringPtr("some-path"),
 				Type: core.StringPtr("secret"),
 			}
 
@@ -866,7 +872,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
 				Name: core.StringPtr("codeengine-mount-b69u90"),
+				ReadOnly: core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
+				SubPath: core.StringPtr("some-path"),
 				Type: core.StringPtr("secret"),
 			}
 
@@ -988,7 +996,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
 				Name: core.StringPtr("codeengine-mount-b69u90"),
+				ReadOnly: core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
+				SubPath: core.StringPtr("some-path"),
 				Type: core.StringPtr("secret"),
 			}
 
@@ -2028,6 +2038,113 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListPersistentDataStore - List persistent data stores`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) with pagination`, func(){
+			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+				Start: core.StringPtr("testString"),
+			}
+
+			listPersistentDataStoreOptions.Start = nil
+			listPersistentDataStoreOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.PersistentDataStore
+			for {
+				persistentDataStoreList, response, err := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(persistentDataStoreList).ToNot(BeNil())
+				allResults = append(allResults, persistentDataStoreList.PersistentDataStores...)
+
+				listPersistentDataStoreOptions.Start, err = persistentDataStoreList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listPersistentDataStoreOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) using PersistentDataStorePager`, func(){
+			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.PersistentDataStore
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListPersistentDataStore() returned a total of %d item(s) using PersistentDataStorePager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreatePersistentDataStore - Create a persistent data store`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePersistentDataStore(createPersistentDataStoreOptions *CreatePersistentDataStoreOptions)`, func() {
+			storageDataModel := &codeenginev2.StorageDataObjectStorageData{
+				BucketLocation: core.StringPtr("testString"),
+				BucketName: core.StringPtr("testString"),
+				SecretName: core.StringPtr("testString"),
+			}
+			storageDataModel.SetProperty("foo", core.StringPtr("testString"))
+
+			createPersistentDataStoreOptions := &codeenginev2.CreatePersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-persistent-data-store"),
+				StorageType: core.StringPtr("object_storage"),
+				Data: storageDataModel,
+			}
+
+			persistentDataStore, response, err := codeEngineService.CreatePersistentDataStore(createPersistentDataStoreOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(persistentDataStore).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetPersistentDataStore - Get a persistent data store`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPersistentDataStore(getPersistentDataStoreOptions *GetPersistentDataStoreOptions)`, func() {
+			getPersistentDataStoreOptions := &codeenginev2.GetPersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-persistent-data-store"),
+			}
+
+			persistentDataStore, response, err := codeEngineService.GetPersistentDataStore(getPersistentDataStoreOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(persistentDataStore).ToNot(BeNil())
+		})
+	})
+
 	Describe(`DeleteProject - Delete a project`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -2234,6 +2351,22 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			response, err := codeEngineService.DeleteSecret(deleteSecretOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeletePersistentDataStore - Delete a persistent data store`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePersistentDataStore(deletePersistentDataStoreOptions *DeletePersistentDataStoreOptions)`, func() {
+			deletePersistentDataStoreOptions := &codeenginev2.DeletePersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name: core.StringPtr("my-persistent-data-store"),
+			}
+
+			response, err := codeEngineService.DeletePersistentDataStore(deletePersistentDataStoreOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})

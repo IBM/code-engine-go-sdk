@@ -1,0 +1,49 @@
+name: Integration tests
+
+on: 
+  pull_request:
+    branches:
+      - main
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+env: 
+  GOPRIVATE: github.ibm.com
+  GOPROXY: ${{ secrets.GOPROXY }}
+  GO111MODULE: on
+  CE_LOG_LEVEL: info
+
+jobs:
+  sdk-integration-tests:
+    runs-on: ibm-x86-64-medium
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Install golangci and gosec
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+          curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+      - name: Run Github Action ci
+        run: make github-action-ci
+      - name: Checkout API for latest domain mapping certs
+        uses: actions/checkout@v4
+        with:
+          repository: 'coligo/api'
+          ref: 'main'
+          path: "api"
+          token: ${{ secrets.DEVOPS_GITHUB_TOKEN }}
+      - name: Run Integration Test
+        env:
+          CE_ACCOUNT_ID: ${{ secrets.CE_ACCOUNT_ID }}
+          CE_API_HOST: ${{ vars.CE_API_HOST }}
+          CE_API_KEY: ${{ secrets.CE_TEST_API_KEY }}
+          CE_DOMAIN_MAPPING_NAME: ${{ vars.CE_DOMAIN_MAPPING_NAME }}
+          CE_PROJECT_ID: ${{ secrets.CE_PROJECT_ID }}
+          COS_ACCESS_KEY_ID: ${{ secrets.COS_ACCESS_KEY_ID }}
+          COS_SECRET_ACCESS_KEY: ${{ secrets.COS_SECRET_ACCESS_KEY }}
+          IAM_ENDPOINT: ${{ vars.IAM_ENDPOINT }}
+          RESOURCECONTROLLER_ENDPOINT: ${{ vars.RESOURCECONTROLLER_ENDPOINT }}
+        run: ./test-integration.sh

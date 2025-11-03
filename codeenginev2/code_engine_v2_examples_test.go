@@ -1313,6 +1313,76 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
 		})
+		It(`ListPersistentDataStore request example`, func() {
+			fmt.Println("\nListPersistentDataStore() result:")
+			// begin-list_persistent_data_store
+			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.PersistentDataStore
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_persistent_data_store
+		})
+		It(`CreatePersistentDataStore request example`, func() {
+			fmt.Println("\nCreatePersistentDataStore() result:")
+			// begin-create_persistent_data_store
+
+			createPersistentDataStoreOptions := codeEngineService.NewCreatePersistentDataStoreOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-persistent-data-store",
+				"object_storage",
+			)
+
+			persistentDataStore, response, err := codeEngineService.CreatePersistentDataStore(createPersistentDataStoreOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(persistentDataStore, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_persistent_data_store
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(persistentDataStore).ToNot(BeNil())
+		})
+		It(`GetPersistentDataStore request example`, func() {
+			fmt.Println("\nGetPersistentDataStore() result:")
+			// begin-get_persistent_data_store
+
+			getPersistentDataStoreOptions := codeEngineService.NewGetPersistentDataStoreOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-persistent-data-store",
+			)
+
+			persistentDataStore, response, err := codeEngineService.GetPersistentDataStore(getPersistentDataStoreOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(persistentDataStore, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_persistent_data_store
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(persistentDataStore).ToNot(BeNil())
+		})
 		It(`DeleteProject request example`, func() {
 			// begin-delete_project
 
@@ -1582,6 +1652,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_secret
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeletePersistentDataStore request example`, func() {
+			// begin-delete_persistent_data_store
+
+			deletePersistentDataStoreOptions := codeEngineService.NewDeletePersistentDataStoreOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-persistent-data-store",
+			)
+
+			response, err := codeEngineService.DeletePersistentDataStore(deletePersistentDataStoreOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeletePersistentDataStore(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_persistent_data_store
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))

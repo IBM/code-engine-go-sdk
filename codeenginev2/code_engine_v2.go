@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-03-29`.
+	// and `2025-08-27`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-03-29`.
+	// and `2025-08-27`.
 	Version *string 
 }
 
@@ -341,6 +341,69 @@ func (codeEngine *CodeEngineV2) CreateProjectWithContext(ctx context.Context, cr
 	return
 }
 
+// DeleteProject : Delete a project
+// Delete a project.
+func (codeEngine *CodeEngineV2) DeleteProject(deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteProjectWithContext(context.Background(), deleteProjectOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteProjectWithContext is an alternate form of the DeleteProject method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteProjectOptions, "deleteProjectOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteProjectOptions, "deleteProjectOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteProjectOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteProjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteProject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_project", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetProject : Get a project
 // Display the details of a single project.
 func (codeEngine *CodeEngineV2) GetProject(getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
@@ -409,69 +472,6 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteProject : Delete a project
-// Delete a project.
-func (codeEngine *CodeEngineV2) DeleteProject(deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteProjectWithContext(context.Background(), deleteProjectOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteProjectWithContext is an alternate form of the DeleteProject method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteProjectWithContext(ctx context.Context, deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteProjectOptions, "deleteProjectOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteProjectOptions, "deleteProjectOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *deleteProjectOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{id}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteProjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteProject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_project", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -633,6 +633,70 @@ func (codeEngine *CodeEngineV2) CreateAllowedOutboundDestinationWithContext(ctx 
 	return
 }
 
+// DeleteAllowedOutboundDestination : Delete an allowed outbound destination
+// Delete an allowed outbound destination.
+func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteAllowedOutboundDestinationWithContext(context.Background(), deleteAllowedOutboundDestinationOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteAllowedOutboundDestinationWithContext is an alternate form of the DeleteAllowedOutboundDestination method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestinationWithContext(ctx context.Context, deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteAllowedOutboundDestinationOptions.ProjectID,
+		"name": *deleteAllowedOutboundDestinationOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteAllowedOutboundDestinationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAllowedOutboundDestination")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_allowed_outbound_destination", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetAllowedOutboundDestination : Get an allowed outbound destination
 // Display the details of an allowed outbound destination.
 func (codeEngine *CodeEngineV2) GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions) (result AllowedOutboundDestinationIntf, response *core.DetailedResponse, err error) {
@@ -702,70 +766,6 @@ func (codeEngine *CodeEngineV2) GetAllowedOutboundDestinationWithContext(ctx con
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteAllowedOutboundDestination : Delete an allowed outbound destination
-// Delete an allowed outbound destination.
-func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteAllowedOutboundDestinationWithContext(context.Background(), deleteAllowedOutboundDestinationOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteAllowedOutboundDestinationWithContext is an alternate form of the DeleteAllowedOutboundDestination method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestinationWithContext(ctx context.Context, deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteAllowedOutboundDestinationOptions, "deleteAllowedOutboundDestinationOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteAllowedOutboundDestinationOptions.ProjectID,
-		"name": *deleteAllowedOutboundDestinationOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/allowed_outbound_destinations/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteAllowedOutboundDestinationOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAllowedOutboundDestination")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_allowed_outbound_destination", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -1235,6 +1235,73 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	return
 }
 
+// DeleteApp : Delete an application
+// Delete an application.
+func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteAppOptions.ProjectID,
+		"name": *deleteAppOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteAppOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteApp")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteAppOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteAppOptions.KeepServiceAccess))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_app", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetApp : Get an application
 // Display the details of an application.
 func (codeEngine *CodeEngineV2) GetApp(getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
@@ -1304,73 +1371,6 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteApp : Delete an application
-// Delete an application.
-func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteAppOptions.ProjectID,
-		"name": *deleteAppOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteAppOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteApp")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if deleteAppOptions.KeepServiceAccess != nil {
-		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteAppOptions.KeepServiceAccess))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_app", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -1542,6 +1542,71 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 	return
 }
 
+// DeleteAppRevision : Delete an application revision
+// Delete an application revision.
+func (codeEngine *CodeEngineV2) DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteAppRevisionWithContext(context.Background(), deleteAppRevisionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteAppRevisionWithContext is an alternate form of the DeleteAppRevision method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context, deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAppRevisionOptions, "deleteAppRevisionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteAppRevisionOptions, "deleteAppRevisionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteAppRevisionOptions.ProjectID,
+		"app_name": *deleteAppRevisionOptions.AppName,
+		"name": *deleteAppRevisionOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteAppRevisionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAppRevision")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_app_revision", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetAppRevision : Get an application revision
 // Display the details of an application revision.
 func (codeEngine *CodeEngineV2) GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions) (result *AppRevision, response *core.DetailedResponse, err error) {
@@ -1612,71 +1677,6 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteAppRevision : Delete an application revision
-// Delete an application revision.
-func (codeEngine *CodeEngineV2) DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteAppRevisionWithContext(context.Background(), deleteAppRevisionOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteAppRevisionWithContext is an alternate form of the DeleteAppRevision method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context, deleteAppRevisionOptions *DeleteAppRevisionOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteAppRevisionOptions, "deleteAppRevisionOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteAppRevisionOptions, "deleteAppRevisionOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteAppRevisionOptions.ProjectID,
-		"app_name": *deleteAppRevisionOptions.AppName,
-		"name": *deleteAppRevisionOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/revisions/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteAppRevisionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteAppRevision")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_app_revision", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -1973,6 +1973,73 @@ func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, create
 	return
 }
 
+// DeleteJob : Delete a job
+// Delete a job.
+func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteJobOptions.ProjectID,
+		"name": *deleteJobOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteJobOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteJobOptions.KeepServiceAccess))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetJob : Get a job
 // Display the details of a job.
 func (codeEngine *CodeEngineV2) GetJob(getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
@@ -2042,73 +2109,6 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteJob : Delete a job
-// Delete a job.
-func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteJobOptions.ProjectID,
-		"name": *deleteJobOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteJobOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJob")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if deleteJobOptions.KeepServiceAccess != nil {
-		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteJobOptions.KeepServiceAccess))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_job", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -2418,6 +2418,70 @@ func (codeEngine *CodeEngineV2) CreateJobRunWithContext(ctx context.Context, cre
 	return
 }
 
+// DeleteJobRun : Delete a job run
+// Delete a job run.
+func (codeEngine *CodeEngineV2) DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteJobRunWithContext(context.Background(), deleteJobRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteJobRunWithContext is an alternate form of the DeleteJobRun method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteJobRunOptions, "deleteJobRunOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteJobRunOptions, "deleteJobRunOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteJobRunOptions.ProjectID,
+		"name": *deleteJobRunOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteJobRunOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJobRun")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_job_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetJobRun : Get a job run
 // Display the details of a job run.
 func (codeEngine *CodeEngineV2) GetJobRun(getJobRunOptions *GetJobRunOptions) (result *JobRun, response *core.DetailedResponse, err error) {
@@ -2487,70 +2551,6 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteJobRun : Delete a job run
-// Delete a job run.
-func (codeEngine *CodeEngineV2) DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteJobRunWithContext(context.Background(), deleteJobRunOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteJobRunWithContext is an alternate form of the DeleteJobRun method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, deleteJobRunOptions *DeleteJobRunOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteJobRunOptions, "deleteJobRunOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteJobRunOptions, "deleteJobRunOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteJobRunOptions.ProjectID,
-		"name": *deleteJobRunOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/job_runs/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteJobRunOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJobRun")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_job_run", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -2818,6 +2818,73 @@ func (codeEngine *CodeEngineV2) CreateFunctionWithContext(ctx context.Context, c
 	return
 }
 
+// DeleteFunction : Delete a function
+// Delete a function.
+func (codeEngine *CodeEngineV2) DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteFunctionWithContext(context.Background(), deleteFunctionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteFunctionWithContext is an alternate form of the DeleteFunction method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteFunctionOptions, "deleteFunctionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteFunctionOptions, "deleteFunctionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteFunctionOptions.ProjectID,
+		"name": *deleteFunctionOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteFunctionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteFunction")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteFunctionOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteFunctionOptions.KeepServiceAccess))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_function", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetFunction : Get a function
 // Display the details of a function.
 func (codeEngine *CodeEngineV2) GetFunction(getFunctionOptions *GetFunctionOptions) (result *Function, response *core.DetailedResponse, err error) {
@@ -2887,73 +2954,6 @@ func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getF
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteFunction : Delete a function
-// Delete a function.
-func (codeEngine *CodeEngineV2) DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteFunctionWithContext(context.Background(), deleteFunctionOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteFunctionWithContext is an alternate form of the DeleteFunction method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, deleteFunctionOptions *DeleteFunctionOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteFunctionOptions, "deleteFunctionOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteFunctionOptions, "deleteFunctionOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteFunctionOptions.ProjectID,
-		"name": *deleteFunctionOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/functions/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteFunctionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteFunction")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if deleteFunctionOptions.KeepServiceAccess != nil {
-		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteFunctionOptions.KeepServiceAccess))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_function", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -3213,6 +3213,70 @@ func (codeEngine *CodeEngineV2) CreateBindingWithContext(ctx context.Context, cr
 	return
 }
 
+// DeleteBinding : Delete a binding
+// Delete a binding.
+func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBindingOptions.ProjectID,
+		"id": *deleteBindingOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteBindingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBinding")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_binding", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetBinding : Get a binding
 // Display the details of a binding.
 func (codeEngine *CodeEngineV2) GetBinding(getBindingOptions *GetBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
@@ -3282,70 +3346,6 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteBinding : Delete a binding
-// Delete a binding.
-func (codeEngine *CodeEngineV2) DeleteBinding(deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteBindingWithContext(context.Background(), deleteBindingOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteBindingWithContext is an alternate form of the DeleteBinding method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, deleteBindingOptions *DeleteBindingOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteBindingOptions, "deleteBindingOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteBindingOptions, "deleteBindingOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteBindingOptions.ProjectID,
-		"id": *deleteBindingOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/bindings/{id}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteBindingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBinding")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_binding", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -3550,6 +3550,70 @@ func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, crea
 	return
 }
 
+// DeleteBuild : Delete a build
+// Delete a build.
+func (codeEngine *CodeEngineV2) DeleteBuild(deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteBuildWithContext is an alternate form of the DeleteBuild method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBuildOptions, "deleteBuildOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteBuildOptions, "deleteBuildOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBuildOptions.ProjectID,
+		"name": *deleteBuildOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteBuildOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuild")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetBuild : Get a build
 // Display the details of a build.
 func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
@@ -3619,70 +3683,6 @@ func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuil
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteBuild : Delete a build
-// Delete a build.
-func (codeEngine *CodeEngineV2) DeleteBuild(deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteBuildWithContext is an alternate form of the DeleteBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteBuildOptions, "deleteBuildOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteBuildOptions, "deleteBuildOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteBuildOptions.ProjectID,
-		"name": *deleteBuildOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteBuildOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuild")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_build", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -3980,6 +3980,70 @@ func (codeEngine *CodeEngineV2) CreateBuildRunWithContext(ctx context.Context, c
 	return
 }
 
+// DeleteBuildRun : Delete a build run
+// Delete a build run.
+func (codeEngine *CodeEngineV2) DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteBuildRunWithContext(context.Background(), deleteBuildRunOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteBuildRunWithContext is an alternate form of the DeleteBuildRun method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBuildRunOptions, "deleteBuildRunOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteBuildRunOptions, "deleteBuildRunOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBuildRunOptions.ProjectID,
+		"name": *deleteBuildRunOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteBuildRunOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuildRun")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_build_run", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetBuildRun : Get a build run
 // Display the details of a build run.
 func (codeEngine *CodeEngineV2) GetBuildRun(getBuildRunOptions *GetBuildRunOptions) (result *BuildRun, response *core.DetailedResponse, err error) {
@@ -4049,70 +4113,6 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteBuildRun : Delete a build run
-// Delete a build run.
-func (codeEngine *CodeEngineV2) DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteBuildRunWithContext(context.Background(), deleteBuildRunOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteBuildRunWithContext is an alternate form of the DeleteBuildRun method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, deleteBuildRunOptions *DeleteBuildRunOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteBuildRunOptions, "deleteBuildRunOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteBuildRunOptions, "deleteBuildRunOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteBuildRunOptions.ProjectID,
-		"name": *deleteBuildRunOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/build_runs/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteBuildRunOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuildRun")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_build_run", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -4287,6 +4287,70 @@ func (codeEngine *CodeEngineV2) CreateDomainMappingWithContext(ctx context.Conte
 	return
 }
 
+// DeleteDomainMapping : Delete a domain mapping
+// Delete a domain mapping.
+func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteDomainMappingOptions.ProjectID,
+		"name": *deleteDomainMappingOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteDomainMappingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteDomainMapping")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_domain_mapping", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetDomainMapping : Get a domain mapping
 // Get domain mapping.
 func (codeEngine *CodeEngineV2) GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions) (result *DomainMapping, response *core.DetailedResponse, err error) {
@@ -4356,70 +4420,6 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteDomainMapping : Delete a domain mapping
-// Delete a domain mapping.
-func (codeEngine *CodeEngineV2) DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteDomainMappingWithContext(context.Background(), deleteDomainMappingOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteDomainMappingWithContext is an alternate form of the DeleteDomainMapping method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Context, deleteDomainMappingOptions *DeleteDomainMappingOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteDomainMappingOptions, "deleteDomainMappingOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteDomainMappingOptions, "deleteDomainMappingOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteDomainMappingOptions.ProjectID,
-		"name": *deleteDomainMappingOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/domain_mappings/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteDomainMappingOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteDomainMapping")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_domain_mapping", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -4675,6 +4675,70 @@ func (codeEngine *CodeEngineV2) CreateConfigMapWithContext(ctx context.Context, 
 	return
 }
 
+// DeleteConfigMap : Delete a config map
+// Delete a config map.
+func (codeEngine *CodeEngineV2) DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteConfigMapWithContext(context.Background(), deleteConfigMapOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteConfigMapWithContext is an alternate form of the DeleteConfigMap method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteConfigMapOptions, "deleteConfigMapOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteConfigMapOptions, "deleteConfigMapOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteConfigMapOptions.ProjectID,
+		"name": *deleteConfigMapOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteConfigMapOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteConfigMap")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_config_map", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetConfigMap : Get a config map
 // Display the details of a config map.
 func (codeEngine *CodeEngineV2) GetConfigMap(getConfigMapOptions *GetConfigMapOptions) (result *ConfigMap, response *core.DetailedResponse, err error) {
@@ -4832,70 +4896,6 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 			return
 		}
 		response.Result = result
-	}
-
-	return
-}
-
-// DeleteConfigMap : Delete a config map
-// Delete a config map.
-func (codeEngine *CodeEngineV2) DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteConfigMapWithContext(context.Background(), deleteConfigMapOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteConfigMapWithContext is an alternate form of the DeleteConfigMap method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, deleteConfigMapOptions *DeleteConfigMapOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteConfigMapOptions, "deleteConfigMapOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteConfigMapOptions, "deleteConfigMapOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteConfigMapOptions.ProjectID,
-		"name": *deleteConfigMapOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/config_maps/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteConfigMapOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteConfigMap")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_config_map", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
 	}
 
 	return
@@ -5079,6 +5079,70 @@ func (codeEngine *CodeEngineV2) CreateSecretWithContext(ctx context.Context, cre
 	return
 }
 
+// DeleteSecret : Delete a secret
+// Delete a secret.
+func (codeEngine *CodeEngineV2) DeleteSecret(deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteSecretWithContext(context.Background(), deleteSecretOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteSecretWithContext is an alternate form of the DeleteSecret method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteSecretOptions, "deleteSecretOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteSecretOptions, "deleteSecretOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteSecretOptions.ProjectID,
+		"name": *deleteSecretOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteSecretOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteSecret")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_secret", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // GetSecret : Get a secret
 // Get a secret.
 func (codeEngine *CodeEngineV2) GetSecret(getSecretOptions *GetSecretOptions) (result *Secret, response *core.DetailedResponse, err error) {
@@ -5244,46 +5308,215 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	return
 }
 
-// DeleteSecret : Delete a secret
-// Delete a secret.
-func (codeEngine *CodeEngineV2) DeleteSecret(deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteSecretWithContext(context.Background(), deleteSecretOptions)
+// ListPersistentDataStore : List persistent data stores
+// List all persistent data stores in a project.
+func (codeEngine *CodeEngineV2) ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListPersistentDataStoreWithContext(context.Background(), listPersistentDataStoreOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// DeleteSecretWithContext is an alternate form of the DeleteSecret method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, deleteSecretOptions *DeleteSecretOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteSecretOptions, "deleteSecretOptions cannot be nil")
+// ListPersistentDataStoreWithContext is an alternate form of the ListPersistentDataStore method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListPersistentDataStoreWithContext(ctx context.Context, listPersistentDataStoreOptions *ListPersistentDataStoreOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listPersistentDataStoreOptions, "listPersistentDataStoreOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(deleteSecretOptions, "deleteSecretOptions")
+	err = core.ValidateStruct(listPersistentDataStoreOptions, "listPersistentDataStoreOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *deleteSecretOptions.ProjectID,
-		"name": *deleteSecretOptions.Name,
+		"project_id": *listPersistentDataStoreOptions.ProjectID,
 	}
 
-	builder := core.NewRequestBuilder(core.DELETE)
+	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/secrets/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/persistent_data_stores`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range deleteSecretOptions.Headers {
+	for headerName, headerValue := range listPersistentDataStoreOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteSecret")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListPersistentDataStore")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if listPersistentDataStoreOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPersistentDataStoreOptions.Limit))
+	}
+	if listPersistentDataStoreOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPersistentDataStoreOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_persistent_data_store", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPersistentDataStoreList)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreatePersistentDataStore : Create a persistent data store
+// Create a persistent data store.
+func (codeEngine *CodeEngineV2) CreatePersistentDataStore(createPersistentDataStoreOptions *CreatePersistentDataStoreOptions) (result *PersistentDataStore, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.CreatePersistentDataStoreWithContext(context.Background(), createPersistentDataStoreOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreatePersistentDataStoreWithContext is an alternate form of the CreatePersistentDataStore method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreatePersistentDataStoreWithContext(ctx context.Context, createPersistentDataStoreOptions *CreatePersistentDataStoreOptions) (result *PersistentDataStore, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createPersistentDataStoreOptions, "createPersistentDataStoreOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createPersistentDataStoreOptions, "createPersistentDataStoreOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createPersistentDataStoreOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/persistent_data_stores`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range createPersistentDataStoreOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreatePersistentDataStore")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	body := make(map[string]interface{})
+	if createPersistentDataStoreOptions.Name != nil {
+		body["name"] = createPersistentDataStoreOptions.Name
+	}
+	if createPersistentDataStoreOptions.StorageType != nil {
+		body["storage_type"] = createPersistentDataStoreOptions.StorageType
+	}
+	if createPersistentDataStoreOptions.Data != nil {
+		body["data"] = createPersistentDataStoreOptions.Data
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_persistent_data_store", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPersistentDataStore)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeletePersistentDataStore : Delete a persistent data store
+// Delete a persistent data store.
+func (codeEngine *CodeEngineV2) DeletePersistentDataStore(deletePersistentDataStoreOptions *DeletePersistentDataStoreOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeletePersistentDataStoreWithContext(context.Background(), deletePersistentDataStoreOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeletePersistentDataStoreWithContext is an alternate form of the DeletePersistentDataStore method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeletePersistentDataStoreWithContext(ctx context.Context, deletePersistentDataStoreOptions *DeletePersistentDataStoreOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deletePersistentDataStoreOptions, "deletePersistentDataStoreOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deletePersistentDataStoreOptions, "deletePersistentDataStoreOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deletePersistentDataStoreOptions.ProjectID,
+		"name": *deletePersistentDataStoreOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/persistent_data_stores/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deletePersistentDataStoreOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeletePersistentDataStore")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -5300,9 +5533,83 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 
 	response, err = codeEngine.Service.Request(request, nil)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_secret", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "delete_persistent_data_store", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+
+	return
+}
+
+// GetPersistentDataStore : Get a persistent data store
+// Get a persistent data store.
+func (codeEngine *CodeEngineV2) GetPersistentDataStore(getPersistentDataStoreOptions *GetPersistentDataStoreOptions) (result *PersistentDataStore, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.GetPersistentDataStoreWithContext(context.Background(), getPersistentDataStoreOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetPersistentDataStoreWithContext is an alternate form of the GetPersistentDataStore method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetPersistentDataStoreWithContext(ctx context.Context, getPersistentDataStoreOptions *GetPersistentDataStoreOptions) (result *PersistentDataStore, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getPersistentDataStoreOptions, "getPersistentDataStoreOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getPersistentDataStoreOptions, "getPersistentDataStoreOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getPersistentDataStoreOptions.ProjectID,
+		"name": *getPersistentDataStoreOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/persistent_data_stores/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getPersistentDataStoreOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetPersistentDataStore")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_persistent_data_store", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPersistentDataStore)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
 	}
 
 	return
@@ -8170,6 +8477,24 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
+// CbrStatus : Describes the model of a CBR status of a project.
+type CbrStatus struct {
+	// Describes the model of the enforcement status of a CBR status.
+	DataPlane *EnforcementStatus `json:"data_plane" validate:"required"`
+}
+
+// UnmarshalCbrStatus unmarshals an instance of CbrStatus from the specified map of raw messages.
+func UnmarshalCbrStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CbrStatus)
+	err = core.UnmarshalModel(m, "data_plane", &obj.DataPlane, UnmarshalEnforcementStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "data_plane-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ComponentRef : A reference to another component.
 type ComponentRef struct {
 	// The name of the referenced component.
@@ -9988,6 +10313,71 @@ func (options *CreateJobRunOptions) SetHeaders(param map[string]string) *CreateJ
 	return options
 }
 
+// CreatePersistentDataStoreOptions : The CreatePersistentDataStore options.
+type CreatePersistentDataStoreOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of the persistent data store.
+	Name *string `json:"name" validate:"required"`
+
+	// Specify the storage type of the persistent data store.
+	StorageType *string `json:"storage_type" validate:"required"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+	// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+	// field can consists of any character and must not exceed a max length of 1048576 characters.
+	Data StorageDataIntf `json:"data,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the CreatePersistentDataStoreOptions.StorageType property.
+// Specify the storage type of the persistent data store.
+const (
+	CreatePersistentDataStoreOptions_StorageType_ObjectStorage = "object_storage"
+)
+
+// NewCreatePersistentDataStoreOptions : Instantiate CreatePersistentDataStoreOptions
+func (*CodeEngineV2) NewCreatePersistentDataStoreOptions(projectID string, name string, storageType string) *CreatePersistentDataStoreOptions {
+	return &CreatePersistentDataStoreOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+		StorageType: core.StringPtr(storageType),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *CreatePersistentDataStoreOptions) SetProjectID(projectID string) *CreatePersistentDataStoreOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreatePersistentDataStoreOptions) SetName(name string) *CreatePersistentDataStoreOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetStorageType : Allow user to set StorageType
+func (_options *CreatePersistentDataStoreOptions) SetStorageType(storageType string) *CreatePersistentDataStoreOptions {
+	_options.StorageType = core.StringPtr(storageType)
+	return _options
+}
+
+// SetData : Allow user to set Data
+func (_options *CreatePersistentDataStoreOptions) SetData(data StorageDataIntf) *CreatePersistentDataStoreOptions {
+	_options.Data = data
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreatePersistentDataStoreOptions) SetHeaders(param map[string]string) *CreatePersistentDataStoreOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateProjectOptions : The CreateProject options.
 type CreateProjectOptions struct {
 	// The name of the project.
@@ -10583,6 +10973,44 @@ func (options *DeleteJobRunOptions) SetHeaders(param map[string]string) *DeleteJ
 	return options
 }
 
+// DeletePersistentDataStoreOptions : The DeletePersistentDataStore options.
+type DeletePersistentDataStoreOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your persistent data store.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewDeletePersistentDataStoreOptions : Instantiate DeletePersistentDataStoreOptions
+func (*CodeEngineV2) NewDeletePersistentDataStoreOptions(projectID string, name string) *DeletePersistentDataStoreOptions {
+	return &DeletePersistentDataStoreOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *DeletePersistentDataStoreOptions) SetProjectID(projectID string) *DeletePersistentDataStoreOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *DeletePersistentDataStoreOptions) SetName(name string) *DeletePersistentDataStoreOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeletePersistentDataStoreOptions) SetHeaders(param map[string]string) *DeletePersistentDataStoreOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteProjectOptions : The DeleteProject options.
 type DeleteProjectOptions struct {
 	// The ID of the project.
@@ -10918,6 +11346,38 @@ func UnmarshalDomainMappingStatus(m map[string]json.RawMessage, result interface
 	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// EnforcementStatus : Describes the model of the enforcement status of a CBR status.
+type EnforcementStatus struct {
+	Enforcement *string `json:"enforcement" validate:"required"`
+
+	LastSyncedAt *string `json:"last_synced_at,omitempty"`
+}
+
+// Constants associated with the EnforcementStatus.Enforcement property.
+const (
+	EnforcementStatus_Enforcement_Applied = "applied"
+	EnforcementStatus_Enforcement_None = "none"
+	EnforcementStatus_Enforcement_OutOfSync = "out_of_sync"
+	EnforcementStatus_Enforcement_Unknown = "unknown"
+)
+
+// UnmarshalEnforcementStatus unmarshals an instance of EnforcementStatus from the specified map of raw messages.
+func UnmarshalEnforcementStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EnforcementStatus)
+	err = core.UnmarshalPrimitive(m, "enforcement", &obj.Enforcement)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "enforcement-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_synced_at", &obj.LastSyncedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last_synced_at-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -12106,6 +12566,44 @@ func (_options *GetJobRunOptions) SetName(name string) *GetJobRunOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *GetJobRunOptions) SetHeaders(param map[string]string) *GetJobRunOptions {
+	options.Headers = param
+	return options
+}
+
+// GetPersistentDataStoreOptions : The GetPersistentDataStore options.
+type GetPersistentDataStoreOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// The name of your persistent data store.
+	Name *string `json:"name" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetPersistentDataStoreOptions : Instantiate GetPersistentDataStoreOptions
+func (*CodeEngineV2) NewGetPersistentDataStoreOptions(projectID string, name string) *GetPersistentDataStoreOptions {
+	return &GetPersistentDataStoreOptions{
+		ProjectID: core.StringPtr(projectID),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *GetPersistentDataStoreOptions) SetProjectID(projectID string) *GetPersistentDataStoreOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *GetPersistentDataStoreOptions) SetName(name string) *GetPersistentDataStoreOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetPersistentDataStoreOptions) SetHeaders(param map[string]string) *GetPersistentDataStoreOptions {
 	options.Headers = param
 	return options
 }
@@ -13999,6 +14497,54 @@ func UnmarshalListNextMetadata(m map[string]json.RawMessage, result interface{})
 	return
 }
 
+// ListPersistentDataStoreOptions : The ListPersistentDataStore options.
+type ListPersistentDataStoreOptions struct {
+	// The ID of the project.
+	ProjectID *string `json:"project_id" validate:"required,ne="`
+
+	// Optional maximum number of persistent data stores per page.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
+	// results is returned. This value is obtained from the 'start' query parameter in the `next` object of the operation
+	// response.
+	Start *string `json:"start,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListPersistentDataStoreOptions : Instantiate ListPersistentDataStoreOptions
+func (*CodeEngineV2) NewListPersistentDataStoreOptions(projectID string) *ListPersistentDataStoreOptions {
+	return &ListPersistentDataStoreOptions{
+		ProjectID: core.StringPtr(projectID),
+	}
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListPersistentDataStoreOptions) SetProjectID(projectID string) *ListPersistentDataStoreOptions {
+	_options.ProjectID = core.StringPtr(projectID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListPersistentDataStoreOptions) SetLimit(limit int64) *ListPersistentDataStoreOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListPersistentDataStoreOptions) SetStart(start string) *ListPersistentDataStoreOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListPersistentDataStoreOptions) SetHeaders(param map[string]string) *ListPersistentDataStoreOptions {
+	options.Headers = param
+	return options
+}
+
 // ListProjectsOptions : The ListProjects options.
 type ListProjectsOptions struct {
 	// Optional maximum number of projects per page.
@@ -14172,6 +14718,139 @@ func UnmarshalOperatorSecretPrototypeProps(m map[string]json.RawMessage, result 
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// PersistentDataStore : Describes the model of a persistent data store.
+type PersistentDataStore struct {
+	// The timestamp when the resource was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+	// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+	// field can consists of any character and must not exceed a max length of 1048576 characters.
+	Data StorageDataIntf `json:"data" validate:"required"`
+
+	// The version of the persistent data store, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// The identifier of the resource.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the persistent data store.
+	Name *string `json:"name" validate:"required"`
+
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
+
+	// The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de',
+	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+	Region *string `json:"region,omitempty"`
+
+	// Specify the storage type of the persistent data store.
+	StorageType *string `json:"storage_type" validate:"required"`
+}
+
+// Constants associated with the PersistentDataStore.StorageType property.
+// Specify the storage type of the persistent data store.
+const (
+	PersistentDataStore_StorageType_ObjectStorage = "object_storage"
+)
+
+// UnmarshalPersistentDataStore unmarshals an instance of PersistentDataStore from the specified map of raw messages.
+func UnmarshalPersistentDataStore(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PersistentDataStore)
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "data", &obj.Data, UnmarshalStorageData)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "data-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "storage_type", &obj.StorageType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "storage_type-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PersistentDataStoreList : List of all persistent data stores.
+type PersistentDataStoreList struct {
+	// Describes properties needed to retrieve the first page of a result list.
+	First *ListFirstMetadata `json:"first,omitempty"`
+
+	// Maximum number of resources per page.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Describes properties needed to retrieve the next page of a result list.
+	Next *ListNextMetadata `json:"next,omitempty"`
+
+	// List of persistent data stores.
+	PersistentDataStores []PersistentDataStore `json:"persistent_data_stores" validate:"required"`
+}
+
+// UnmarshalPersistentDataStoreList unmarshals an instance of PersistentDataStoreList from the specified map of raw messages.
+func UnmarshalPersistentDataStoreList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PersistentDataStoreList)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalListFirstMetadata)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalListNextMetadata)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "persistent_data_stores", &obj.PersistentDataStores, UnmarshalPersistentDataStore)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "persistent_data_stores-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *PersistentDataStoreList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // Probe : Response model for probes.
@@ -14544,11 +15223,17 @@ func (resp *ProjectList) GetNextStart() (*string, error) {
 
 // ProjectStatusDetails : Describes the model of a project status details.
 type ProjectStatusDetails struct {
+	// Status of the Context-based-restriction configuration applicable for this project.
+	Cbr *CbrStatus `json:"cbr" validate:"required"`
+
 	// Status of the domain created for the project.
 	Domain *string `json:"domain" validate:"required"`
 
 	// Defines whether a project is enabled for management and consumption.
 	Project *string `json:"project" validate:"required"`
+
+	// Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network.
+	Vpe *string `json:"vpe" validate:"required"`
 
 	// Return true when project is not VPE enabled.
 	VpeNotEnabled *bool `json:"vpe_not_enabled,omitempty"`
@@ -14568,9 +15253,21 @@ const (
 	ProjectStatusDetails_Project_Enabled = "enabled"
 )
 
+// Constants associated with the ProjectStatusDetails.Vpe property.
+// Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network.
+const (
+	ProjectStatusDetails_Vpe_Ready = "ready"
+	ProjectStatusDetails_Vpe_Unknown = "unknown"
+)
+
 // UnmarshalProjectStatusDetails unmarshals an instance of ProjectStatusDetails from the specified map of raw messages.
 func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ProjectStatusDetails)
+	err = core.UnmarshalModel(m, "cbr", &obj.Cbr, UnmarshalCbrStatus)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cbr-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "domain", &obj.Domain)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "domain-error", common.GetComponentInfo())
@@ -14579,6 +15276,11 @@ func UnmarshalProjectStatusDetails(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "project", &obj.Project)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "project-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "vpe", &obj.Vpe)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "vpe-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "vpe_not_enabled", &obj.VpeNotEnabled)
@@ -15415,6 +16117,121 @@ func UnmarshalServiceInstanceRefPrototype(m map[string]json.RawMessage, result i
 	return
 }
 
+// StorageData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+// field can consists of any character and must not exceed a max length of 1048576 characters.
+// This type supports additional properties of type *string.
+// Models which "extend" this model:
+// - StorageDataObjectStorageData
+type StorageData struct {
+	// Specify the location of the bucket.
+	BucketLocation *string `json:"bucket_location,omitempty"`
+
+	// Specify the name of the bucket.
+	BucketName *string `json:"bucket_name,omitempty"`
+
+	// Specify the name of the HMAC secret.
+	SecretName *string `json:"secret_name,omitempty"`
+
+	// Allows users to set arbitrary properties of type *string.
+	additionalProperties map[string]*string
+}
+func (*StorageData) isaStorageData() bool {
+	return true
+}
+
+type StorageDataIntf interface {
+	isaStorageData() bool
+	SetProperty(key string, value *string)
+	SetProperties(m map[string]*string)
+	GetProperty(key string) *string
+	GetProperties() map[string]*string
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of StorageData.
+func (o *StorageData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of StorageData.
+func (o *StorageData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of StorageData.
+func (o *StorageData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of StorageData.
+func (o *StorageData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of StorageData
+func (o *StorageData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.BucketLocation != nil {
+		m["bucket_location"] = o.BucketLocation
+	}
+	if o.BucketName != nil {
+		m["bucket_name"] = o.BucketName
+	}
+	if o.SecretName != nil {
+		m["secret_name"] = o.SecretName
+	}
+	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalStorageData unmarshals an instance of StorageData from the specified map of raw messages.
+func UnmarshalStorageData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(StorageData)
+	err = core.UnmarshalPrimitive(m, "bucket_location", &obj.BucketLocation)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket_location-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "bucket_location")
+	err = core.UnmarshalPrimitive(m, "bucket_name", &obj.BucketName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket_name-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "bucket_name")
+	err = core.UnmarshalPrimitive(m, "secret_name", &obj.SecretName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secret_name-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "secret_name")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // UpdateAllowedOutboundDestinationOptions : The UpdateAllowedOutboundDestination options.
 type UpdateAllowedOutboundDestinationOptions struct {
 	// The ID of the project.
@@ -15781,19 +16598,26 @@ type VolumeMount struct {
 	MountPath *string `json:"mount_path" validate:"required"`
 
 	// The name of the mount.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
-	// The name of the referenced secret or config map.
+	// Optional flag to specify if the volume mount is read only.
+	ReadOnly *bool `json:"read_only,omitempty"`
+
+	// The name of the referenced secret, config map, or persistent data store.
 	Reference *string `json:"reference" validate:"required"`
 
-	// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+	// The path mounted at the mount path.
+	SubPath *string `json:"sub_path,omitempty"`
+
+	// Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 	Type *string `json:"type" validate:"required"`
 }
 
 // Constants associated with the VolumeMount.Type property.
-// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+// Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 const (
 	VolumeMount_Type_ConfigMap = "config_map"
+	VolumeMount_Type_PersistentDataStore = "persistent_data_store"
 	VolumeMount_Type_Secret = "secret"
 )
 
@@ -15810,9 +16634,19 @@ func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "read_only", &obj.ReadOnly)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "read_only-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "sub_path", &obj.SubPath)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sub_path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
@@ -15833,17 +16667,24 @@ type VolumeMountPrototype struct {
 	// is longer than 58 characters, it will be cut off.
 	Name *string `json:"name,omitempty"`
 
-	// The name of the referenced secret or config map.
+	// Optional flag to specify if the volume mount is read only.
+	ReadOnly *bool `json:"read_only,omitempty"`
+
+	// The name of the referenced secret, config map, or persistent data store.
 	Reference *string `json:"reference" validate:"required"`
 
-	// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+	// The path mounted at the mount path.
+	SubPath *string `json:"sub_path,omitempty"`
+
+	// Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 	Type *string `json:"type" validate:"required"`
 }
 
 // Constants associated with the VolumeMountPrototype.Type property.
-// Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'.
+// Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 const (
 	VolumeMountPrototype_Type_ConfigMap = "config_map"
+	VolumeMountPrototype_Type_PersistentDataStore = "persistent_data_store"
 	VolumeMountPrototype_Type_Secret = "secret"
 )
 
@@ -15874,9 +16715,19 @@ func UnmarshalVolumeMountPrototype(m map[string]json.RawMessage, result interfac
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "read_only", &obj.ReadOnly)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "read_only-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "reference-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "sub_path", &obj.SubPath)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "sub_path-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
@@ -15897,8 +16748,14 @@ func (volumeMountPrototype *VolumeMountPrototype) asPatch() (_patch map[string]i
 	if !core.IsNil(volumeMountPrototype.Name) {
 		_patch["name"] = volumeMountPrototype.Name
 	}
+	if !core.IsNil(volumeMountPrototype.ReadOnly) {
+		_patch["read_only"] = volumeMountPrototype.ReadOnly
+	}
 	if !core.IsNil(volumeMountPrototype.Reference) {
 		_patch["reference"] = volumeMountPrototype.Reference
+	}
+	if !core.IsNil(volumeMountPrototype.SubPath) {
+		_patch["sub_path"] = volumeMountPrototype.SubPath
 	}
 	if !core.IsNil(volumeMountPrototype.Type) {
 		_patch["type"] = volumeMountPrototype.Type
@@ -16682,6 +17539,125 @@ func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result inter
 		return
 	}
 	delete(m, "tls_key")
+	for k := range m {
+		var v *string
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// StorageDataObjectStorageData : StorageDataObjectStorageData struct
+// This type supports additional properties of type *string.
+// This model "extends" StorageData
+type StorageDataObjectStorageData struct {
+	// Specify the location of the bucket.
+	BucketLocation *string `json:"bucket_location" validate:"required"`
+
+	// Specify the name of the bucket.
+	BucketName *string `json:"bucket_name" validate:"required"`
+
+	// Specify the name of the HMAC secret.
+	SecretName *string `json:"secret_name" validate:"required"`
+
+	// Allows users to set arbitrary properties of type *string.
+	additionalProperties map[string]*string
+}
+
+// NewStorageDataObjectStorageData : Instantiate StorageDataObjectStorageData (Generic Model Constructor)
+func (*CodeEngineV2) NewStorageDataObjectStorageData(bucketLocation string, bucketName string, secretName string) (_model *StorageDataObjectStorageData, err error) {
+	_model = &StorageDataObjectStorageData{
+		BucketLocation: core.StringPtr(bucketLocation),
+		BucketName: core.StringPtr(bucketName),
+		SecretName: core.StringPtr(secretName),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*StorageDataObjectStorageData) isaStorageData() bool {
+	return true
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of StorageDataObjectStorageData.
+func (o *StorageDataObjectStorageData) SetProperty(key string, value *string) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*string)
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of StorageDataObjectStorageData.
+func (o *StorageDataObjectStorageData) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of StorageDataObjectStorageData.
+func (o *StorageDataObjectStorageData) GetProperty(key string) *string {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of StorageDataObjectStorageData.
+func (o *StorageDataObjectStorageData) GetProperties() map[string]*string {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of StorageDataObjectStorageData
+func (o *StorageDataObjectStorageData) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.BucketLocation != nil {
+		m["bucket_location"] = o.BucketLocation
+	}
+	if o.BucketName != nil {
+		m["bucket_name"] = o.BucketName
+	}
+	if o.SecretName != nil {
+		m["secret_name"] = o.SecretName
+	}
+	buffer, err = json.Marshal(m)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalStorageDataObjectStorageData unmarshals an instance of StorageDataObjectStorageData from the specified map of raw messages.
+func UnmarshalStorageDataObjectStorageData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(StorageDataObjectStorageData)
+	err = core.UnmarshalPrimitive(m, "bucket_location", &obj.BucketLocation)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket_location-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "bucket_location")
+	err = core.UnmarshalPrimitive(m, "bucket_name", &obj.BucketName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bucket_name-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "bucket_name")
+	err = core.UnmarshalPrimitive(m, "secret_name", &obj.SecretName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "secret_name-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "secret_name")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
@@ -17908,6 +18884,93 @@ func (pager *SecretsPager) GetNext() (page []Secret, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+//
+// PersistentDataStorePager can be used to simplify the use of the "ListPersistentDataStore" method.
+//
+type PersistentDataStorePager struct {
+	hasNext bool
+	options *ListPersistentDataStoreOptions
+	client  *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewPersistentDataStorePager returns a new PersistentDataStorePager instance.
+func (codeEngine *CodeEngineV2) NewPersistentDataStorePager(options *ListPersistentDataStoreOptions) (pager *PersistentDataStorePager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListPersistentDataStoreOptions = *options
+	pager = &PersistentDataStorePager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *PersistentDataStorePager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *PersistentDataStorePager) GetNextWithContext(ctx context.Context) (page []PersistentDataStore, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListPersistentDataStoreWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.PersistentDataStores
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *PersistentDataStorePager) GetAllWithContext(ctx context.Context) (allItems []PersistentDataStore, err error) {
+	for pager.HasNext() {
+		var nextPage []PersistentDataStore
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *PersistentDataStorePager) GetNext() (page []PersistentDataStore, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *PersistentDataStorePager) GetAll() (allItems []PersistentDataStore, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return

@@ -7,6 +7,7 @@ COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
 all: tidy test lint scan-gosec
 travis-ci: ssh-config test-cov lint scan-gosec tidy
+github-action-ci: test-cov lint scan-gosec tidy
 
 ssh-config:
 	git config --global url.ssh://git@github.ibm.com/.insteadOf https://github.ibm.com/

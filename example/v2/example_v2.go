@@ -21,7 +21,7 @@ func main() {
 	)
 
 	// Validate environment
-	requiredEnvs := []string{"CE_API_KEY", "CE_DOMAIN_MAPPING_NAME", "CE_TLS_KEY_FILE_PATH", "CE_TLS_CERT_FILE_PATH"}
+	requiredEnvs := []string{"CE_API_KEY", "CE_DOMAIN_MAPPING_NAME", "CE_TLS_KEY_FILE_PATH", "CE_TLS_CERT_FILE_PATH", "COS_ACCESS_KEY_ID", "COS_SECRET_ACCESS_KEY"}
 	for _, env := range requiredEnvs {
 		if os.Getenv(env) == "" {
 			fmt.Printf("Environment variable %s must be set\n", env)
@@ -276,11 +276,11 @@ func main() {
 	createHMACAuthSecretOpts := codeEngineService.NewCreateSecretOptions(
 		*createdProject.ID,
 		"hmac_auth",
-		"hmac-auth-secret",
+		"ce-api-int-test-hmac-secret",
 	)
 
-	accesskeyid := "access-key-id"
-	secretaccesskey := "secret-access-key"
+	accesskeyid := os.Getenv("COS_ACCESS_KEY_ID")
+	secretaccesskey := os.Getenv("COS_SECRET_ACCESS_KEY")
 	createHMACAuthSecretOpts.Data = &codeenginev2.SecretDataHMACAuthSecretData{
 		AccessKeyID:     &accesskeyid,
 		SecretAccessKey: &secretaccesskey,
@@ -297,7 +297,7 @@ func main() {
 	// Get hmac auth secret
 	getHASecretOpts := codeEngineService.NewGetSecretOptions(
 		*createdProject.ID,
-		"hmac-auth-secret",
+		"ce-api-int-test-hmac-secret",
 	)
 	obtainedHASecret, _, err := codeEngineService.GetSecret(getHASecretOpts)
 	if err != nil {
@@ -306,42 +306,6 @@ func main() {
 		return
 	}
 	fmt.Printf("Obtained secret '%s', format: %s", *obtainedHASecret.Name, *obtainedHASecret.Format)
-
-	// Update hmac auth secret
-	replaceHASecretopts := codeEngineService.NewReplaceSecretOptions(
-		*createdProject.ID,
-		"hmac-auth-secret",
-		"*",
-		"hmac_auth",
-	)
-	updatedaccesskeyid := "updated-access-key-id"
-	updatedsecretaccesskey := "updated-secret-access-key"
-	replaceHASecretopts.Data = &codeenginev2.SecretDataHMACAuthSecretData{
-		AccessKeyID:     &updatedaccesskeyid,
-		SecretAccessKey: &updatedsecretaccesskey,
-	}
-	format = "hmac_auth"
-	replaceBASecretopts.Format = &format
-	updatedHASecret, _, err := codeEngineService.ReplaceSecret(replaceHASecretopts)
-	if err != nil {
-		fmt.Printf("UpdateSecret error: %s\n", err.Error())
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedHASecret.Name, *updatedHASecret.Format)
-
-	// Delete hmac auth secret
-	deleteHASecretOpts := codeEngineService.NewDeleteSecretOptions(
-		*createdProject.ID,
-		"hmac-auth-secret",
-	)
-	resp, err = codeEngineService.DeleteSecret(deleteHASecretOpts)
-	if err != nil {
-		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
 	// Create registry secret
 	createRegistrySecretOpts := codeEngineService.NewCreateSecretOptions(
@@ -413,6 +377,106 @@ func main() {
 		"registry-secret",
 	)
 	resp, err = codeEngineService.DeleteSecret(deleteRegistrySecretOpts)
+	if err != nil {
+		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
+
+	// Create persistent data store
+	createPersistentDataStoreOpts := codeEngineService.NewCreatePersistentDataStoreOptions(
+		*createdProject.ID,
+		"my-persistent-data-store",
+		"object_storage",
+	)
+	bucketLocation := "eu-de"
+	bucketName := "e2e-api-bucket-eu-de"
+	secretName := "ce-api-int-test-hmac-secret"
+
+	createPersistentDataStoreOpts.Data = &codeenginev2.StorageDataObjectStorageData{
+		BucketLocation: &bucketLocation,
+		BucketName:     &bucketName,
+		SecretName:     &secretName,
+	}
+
+	createdPersistentDataStore, _, err := codeEngineService.CreatePersistentDataStore(createPersistentDataStoreOpts)
+	if err != nil {
+		fmt.Printf("CreatePersistentDataStore error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Created persistent data store '%s'\n", *createdPersistentDataStore.Name)
+
+	// Get persistent data store
+	getPersistentDataStoreOpts := codeEngineService.NewGetPersistentDataStoreOptions(
+		*createdProject.ID,
+		"my-persistent-data-store",
+	)
+	obtainedPersistentDataStore, _, err := codeEngineService.GetPersistentDataStore(getPersistentDataStoreOpts)
+	if err != nil {
+		fmt.Printf("GetPersistentDataStore error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained persistent data store '%s', storage_type: %s", *obtainedPersistentDataStore.Name, *obtainedPersistentDataStore.StorageType)
+
+	// List Persistent Data Stores
+	listPersistentDataStoreOptions := codeEngineService.NewListPersistentDataStoreOptions(
+		*createdProject.ID,
+	)
+
+	persistentDataStoreList, _, err := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptions)
+	if err != nil {
+		fmt.Printf("ListPersistentDataStore error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Obtained PersistentDataStore list '%d'", len(persistentDataStoreList.PersistentDataStores))
+
+	// Delete Persistent Data Store
+	deletePersistentDataStoreOpts := codeEngineService.NewDeletePersistentDataStoreOptions(
+		*createdProject.ID,
+		"my-persistent-data-store",
+	)
+
+	resp, err = codeEngineService.DeletePersistentDataStore(deletePersistentDataStoreOpts)
+	if err != nil {
+		fmt.Printf("DeletePersistentDataStore error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Deleted persistent data store: '%d'\n", resp.StatusCode)
+
+	// Update hmac auth secret
+	replaceHASecretopts := codeEngineService.NewReplaceSecretOptions(
+		*createdProject.ID,
+		"ce-api-int-test-hmac-secret",
+		"*",
+		"hmac_auth",
+	)
+	updatedaccesskeyid := "updated-access-key-id"
+	updatedsecretaccesskey := "updated-secret-access-key"
+	replaceHASecretopts.Data = &codeenginev2.SecretDataHMACAuthSecretData{
+		AccessKeyID:     &updatedaccesskeyid,
+		SecretAccessKey: &updatedsecretaccesskey,
+	}
+	format = "hmac_auth"
+	replaceBASecretopts.Format = &format
+	updatedHASecret, _, err := codeEngineService.ReplaceSecret(replaceHASecretopts)
+	if err != nil {
+		fmt.Printf("UpdateSecret error: %s\n", err.Error())
+		os.Exit(1)
+		return
+	}
+	fmt.Printf("Updated secret '%s', format: %s", *updatedHASecret.Name, *updatedHASecret.Format)
+
+	// Delete hmac auth secret
+	deleteHASecretOpts := codeEngineService.NewDeleteSecretOptions(
+		*createdProject.ID,
+		"ce-api-int-test-hmac-secret",
+	)
+	resp, err = codeEngineService.DeleteSecret(deleteHASecretOpts)
 	if err != nil {
 		fmt.Printf("DeleteSecret error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
 		os.Exit(1)
