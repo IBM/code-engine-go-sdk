@@ -7,5 +7,11 @@
         "ignore_entropy": false,
         "entropy_threshold": "80.0",
         "truncate": "16"
-    }
+    },
+    "exclude-rules": [
+        {
+            "path": "ibmcloudcodeenginev1/ibm_cloud_code_engine_v1.go",
+            "rules": ["G117"]
+        }
+    ]
 }

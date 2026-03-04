@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -187,45 +187,45 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAllowedOutboundDestination - List allowed outbound destinations`, func() {
+	Describe(`ListAllowedOutboundDestinations - List allowed outbound destinations`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) with pagination`, func(){
-			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) with pagination`, func(){
+			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 				Start: core.StringPtr("testString"),
 			}
 
-			listAllowedOutboundDestinationOptions.Start = nil
-			listAllowedOutboundDestinationOptions.Limit = core.Int64Ptr(1)
+			listAllowedOutboundDestinationsOptions.Start = nil
+			listAllowedOutboundDestinationsOptions.Limit = core.Int64Ptr(1)
 
 			var allResults []codeenginev2.AllowedOutboundDestinationIntf
 			for {
-				allowedOutboundDestinationList, response, err := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions)
+				allowedOutboundDestinationList, response, err := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(allowedOutboundDestinationList).ToNot(BeNil())
 				allResults = append(allResults, allowedOutboundDestinationList.AllowedOutboundDestinations...)
 
-				listAllowedOutboundDestinationOptions.Start, err = allowedOutboundDestinationList.GetNextStart()
+				listAllowedOutboundDestinationsOptions.Start, err = allowedOutboundDestinationList.GetNextStart()
 				Expect(err).To(BeNil())
 
-				if listAllowedOutboundDestinationOptions.Start == nil {
+				if listAllowedOutboundDestinationsOptions.Start == nil {
 					break
 				}
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) using AllowedOutboundDestinationPager`, func(){
-			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) using AllowedOutboundDestinationsPager`, func(){
+			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
-			pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			pager, err := codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -238,7 +238,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			pager, err = codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -247,7 +247,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(allItems).ToNot(BeNil())
 
 			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListAllowedOutboundDestination() returned a total of %d item(s) using AllowedOutboundDestinationPager.\n", len(allResults))
+			fmt.Fprintf(GinkgoWriter, "ListAllowedOutboundDestinations() returned a total of %d item(s) using AllowedOutboundDestinationsPager.\n", len(allResults))
 		})
 	})
 
@@ -258,8 +258,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions)`, func() {
 			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
 				Type: core.StringPtr("cidr_block"),
+				Name: core.StringPtr("allow-all"),
 				CidrBlock: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
 			}
 
 			createAllowedOutboundDestinationOptions := &codeenginev2.CreateAllowedOutboundDestinationOptions{
@@ -297,7 +297,6 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`UpdateAllowedOutboundDestination(updateAllowedOutboundDestinationOptions *UpdateAllowedOutboundDestinationOptions)`, func() {
 			allowedOutboundDestinationPatchModel := &codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch{
-				Type: core.StringPtr("cidr_block"),
 				CidrBlock: core.StringPtr("testString"),
 			}
 			allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
@@ -2038,45 +2037,45 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListPersistentDataStore - List persistent data stores`, func() {
+	Describe(`ListPersistentDataStores - List persistent data stores`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) with pagination`, func(){
-			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) with pagination`, func(){
+			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 				Start: core.StringPtr("testString"),
 			}
 
-			listPersistentDataStoreOptions.Start = nil
-			listPersistentDataStoreOptions.Limit = core.Int64Ptr(1)
+			listPersistentDataStoresOptions.Start = nil
+			listPersistentDataStoresOptions.Limit = core.Int64Ptr(1)
 
 			var allResults []codeenginev2.PersistentDataStore
 			for {
-				persistentDataStoreList, response, err := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptions)
+				persistentDataStoreList, response, err := codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(persistentDataStoreList).ToNot(BeNil())
 				allResults = append(allResults, persistentDataStoreList.PersistentDataStores...)
 
-				listPersistentDataStoreOptions.Start, err = persistentDataStoreList.GetNextStart()
+				listPersistentDataStoresOptions.Start, err = persistentDataStoreList.GetNextStart()
 				Expect(err).To(BeNil())
 
-				if listPersistentDataStoreOptions.Start == nil {
+				if listPersistentDataStoresOptions.Start == nil {
 					break
 				}
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) using PersistentDataStorePager`, func(){
-			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) using PersistentDataStoresPager`, func(){
+			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
-			pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			pager, err := codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -2089,7 +2088,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			pager, err = codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -2098,7 +2097,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(allItems).ToNot(BeNil())
 
 			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListPersistentDataStore() returned a total of %d item(s) using PersistentDataStorePager.\n", len(allResults))
+			fmt.Fprintf(GinkgoWriter, "ListPersistentDataStores() returned a total of %d item(s) using PersistentDataStoresPager.\n", len(allResults))
 		})
 	})
 
@@ -2108,7 +2107,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreatePersistentDataStore(createPersistentDataStoreOptions *CreatePersistentDataStoreOptions)`, func() {
 			storageDataModel := &codeenginev2.StorageDataObjectStorageData{
-				BucketLocation: core.StringPtr("testString"),
+				BucketLocation: core.StringPtr("au-syd"),
 				BucketName: core.StringPtr("testString"),
 				SecretName: core.StringPtr("testString"),
 			}

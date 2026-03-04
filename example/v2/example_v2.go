@@ -384,69 +384,18 @@ func main() {
 	}
 	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
-	// Create persistent data store
-	createPersistentDataStoreOpts := codeEngineService.NewCreatePersistentDataStoreOptions(
-		*createdProject.ID,
-		"my-persistent-data-store",
-		"object_storage",
-	)
-	bucketLocation := "eu-de"
-	bucketName := "e2e-api-bucket-eu-de"
-	secretName := "ce-api-int-test-hmac-secret"
-
-	createPersistentDataStoreOpts.Data = &codeenginev2.StorageDataObjectStorageData{
-		BucketLocation: &bucketLocation,
-		BucketName:     &bucketName,
-		SecretName:     &secretName,
-	}
-
-	createdPersistentDataStore, _, err := codeEngineService.CreatePersistentDataStore(createPersistentDataStoreOpts)
-	if err != nil {
-		fmt.Printf("CreatePersistentDataStore error: %s\n", err.Error())
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Created persistent data store '%s'\n", *createdPersistentDataStore.Name)
-
-	// Get persistent data store
-	getPersistentDataStoreOpts := codeEngineService.NewGetPersistentDataStoreOptions(
-		*createdProject.ID,
-		"my-persistent-data-store",
-	)
-	obtainedPersistentDataStore, _, err := codeEngineService.GetPersistentDataStore(getPersistentDataStoreOpts)
-	if err != nil {
-		fmt.Printf("GetPersistentDataStore error: %s\n", err.Error())
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Obtained persistent data store '%s', storage_type: %s", *obtainedPersistentDataStore.Name, *obtainedPersistentDataStore.StorageType)
-
 	// List Persistent Data Stores
-	listPersistentDataStoreOptions := codeEngineService.NewListPersistentDataStoreOptions(
+	listPersistentDataStoreOptions := codeEngineService.NewListPersistentDataStoresOptions(
 		*createdProject.ID,
 	)
 
-	persistentDataStoreList, _, err := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptions)
+	persistentDataStoreList, _, err := codeEngineService.ListPersistentDataStores(listPersistentDataStoreOptions)
 	if err != nil {
 		fmt.Printf("ListPersistentDataStore error: %s\n", err.Error())
 		os.Exit(1)
 		return
 	}
 	fmt.Printf("Obtained PersistentDataStore list '%d'", len(persistentDataStoreList.PersistentDataStores))
-
-	// Delete Persistent Data Store
-	deletePersistentDataStoreOpts := codeEngineService.NewDeletePersistentDataStoreOptions(
-		*createdProject.ID,
-		"my-persistent-data-store",
-	)
-
-	resp, err = codeEngineService.DeletePersistentDataStore(deletePersistentDataStoreOpts)
-	if err != nil {
-		fmt.Printf("DeletePersistentDataStore error: %s (transaction-id: '%s')\n", err.Error(), resp.Headers.Get("X-Transaction-Id"))
-		os.Exit(1)
-		return
-	}
-	fmt.Printf("Deleted persistent data store: '%d'\n", resp.StatusCode)
 
 	// Update hmac auth secret
 	replaceHASecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -485,11 +434,11 @@ func main() {
 	fmt.Printf("Deleted secret: '%d'\n", resp.StatusCode)
 
 	// List Allowed Outbound Destinations
-	listAllowedOutboundDestinationOptions := codeEngineService.NewListAllowedOutboundDestinationOptions(
+	listAllowedOutboundDestinationOptions := codeEngineService.NewListAllowedOutboundDestinationsOptions(
 		*createdProject.ID,
 	)
 
-	allowedOutboundDestinationList, _, err := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions)
+	allowedOutboundDestinationList, _, err := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationOptions)
 	if err != nil {
 		fmt.Printf("ListAllowedOutboundDestination error: %s\n", err.Error())
 		os.Exit(1)
@@ -537,7 +486,6 @@ func main() {
 
 	// Update allowed outbound destination
 	allowedOutboundDestinationUpdateModel := &codeenginev2.AllowedOutboundDestinationPatch{
-		Type:      &cidrTypeDefault,
 		CidrBlock: &updatedCidrBlock,
 	}
 	updateAllowedOutboundDestinationAsPatch, err := allowedOutboundDestinationUpdateModel.AsPatch()

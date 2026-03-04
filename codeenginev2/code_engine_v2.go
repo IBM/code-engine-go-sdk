@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -477,29 +477,29 @@ func (codeEngine *CodeEngineV2) GetProjectWithContext(ctx context.Context, getPr
 	return
 }
 
-// ListAllowedOutboundDestination : List allowed outbound destinations
+// ListAllowedOutboundDestinations : List allowed outbound destinations
 // List all allowed outbound destinations in a project.
-func (codeEngine *CodeEngineV2) ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.ListAllowedOutboundDestinationWithContext(context.Background(), listAllowedOutboundDestinationOptions)
+func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListAllowedOutboundDestinationsWithContext(context.Background(), listAllowedOutboundDestinationsOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// ListAllowedOutboundDestinationWithContext is an alternate form of the ListAllowedOutboundDestination method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinationWithContext(ctx context.Context, listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listAllowedOutboundDestinationOptions, "listAllowedOutboundDestinationOptions cannot be nil")
+// ListAllowedOutboundDestinationsWithContext is an alternate form of the ListAllowedOutboundDestinations method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinationsWithContext(ctx context.Context, listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) (result *AllowedOutboundDestinationList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAllowedOutboundDestinationsOptions, "listAllowedOutboundDestinationsOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(listAllowedOutboundDestinationOptions, "listAllowedOutboundDestinationOptions")
+	err = core.ValidateStruct(listAllowedOutboundDestinationsOptions, "listAllowedOutboundDestinationsOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *listAllowedOutboundDestinationOptions.ProjectID,
+		"project_id": *listAllowedOutboundDestinationsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -511,21 +511,21 @@ func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinationWithContext(ctx co
 		return
 	}
 
-	for headerName, headerValue := range listAllowedOutboundDestinationOptions.Headers {
+	for headerName, headerValue := range listAllowedOutboundDestinationsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAllowedOutboundDestination")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAllowedOutboundDestinations")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listAllowedOutboundDestinationOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listAllowedOutboundDestinationOptions.Limit))
+	if listAllowedOutboundDestinationsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAllowedOutboundDestinationsOptions.Limit))
 	}
-	if listAllowedOutboundDestinationOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listAllowedOutboundDestinationOptions.Start))
+	if listAllowedOutboundDestinationsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAllowedOutboundDestinationsOptions.Start))
 	}
 
 	request, err := builder.Build()
@@ -537,7 +537,7 @@ func (codeEngine *CodeEngineV2) ListAllowedOutboundDestinationWithContext(ctx co
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_allowed_outbound_destination", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "list_allowed_outbound_destinations", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -3124,7 +3124,7 @@ func (codeEngine *CodeEngineV2) ListBindingsWithContext(ctx context.Context, lis
 
 // CreateBinding : Create a binding
 // Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision. For
-// more information see the [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+// more information see the [documentation](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
 func (codeEngine *CodeEngineV2) CreateBinding(createBindingOptions *CreateBindingOptions) (result *Binding, response *core.DetailedResponse, err error) {
 	result, response, err = codeEngine.CreateBindingWithContext(context.Background(), createBindingOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -5308,29 +5308,29 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 	return
 }
 
-// ListPersistentDataStore : List persistent data stores
+// ListPersistentDataStores : List persistent data stores
 // List all persistent data stores in a project.
-func (codeEngine *CodeEngineV2) ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.ListPersistentDataStoreWithContext(context.Background(), listPersistentDataStoreOptions)
+func (codeEngine *CodeEngineV2) ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListPersistentDataStoresWithContext(context.Background(), listPersistentDataStoresOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// ListPersistentDataStoreWithContext is an alternate form of the ListPersistentDataStore method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListPersistentDataStoreWithContext(ctx context.Context, listPersistentDataStoreOptions *ListPersistentDataStoreOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listPersistentDataStoreOptions, "listPersistentDataStoreOptions cannot be nil")
+// ListPersistentDataStoresWithContext is an alternate form of the ListPersistentDataStores method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListPersistentDataStoresWithContext(ctx context.Context, listPersistentDataStoresOptions *ListPersistentDataStoresOptions) (result *PersistentDataStoreList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listPersistentDataStoresOptions, "listPersistentDataStoresOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(listPersistentDataStoreOptions, "listPersistentDataStoreOptions")
+	err = core.ValidateStruct(listPersistentDataStoresOptions, "listPersistentDataStoresOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *listPersistentDataStoreOptions.ProjectID,
+		"project_id": *listPersistentDataStoresOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5342,11 +5342,11 @@ func (codeEngine *CodeEngineV2) ListPersistentDataStoreWithContext(ctx context.C
 		return
 	}
 
-	for headerName, headerValue := range listPersistentDataStoreOptions.Headers {
+	for headerName, headerValue := range listPersistentDataStoresOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListPersistentDataStore")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListPersistentDataStores")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -5355,11 +5355,11 @@ func (codeEngine *CodeEngineV2) ListPersistentDataStoreWithContext(ctx context.C
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
-	if listPersistentDataStoreOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listPersistentDataStoreOptions.Limit))
+	if listPersistentDataStoresOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listPersistentDataStoresOptions.Limit))
 	}
-	if listPersistentDataStoreOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listPersistentDataStoreOptions.Start))
+	if listPersistentDataStoresOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listPersistentDataStoresOptions.Start))
 	}
 
 	request, err := builder.Build()
@@ -5371,7 +5371,7 @@ func (codeEngine *CodeEngineV2) ListPersistentDataStoreWithContext(ctx context.C
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_persistent_data_store", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "list_persistent_data_stores", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -5621,24 +5621,60 @@ func getServiceComponentInfo() *core.ProblemComponent {
 // AllowedOutboundDestination : AllowedOutboundDestination Describes the model of an allowed outbound destination.
 // Models which "extend" this model:
 // - AllowedOutboundDestinationCidrBlockData
+// - AllowedOutboundDestinationPrivatePathServiceGatewayData
 type AllowedOutboundDestination struct {
 	// The version of the allowed outbound destination, which is used to achieve optimistic locking.
-	EntityTag *string `json:"entity_tag" validate:"required"`
+	EntityTag *string `json:"entity_tag,omitempty"`
 
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	// The name of the allowed outbound destination.
+	Name *string `json:"name,omitempty"`
+
+	// The current status of the outbound destination.
+	Status *string `json:"status,omitempty"`
+
+	StatusDetails AllowedOutboundStatusDetailsIntf `json:"status_details,omitempty"`
+
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
 
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 
-	// The name of the CIDR block.
-	Name *string `json:"name,omitempty"`
+	// The CRN of the Private Path service.
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
+
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy,omitempty"`
 }
 
+// Constants associated with the AllowedOutboundDestination.Status property.
+// The current status of the outbound destination.
+const (
+	AllowedOutboundDestination_Status_Deploying = "deploying"
+	AllowedOutboundDestination_Status_Failed = "failed"
+	AllowedOutboundDestination_Status_Ready = "ready"
+)
+
 // Constants associated with the AllowedOutboundDestination.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
 const (
 	AllowedOutboundDestination_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestination_Type_PrivatePathServiceGateway = "private_path_service_gateway"
+)
+
+// Constants associated with the AllowedOutboundDestination.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
+const (
+	AllowedOutboundDestination_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestination_IsolationPolicy_Shared = "shared"
 )
 func (*AllowedOutboundDestination) isaAllowedOutboundDestination() bool {
 	return true
@@ -5656,6 +5692,21 @@ func UnmarshalAllowedOutboundDestination(m map[string]json.RawMessage, result in
 		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAllowedOutboundStatusDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
@@ -5666,9 +5717,14 @@ func UnmarshalAllowedOutboundDestination(m map[string]json.RawMessage, result in
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5725,21 +5781,29 @@ func (resp *AllowedOutboundDestinationList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// AllowedOutboundDestinationPatch : AllowedOutboundDestinationPatch is the request model for allowed outbound destination update operations.
+// AllowedOutboundDestinationPatch : The request model for allowed outbound destination update operations.
 // Models which "extend" this model:
 // - AllowedOutboundDestinationPatchCidrBlockDataPatch
+// - AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch
 type AllowedOutboundDestinationPatch struct {
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
-	Type *string `json:"type,omitempty"`
-
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
+
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy,omitempty"`
 }
 
-// Constants associated with the AllowedOutboundDestinationPatch.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+// Constants associated with the AllowedOutboundDestinationPatch.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
 const (
-	AllowedOutboundDestinationPatch_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPatch_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestinationPatch_IsolationPolicy_Shared = "shared"
 )
 func (*AllowedOutboundDestinationPatch) isaAllowedOutboundDestinationPatch() bool {
 	return true
@@ -5752,14 +5816,14 @@ type AllowedOutboundDestinationPatchIntf interface {
 // UnmarshalAllowedOutboundDestinationPatch unmarshals an instance of AllowedOutboundDestinationPatch from the specified map of raw messages.
 func UnmarshalAllowedOutboundDestinationPatch(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AllowedOutboundDestinationPatch)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5769,11 +5833,11 @@ func UnmarshalAllowedOutboundDestinationPatch(m map[string]json.RawMessage, resu
 // AsPatch returns a generic map representation of the AllowedOutboundDestinationPatch
 func (allowedOutboundDestinationPatch *AllowedOutboundDestinationPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	_patch = map[string]interface{}{}
-	if !core.IsNil(allowedOutboundDestinationPatch.Type) {
-		_patch["type"] = allowedOutboundDestinationPatch.Type
-	}
 	if !core.IsNil(allowedOutboundDestinationPatch.CidrBlock) {
 		_patch["cidr_block"] = allowedOutboundDestinationPatch.CidrBlock
+	}
+	if !core.IsNil(allowedOutboundDestinationPatch.IsolationPolicy) {
+		_patch["isolation_policy"] = allowedOutboundDestinationPatch.IsolationPolicy
 	}
 
 	return
@@ -5782,21 +5846,45 @@ func (allowedOutboundDestinationPatch *AllowedOutboundDestinationPatch) AsPatch(
 // AllowedOutboundDestinationPrototype : AllowedOutboundDestinationPrototype is the request model for allowed outbound destination create operations.
 // Models which "extend" this model:
 // - AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+// - AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
 type AllowedOutboundDestinationPrototype struct {
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
+
+	// The name of the allowed outbound destination.
+	Name *string `json:"name" validate:"required"`
 
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 
-	// The name of the CIDR block.
-	Name *string `json:"name,omitempty"`
+	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
+
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy,omitempty"`
 }
 
 // Constants associated with the AllowedOutboundDestinationPrototype.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
 const (
 	AllowedOutboundDestinationPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
+)
+
+// Constants associated with the AllowedOutboundDestinationPrototype.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
+const (
+	AllowedOutboundDestinationPrototype_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestinationPrototype_IsolationPolicy_Shared = "shared"
 )
 func (*AllowedOutboundDestinationPrototype) isaAllowedOutboundDestinationPrototype() bool {
 	return true
@@ -5814,14 +5902,84 @@ func UnmarshalAllowedOutboundDestinationPrototype(m map[string]json.RawMessage, 
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundStatusDetails : AllowedOutboundStatusDetails struct
+// Models which "extend" this model:
+// - AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails
+type AllowedOutboundStatusDetails struct {
+	// Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private path
+	// service gateway.
+	EndpointGateway *EndpointGatewayDetails `json:"endpoint_gateway,omitempty"`
+
+	// Optional information about the private path service gateway that this allowed outbound destination points to.
+	PrivatePathServiceGateway *PrivatePathServiceGatewayDetails `json:"private_path_service_gateway,omitempty"`
+
+	// Optional information to provide more context in case of a 'failed' or 'deploying' status.
+	Reason *string `json:"reason,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundStatusDetails.Reason property.
+// Optional information to provide more context in case of a 'failed' or 'deploying' status.
+const (
+	AllowedOutboundStatusDetails_Reason_Deploying = "deploying"
+	AllowedOutboundStatusDetails_Reason_Failed = "failed"
+	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionAlreadyExists = "private_path_connection_already_exists"
+	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionApprovalDenied = "private_path_connection_approval_denied"
+	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionApprovalPending = "private_path_connection_approval_pending"
+	AllowedOutboundStatusDetails_Reason_PrivatePathCrnInvalid = "private_path_crn_invalid"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotFound = "private_path_not_found"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameAccountFamily = "private_path_not_in_same_account_family"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameRegion = "private_path_not_in_same_region"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotPublished = "private_path_not_published"
+	AllowedOutboundStatusDetails_Reason_Ready = "ready"
+)
+func (*AllowedOutboundStatusDetails) isaAllowedOutboundStatusDetails() bool {
+	return true
+}
+
+type AllowedOutboundStatusDetailsIntf interface {
+	isaAllowedOutboundStatusDetails() bool
+}
+
+// UnmarshalAllowedOutboundStatusDetails unmarshals an instance of AllowedOutboundStatusDetails from the specified map of raw messages.
+func UnmarshalAllowedOutboundStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundStatusDetails)
+	err = core.UnmarshalModel(m, "endpoint_gateway", &obj.EndpointGateway, UnmarshalEndpointGatewayDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint_gateway-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "private_path_service_gateway", &obj.PrivatePathServiceGateway, UnmarshalPrivatePathServiceGatewayDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5838,7 +5996,7 @@ type App struct {
 
 	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
 	// environment variables in the application.
-	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables" validate:"required"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -5918,7 +6076,7 @@ type App struct {
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
 	// `none`, `reader`, and `writer`.
-	RunServiceAccount *string `json:"run_service_account,omitempty"`
+	RunServiceAccount *string `json:"run_service_account" validate:"required"`
 
 	// Mounts of config maps or secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
@@ -6814,7 +6972,7 @@ type AppRevision struct {
 
 	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
 	// environment variables in the application.
-	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables" validate:"required"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -6879,7 +7037,7 @@ type AppRevision struct {
 
 	// Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` ,
 	// `none`, `reader`, and `writer`.
-	RunServiceAccount *string `json:"run_service_account,omitempty"`
+	RunServiceAccount *string `json:"run_service_account" validate:"required"`
 
 	// Mounts of config maps or secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
@@ -7439,7 +7597,7 @@ type Build struct {
 
 	// References to config maps and secret keys, or literal values, which are defined by the build owner and are exposed
 	// as build arguments in Docker files.
-	RunBuildParams []BuildParam `json:"run_build_params,omitempty"`
+	RunBuildParams []BuildParam `json:"run_build_params" validate:"required"`
 
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
@@ -8072,11 +8230,10 @@ type BuildRun struct {
 
 	// References to config maps and secret keys, or literal values, which are defined by the build owner and are exposed
 	// as build arguments in Docker files.
-	RunBuildParams []BuildParam `json:"run_build_params,omitempty"`
+	RunBuildParams []BuildParam `json:"run_build_params" validate:"required"`
 
-	// Optional service account, which is used for resource control.” or “Optional service account that is used for
-	// resource control.
-	ServiceAccount *string `json:"service_account,omitempty"`
+	// Optional service account, which is used for resource control.
+	ServiceAccount *string `json:"service_account" validate:"required"`
 
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
 	SourceContextDir *string `json:"source_context_dir,omitempty"`
@@ -8094,7 +8251,7 @@ type BuildRun struct {
 	// Specifies the type of source to determine if your build source is in a repository or based on local source code.
 	// * local - For builds from local source code.
 	// * git - For builds from git version controlled source code.
-	SourceType *string `json:"source_type,omitempty"`
+	SourceType *string `json:"source_type" validate:"required"`
 
 	// The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type` value is
 	// `local`, this field must be omitted. If the repository is publicly available you can provide a 'https' URL like
@@ -8110,13 +8267,13 @@ type BuildRun struct {
 
 	// Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 	// `large`, `xlarge`, `xxlarge`.
-	StrategySize *string `json:"strategy_size,omitempty"`
+	StrategySize *string `json:"strategy_size" validate:"required"`
 
 	// Optional path to the specification file that is used for build strategies for building an image.
 	StrategySpecFile *string `json:"strategy_spec_file,omitempty"`
 
 	// The strategy to use for building the image.
-	StrategyType *string `json:"strategy_type,omitempty"`
+	StrategyType *string `json:"strategy_type" validate:"required"`
 
 	// The maximum amount of time, in seconds, that can pass before the build must succeed or fail.
 	Timeout *int64 `json:"timeout,omitempty"`
@@ -8129,8 +8286,7 @@ const (
 )
 
 // Constants associated with the BuildRun.ServiceAccount property.
-// Optional service account, which is used for resource control.” or “Optional service account that is used for resource
-// control.
+// Optional service account, which is used for resource control.
 const (
 	BuildRun_ServiceAccount_Default = "default"
 	BuildRun_ServiceAccount_Manager = "manager"
@@ -8477,7 +8633,7 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// CbrStatus : Describes the model of a CBR status of a project.
+// CbrStatus : Status of the Context-based-restriction configuration applicable for this project.
 type CbrStatus struct {
 	// Describes the model of the enforcement status of a CBR status.
 	DataPlane *EnforcementStatus `json:"data_plane" validate:"required"`
@@ -9370,8 +9526,7 @@ type CreateBuildRunOptions struct {
 	// Docker file.
 	RunBuildParams []BuildParamPrototype `json:"run_build_params,omitempty"`
 
-	// Optional service account, which is used for resource control.” or “Optional service account that is used for
-	// resource control.
+	// Optional service account, which is used for resource control.
 	ServiceAccount *string `json:"service_account,omitempty"`
 
 	// Optional directory in the repository that contains the buildpacks file or the Dockerfile.
@@ -9416,8 +9571,7 @@ type CreateBuildRunOptions struct {
 }
 
 // Constants associated with the CreateBuildRunOptions.ServiceAccount property.
-// Optional service account, which is used for resource control.” or “Optional service account that is used for resource
-// control.
+// Optional service account, which is used for resource control.
 const (
 	CreateBuildRunOptions_ServiceAccount_Default = "default"
 	CreateBuildRunOptions_ServiceAccount_Manager = "manager"
@@ -10656,7 +10810,7 @@ type DeleteBindingOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// The id of your binding.
+	// The ID of the binding.
 	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests.
@@ -11352,14 +11506,60 @@ func UnmarshalDomainMappingStatus(m map[string]json.RawMessage, result interface
 	return
 }
 
+// EndpointGatewayDetails : Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private path
+// service gateway.
+type EndpointGatewayDetails struct {
+	// The account that created the endpoint gateway.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The timestamp when the endpoint gateway was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// The reserved IPs bound to this endpoint gateway.
+	Ips []string `json:"ips,omitempty"`
+
+	// The name for this endpoint gateway. The name is unique across all endpoint gateways in the VPC.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalEndpointGatewayDetails unmarshals an instance of EndpointGatewayDetails from the specified map of raw messages.
+func UnmarshalEndpointGatewayDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EndpointGatewayDetails)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ips", &obj.Ips)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ips-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // EnforcementStatus : Describes the model of the enforcement status of a CBR status.
 type EnforcementStatus struct {
+	// Detailed information on the condition of the CBR enforcement.
 	Enforcement *string `json:"enforcement" validate:"required"`
 
+	// Date time information specifying when the last synchronization happened.
 	LastSyncedAt *string `json:"last_synced_at,omitempty"`
 }
 
 // Constants associated with the EnforcementStatus.Enforcement property.
+// Detailed information on the condition of the CBR enforcement.
 const (
 	EnforcementStatus_Enforcement_Applied = "applied"
 	EnforcementStatus_Enforcement_None = "none"
@@ -11565,7 +11765,7 @@ type Function struct {
 
 	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
 	// environment variables in the function.
-	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables" validate:"required"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -12096,7 +12296,7 @@ func UnmarshalFunctionRuntime(m map[string]json.RawMessage, result interface{}) 
 // FunctionRuntimeList : Contains a list of Function runtimes.
 type FunctionRuntimeList struct {
 	// List of all Function runtimes.
-	FunctionRuntimes []FunctionRuntime `json:"function_runtimes,omitempty"`
+	FunctionRuntimes []FunctionRuntime `json:"function_runtimes" validate:"required"`
 }
 
 // UnmarshalFunctionRuntimeList unmarshals an instance of FunctionRuntimeList from the specified map of raw messages.
@@ -12271,7 +12471,7 @@ type GetBindingOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
-	// The id of your binding.
+	// The ID of the binding.
 	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests.
@@ -12801,7 +13001,7 @@ type Job struct {
 
 	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
 	// environment variables in the job run.
-	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables" validate:"required"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -12865,7 +13065,7 @@ type Job struct {
 
 	// The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`,
 	// `reader`, and `writer`. This property must not be set on a job run, which references a job template.
-	RunServiceAccount *string `json:"run_service_account,omitempty"`
+	RunServiceAccount *string `json:"run_service_account" validate:"required"`
 
 	// Optional mounts of config maps or secrets.
 	RunVolumeMounts []VolumeMount `json:"run_volume_mounts" validate:"required"`
@@ -13366,7 +13566,7 @@ func (jobPatch *JobPatch) AsPatch() (_patch map[string]interface{}, err error) {
 type JobRun struct {
 	// References to config maps, secrets or literal values, which are defined and set by Code Engine and are exposed as
 	// environment variables in the job run.
-	ComputedEnvVariables []EnvVar `json:"computed_env_variables,omitempty"`
+	ComputedEnvVariables []EnvVar `json:"computed_env_variables" validate:"required"`
 
 	// The timestamp when the resource was created.
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -13821,8 +14021,8 @@ func UnmarshalJobRunStatus(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// ListAllowedOutboundDestinationOptions : The ListAllowedOutboundDestination options.
-type ListAllowedOutboundDestinationOptions struct {
+// ListAllowedOutboundDestinationsOptions : The ListAllowedOutboundDestinations options.
+type ListAllowedOutboundDestinationsOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
@@ -13838,33 +14038,33 @@ type ListAllowedOutboundDestinationOptions struct {
 	Headers map[string]string
 }
 
-// NewListAllowedOutboundDestinationOptions : Instantiate ListAllowedOutboundDestinationOptions
-func (*CodeEngineV2) NewListAllowedOutboundDestinationOptions(projectID string) *ListAllowedOutboundDestinationOptions {
-	return &ListAllowedOutboundDestinationOptions{
+// NewListAllowedOutboundDestinationsOptions : Instantiate ListAllowedOutboundDestinationsOptions
+func (*CodeEngineV2) NewListAllowedOutboundDestinationsOptions(projectID string) *ListAllowedOutboundDestinationsOptions {
+	return &ListAllowedOutboundDestinationsOptions{
 		ProjectID: core.StringPtr(projectID),
 	}
 }
 
 // SetProjectID : Allow user to set ProjectID
-func (_options *ListAllowedOutboundDestinationOptions) SetProjectID(projectID string) *ListAllowedOutboundDestinationOptions {
+func (_options *ListAllowedOutboundDestinationsOptions) SetProjectID(projectID string) *ListAllowedOutboundDestinationsOptions {
 	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (_options *ListAllowedOutboundDestinationOptions) SetLimit(limit int64) *ListAllowedOutboundDestinationOptions {
+func (_options *ListAllowedOutboundDestinationsOptions) SetLimit(limit int64) *ListAllowedOutboundDestinationsOptions {
 	_options.Limit = core.Int64Ptr(limit)
 	return _options
 }
 
 // SetStart : Allow user to set Start
-func (_options *ListAllowedOutboundDestinationOptions) SetStart(start string) *ListAllowedOutboundDestinationOptions {
+func (_options *ListAllowedOutboundDestinationsOptions) SetStart(start string) *ListAllowedOutboundDestinationsOptions {
 	_options.Start = core.StringPtr(start)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListAllowedOutboundDestinationOptions) SetHeaders(param map[string]string) *ListAllowedOutboundDestinationOptions {
+func (options *ListAllowedOutboundDestinationsOptions) SetHeaders(param map[string]string) *ListAllowedOutboundDestinationsOptions {
 	options.Headers = param
 	return options
 }
@@ -14497,8 +14697,8 @@ func UnmarshalListNextMetadata(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// ListPersistentDataStoreOptions : The ListPersistentDataStore options.
-type ListPersistentDataStoreOptions struct {
+// ListPersistentDataStoresOptions : The ListPersistentDataStores options.
+type ListPersistentDataStoresOptions struct {
 	// The ID of the project.
 	ProjectID *string `json:"project_id" validate:"required,ne="`
 
@@ -14514,33 +14714,33 @@ type ListPersistentDataStoreOptions struct {
 	Headers map[string]string
 }
 
-// NewListPersistentDataStoreOptions : Instantiate ListPersistentDataStoreOptions
-func (*CodeEngineV2) NewListPersistentDataStoreOptions(projectID string) *ListPersistentDataStoreOptions {
-	return &ListPersistentDataStoreOptions{
+// NewListPersistentDataStoresOptions : Instantiate ListPersistentDataStoresOptions
+func (*CodeEngineV2) NewListPersistentDataStoresOptions(projectID string) *ListPersistentDataStoresOptions {
+	return &ListPersistentDataStoresOptions{
 		ProjectID: core.StringPtr(projectID),
 	}
 }
 
 // SetProjectID : Allow user to set ProjectID
-func (_options *ListPersistentDataStoreOptions) SetProjectID(projectID string) *ListPersistentDataStoreOptions {
+func (_options *ListPersistentDataStoresOptions) SetProjectID(projectID string) *ListPersistentDataStoresOptions {
 	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (_options *ListPersistentDataStoreOptions) SetLimit(limit int64) *ListPersistentDataStoreOptions {
+func (_options *ListPersistentDataStoresOptions) SetLimit(limit int64) *ListPersistentDataStoresOptions {
 	_options.Limit = core.Int64Ptr(limit)
 	return _options
 }
 
 // SetStart : Allow user to set Start
-func (_options *ListPersistentDataStoreOptions) SetStart(start string) *ListPersistentDataStoreOptions {
+func (_options *ListPersistentDataStoresOptions) SetStart(start string) *ListPersistentDataStoresOptions {
 	_options.Start = core.StringPtr(start)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListPersistentDataStoreOptions) SetHeaders(param map[string]string) *ListPersistentDataStoreOptions {
+func (options *ListPersistentDataStoresOptions) SetHeaders(param map[string]string) *ListPersistentDataStoresOptions {
 	options.Headers = param
 	return options
 }
@@ -14853,6 +15053,41 @@ func (resp *PersistentDataStoreList) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// PrivatePathServiceGatewayDetails : Optional information about the private path service gateway that this allowed outbound destination points to.
+type PrivatePathServiceGatewayDetails struct {
+	// The private path service gateway identifier.
+	ID *string `json:"id,omitempty"`
+
+	// The name of private path service gateway.
+	Name *string `json:"name,omitempty"`
+
+	// The fully qualified domain names for this private path service gateway. The domains are used for endpoint gateways
+	// to connect to the service and are configured in the VPC for each endpoint gateway.
+	ServiceEndpoints []string `json:"service_endpoints,omitempty"`
+}
+
+// UnmarshalPrivatePathServiceGatewayDetails unmarshals an instance of PrivatePathServiceGatewayDetails from the specified map of raw messages.
+func UnmarshalPrivatePathServiceGatewayDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PrivatePathServiceGatewayDetails)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_endpoints", &obj.ServiceEndpoints)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_endpoints-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Probe : Response model for probes.
 type Probe struct {
 	// The number of consecutive, unsuccessful checks for the probe to be considered failed.
@@ -14875,7 +15110,7 @@ type Probe struct {
 	Timeout *int64 `json:"timeout,omitempty"`
 
 	// Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"type" validate:"required"`
 }
 
 // Constants associated with the Probe.Type property.
@@ -15540,7 +15775,7 @@ type Secret struct {
 	EntityTag *string `json:"entity_tag" validate:"required"`
 
 	// Specify the format of the secret.
-	Format *string `json:"format,omitempty"`
+	Format *string `json:"format" validate:"required"`
 
 	// Specifies whether the secret is user generated.
 	GeneratedBy *string `json:"generated_by,omitempty"`
@@ -16136,6 +16371,32 @@ type StorageData struct {
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
+
+// Constants associated with the StorageData.BucketLocation property.
+// Specify the location of the bucket.
+const (
+	StorageData_BucketLocation_Ams03 = "ams03"
+	StorageData_BucketLocation_Ap = "ap"
+	StorageData_BucketLocation_AuSyd = "au-syd"
+	StorageData_BucketLocation_BrSao = "br-sao"
+	StorageData_BucketLocation_CaMon = "ca-mon"
+	StorageData_BucketLocation_CaTor = "ca-tor"
+	StorageData_BucketLocation_Che01 = "che01"
+	StorageData_BucketLocation_Eu = "eu"
+	StorageData_BucketLocation_EuDe = "eu-de"
+	StorageData_BucketLocation_EuEs = "eu-es"
+	StorageData_BucketLocation_EuGb = "eu-gb"
+	StorageData_BucketLocation_JpOsa = "jp-osa"
+	StorageData_BucketLocation_JpTok = "jp-tok"
+	StorageData_BucketLocation_Mil01 = "mil01"
+	StorageData_BucketLocation_Mon01 = "mon01"
+	StorageData_BucketLocation_Par01 = "par01"
+	StorageData_BucketLocation_Sjc04 = "sjc04"
+	StorageData_BucketLocation_Sng01 = "sng01"
+	StorageData_BucketLocation_Us = "us"
+	StorageData_BucketLocation_UsEast = "us-east"
+	StorageData_BucketLocation_UsSouth = "us-south"
+)
 func (*StorageData) isaStorageData() bool {
 	return true
 }
@@ -16600,7 +16861,7 @@ type VolumeMount struct {
 	// The name of the mount.
 	Name *string `json:"name,omitempty"`
 
-	// Optional flag to specify if the volume mount is read only.
+	// Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only.
 	ReadOnly *bool `json:"read_only,omitempty"`
 
 	// The name of the referenced secret, config map, or persistent data store.
@@ -16663,11 +16924,11 @@ type VolumeMountPrototype struct {
 	// The path that should be mounted.
 	MountPath *string `json:"mount_path" validate:"required"`
 
-	// Optional name of the mount. If not set, it will be generated based on the `ref` and a random ID. In case the `ref`
-	// is longer than 58 characters, it will be cut off.
+	// Optional name of the mount. If not set, it will be generated based on the `reference` and a random ID. In case the
+	// `reference` is longer than 58 characters, it will be cut off.
 	Name *string `json:"name,omitempty"`
 
-	// Optional flag to specify if the volume mount is read only.
+	// Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only.
 	ReadOnly *bool `json:"read_only,omitempty"`
 
 	// The name of the referenced secret, config map, or persistent data store.
@@ -16767,18 +17028,9 @@ func (volumeMountPrototype *VolumeMountPrototype) asPatch() (_patch map[string]i
 // AllowedOutboundDestinationPatchCidrBlockDataPatch : Update an allowed outbound destination by using a CIDR block.
 // This model "extends" AllowedOutboundDestinationPatch
 type AllowedOutboundDestinationPatchCidrBlockDataPatch struct {
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
-	Type *string `json:"type,omitempty"`
-
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 }
-
-// Constants associated with the AllowedOutboundDestinationPatchCidrBlockDataPatch.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
-const (
-	AllowedOutboundDestinationPatchCidrBlockDataPatch_Type_CidrBlock = "cidr_block"
-)
 
 func (*AllowedOutboundDestinationPatchCidrBlockDataPatch) isaAllowedOutboundDestinationPatch() bool {
 	return true
@@ -16787,11 +17039,6 @@ func (*AllowedOutboundDestinationPatchCidrBlockDataPatch) isaAllowedOutboundDest
 // UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch unmarshals an instance of AllowedOutboundDestinationPatchCidrBlockDataPatch from the specified map of raw messages.
 func UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AllowedOutboundDestinationPatchCidrBlockDataPatch)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
@@ -16804,11 +17051,54 @@ func UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch(m map[string]jso
 // AsPatch returns a generic map representation of the AllowedOutboundDestinationPatchCidrBlockDataPatch
 func (allowedOutboundDestinationPatchCidrBlockDataPatch *AllowedOutboundDestinationPatchCidrBlockDataPatch) AsPatch() (_patch map[string]interface{}, err error) {
 	_patch = map[string]interface{}{}
-	if !core.IsNil(allowedOutboundDestinationPatchCidrBlockDataPatch.Type) {
-		_patch["type"] = allowedOutboundDestinationPatchCidrBlockDataPatch.Type
-	}
 	if !core.IsNil(allowedOutboundDestinationPatchCidrBlockDataPatch.CidrBlock) {
 		_patch["cidr_block"] = allowedOutboundDestinationPatchCidrBlockDataPatch.CidrBlock
+	}
+
+	return
+}
+
+// AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch : Updating properties of an allowed outbound destination of type VPC Private Path service.
+// This model "extends" AllowedOutboundDestinationPatch
+type AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch struct {
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
+const (
+	AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch_IsolationPolicy_Shared = "shared"
+)
+
+func (*AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch) isaAllowedOutboundDestinationPatch() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch unmarshals an instance of AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch)
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AsPatch returns a generic map representation of the AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch
+func (allowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch *AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch) AsPatch() (_patch map[string]interface{}, err error) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(allowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.IsolationPolicy) {
+		_patch["isolation_policy"] = allowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.IsolationPolicy
 	}
 
 	return
@@ -16817,28 +17107,31 @@ func (allowedOutboundDestinationPatchCidrBlockDataPatch *AllowedOutboundDestinat
 // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Create an allowed outbound destination by using a CIDR block.
 // This model "extends" AllowedOutboundDestinationPrototype
 type AllowedOutboundDestinationPrototypeCidrBlockDataPrototype struct {
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
+
+	// The name of the allowed outbound destination.
+	Name *string `json:"name" validate:"required"`
 
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block" validate:"required"`
-
-	// The name of the CIDR block.
-	Name *string `json:"name" validate:"required"`
 }
 
 // Constants associated with the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
 const (
 	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
 // NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Instantiate AllowedOutboundDestinationPrototypeCidrBlockDataPrototype (Generic Model Constructor)
-func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar string, cidrBlock string, name string) (_model *AllowedOutboundDestinationPrototypeCidrBlockDataPrototype, err error) {
+func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar string, name string, cidrBlock string) (_model *AllowedOutboundDestinationPrototypeCidrBlockDataPrototype, err error) {
 	_model = &AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
 		Type: core.StringPtr(typeVar),
-		CidrBlock: core.StringPtr(cidrBlock),
 		Name: core.StringPtr(name),
+		CidrBlock: core.StringPtr(cidrBlock),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -16859,9 +17152,83 @@ func UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(m map[st
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype : Create an allowed outbound destination by connecting to a VPC Private Path service.
+// This model "extends" AllowedOutboundDestinationPrototype
+type AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype struct {
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
+	Type *string `json:"type" validate:"required"`
+
+	// The name of the allowed outbound destination.
+	Name *string `json:"name" validate:"required"`
+
+	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
+
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
+const (
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
+)
+
+// Constants associated with the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
+const (
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_IsolationPolicy_Shared = "shared"
+)
+
+// NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype : Instantiate AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype (Generic Model Constructor)
+func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(typeVar string, name string, privatePathServiceGatewayCrn string) (_model *AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype, err error) {
+	_model = &AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype{
+		Type: core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
+		PrivatePathServiceGatewayCrn: core.StringPtr(privatePathServiceGatewayCrn),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+func (*AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype) isaAllowedOutboundDestinationPrototype() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype unmarshals an instance of AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
@@ -16869,30 +17236,56 @@ func UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(m map[st
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// AllowedOutboundDestinationCidrBlockData : Allowed outbound destination CIDR block.
+// AllowedOutboundDestinationCidrBlockData : Allowed outbound destination of type CIDR block.
 // This model "extends" AllowedOutboundDestination
 type AllowedOutboundDestinationCidrBlockData struct {
 	// The version of the allowed outbound destination, which is used to achieve optimistic locking.
-	EntityTag *string `json:"entity_tag" validate:"required"`
+	EntityTag *string `json:"entity_tag,omitempty"`
 
-	// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+	// The name of the allowed outbound destination.
+	Name *string `json:"name,omitempty"`
+
+	// The current status of the outbound destination.
+	Status *string `json:"status,omitempty"`
+
+	StatusDetails AllowedOutboundStatusDetailsIntf `json:"status_details,omitempty"`
+
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
 
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block" validate:"required"`
-
-	// The name of the CIDR block.
-	Name *string `json:"name" validate:"required"`
 }
 
+// Constants associated with the AllowedOutboundDestinationCidrBlockData.Status property.
+// The current status of the outbound destination.
+const (
+	AllowedOutboundDestinationCidrBlockData_Status_Deploying = "deploying"
+	AllowedOutboundDestinationCidrBlockData_Status_Failed = "failed"
+	AllowedOutboundDestinationCidrBlockData_Status_Ready = "ready"
+)
+
 // Constants associated with the AllowedOutboundDestinationCidrBlockData.Type property.
-// Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
 const (
 	AllowedOutboundDestinationCidrBlockData_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationCidrBlockData_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
 func (*AllowedOutboundDestinationCidrBlockData) isaAllowedOutboundDestination() bool {
@@ -16907,6 +17300,21 @@ func UnmarshalAllowedOutboundDestinationCidrBlockData(m map[string]json.RawMessa
 		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAllowedOutboundStatusDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
@@ -16917,9 +17325,160 @@ func UnmarshalAllowedOutboundDestinationCidrBlockData(m map[string]json.RawMessa
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
 		return
 	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundDestinationPrivatePathServiceGatewayData : Allowed outbound destination of type VPC Private Path service.
+// This model "extends" AllowedOutboundDestination
+type AllowedOutboundDestinationPrivatePathServiceGatewayData struct {
+	// The version of the allowed outbound destination, which is used to achieve optimistic locking.
+	EntityTag *string `json:"entity_tag,omitempty"`
+
+	// The name of the allowed outbound destination.
+	Name *string `json:"name,omitempty"`
+
+	// The current status of the outbound destination.
+	Status *string `json:"status,omitempty"`
+
+	StatusDetails AllowedOutboundStatusDetailsIntf `json:"status_details,omitempty"`
+
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
+	Type *string `json:"type" validate:"required"`
+
+	// The CRN of the Private Path service.
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
+
+	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+	// be set to `shared`.
+	IsolationPolicy *string `json:"isolation_policy" validate:"required"`
+}
+
+// Constants associated with the AllowedOutboundDestinationPrivatePathServiceGatewayData.Status property.
+// The current status of the outbound destination.
+const (
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Deploying = "deploying"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Failed = "failed"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Ready = "ready"
+)
+
+// Constants associated with the AllowedOutboundDestinationPrivatePathServiceGatewayData.Type property.
+// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+// `private_path_service_gateway`.
+const (
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Type_PrivatePathServiceGateway = "private_path_service_gateway"
+)
+
+// Constants associated with the AllowedOutboundDestinationPrivatePathServiceGatewayData.IsolationPolicy property.
+// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
+// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
+// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
+// be set to `shared`.
+const (
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_IsolationPolicy_Dedicated = "dedicated"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_IsolationPolicy_Shared = "shared"
+)
+
+func (*AllowedOutboundDestinationPrivatePathServiceGatewayData) isaAllowedOutboundDestination() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundDestinationPrivatePathServiceGatewayData unmarshals an instance of AllowedOutboundDestinationPrivatePathServiceGatewayData from the specified map of raw messages.
+func UnmarshalAllowedOutboundDestinationPrivatePathServiceGatewayData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundDestinationPrivatePathServiceGatewayData)
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "status_details", &obj.StatusDetails, UnmarshalAllowedOutboundStatusDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "status_details-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails : Detailed status information related to the corresponding VPC Private Path service.
+// This model "extends" AllowedOutboundStatusDetails
+type AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails struct {
+	// Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private path
+	// service gateway.
+	EndpointGateway *EndpointGatewayDetails `json:"endpoint_gateway,omitempty"`
+
+	// Optional information about the private path service gateway that this allowed outbound destination points to.
+	PrivatePathServiceGateway *PrivatePathServiceGatewayDetails `json:"private_path_service_gateway,omitempty"`
+
+	// Optional information to provide more context in case of a 'failed' or 'deploying' status.
+	Reason *string `json:"reason,omitempty"`
+}
+
+// Constants associated with the AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails.Reason property.
+// Optional information to provide more context in case of a 'failed' or 'deploying' status.
+const (
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Deploying = "deploying"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Failed = "failed"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionAlreadyExists = "private_path_connection_already_exists"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionApprovalDenied = "private_path_connection_approval_denied"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionApprovalPending = "private_path_connection_approval_pending"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathCrnInvalid = "private_path_crn_invalid"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotFound = "private_path_not_found"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameAccountFamily = "private_path_not_in_same_account_family"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameRegion = "private_path_not_in_same_region"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotPublished = "private_path_not_published"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Ready = "ready"
+)
+
+func (*AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails) isaAllowedOutboundStatusDetails() bool {
+	return true
+}
+
+// UnmarshalAllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails unmarshals an instance of AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails from the specified map of raw messages.
+func UnmarshalAllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails)
+	err = core.UnmarshalModel(m, "endpoint_gateway", &obj.EndpointGateway, UnmarshalEndpointGatewayDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "endpoint_gateway-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "private_path_service_gateway", &obj.PrivatePathServiceGateway, UnmarshalPrivatePathServiceGatewayDetails)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "reason-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -17552,7 +18111,9 @@ func UnmarshalSecretDataTLSSecretData(m map[string]json.RawMessage, result inter
 	return
 }
 
-// StorageDataObjectStorageData : StorageDataObjectStorageData struct
+// StorageDataObjectStorageData : Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+// consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+// field can consists of any character and must not exceed a max length of 1048576 characters.
 // This type supports additional properties of type *string.
 // This model "extends" StorageData
 type StorageDataObjectStorageData struct {
@@ -17568,6 +18129,32 @@ type StorageDataObjectStorageData struct {
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
+
+// Constants associated with the StorageDataObjectStorageData.BucketLocation property.
+// Specify the location of the bucket.
+const (
+	StorageDataObjectStorageData_BucketLocation_Ams03 = "ams03"
+	StorageDataObjectStorageData_BucketLocation_Ap = "ap"
+	StorageDataObjectStorageData_BucketLocation_AuSyd = "au-syd"
+	StorageDataObjectStorageData_BucketLocation_BrSao = "br-sao"
+	StorageDataObjectStorageData_BucketLocation_CaMon = "ca-mon"
+	StorageDataObjectStorageData_BucketLocation_CaTor = "ca-tor"
+	StorageDataObjectStorageData_BucketLocation_Che01 = "che01"
+	StorageDataObjectStorageData_BucketLocation_Eu = "eu"
+	StorageDataObjectStorageData_BucketLocation_EuDe = "eu-de"
+	StorageDataObjectStorageData_BucketLocation_EuEs = "eu-es"
+	StorageDataObjectStorageData_BucketLocation_EuGb = "eu-gb"
+	StorageDataObjectStorageData_BucketLocation_JpOsa = "jp-osa"
+	StorageDataObjectStorageData_BucketLocation_JpTok = "jp-tok"
+	StorageDataObjectStorageData_BucketLocation_Mil01 = "mil01"
+	StorageDataObjectStorageData_BucketLocation_Mon01 = "mon01"
+	StorageDataObjectStorageData_BucketLocation_Par01 = "par01"
+	StorageDataObjectStorageData_BucketLocation_Sjc04 = "sjc04"
+	StorageDataObjectStorageData_BucketLocation_Sng01 = "sng01"
+	StorageDataObjectStorageData_BucketLocation_Us = "us"
+	StorageDataObjectStorageData_BucketLocation_UsEast = "us-east"
+	StorageDataObjectStorageData_BucketLocation_UsSouth = "us-south"
+)
 
 // NewStorageDataObjectStorageData : Instantiate StorageDataObjectStorageData (Generic Model Constructor)
 func (*CodeEngineV2) NewStorageDataObjectStorageData(bucketLocation string, bucketName string, secretName string) (_model *StorageDataObjectStorageData, err error) {
@@ -17759,26 +18346,26 @@ func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
 }
 
 //
-// AllowedOutboundDestinationPager can be used to simplify the use of the "ListAllowedOutboundDestination" method.
+// AllowedOutboundDestinationsPager can be used to simplify the use of the "ListAllowedOutboundDestinations" method.
 //
-type AllowedOutboundDestinationPager struct {
+type AllowedOutboundDestinationsPager struct {
 	hasNext bool
-	options *ListAllowedOutboundDestinationOptions
+	options *ListAllowedOutboundDestinationsOptions
 	client  *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
 }
 
-// NewAllowedOutboundDestinationPager returns a new AllowedOutboundDestinationPager instance.
-func (codeEngine *CodeEngineV2) NewAllowedOutboundDestinationPager(options *ListAllowedOutboundDestinationOptions) (pager *AllowedOutboundDestinationPager, err error) {
+// NewAllowedOutboundDestinationsPager returns a new AllowedOutboundDestinationsPager instance.
+func (codeEngine *CodeEngineV2) NewAllowedOutboundDestinationsPager(options *ListAllowedOutboundDestinationsOptions) (pager *AllowedOutboundDestinationsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
 		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
-	var optionsCopy ListAllowedOutboundDestinationOptions = *options
-	pager = &AllowedOutboundDestinationPager{
+	var optionsCopy ListAllowedOutboundDestinationsOptions = *options
+	pager = &AllowedOutboundDestinationsPager{
 		hasNext: true,
 		options: &optionsCopy,
 		client:  codeEngine,
@@ -17787,19 +18374,19 @@ func (codeEngine *CodeEngineV2) NewAllowedOutboundDestinationPager(options *List
 }
 
 // HasNext returns true if there are potentially more results to be retrieved.
-func (pager *AllowedOutboundDestinationPager) HasNext() bool {
+func (pager *AllowedOutboundDestinationsPager) HasNext() bool {
 	return pager.hasNext
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *AllowedOutboundDestinationPager) GetNextWithContext(ctx context.Context) (page []AllowedOutboundDestinationIntf, err error) {
+func (pager *AllowedOutboundDestinationsPager) GetNextWithContext(ctx context.Context) (page []AllowedOutboundDestinationIntf, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
 
 	pager.options.Start = pager.pageContext.next
 
-	result, _, err := pager.client.ListAllowedOutboundDestinationWithContext(ctx, pager.options)
+	result, _, err := pager.client.ListAllowedOutboundDestinationsWithContext(ctx, pager.options)
 	if err != nil {
 		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
@@ -17818,7 +18405,7 @@ func (pager *AllowedOutboundDestinationPager) GetNextWithContext(ctx context.Con
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *AllowedOutboundDestinationPager) GetAllWithContext(ctx context.Context) (allItems []AllowedOutboundDestinationIntf, err error) {
+func (pager *AllowedOutboundDestinationsPager) GetAllWithContext(ctx context.Context) (allItems []AllowedOutboundDestinationIntf, err error) {
 	for pager.HasNext() {
 		var nextPage []AllowedOutboundDestinationIntf
 		nextPage, err = pager.GetNextWithContext(ctx)
@@ -17832,14 +18419,14 @@ func (pager *AllowedOutboundDestinationPager) GetAllWithContext(ctx context.Cont
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *AllowedOutboundDestinationPager) GetNext() (page []AllowedOutboundDestinationIntf, err error) {
+func (pager *AllowedOutboundDestinationsPager) GetNext() (page []AllowedOutboundDestinationIntf, err error) {
 	page, err = pager.GetNextWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *AllowedOutboundDestinationPager) GetAll() (allItems []AllowedOutboundDestinationIntf, err error) {
+func (pager *AllowedOutboundDestinationsPager) GetAll() (allItems []AllowedOutboundDestinationIntf, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
@@ -18890,26 +19477,26 @@ func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
 }
 
 //
-// PersistentDataStorePager can be used to simplify the use of the "ListPersistentDataStore" method.
+// PersistentDataStoresPager can be used to simplify the use of the "ListPersistentDataStores" method.
 //
-type PersistentDataStorePager struct {
+type PersistentDataStoresPager struct {
 	hasNext bool
-	options *ListPersistentDataStoreOptions
+	options *ListPersistentDataStoresOptions
 	client  *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
 }
 
-// NewPersistentDataStorePager returns a new PersistentDataStorePager instance.
-func (codeEngine *CodeEngineV2) NewPersistentDataStorePager(options *ListPersistentDataStoreOptions) (pager *PersistentDataStorePager, err error) {
+// NewPersistentDataStoresPager returns a new PersistentDataStoresPager instance.
+func (codeEngine *CodeEngineV2) NewPersistentDataStoresPager(options *ListPersistentDataStoresOptions) (pager *PersistentDataStoresPager, err error) {
 	if options.Start != nil && *options.Start != "" {
 		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
-	var optionsCopy ListPersistentDataStoreOptions = *options
-	pager = &PersistentDataStorePager{
+	var optionsCopy ListPersistentDataStoresOptions = *options
+	pager = &PersistentDataStoresPager{
 		hasNext: true,
 		options: &optionsCopy,
 		client:  codeEngine,
@@ -18918,19 +19505,19 @@ func (codeEngine *CodeEngineV2) NewPersistentDataStorePager(options *ListPersist
 }
 
 // HasNext returns true if there are potentially more results to be retrieved.
-func (pager *PersistentDataStorePager) HasNext() bool {
+func (pager *PersistentDataStoresPager) HasNext() bool {
 	return pager.hasNext
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *PersistentDataStorePager) GetNextWithContext(ctx context.Context) (page []PersistentDataStore, err error) {
+func (pager *PersistentDataStoresPager) GetNextWithContext(ctx context.Context) (page []PersistentDataStore, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
 
 	pager.options.Start = pager.pageContext.next
 
-	result, _, err := pager.client.ListPersistentDataStoreWithContext(ctx, pager.options)
+	result, _, err := pager.client.ListPersistentDataStoresWithContext(ctx, pager.options)
 	if err != nil {
 		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
@@ -18949,7 +19536,7 @@ func (pager *PersistentDataStorePager) GetNextWithContext(ctx context.Context) (
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *PersistentDataStorePager) GetAllWithContext(ctx context.Context) (allItems []PersistentDataStore, err error) {
+func (pager *PersistentDataStoresPager) GetAllWithContext(ctx context.Context) (allItems []PersistentDataStore, err error) {
 	for pager.HasNext() {
 		var nextPage []PersistentDataStore
 		nextPage, err = pager.GetNextWithContext(ctx)
@@ -18963,14 +19550,14 @@ func (pager *PersistentDataStorePager) GetAllWithContext(ctx context.Context) (a
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *PersistentDataStorePager) GetNext() (page []PersistentDataStore, err error) {
+func (pager *PersistentDataStoresPager) GetNext() (page []PersistentDataStore, err error) {
 	page, err = pager.GetNextWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *PersistentDataStorePager) GetAll() (allItems []PersistentDataStore, err error) {
+func (pager *PersistentDataStoresPager) GetAll() (allItems []PersistentDataStore, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return

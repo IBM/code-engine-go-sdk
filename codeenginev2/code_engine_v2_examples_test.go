@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -168,15 +168,15 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(project).ToNot(BeNil())
 		})
-		It(`ListAllowedOutboundDestination request example`, func() {
-			fmt.Println("\nListAllowedOutboundDestination() result:")
-			// begin-list_allowed_outbound_destination
-			listAllowedOutboundDestinationOptions := &codeenginev2.ListAllowedOutboundDestinationOptions{
+		It(`ListAllowedOutboundDestinations request example`, func() {
+			fmt.Println("\nListAllowedOutboundDestinations() result:")
+			// begin-list_allowed_outbound_destinations
+			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
-			pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptions)
+			pager, err := codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -191,7 +191,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-			// end-list_allowed_outbound_destination
+			// end-list_allowed_outbound_destinations
 		})
 		It(`CreateAllowedOutboundDestination request example`, func() {
 			fmt.Println("\nCreateAllowedOutboundDestination() result:")
@@ -199,8 +199,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
 				Type: core.StringPtr("cidr_block"),
+				Name: core.StringPtr("allow-all"),
 				CidrBlock: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
 			}
 
 			createAllowedOutboundDestinationOptions := codeEngineService.NewCreateAllowedOutboundDestinationOptions(
@@ -1313,15 +1313,15 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(secret).ToNot(BeNil())
 		})
-		It(`ListPersistentDataStore request example`, func() {
-			fmt.Println("\nListPersistentDataStore() result:")
-			// begin-list_persistent_data_store
-			listPersistentDataStoreOptions := &codeenginev2.ListPersistentDataStoreOptions{
+		It(`ListPersistentDataStores request example`, func() {
+			fmt.Println("\nListPersistentDataStores() result:")
+			// begin-list_persistent_data_stores
+			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Limit: core.Int64Ptr(int64(100)),
 			}
 
-			pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptions)
+			pager, err := codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -1336,7 +1336,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-			// end-list_persistent_data_store
+			// end-list_persistent_data_stores
 		})
 		It(`CreatePersistentDataStore request example`, func() {
 			fmt.Println("\nCreatePersistentDataStore() result:")

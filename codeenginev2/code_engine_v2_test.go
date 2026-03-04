@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1040,16 +1040,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions) - Operation response error`, func() {
+	Describe(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) - Operation response error`, func() {
 		version := "2025-08-27"
-		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		listAllowedOutboundDestinationsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
@@ -1058,7 +1058,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListAllowedOutboundDestination with error: Operation response processing error`, func() {
+			It(`Invoke ListAllowedOutboundDestinations with error: Operation response processing error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1067,21 +1067,21 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
-				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
-				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
-				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
+				listAllowedOutboundDestinationsOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
+				listAllowedOutboundDestinationsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1091,16 +1091,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListAllowedOutboundDestination(listAllowedOutboundDestinationOptions *ListAllowedOutboundDestinationOptions)`, func() {
+	Describe(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions)`, func() {
 		version := "2025-08-27"
-		listAllowedOutboundDestinationPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
+		listAllowedOutboundDestinationsPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
@@ -1111,10 +1111,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
-			It(`Invoke ListAllowedOutboundDestination successfully with retries`, func() {
+			It(`Invoke ListAllowedOutboundDestinations successfully with retries`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1124,23 +1124,23 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
-				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
-				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
-				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
+				listAllowedOutboundDestinationsOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
+				listAllowedOutboundDestinationsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListAllowedOutboundDestinationWithContext(ctx, listAllowedOutboundDestinationOptionsModel)
+				_, _, operationErr := codeEngineService.ListAllowedOutboundDestinationsWithContext(ctx, listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1148,7 +1148,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListAllowedOutboundDestinationWithContext(ctx, listAllowedOutboundDestinationOptionsModel)
+				_, _, operationErr = codeEngineService.ListAllowedOutboundDestinationsWithContext(ctx, listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1162,7 +1162,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
@@ -1170,10 +1170,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations": [{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}], "first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
-			It(`Invoke ListAllowedOutboundDestination successfully`, func() {
+			It(`Invoke ListAllowedOutboundDestinations successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1183,26 +1183,26 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(nil)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestinations(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
-				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
-				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
-				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
+				listAllowedOutboundDestinationsOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
+				listAllowedOutboundDestinationsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListAllowedOutboundDestination with error: Operation validation and request error`, func() {
+			It(`Invoke ListAllowedOutboundDestinations with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1211,24 +1211,24 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
-				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
-				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
-				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
+				listAllowedOutboundDestinationsOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
+				listAllowedOutboundDestinationsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ListAllowedOutboundDestinationOptions model with no property values
-				listAllowedOutboundDestinationOptionsModelNew := new(codeenginev2.ListAllowedOutboundDestinationOptions)
+				// Construct a second instance of the ListAllowedOutboundDestinationsOptions model with no property values
+				listAllowedOutboundDestinationsOptionsModelNew := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModelNew)
+				result, response, operationErr = codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1246,7 +1246,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ListAllowedOutboundDestination successfully`, func() {
+			It(`Invoke ListAllowedOutboundDestinations successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1255,15 +1255,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
-				listAllowedOutboundDestinationOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationOptions)
-				listAllowedOutboundDestinationOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listAllowedOutboundDestinationOptionsModel.Start = core.StringPtr("testString")
-				listAllowedOutboundDestinationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
+				listAllowedOutboundDestinationsOptionsModel := new(codeenginev2.ListAllowedOutboundDestinationsOptions)
+				listAllowedOutboundDestinationsOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.Start = core.StringPtr("testString")
+				listAllowedOutboundDestinationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := codeEngineService.ListAllowedOutboundDestination(listAllowedOutboundDestinationOptionsModel)
+				result, response, operationErr := codeEngineService.ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1300,7 +1300,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAllowedOutboundDestinationsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -1308,15 +1308,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"CidrBlock","name":"Name"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","name":"allow-all","status":"ready","status_details":{"endpoint_gateway":{"account_id":"AccountID","created_at":"2025-09-13T11:41:35+02:00","ips":["Ips"],"name":"my-endpoint-gateway"},"private_path_service_gateway":{"id":"r006-7268d425-59b7-48fd-9735-81a7271657d5","name":"my-private-path-service-gateway","service_endpoints":["ServiceEndpoints"]},"reason":"ready"},"type":"cidr_block","cidr_block":"CidrBlock"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"CidrBlock","name":"Name"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"allowed_outbound_destinations":[{"entity_tag":"2385407409","name":"allow-all","status":"ready","status_details":{"endpoint_gateway":{"account_id":"AccountID","created_at":"2025-09-13T11:41:35+02:00","ips":["Ips"],"name":"my-endpoint-gateway"},"private_path_service_gateway":{"id":"r006-7268d425-59b7-48fd-9735-81a7271657d5","name":"my-private-path-service-gateway","service_endpoints":["ServiceEndpoints"]},"reason":"ready"},"type":"cidr_block","cidr_block":"CidrBlock"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
 				}))
 			})
-			It(`Use AllowedOutboundDestinationPager.GetNext successfully`, func() {
+			It(`Use AllowedOutboundDestinationsPager.GetNext successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1325,12 +1325,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listAllowedOutboundDestinationOptionsModel := &codeenginev2.ListAllowedOutboundDestinationOptions{
+				listAllowedOutboundDestinationsOptionsModel := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptionsModel)
+				pager, err := codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -1343,7 +1343,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				}
 				Expect(len(allResults)).To(Equal(2))
 			})
-			It(`Use AllowedOutboundDestinationPager.GetAll successfully`, func() {
+			It(`Use AllowedOutboundDestinationsPager.GetAll successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1352,12 +1352,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listAllowedOutboundDestinationOptionsModel := &codeenginev2.ListAllowedOutboundDestinationOptions{
+				listAllowedOutboundDestinationsOptionsModel := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewAllowedOutboundDestinationPager(listAllowedOutboundDestinationOptionsModel)
+				pager, err := codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -1397,8 +1397,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
@@ -1458,7 +1458,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke CreateAllowedOutboundDestination successfully with retries`, func() {
@@ -1474,8 +1474,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
@@ -1537,7 +1537,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke CreateAllowedOutboundDestination successfully`, func() {
@@ -1558,8 +1558,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
@@ -1586,8 +1586,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
@@ -1635,8 +1635,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the AllowedOutboundDestinationPrototypeCidrBlockDataPrototype model
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				createAllowedOutboundDestinationOptionsModel := new(codeenginev2.CreateAllowedOutboundDestinationOptions)
@@ -1799,7 +1799,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke GetAllowedOutboundDestination successfully with retries`, func() {
@@ -1856,7 +1856,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke GetAllowedOutboundDestination successfully`, func() {
@@ -1988,7 +1988,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
 				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
 				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
 				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2055,7 +2054,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke UpdateAllowedOutboundDestination successfully with retries`, func() {
@@ -2070,7 +2069,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
 				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
 				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
 				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2139,7 +2137,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "type": "cidr_block", "cidr_block": "CidrBlock", "name": "Name"}`)
+					fmt.Fprintf(res, "%s", `{"entity_tag": "2385407409", "name": "allow-all", "status": "ready", "status_details": {"endpoint_gateway": {"account_id": "AccountID", "created_at": "2025-09-13T11:41:35+02:00", "ips": ["Ips"], "name": "my-endpoint-gateway"}, "private_path_service_gateway": {"id": "r006-7268d425-59b7-48fd-9735-81a7271657d5", "name": "my-private-path-service-gateway", "service_endpoints": ["ServiceEndpoints"]}, "reason": "ready"}, "type": "cidr_block", "cidr_block": "CidrBlock"}`)
 				}))
 			})
 			It(`Invoke UpdateAllowedOutboundDestination successfully`, func() {
@@ -2159,7 +2157,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
 				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
 				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
 				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2190,7 +2187,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
 				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
 				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
 				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -2242,7 +2238,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the AllowedOutboundDestinationPatchCidrBlockDataPatch model
 				allowedOutboundDestinationPatchModel := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-				allowedOutboundDestinationPatchModel.Type = core.StringPtr("cidr_block")
 				allowedOutboundDestinationPatchModel.CidrBlock = core.StringPtr("testString")
 				allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 				Expect(asPatchErr).To(BeNil())
@@ -5136,7 +5131,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "status_details": {"restarts": 4, "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "status_details": {"restarts": 4, "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListAppInstances successfully with retries`, func() {
@@ -5197,7 +5192,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "status_details": {"restarts": 4, "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 100, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "instances": [{"app_name": "my-app", "created_at": "2022-09-13T11:41:35+02:00", "href": "https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-app-00001-deployment-6c9b5cf966-wjs44", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "resource_type": "app_instance_v2", "revision_name": "my-app", "scale_cpu_limit": "1", "scale_ephemeral_storage_limit": "4G", "scale_memory_limit": "4G", "status": "pending", "status_details": {"restarts": 4, "system_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}, "user_container": {"current_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}, "last_observed_state": {"completed_at": "2022-09-22T17:40:00Z", "container_status": "running", "exit_code": 0, "reason": "some_error_reason", "started_at": "2022-09-22T17:34:00Z"}}}}], "limit": 100, "next": {"href": "Href", "start": "Start"}}`)
 				}))
 			})
 			It(`Invoke ListAppInstances successfully`, func() {
@@ -5338,9 +5333,9 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -16802,16 +16797,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions) - Operation response error`, func() {
+	Describe(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) - Operation response error`, func() {
 		version := "2025-08-27"
-		listPersistentDataStorePath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores"
+		listPersistentDataStoresPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStorePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStoresPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"2025-08-27"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
@@ -16821,7 +16816,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListPersistentDataStore with error: Operation response processing error`, func() {
+			It(`Invoke ListPersistentDataStores with error: Operation response processing error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -16830,21 +16825,21 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListPersistentDataStoreOptions model
-				listPersistentDataStoreOptionsModel := new(codeenginev2.ListPersistentDataStoreOptions)
-				listPersistentDataStoreOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listPersistentDataStoreOptionsModel.Start = core.StringPtr("testString")
-				listPersistentDataStoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListPersistentDataStoresOptions model
+				listPersistentDataStoresOptionsModel := new(codeenginev2.ListPersistentDataStoresOptions)
+				listPersistentDataStoresOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listPersistentDataStoresOptionsModel.Start = core.StringPtr("testString")
+				listPersistentDataStoresOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr := codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				codeEngineService.EnableRetries(0, 0)
-				result, response, operationErr = codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr = codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -16854,16 +16849,16 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 		})
 	})
-	Describe(`ListPersistentDataStore(listPersistentDataStoreOptions *ListPersistentDataStoreOptions)`, func() {
+	Describe(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions)`, func() {
 		version := "2025-08-27"
-		listPersistentDataStorePath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores"
+		listPersistentDataStoresPath := "/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStorePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStoresPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"2025-08-27"}))
@@ -16875,10 +16870,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "persistent_data_stores": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "persistent_data_stores": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}]}`)
 				}))
 			})
-			It(`Invoke ListPersistentDataStore successfully with retries`, func() {
+			It(`Invoke ListPersistentDataStores successfully with retries`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -16888,23 +16883,23 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 				codeEngineService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListPersistentDataStoreOptions model
-				listPersistentDataStoreOptionsModel := new(codeenginev2.ListPersistentDataStoreOptions)
-				listPersistentDataStoreOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listPersistentDataStoreOptionsModel.Start = core.StringPtr("testString")
-				listPersistentDataStoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListPersistentDataStoresOptions model
+				listPersistentDataStoresOptionsModel := new(codeenginev2.ListPersistentDataStoresOptions)
+				listPersistentDataStoresOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listPersistentDataStoresOptionsModel.Start = core.StringPtr("testString")
+				listPersistentDataStoresOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := codeEngineService.ListPersistentDataStoreWithContext(ctx, listPersistentDataStoreOptionsModel)
+				_, _, operationErr := codeEngineService.ListPersistentDataStoresWithContext(ctx, listPersistentDataStoresOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				codeEngineService.DisableRetries()
-				result, response, operationErr := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr := codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -16912,7 +16907,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = codeEngineService.ListPersistentDataStoreWithContext(ctx, listPersistentDataStoreOptionsModel)
+				_, _, operationErr = codeEngineService.ListPersistentDataStoresWithContext(ctx, listPersistentDataStoresOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -16926,7 +16921,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStorePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStoresPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"2025-08-27"}))
@@ -16935,10 +16930,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "persistent_data_stores": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}]}`)
+					fmt.Fprintf(res, "%s", `{"first": {"href": "Href"}, "limit": 100, "next": {"href": "Href", "start": "Start"}, "persistent_data_stores": [{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}]}`)
 				}))
 			})
-			It(`Invoke ListPersistentDataStore successfully`, func() {
+			It(`Invoke ListPersistentDataStores successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -16948,26 +16943,26 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(codeEngineService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := codeEngineService.ListPersistentDataStore(nil)
+				result, response, operationErr := codeEngineService.ListPersistentDataStores(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListPersistentDataStoreOptions model
-				listPersistentDataStoreOptionsModel := new(codeenginev2.ListPersistentDataStoreOptions)
-				listPersistentDataStoreOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listPersistentDataStoreOptionsModel.Start = core.StringPtr("testString")
-				listPersistentDataStoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListPersistentDataStoresOptions model
+				listPersistentDataStoresOptionsModel := new(codeenginev2.ListPersistentDataStoresOptions)
+				listPersistentDataStoresOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listPersistentDataStoresOptionsModel.Start = core.StringPtr("testString")
+				listPersistentDataStoresOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr = codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListPersistentDataStore with error: Operation validation and request error`, func() {
+			It(`Invoke ListPersistentDataStores with error: Operation validation and request error`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -16976,24 +16971,24 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListPersistentDataStoreOptions model
-				listPersistentDataStoreOptionsModel := new(codeenginev2.ListPersistentDataStoreOptions)
-				listPersistentDataStoreOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listPersistentDataStoreOptionsModel.Start = core.StringPtr("testString")
-				listPersistentDataStoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListPersistentDataStoresOptions model
+				listPersistentDataStoresOptionsModel := new(codeenginev2.ListPersistentDataStoresOptions)
+				listPersistentDataStoresOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listPersistentDataStoresOptionsModel.Start = core.StringPtr("testString")
+				listPersistentDataStoresOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := codeEngineService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr := codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ListPersistentDataStoreOptions model with no property values
-				listPersistentDataStoreOptionsModelNew := new(codeenginev2.ListPersistentDataStoreOptions)
+				// Construct a second instance of the ListPersistentDataStoresOptions model with no property values
+				listPersistentDataStoresOptionsModelNew := new(codeenginev2.ListPersistentDataStoresOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModelNew)
+				result, response, operationErr = codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -17011,7 +17006,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ListPersistentDataStore successfully`, func() {
+			It(`Invoke ListPersistentDataStores successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -17020,15 +17015,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				// Construct an instance of the ListPersistentDataStoreOptions model
-				listPersistentDataStoreOptionsModel := new(codeenginev2.ListPersistentDataStoreOptions)
-				listPersistentDataStoreOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.Limit = core.Int64Ptr(int64(100))
-				listPersistentDataStoreOptionsModel.Start = core.StringPtr("testString")
-				listPersistentDataStoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListPersistentDataStoresOptions model
+				listPersistentDataStoresOptionsModel := new(codeenginev2.ListPersistentDataStoresOptions)
+				listPersistentDataStoresOptionsModel.ProjectID = core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listPersistentDataStoresOptionsModel.Start = core.StringPtr("testString")
+				listPersistentDataStoresOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := codeEngineService.ListPersistentDataStore(listPersistentDataStoreOptionsModel)
+				result, response, operationErr := codeEngineService.ListPersistentDataStores(listPersistentDataStoresOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -17065,7 +17060,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStorePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listPersistentDataStoresPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -17073,15 +17068,15 @@ var _ = Describe(`CodeEngineV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"BucketLocation","bucket_name":"BucketName","secret_name":"SecretName"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"au-syd","bucket_name":"BucketName","secret_name":"SecretName"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"BucketLocation","bucket_name":"BucketName","secret_name":"SecretName"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"au-syd","bucket_name":"BucketName","secret_name":"SecretName"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
 				}))
 			})
-			It(`Use PersistentDataStorePager.GetNext successfully`, func() {
+			It(`Use PersistentDataStoresPager.GetNext successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -17090,12 +17085,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listPersistentDataStoreOptionsModel := &codeenginev2.ListPersistentDataStoreOptions{
+				listPersistentDataStoresOptionsModel := &codeenginev2.ListPersistentDataStoresOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptionsModel)
+				pager, err := codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -17108,7 +17103,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				}
 				Expect(len(allResults)).To(Equal(2))
 			})
-			It(`Use PersistentDataStorePager.GetAll successfully`, func() {
+			It(`Use PersistentDataStoresPager.GetAll successfully`, func() {
 				codeEngineService, serviceErr := codeenginev2.NewCodeEngineV2(&codeenginev2.CodeEngineV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -17117,12 +17112,12 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(codeEngineService).ToNot(BeNil())
 
-				listPersistentDataStoreOptionsModel := &codeenginev2.ListPersistentDataStoreOptions{
+				listPersistentDataStoresOptionsModel := &codeenginev2.ListPersistentDataStoresOptions{
 					ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 					Limit: core.Int64Ptr(int64(100)),
 				}
 
-				pager, err := codeEngineService.NewPersistentDataStorePager(listPersistentDataStoreOptionsModel)
+				pager, err := codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -17161,7 +17156,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
@@ -17226,7 +17221,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
 				}))
 			})
 			It(`Invoke CreatePersistentDataStore successfully with retries`, func() {
@@ -17241,7 +17236,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
@@ -17308,7 +17303,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
 				}))
 			})
 			It(`Invoke CreatePersistentDataStore successfully`, func() {
@@ -17328,7 +17323,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
@@ -17359,7 +17354,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
@@ -17411,7 +17406,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
@@ -17579,7 +17574,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
 				}))
 			})
 			It(`Invoke GetPersistentDataStore successfully with retries`, func() {
@@ -17636,7 +17631,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "BucketLocation", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
+					fmt.Fprintf(res, "%s", `{"created_at": "2022-09-13T11:41:35+02:00", "data": {"bucket_location": "au-syd", "bucket_name": "BucketName", "secret_name": "SecretName"}, "entity_tag": "2385407409", "id": "e33b1cv7-7390-4437-a5c2-130d5ccdddc3", "name": "my-persistent-data-store", "project_id": "4e49b3e0-27a8-48d2-a784-c7ee48bb863b", "region": "us-east", "storage_type": "object_storage"}`)
 				}))
 			})
 			It(`Invoke GetPersistentDataStore successfully`, func() {
@@ -17764,11 +17759,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				allowedOutboundDestinationPrototypeModel := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 				Expect(allowedOutboundDestinationPrototypeModel).ToNot(BeNil())
 				allowedOutboundDestinationPrototypeModel.Type = core.StringPtr("cidr_block")
+				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("allow-all")
 				allowedOutboundDestinationPrototypeModel.CidrBlock = core.StringPtr("testString")
-				allowedOutboundDestinationPrototypeModel.Name = core.StringPtr("testString")
 				Expect(allowedOutboundDestinationPrototypeModel.Type).To(Equal(core.StringPtr("cidr_block")))
+				Expect(allowedOutboundDestinationPrototypeModel.Name).To(Equal(core.StringPtr("allow-all")))
 				Expect(allowedOutboundDestinationPrototypeModel.CidrBlock).To(Equal(core.StringPtr("testString")))
-				Expect(allowedOutboundDestinationPrototypeModel.Name).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateAllowedOutboundDestinationOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
@@ -18288,11 +18283,11 @@ var _ = Describe(`CodeEngineV2`, func() {
 				// Construct an instance of the StorageDataObjectStorageData model
 				storageDataModel := new(codeenginev2.StorageDataObjectStorageData)
 				Expect(storageDataModel).ToNot(BeNil())
-				storageDataModel.BucketLocation = core.StringPtr("testString")
+				storageDataModel.BucketLocation = core.StringPtr("au-syd")
 				storageDataModel.BucketName = core.StringPtr("testString")
 				storageDataModel.SecretName = core.StringPtr("testString")
 				storageDataModel.SetProperty("foo", core.StringPtr("testString"))
-				Expect(storageDataModel.BucketLocation).To(Equal(core.StringPtr("testString")))
+				Expect(storageDataModel.BucketLocation).To(Equal(core.StringPtr("au-syd")))
 				Expect(storageDataModel.BucketName).To(Equal(core.StringPtr("testString")))
 				Expect(storageDataModel.SecretName).To(Equal(core.StringPtr("testString")))
 				Expect(storageDataModel.GetProperties()).ToNot(BeEmpty())
@@ -18818,19 +18813,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(getSecretOptionsModel.Name).To(Equal(core.StringPtr("my-secret")))
 				Expect(getSecretOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListAllowedOutboundDestinationOptions successfully`, func() {
-				// Construct an instance of the ListAllowedOutboundDestinationOptions model
+			It(`Invoke NewListAllowedOutboundDestinationsOptions successfully`, func() {
+				// Construct an instance of the ListAllowedOutboundDestinationsOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listAllowedOutboundDestinationOptionsModel := codeEngineService.NewListAllowedOutboundDestinationOptions(projectID)
-				listAllowedOutboundDestinationOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listAllowedOutboundDestinationOptionsModel.SetLimit(int64(100))
-				listAllowedOutboundDestinationOptionsModel.SetStart("testString")
-				listAllowedOutboundDestinationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listAllowedOutboundDestinationOptionsModel).ToNot(BeNil())
-				Expect(listAllowedOutboundDestinationOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(listAllowedOutboundDestinationOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(listAllowedOutboundDestinationOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listAllowedOutboundDestinationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listAllowedOutboundDestinationsOptionsModel := codeEngineService.NewListAllowedOutboundDestinationsOptions(projectID)
+				listAllowedOutboundDestinationsOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listAllowedOutboundDestinationsOptionsModel.SetLimit(int64(100))
+				listAllowedOutboundDestinationsOptionsModel.SetStart("testString")
+				listAllowedOutboundDestinationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAllowedOutboundDestinationsOptionsModel).ToNot(BeNil())
+				Expect(listAllowedOutboundDestinationsOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listAllowedOutboundDestinationsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listAllowedOutboundDestinationsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listAllowedOutboundDestinationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAppInstancesOptions successfully`, func() {
 				// Construct an instance of the ListAppInstancesOptions model
@@ -19003,19 +18998,19 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(listJobsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listJobsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListPersistentDataStoreOptions successfully`, func() {
-				// Construct an instance of the ListPersistentDataStoreOptions model
+			It(`Invoke NewListPersistentDataStoresOptions successfully`, func() {
+				// Construct an instance of the ListPersistentDataStoresOptions model
 				projectID := "15314cc3-85b4-4338-903f-c28cdee6d005"
-				listPersistentDataStoreOptionsModel := codeEngineService.NewListPersistentDataStoreOptions(projectID)
-				listPersistentDataStoreOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
-				listPersistentDataStoreOptionsModel.SetLimit(int64(100))
-				listPersistentDataStoreOptionsModel.SetStart("testString")
-				listPersistentDataStoreOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listPersistentDataStoreOptionsModel).ToNot(BeNil())
-				Expect(listPersistentDataStoreOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
-				Expect(listPersistentDataStoreOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(listPersistentDataStoreOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listPersistentDataStoreOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listPersistentDataStoresOptionsModel := codeEngineService.NewListPersistentDataStoresOptions(projectID)
+				listPersistentDataStoresOptionsModel.SetProjectID("15314cc3-85b4-4338-903f-c28cdee6d005")
+				listPersistentDataStoresOptionsModel.SetLimit(int64(100))
+				listPersistentDataStoresOptionsModel.SetStart("testString")
+				listPersistentDataStoresOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listPersistentDataStoresOptionsModel).ToNot(BeNil())
+				Expect(listPersistentDataStoresOptionsModel.ProjectID).To(Equal(core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005")))
+				Expect(listPersistentDataStoresOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listPersistentDataStoresOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(listPersistentDataStoresOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListProjectsOptions successfully`, func() {
 				// Construct an instance of the ListProjectsOptions model
@@ -19228,9 +19223,17 @@ var _ = Describe(`CodeEngineV2`, func() {
 			})
 			It(`Invoke NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype successfully`, func() {
 				typeVar := "cidr_block"
+				name := "allow-all"
 				cidrBlock := "testString"
-				name := "testString"
-				_model, err := codeEngineService.NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar, cidrBlock, name)
+				_model, err := codeEngineService.NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar, name, cidrBlock)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype successfully`, func() {
+				typeVar := "cidr_block"
+				name := "allow-all"
+				privatePathServiceGatewayCrn := "testString"
+				_model, err := codeEngineService.NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(typeVar, name, privatePathServiceGatewayCrn)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -19270,7 +19273,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewStorageDataObjectStorageData successfully`, func() {
-				bucketLocation := "testString"
+				bucketLocation := "au-syd"
 				bucketName := "testString"
 				secretName := "testString"
 				_model, err := codeEngineService.NewStorageDataObjectStorageData(bucketLocation, bucketName, secretName)
@@ -19283,8 +19286,8 @@ var _ = Describe(`CodeEngineV2`, func() {
 		It(`Invoke UnmarshalAllowedOutboundDestinationPatch successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.AllowedOutboundDestinationPatch)
-			model.Type = core.StringPtr("cidr_block")
 			model.CidrBlock = core.StringPtr("testString")
+			model.IsolationPolicy = core.StringPtr("shared")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -19303,8 +19306,10 @@ var _ = Describe(`CodeEngineV2`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.AllowedOutboundDestinationPrototype)
 			model.Type = core.StringPtr("cidr_block")
+			model.Name = core.StringPtr("allow-all")
 			model.CidrBlock = core.StringPtr("testString")
-			model.Name = core.StringPtr("testString")
+			model.PrivatePathServiceGatewayCrn = core.StringPtr("testString")
+			model.IsolationPolicy = core.StringPtr("shared")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -19719,7 +19724,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		It(`Invoke UnmarshalStorageData successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.StorageData)
-			model.BucketLocation = core.StringPtr("testString")
+			model.BucketLocation = core.StringPtr("au-syd")
 			model.BucketName = core.StringPtr("testString")
 			model.SecretName = core.StringPtr("testString")
 
@@ -19762,7 +19767,6 @@ var _ = Describe(`CodeEngineV2`, func() {
 		It(`Invoke UnmarshalAllowedOutboundDestinationPatchCidrBlockDataPatch successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch)
-			model.Type = core.StringPtr("cidr_block")
 			model.CidrBlock = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
@@ -19778,12 +19782,30 @@ var _ = Describe(`CodeEngineV2`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalAllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch)
+			model.IsolationPolicy = core.StringPtr("shared")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
 			model.Type = core.StringPtr("cidr_block")
+			model.Name = core.StringPtr("allow-all")
 			model.CidrBlock = core.StringPtr("testString")
-			model.Name = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -19794,6 +19816,27 @@ var _ = Describe(`CodeEngineV2`, func() {
 
 			var result *codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
 			err = codeenginev2.UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype successfully`, func() {
+			// Construct an instance of the model.
+			model := new(codeenginev2.AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype)
+			model.Type = core.StringPtr("cidr_block")
+			model.Name = core.StringPtr("allow-all")
+			model.PrivatePathServiceGatewayCrn = core.StringPtr("testString")
+			model.IsolationPolicy = core.StringPtr("shared")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *codeenginev2.AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
+			err = codeenginev2.UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -19915,7 +19958,7 @@ var _ = Describe(`CodeEngineV2`, func() {
 		It(`Invoke UnmarshalStorageDataObjectStorageData successfully`, func() {
 			// Construct an instance of the model.
 			model := new(codeenginev2.StorageDataObjectStorageData)
-			model.BucketLocation = core.StringPtr("testString")
+			model.BucketLocation = core.StringPtr("au-syd")
 			model.BucketName = core.StringPtr("testString")
 			model.SecretName = core.StringPtr("testString")
 

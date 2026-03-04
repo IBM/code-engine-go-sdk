@@ -5,11 +5,11 @@ go 1.24.0
 require (
 	github.com/IBM/code-engine-go-sdk/v2 v2.0.3
 	github.com/IBM/go-sdk-core/v5 v5.21.2
-	github.com/IBM/platform-services-go-sdk v0.90.4
+	github.com/IBM/platform-services-go-sdk v0.92.0
 )
 
 require (
-	github.com/IBM/code-engine-go-sdk v0.0.0-20221209153711-82472bae75eb // indirect
+	github.com/IBM/code-engine-go-sdk v0.0.0-20251209150025-4adf6c3b6f63 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.11 // indirect
 	github.com/go-openapi/errors v0.22.4 // indirect
 	github.com/go-openapi/strfmt v0.25.0 // indirect
@@ -26,10 +26,10 @@ require (
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	go.mongodb.org/mongo-driver v1.17.6 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/crypto v0.46.0 // indirect
-	golang.org/x/net v0.48.0 // indirect
-	golang.org/x/sys v0.39.0 // indirect
-	golang.org/x/text v0.32.0 // indirect
+	golang.org/x/crypto v0.47.0 // indirect
+	golang.org/x/net v0.49.0 // indirect
+	golang.org/x/sys v0.40.0 // indirect
+	golang.org/x/text v0.33.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )

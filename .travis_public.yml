@@ -1,15 +1,12 @@
----
 language: go
 dist: focal
-group: beta
-version: ~> 1.0
 
 go: 1.24.x
 
 # Only run on main (still tests PRs)
 branches:
   only:
-    - main
+  - main
 
 cache:
   directories:
@@ -22,7 +19,6 @@ notifications:
 env:
   global:
     - GO111MODULE=on
-    - GOPROXY="https://${ARTIFACTORY_USER//@/%40}:${ARTIFACTORY_ACCESSTOKEN}@na-public.artifactory.swg-devops.com/artifactory/api/go/wcp-codeengine-team-virtual-go-virtual"
 
 before_install:
   - pyenv global 3.8
@@ -33,4 +29,3 @@ install:
 
 script:
   - make travis-ci
-  - ./test-integration.sh
