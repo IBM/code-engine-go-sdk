@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 3.15.0-45841b53-20201019-214802
  */
- 
 
 // Package ibmcloudcodeenginev1 : Operations and models for the IbmCloudCodeEngineV1 service
 package ibmcloudcodeenginev1
@@ -183,7 +182,9 @@ func (ibmCloudCodeEngine *IbmCloudCodeEngineV1) ListKubeconfigWithContext(ctx co
 // GetKubeconfig : Retrieve KUBECONFIG for a specified project
 // Returns the KUBECONFIG, similar to the output of `kubectl config view --minify=true`. There are 2 tokens in the
 // Request Header and a query parameter that you must provide.
-//  These values can be generated as follows: 1. Auth Header Pass the generated IAM Token as the Authorization header
+//
+//	These values can be generated as follows: 1. Auth Header Pass the generated IAM Token as the Authorization header
+//
 // from the CLI as `token=cat $HOME/.bluemix/config.json | jq .IAMToken -r`. Generate the token with the [Create an IAM
 // access token for a user or service ID using an API
 // key](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey) API.
@@ -273,7 +274,7 @@ type GetKubeconfigOptions struct {
 func (*IbmCloudCodeEngineV1) NewGetKubeconfigOptions(xDelegatedRefreshToken string, id string) *GetKubeconfigOptions {
 	return &GetKubeconfigOptions{
 		XDelegatedRefreshToken: core.StringPtr(xDelegatedRefreshToken),
-		ID: core.StringPtr(id),
+		ID:                     core.StringPtr(id),
 	}
 }
 
@@ -323,7 +324,7 @@ type ListKubeconfigOptions struct {
 func (*IbmCloudCodeEngineV1) NewListKubeconfigOptions(refreshToken string, id string) *ListKubeconfigOptions {
 	return &ListKubeconfigOptions{
 		RefreshToken: core.StringPtr(refreshToken),
-		ID: core.StringPtr(id),
+		ID:           core.StringPtr(id),
 	}
 }
 

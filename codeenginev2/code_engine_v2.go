@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-08-27`.
+	// and `2026-03-27`.
 	Version *string
 }
 
@@ -57,8 +57,8 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2025-08-27`.
-	Version *string 
+	// and `2026-03-27`.
+	Version *string
 }
 
 // NewCodeEngineV2UsingExternalConfig : constructs an instance of CodeEngineV2 with passed in options and external configuration.
@@ -656,7 +656,7 @@ func (codeEngine *CodeEngineV2) DeleteAllowedOutboundDestinationWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteAllowedOutboundDestinationOptions.ProjectID,
-		"name": *deleteAllowedOutboundDestinationOptions.Name,
+		"name":       *deleteAllowedOutboundDestinationOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -720,7 +720,7 @@ func (codeEngine *CodeEngineV2) GetAllowedOutboundDestinationWithContext(ctx con
 
 	pathParamsMap := map[string]string{
 		"project_id": *getAllowedOutboundDestinationOptions.ProjectID,
-		"name": *getAllowedOutboundDestinationOptions.Name,
+		"name":       *getAllowedOutboundDestinationOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -794,7 +794,7 @@ func (codeEngine *CodeEngineV2) UpdateAllowedOutboundDestinationWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateAllowedOutboundDestinationOptions.ProjectID,
-		"name": *updateAllowedOutboundDestinationOptions.Name,
+		"name":       *updateAllowedOutboundDestinationOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1235,118 +1235,57 @@ func (codeEngine *CodeEngineV2) CreateAppWithContext(ctx context.Context, create
 	return
 }
 
-// DeleteApp : Delete an application
-// Delete an application.
-func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
+// ListAppInstances : List application instances
+// List all instances of an application.
+func (codeEngine *CodeEngineV2) ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListAppInstancesWithContext(context.Background(), listAppInstancesOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
+// ListAppInstancesWithContext is an alternate form of the ListAppInstances method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context, listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listAppInstancesOptions, "listAppInstancesOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
+	err = core.ValidateStruct(listAppInstancesOptions, "listAppInstancesOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *deleteAppOptions.ProjectID,
-		"name": *deleteAppOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteAppOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteApp")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if deleteAppOptions.KeepServiceAccess != nil {
-		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteAppOptions.KeepServiceAccess))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_app", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-
-	return
-}
-
-// GetApp : Get an application
-// Display the details of an application.
-func (codeEngine *CodeEngineV2) GetApp(getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.GetAppWithContext(context.Background(), getAppOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetAppWithContext is an alternate form of the GetApp method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAppOptions, "getAppOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(getAppOptions, "getAppOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *getAppOptions.ProjectID,
-		"name": *getAppOptions.Name,
+		"project_id": *listAppInstancesOptions.ProjectID,
+		"app_name":   *listAppInstancesOptions.AppName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/instances`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range getAppOptions.Headers {
+	for headerName, headerValue := range listAppInstancesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetApp")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAppInstances")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listAppInstancesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAppInstancesOptions.Limit))
+	}
+	if listAppInstancesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listAppInstancesOptions.Start))
+	}
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
@@ -1360,98 +1299,12 @@ func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOpt
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_app", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "list_app_instances", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// UpdateApp : Update an application
-// An application contains one or more revisions. A revision represents an immutable version of the configuration
-// properties of the application. Each update of an application configuration property creates a new revision of the
-// application. [Learn more](https://cloud.ibm.com/docs/codeengine?topic=codeengine-update-app).
-func (codeEngine *CodeEngineV2) UpdateApp(updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.UpdateAppWithContext(context.Background(), updateAppOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// UpdateAppWithContext is an alternate form of the UpdateApp method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateAppOptions, "updateAppOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(updateAppOptions, "updateAppOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *updateAppOptions.ProjectID,
-		"name": *updateAppOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.PATCH)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range updateAppOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateApp")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/merge-patch+json")
-	if updateAppOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateAppOptions.IfMatch))
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	_, err = builder.SetBodyContentJSON(updateAppOptions.App)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "update_app", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppInstanceList)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -1485,7 +1338,7 @@ func (codeEngine *CodeEngineV2) ListAppRevisionsWithContext(ctx context.Context,
 
 	pathParamsMap := map[string]string{
 		"project_id": *listAppRevisionsOptions.ProjectID,
-		"app_name": *listAppRevisionsOptions.AppName,
+		"app_name":   *listAppRevisionsOptions.AppName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1565,8 +1418,8 @@ func (codeEngine *CodeEngineV2) DeleteAppRevisionWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteAppRevisionOptions.ProjectID,
-		"app_name": *deleteAppRevisionOptions.AppName,
-		"name": *deleteAppRevisionOptions.Name,
+		"app_name":   *deleteAppRevisionOptions.AppName,
+		"name":       *deleteAppRevisionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1630,8 +1483,8 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"project_id": *getAppRevisionOptions.ProjectID,
-		"app_name": *getAppRevisionOptions.AppName,
-		"name": *getAppRevisionOptions.Name,
+		"app_name":   *getAppRevisionOptions.AppName,
+		"name":       *getAppRevisionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1682,337 +1535,46 @@ func (codeEngine *CodeEngineV2) GetAppRevisionWithContext(ctx context.Context, g
 	return
 }
 
-// ListAppInstances : List application instances
-// List all instances of an application.
-func (codeEngine *CodeEngineV2) ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.ListAppInstancesWithContext(context.Background(), listAppInstancesOptions)
+// DeleteApp : Delete an application
+// Delete an application.
+func (codeEngine *CodeEngineV2) DeleteApp(deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteAppWithContext(context.Background(), deleteAppOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// ListAppInstancesWithContext is an alternate form of the ListAppInstances method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListAppInstancesWithContext(ctx context.Context, listAppInstancesOptions *ListAppInstancesOptions) (result *AppInstanceList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listAppInstancesOptions, "listAppInstancesOptions cannot be nil")
+// DeleteAppWithContext is an alternate form of the DeleteApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteAppWithContext(ctx context.Context, deleteAppOptions *DeleteAppOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAppOptions, "deleteAppOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(listAppInstancesOptions, "listAppInstancesOptions")
+	err = core.ValidateStruct(deleteAppOptions, "deleteAppOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *listAppInstancesOptions.ProjectID,
-		"app_name": *listAppInstancesOptions.AppName,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{app_name}/instances`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range listAppInstancesOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListAppInstances")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listAppInstancesOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listAppInstancesOptions.Limit))
-	}
-	if listAppInstancesOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listAppInstancesOptions.Start))
-	}
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "list_app_instances", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAppInstanceList)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// ListJobs : List jobs
-// List all jobs in a project.
-func (codeEngine *CodeEngineV2) ListJobs(listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.ListJobsWithContext(context.Background(), listJobsOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// ListJobsWithContext is an alternate form of the ListJobs method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listJobsOptions, "listJobsOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(listJobsOptions, "listJobsOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *listJobsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range listJobsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListJobs")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if listJobsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listJobsOptions.Limit))
-	}
-	if listJobsOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listJobsOptions.Start))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "list_jobs", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobList)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// CreateJob : Create a job
-// Create a job.
-func (codeEngine *CodeEngineV2) CreateJob(createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.CreateJobWithContext(context.Background(), createJobOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// CreateJobWithContext is an alternate form of the CreateJob method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createJobOptions, "createJobOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(createJobOptions, "createJobOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *createJobOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range createJobOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateJob")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	body := make(map[string]interface{})
-	if createJobOptions.ImageReference != nil {
-		body["image_reference"] = createJobOptions.ImageReference
-	}
-	if createJobOptions.Name != nil {
-		body["name"] = createJobOptions.Name
-	}
-	if createJobOptions.ImageSecret != nil {
-		body["image_secret"] = createJobOptions.ImageSecret
-	}
-	if createJobOptions.RunArguments != nil {
-		body["run_arguments"] = createJobOptions.RunArguments
-	}
-	if createJobOptions.RunAsUser != nil {
-		body["run_as_user"] = createJobOptions.RunAsUser
-	}
-	if createJobOptions.RunCommands != nil {
-		body["run_commands"] = createJobOptions.RunCommands
-	}
-	if createJobOptions.RunComputeResourceTokenEnabled != nil {
-		body["run_compute_resource_token_enabled"] = createJobOptions.RunComputeResourceTokenEnabled
-	}
-	if createJobOptions.RunEnvVariables != nil {
-		body["run_env_variables"] = createJobOptions.RunEnvVariables
-	}
-	if createJobOptions.RunMode != nil {
-		body["run_mode"] = createJobOptions.RunMode
-	}
-	if createJobOptions.RunServiceAccount != nil {
-		body["run_service_account"] = createJobOptions.RunServiceAccount
-	}
-	if createJobOptions.RunVolumeMounts != nil {
-		body["run_volume_mounts"] = createJobOptions.RunVolumeMounts
-	}
-	if createJobOptions.ScaleArraySpec != nil {
-		body["scale_array_spec"] = createJobOptions.ScaleArraySpec
-	}
-	if createJobOptions.ScaleCpuLimit != nil {
-		body["scale_cpu_limit"] = createJobOptions.ScaleCpuLimit
-	}
-	if createJobOptions.ScaleEphemeralStorageLimit != nil {
-		body["scale_ephemeral_storage_limit"] = createJobOptions.ScaleEphemeralStorageLimit
-	}
-	if createJobOptions.ScaleMaxExecutionTime != nil {
-		body["scale_max_execution_time"] = createJobOptions.ScaleMaxExecutionTime
-	}
-	if createJobOptions.ScaleMemoryLimit != nil {
-		body["scale_memory_limit"] = createJobOptions.ScaleMemoryLimit
-	}
-	if createJobOptions.ScaleRetryLimit != nil {
-		body["scale_retry_limit"] = createJobOptions.ScaleRetryLimit
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "create_job", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// DeleteJob : Delete a job
-// Delete a job.
-func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteJobOptions.ProjectID,
-		"name": *deleteJobOptions.Name,
+		"project_id": *deleteAppOptions.ProjectID,
+		"name":       *deleteAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range deleteJobOptions.Headers {
+	for headerName, headerValue := range deleteAppOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJob")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteApp")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2020,8 +1582,8 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
-	if deleteJobOptions.KeepServiceAccess != nil {
-		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteJobOptions.KeepServiceAccess))
+	if deleteAppOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteAppOptions.KeepServiceAccess))
 	}
 
 	request, err := builder.Build()
@@ -2032,7 +1594,7 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 
 	response, err = codeEngine.Service.Request(request, nil)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_job", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "delete_app", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -2040,46 +1602,46 @@ func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, delete
 	return
 }
 
-// GetJob : Get a job
-// Display the details of a job.
-func (codeEngine *CodeEngineV2) GetJob(getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.GetJobWithContext(context.Background(), getJobOptions)
+// GetApp : Get an application
+// Display the details of an application.
+func (codeEngine *CodeEngineV2) GetApp(getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.GetAppWithContext(context.Background(), getAppOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// GetJobWithContext is an alternate form of the GetJob method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getJobOptions, "getJobOptions cannot be nil")
+// GetAppWithContext is an alternate form of the GetApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetAppWithContext(ctx context.Context, getAppOptions *GetAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAppOptions, "getAppOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(getJobOptions, "getJobOptions")
+	err = core.ValidateStruct(getAppOptions, "getAppOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *getJobOptions.ProjectID,
-		"name": *getJobOptions.Name,
+		"project_id": *getAppOptions.ProjectID,
+		"name":       *getAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range getJobOptions.Headers {
+	for headerName, headerValue := range getAppOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetJob")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetApp")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2098,12 +1660,12 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_job", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "get_app", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -2114,60 +1676,62 @@ func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOpt
 	return
 }
 
-// UpdateJob : Update a job
-// Update the given job.
-func (codeEngine *CodeEngineV2) UpdateJob(updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.UpdateJobWithContext(context.Background(), updateJobOptions)
+// UpdateApp : Update an application
+// An application contains one or more revisions. A revision represents an immutable version of the configuration
+// properties of the application. Each update of an application configuration property creates a new revision of the
+// application. [Learn more](https://cloud.ibm.com/docs/codeengine?topic=codeengine-update-app).
+func (codeEngine *CodeEngineV2) UpdateApp(updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.UpdateAppWithContext(context.Background(), updateAppOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// UpdateJobWithContext is an alternate form of the UpdateJob method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateJobOptions, "updateJobOptions cannot be nil")
+// UpdateAppWithContext is an alternate form of the UpdateApp method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateAppWithContext(ctx context.Context, updateAppOptions *UpdateAppOptions) (result *App, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAppOptions, "updateAppOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(updateJobOptions, "updateJobOptions")
+	err = core.ValidateStruct(updateAppOptions, "updateAppOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"project_id": *updateJobOptions.ProjectID,
-		"name": *updateJobOptions.Name,
+		"project_id": *updateAppOptions.ProjectID,
+		"name":       *updateAppOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/apps/{name}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range updateJobOptions.Headers {
+	for headerName, headerValue := range updateAppOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateJob")
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateApp")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/merge-patch+json")
-	if updateJobOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateJobOptions.IfMatch))
+	if updateAppOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateAppOptions.IfMatch))
 	}
 
 	if codeEngine.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
 	}
 
-	_, err = builder.SetBodyContentJSON(updateJobOptions.Job)
+	_, err = builder.SetBodyContentJSON(updateAppOptions.App)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
@@ -2182,12 +1746,12 @@ func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, update
 	var rawResponse map[string]json.RawMessage
 	response, err = codeEngine.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "update_job", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "update_app", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApp)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -2441,7 +2005,7 @@ func (codeEngine *CodeEngineV2) DeleteJobRunWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteJobRunOptions.ProjectID,
-		"name": *deleteJobRunOptions.Name,
+		"name":       *deleteJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2505,7 +2069,7 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 
 	pathParamsMap := map[string]string{
 		"project_id": *getJobRunOptions.ProjectID,
-		"name": *getJobRunOptions.Name,
+		"name":       *getJobRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2546,6 +2110,442 @@ func (codeEngine *CodeEngineV2) GetJobRunWithContext(ctx context.Context, getJob
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobRun)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListJobs : List jobs
+// List all jobs in a project.
+func (codeEngine *CodeEngineV2) ListJobs(listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListJobsWithContext(context.Background(), listJobsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListJobsWithContext is an alternate form of the ListJobs method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListJobsWithContext(ctx context.Context, listJobsOptions *ListJobsOptions) (result *JobList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listJobsOptions, "listJobsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listJobsOptions, "listJobsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listJobsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range listJobsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListJobs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if listJobsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listJobsOptions.Limit))
+	}
+	if listJobsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listJobsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_jobs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJobList)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateJob : Create a job
+// Create a job.
+func (codeEngine *CodeEngineV2) CreateJob(createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.CreateJobWithContext(context.Background(), createJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateJobWithContext is an alternate form of the CreateJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateJobWithContext(ctx context.Context, createJobOptions *CreateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createJobOptions, "createJobOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createJobOptions, "createJobOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createJobOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range createJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	body := make(map[string]interface{})
+	if createJobOptions.ImageReference != nil {
+		body["image_reference"] = createJobOptions.ImageReference
+	}
+	if createJobOptions.Name != nil {
+		body["name"] = createJobOptions.Name
+	}
+	if createJobOptions.ImageSecret != nil {
+		body["image_secret"] = createJobOptions.ImageSecret
+	}
+	if createJobOptions.RunArguments != nil {
+		body["run_arguments"] = createJobOptions.RunArguments
+	}
+	if createJobOptions.RunAsUser != nil {
+		body["run_as_user"] = createJobOptions.RunAsUser
+	}
+	if createJobOptions.RunCommands != nil {
+		body["run_commands"] = createJobOptions.RunCommands
+	}
+	if createJobOptions.RunComputeResourceTokenEnabled != nil {
+		body["run_compute_resource_token_enabled"] = createJobOptions.RunComputeResourceTokenEnabled
+	}
+	if createJobOptions.RunEnvVariables != nil {
+		body["run_env_variables"] = createJobOptions.RunEnvVariables
+	}
+	if createJobOptions.RunMode != nil {
+		body["run_mode"] = createJobOptions.RunMode
+	}
+	if createJobOptions.RunServiceAccount != nil {
+		body["run_service_account"] = createJobOptions.RunServiceAccount
+	}
+	if createJobOptions.RunVolumeMounts != nil {
+		body["run_volume_mounts"] = createJobOptions.RunVolumeMounts
+	}
+	if createJobOptions.ScaleArraySpec != nil {
+		body["scale_array_spec"] = createJobOptions.ScaleArraySpec
+	}
+	if createJobOptions.ScaleCpuLimit != nil {
+		body["scale_cpu_limit"] = createJobOptions.ScaleCpuLimit
+	}
+	if createJobOptions.ScaleEphemeralStorageLimit != nil {
+		body["scale_ephemeral_storage_limit"] = createJobOptions.ScaleEphemeralStorageLimit
+	}
+	if createJobOptions.ScaleMaxExecutionTime != nil {
+		body["scale_max_execution_time"] = createJobOptions.ScaleMaxExecutionTime
+	}
+	if createJobOptions.ScaleMemoryLimit != nil {
+		body["scale_memory_limit"] = createJobOptions.ScaleMemoryLimit
+	}
+	if createJobOptions.ScaleRetryLimit != nil {
+		body["scale_retry_limit"] = createJobOptions.ScaleRetryLimit
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteJob : Delete a job
+// Delete a job.
+func (codeEngine *CodeEngineV2) DeleteJob(deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteJobWithContext(context.Background(), deleteJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteJobWithContext is an alternate form of the DeleteJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteJobWithContext(ctx context.Context, deleteJobOptions *DeleteJobOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteJobOptions, "deleteJobOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteJobOptions, "deleteJobOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteJobOptions.ProjectID,
+		"name":       *deleteJobOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if deleteJobOptions.KeepServiceAccess != nil {
+		builder.AddQuery("keep_service_access", fmt.Sprint(*deleteJobOptions.KeepServiceAccess))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// GetJob : Get a job
+// Display the details of a job.
+func (codeEngine *CodeEngineV2) GetJob(getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.GetJobWithContext(context.Background(), getJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetJobWithContext is an alternate form of the GetJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetJobWithContext(ctx context.Context, getJobOptions *GetJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getJobOptions, "getJobOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getJobOptions, "getJobOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getJobOptions.ProjectID,
+		"name":       *getJobOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateJob : Update a job
+// Update the given job.
+func (codeEngine *CodeEngineV2) UpdateJob(updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.UpdateJobWithContext(context.Background(), updateJobOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateJobWithContext is an alternate form of the UpdateJob method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateJobWithContext(ctx context.Context, updateJobOptions *UpdateJobOptions) (result *Job, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateJobOptions, "updateJobOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateJobOptions, "updateJobOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateJobOptions.ProjectID,
+		"name":       *updateJobOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/jobs/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range updateJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateJobOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateJobOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateJobOptions.Job)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_job", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalJob)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -2841,7 +2841,7 @@ func (codeEngine *CodeEngineV2) DeleteFunctionWithContext(ctx context.Context, d
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteFunctionOptions.ProjectID,
-		"name": *deleteFunctionOptions.Name,
+		"name":       *deleteFunctionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2908,7 +2908,7 @@ func (codeEngine *CodeEngineV2) GetFunctionWithContext(ctx context.Context, getF
 
 	pathParamsMap := map[string]string{
 		"project_id": *getFunctionOptions.ProjectID,
-		"name": *getFunctionOptions.Name,
+		"name":       *getFunctionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2982,7 +2982,7 @@ func (codeEngine *CodeEngineV2) UpdateFunctionWithContext(ctx context.Context, u
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateFunctionOptions.ProjectID,
-		"name": *updateFunctionOptions.Name,
+		"name":       *updateFunctionOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -3236,7 +3236,7 @@ func (codeEngine *CodeEngineV2) DeleteBindingWithContext(ctx context.Context, de
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBindingOptions.ProjectID,
-		"id": *deleteBindingOptions.ID,
+		"id":         *deleteBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -3300,7 +3300,7 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBindingOptions.ProjectID,
-		"id": *getBindingOptions.ID,
+		"id":         *getBindingOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -3341,427 +3341,6 @@ func (codeEngine *CodeEngineV2) GetBindingWithContext(ctx context.Context, getBi
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBinding)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// ListBuilds : List builds
-// List all builds in a project.
-func (codeEngine *CodeEngineV2) ListBuilds(listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.ListBuildsWithContext(context.Background(), listBuildsOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// ListBuildsWithContext is an alternate form of the ListBuilds method which supports a Context parameter
-func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listBuildsOptions, "listBuildsOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(listBuildsOptions, "listBuildsOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *listBuildsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range listBuildsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListBuilds")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-	if listBuildsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listBuildsOptions.Limit))
-	}
-	if listBuildsOptions.Start != nil {
-		builder.AddQuery("start", fmt.Sprint(*listBuildsOptions.Start))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "list_builds", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildList)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// CreateBuild : Create a build
-// Create a build.
-func (codeEngine *CodeEngineV2) CreateBuild(createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.CreateBuildWithContext(context.Background(), createBuildOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// CreateBuildWithContext is an alternate form of the CreateBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createBuildOptions, "createBuildOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(createBuildOptions, "createBuildOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *createBuildOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range createBuildOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateBuild")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	body := make(map[string]interface{})
-	if createBuildOptions.Name != nil {
-		body["name"] = createBuildOptions.Name
-	}
-	if createBuildOptions.OutputImage != nil {
-		body["output_image"] = createBuildOptions.OutputImage
-	}
-	if createBuildOptions.OutputSecret != nil {
-		body["output_secret"] = createBuildOptions.OutputSecret
-	}
-	if createBuildOptions.StrategyType != nil {
-		body["strategy_type"] = createBuildOptions.StrategyType
-	}
-	if createBuildOptions.RunBuildParams != nil {
-		body["run_build_params"] = createBuildOptions.RunBuildParams
-	}
-	if createBuildOptions.SourceContextDir != nil {
-		body["source_context_dir"] = createBuildOptions.SourceContextDir
-	}
-	if createBuildOptions.SourceRevision != nil {
-		body["source_revision"] = createBuildOptions.SourceRevision
-	}
-	if createBuildOptions.SourceSecret != nil {
-		body["source_secret"] = createBuildOptions.SourceSecret
-	}
-	if createBuildOptions.SourceType != nil {
-		body["source_type"] = createBuildOptions.SourceType
-	}
-	if createBuildOptions.SourceURL != nil {
-		body["source_url"] = createBuildOptions.SourceURL
-	}
-	if createBuildOptions.StrategySize != nil {
-		body["strategy_size"] = createBuildOptions.StrategySize
-	}
-	if createBuildOptions.StrategySpecFile != nil {
-		body["strategy_spec_file"] = createBuildOptions.StrategySpecFile
-	}
-	if createBuildOptions.Timeout != nil {
-		body["timeout"] = createBuildOptions.Timeout
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "create_build", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// DeleteBuild : Delete a build
-// Delete a build.
-func (codeEngine *CodeEngineV2) DeleteBuild(deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
-	response, err = codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// DeleteBuildWithContext is an alternate form of the DeleteBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteBuildOptions, "deleteBuildOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(deleteBuildOptions, "deleteBuildOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *deleteBuildOptions.ProjectID,
-		"name": *deleteBuildOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range deleteBuildOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuild")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	response, err = codeEngine.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_build", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-
-	return
-}
-
-// GetBuild : Get a build
-// Display the details of a build.
-func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.GetBuildWithContext(context.Background(), getBuildOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetBuildWithContext is an alternate form of the GetBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getBuildOptions, "getBuildOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(getBuildOptions, "getBuildOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *getBuildOptions.ProjectID,
-		"name": *getBuildOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range getBuildOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetBuild")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "get_build", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
-		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// UpdateBuild : Update a build
-// Update a build.
-func (codeEngine *CodeEngineV2) UpdateBuild(updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	result, response, err = codeEngine.UpdateBuildWithContext(context.Background(), updateBuildOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// UpdateBuildWithContext is an alternate form of the UpdateBuild method which supports a Context parameter
-func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateBuildOptions, "updateBuildOptions cannot be nil")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
-		return
-	}
-	err = core.ValidateStruct(updateBuildOptions, "updateBuildOptions")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"project_id": *updateBuildOptions.ProjectID,
-		"name": *updateBuildOptions.Name,
-	}
-
-	builder := core.NewRequestBuilder(core.PATCH)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
-		return
-	}
-
-	for headerName, headerValue := range updateBuildOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateBuild")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/merge-patch+json")
-	if updateBuildOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateBuildOptions.IfMatch))
-	}
-
-	if codeEngine.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
-	}
-
-	_, err = builder.SetBodyContentJSON(updateBuildOptions.Build)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = codeEngine.Service.Request(request, &rawResponse)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "update_build", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -4003,7 +3582,7 @@ func (codeEngine *CodeEngineV2) DeleteBuildRunWithContext(ctx context.Context, d
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteBuildRunOptions.ProjectID,
-		"name": *deleteBuildRunOptions.Name,
+		"name":       *deleteBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -4067,7 +3646,7 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 
 	pathParamsMap := map[string]string{
 		"project_id": *getBuildRunOptions.ProjectID,
-		"name": *getBuildRunOptions.Name,
+		"name":       *getBuildRunOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4108,6 +3687,427 @@ func (codeEngine *CodeEngineV2) GetBuildRunWithContext(ctx context.Context, getB
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildRun)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListBuilds : List builds
+// List all builds in a project.
+func (codeEngine *CodeEngineV2) ListBuilds(listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.ListBuildsWithContext(context.Background(), listBuildsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListBuildsWithContext is an alternate form of the ListBuilds method which supports a Context parameter
+func (codeEngine *CodeEngineV2) ListBuildsWithContext(ctx context.Context, listBuildsOptions *ListBuildsOptions) (result *BuildList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listBuildsOptions, "listBuildsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(listBuildsOptions, "listBuildsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *listBuildsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range listBuildsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "ListBuilds")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+	if listBuildsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listBuildsOptions.Limit))
+	}
+	if listBuildsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listBuildsOptions.Start))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_builds", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuildList)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateBuild : Create a build
+// Create a build.
+func (codeEngine *CodeEngineV2) CreateBuild(createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.CreateBuildWithContext(context.Background(), createBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// CreateBuildWithContext is an alternate form of the CreateBuild method which supports a Context parameter
+func (codeEngine *CodeEngineV2) CreateBuildWithContext(ctx context.Context, createBuildOptions *CreateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createBuildOptions, "createBuildOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(createBuildOptions, "createBuildOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *createBuildOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range createBuildOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "CreateBuild")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	body := make(map[string]interface{})
+	if createBuildOptions.Name != nil {
+		body["name"] = createBuildOptions.Name
+	}
+	if createBuildOptions.OutputImage != nil {
+		body["output_image"] = createBuildOptions.OutputImage
+	}
+	if createBuildOptions.OutputSecret != nil {
+		body["output_secret"] = createBuildOptions.OutputSecret
+	}
+	if createBuildOptions.StrategyType != nil {
+		body["strategy_type"] = createBuildOptions.StrategyType
+	}
+	if createBuildOptions.RunBuildParams != nil {
+		body["run_build_params"] = createBuildOptions.RunBuildParams
+	}
+	if createBuildOptions.SourceContextDir != nil {
+		body["source_context_dir"] = createBuildOptions.SourceContextDir
+	}
+	if createBuildOptions.SourceRevision != nil {
+		body["source_revision"] = createBuildOptions.SourceRevision
+	}
+	if createBuildOptions.SourceSecret != nil {
+		body["source_secret"] = createBuildOptions.SourceSecret
+	}
+	if createBuildOptions.SourceType != nil {
+		body["source_type"] = createBuildOptions.SourceType
+	}
+	if createBuildOptions.SourceURL != nil {
+		body["source_url"] = createBuildOptions.SourceURL
+	}
+	if createBuildOptions.StrategySize != nil {
+		body["strategy_size"] = createBuildOptions.StrategySize
+	}
+	if createBuildOptions.StrategySpecFile != nil {
+		body["strategy_spec_file"] = createBuildOptions.StrategySpecFile
+	}
+	if createBuildOptions.Timeout != nil {
+		body["timeout"] = createBuildOptions.Timeout
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "create_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteBuild : Delete a build
+// Delete a build.
+func (codeEngine *CodeEngineV2) DeleteBuild(deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
+	response, err = codeEngine.DeleteBuildWithContext(context.Background(), deleteBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// DeleteBuildWithContext is an alternate form of the DeleteBuild method which supports a Context parameter
+func (codeEngine *CodeEngineV2) DeleteBuildWithContext(ctx context.Context, deleteBuildOptions *DeleteBuildOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteBuildOptions, "deleteBuildOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(deleteBuildOptions, "deleteBuildOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *deleteBuildOptions.ProjectID,
+		"name":       *deleteBuildOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range deleteBuildOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "DeleteBuild")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = codeEngine.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "delete_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
+// GetBuild : Get a build
+// Display the details of a build.
+func (codeEngine *CodeEngineV2) GetBuild(getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.GetBuildWithContext(context.Background(), getBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetBuildWithContext is an alternate form of the GetBuild method which supports a Context parameter
+func (codeEngine *CodeEngineV2) GetBuildWithContext(ctx context.Context, getBuildOptions *GetBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getBuildOptions, "getBuildOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getBuildOptions, "getBuildOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *getBuildOptions.ProjectID,
+		"name":       *getBuildOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getBuildOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "GetBuild")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateBuild : Update a build
+// Update a build.
+func (codeEngine *CodeEngineV2) UpdateBuild(updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	result, response, err = codeEngine.UpdateBuildWithContext(context.Background(), updateBuildOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateBuildWithContext is an alternate form of the UpdateBuild method which supports a Context parameter
+func (codeEngine *CodeEngineV2) UpdateBuildWithContext(ctx context.Context, updateBuildOptions *UpdateBuildOptions) (result *Build, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateBuildOptions, "updateBuildOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateBuildOptions, "updateBuildOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"project_id": *updateBuildOptions.ProjectID,
+		"name":       *updateBuildOptions.Name,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = codeEngine.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(codeEngine.Service.Options.URL, `/projects/{project_id}/builds/{name}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range updateBuildOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("code_engine", "V2", "UpdateBuild")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/merge-patch+json")
+	if updateBuildOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateBuildOptions.IfMatch))
+	}
+
+	if codeEngine.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*codeEngine.Version))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateBuildOptions.Build)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = codeEngine.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_build", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBuild)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -4310,7 +4310,7 @@ func (codeEngine *CodeEngineV2) DeleteDomainMappingWithContext(ctx context.Conte
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteDomainMappingOptions.ProjectID,
-		"name": *deleteDomainMappingOptions.Name,
+		"name":       *deleteDomainMappingOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -4374,7 +4374,7 @@ func (codeEngine *CodeEngineV2) GetDomainMappingWithContext(ctx context.Context,
 
 	pathParamsMap := map[string]string{
 		"project_id": *getDomainMappingOptions.ProjectID,
-		"name": *getDomainMappingOptions.Name,
+		"name":       *getDomainMappingOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4448,7 +4448,7 @@ func (codeEngine *CodeEngineV2) UpdateDomainMappingWithContext(ctx context.Conte
 
 	pathParamsMap := map[string]string{
 		"project_id": *updateDomainMappingOptions.ProjectID,
-		"name": *updateDomainMappingOptions.Name,
+		"name":       *updateDomainMappingOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -4698,7 +4698,7 @@ func (codeEngine *CodeEngineV2) DeleteConfigMapWithContext(ctx context.Context, 
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteConfigMapOptions.ProjectID,
-		"name": *deleteConfigMapOptions.Name,
+		"name":       *deleteConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -4762,7 +4762,7 @@ func (codeEngine *CodeEngineV2) GetConfigMapWithContext(ctx context.Context, get
 
 	pathParamsMap := map[string]string{
 		"project_id": *getConfigMapOptions.ProjectID,
-		"name": *getConfigMapOptions.Name,
+		"name":       *getConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4836,7 +4836,7 @@ func (codeEngine *CodeEngineV2) ReplaceConfigMapWithContext(ctx context.Context,
 
 	pathParamsMap := map[string]string{
 		"project_id": *replaceConfigMapOptions.ProjectID,
-		"name": *replaceConfigMapOptions.Name,
+		"name":       *replaceConfigMapOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -5102,7 +5102,7 @@ func (codeEngine *CodeEngineV2) DeleteSecretWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"project_id": *deleteSecretOptions.ProjectID,
-		"name": *deleteSecretOptions.Name,
+		"name":       *deleteSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -5166,7 +5166,7 @@ func (codeEngine *CodeEngineV2) GetSecretWithContext(ctx context.Context, getSec
 
 	pathParamsMap := map[string]string{
 		"project_id": *getSecretOptions.ProjectID,
-		"name": *getSecretOptions.Name,
+		"name":       *getSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5240,7 +5240,7 @@ func (codeEngine *CodeEngineV2) ReplaceSecretWithContext(ctx context.Context, re
 
 	pathParamsMap := map[string]string{
 		"project_id": *replaceSecretOptions.ProjectID,
-		"name": *replaceSecretOptions.Name,
+		"name":       *replaceSecretOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -5500,7 +5500,7 @@ func (codeEngine *CodeEngineV2) DeletePersistentDataStoreWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"project_id": *deletePersistentDataStoreOptions.ProjectID,
-		"name": *deletePersistentDataStoreOptions.Name,
+		"name":       *deletePersistentDataStoreOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -5564,7 +5564,7 @@ func (codeEngine *CodeEngineV2) GetPersistentDataStoreWithContext(ctx context.Co
 
 	pathParamsMap := map[string]string{
 		"project_id": *getPersistentDataStoreOptions.ProjectID,
-		"name": *getPersistentDataStoreOptions.Name,
+		"name":       *getPersistentDataStoreOptions.Name,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5629,6 +5629,9 @@ type AllowedOutboundDestination struct {
 	// The name of the allowed outbound destination.
 	Name *string `json:"name,omitempty"`
 
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
+
 	// The current status of the outbound destination.
 	Status *string `json:"status,omitempty"`
 
@@ -5641,29 +5644,29 @@ type AllowedOutboundDestination struct {
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
 
-	// The CRN of the Private Path service.
-	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
-
 	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
 	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
 	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
 	// be set to `shared`.
 	IsolationPolicy *string `json:"isolation_policy,omitempty"`
+
+	// The CRN of the Private Path service.
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
 }
 
 // Constants associated with the AllowedOutboundDestination.Status property.
 // The current status of the outbound destination.
 const (
 	AllowedOutboundDestination_Status_Deploying = "deploying"
-	AllowedOutboundDestination_Status_Failed = "failed"
-	AllowedOutboundDestination_Status_Ready = "ready"
+	AllowedOutboundDestination_Status_Failed    = "failed"
+	AllowedOutboundDestination_Status_Ready     = "ready"
 )
 
 // Constants associated with the AllowedOutboundDestination.Type property.
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestination_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestination_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestination_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
@@ -5674,8 +5677,9 @@ const (
 // be set to `shared`.
 const (
 	AllowedOutboundDestination_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestination_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestination_IsolationPolicy_Shared    = "shared"
 )
+
 func (*AllowedOutboundDestination) isaAllowedOutboundDestination() bool {
 	return true
 }
@@ -5695,6 +5699,11 @@ func UnmarshalAllowedOutboundDestination(m map[string]json.RawMessage, result in
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
@@ -5717,14 +5726,14 @@ func UnmarshalAllowedOutboundDestination(m map[string]json.RawMessage, result in
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5803,8 +5812,9 @@ type AllowedOutboundDestinationPatch struct {
 // be set to `shared`.
 const (
 	AllowedOutboundDestinationPatch_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestinationPatch_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestinationPatch_IsolationPolicy_Shared    = "shared"
 )
+
 func (*AllowedOutboundDestinationPatch) isaAllowedOutboundDestinationPatch() bool {
 	return true
 }
@@ -5848,32 +5858,32 @@ func (allowedOutboundDestinationPatch *AllowedOutboundDestinationPatch) AsPatch(
 // - AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
 // - AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
 type AllowedOutboundDestinationPrototype struct {
+	// The name of the allowed outbound destination.
+	Name *string `json:"name" validate:"required"`
+
 	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
 
-	// The name of the allowed outbound destination.
-	Name *string `json:"name" validate:"required"`
-
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block,omitempty"`
-
-	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
-	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
-	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
 
 	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
 	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
 	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
 	// be set to `shared`.
 	IsolationPolicy *string `json:"isolation_policy,omitempty"`
+
+	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn,omitempty"`
 }
 
 // Constants associated with the AllowedOutboundDestinationPrototype.Type property.
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestinationPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototype_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestinationPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
@@ -5884,8 +5894,9 @@ const (
 // be set to `shared`.
 const (
 	AllowedOutboundDestinationPrototype_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestinationPrototype_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestinationPrototype_IsolationPolicy_Shared    = "shared"
 )
+
 func (*AllowedOutboundDestinationPrototype) isaAllowedOutboundDestinationPrototype() bool {
 	return true
 }
@@ -5897,14 +5908,14 @@ type AllowedOutboundDestinationPrototypeIntf interface {
 // UnmarshalAllowedOutboundDestinationPrototype unmarshals an instance of AllowedOutboundDestinationPrototype from the specified map of raw messages.
 func UnmarshalAllowedOutboundDestinationPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AllowedOutboundDestinationPrototype)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
@@ -5912,14 +5923,14 @@ func UnmarshalAllowedOutboundDestinationPrototype(m map[string]json.RawMessage, 
 		err = core.SDKErrorf(err, "", "cidr_block-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5944,18 +5955,19 @@ type AllowedOutboundStatusDetails struct {
 // Constants associated with the AllowedOutboundStatusDetails.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'deploying' status.
 const (
-	AllowedOutboundStatusDetails_Reason_Deploying = "deploying"
-	AllowedOutboundStatusDetails_Reason_Failed = "failed"
-	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionAlreadyExists = "private_path_connection_already_exists"
-	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionApprovalDenied = "private_path_connection_approval_denied"
+	AllowedOutboundStatusDetails_Reason_Deploying                            = "deploying"
+	AllowedOutboundStatusDetails_Reason_Failed                               = "failed"
+	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionAlreadyExists   = "private_path_connection_already_exists"
+	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionApprovalDenied  = "private_path_connection_approval_denied"
 	AllowedOutboundStatusDetails_Reason_PrivatePathConnectionApprovalPending = "private_path_connection_approval_pending"
-	AllowedOutboundStatusDetails_Reason_PrivatePathCrnInvalid = "private_path_crn_invalid"
-	AllowedOutboundStatusDetails_Reason_PrivatePathNotFound = "private_path_not_found"
-	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameAccountFamily = "private_path_not_in_same_account_family"
-	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameRegion = "private_path_not_in_same_region"
-	AllowedOutboundStatusDetails_Reason_PrivatePathNotPublished = "private_path_not_published"
-	AllowedOutboundStatusDetails_Reason_Ready = "ready"
+	AllowedOutboundStatusDetails_Reason_PrivatePathCrnInvalid                = "private_path_crn_invalid"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotFound                  = "private_path_not_found"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameAccountFamily    = "private_path_not_in_same_account_family"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotInSameRegion           = "private_path_not_in_same_region"
+	AllowedOutboundStatusDetails_Reason_PrivatePathNotPublished              = "private_path_not_published"
+	AllowedOutboundStatusDetails_Reason_Ready                                = "ready"
 )
+
 func (*AllowedOutboundStatusDetails) isaAllowedOutboundStatusDetails() bool {
 	return true
 }
@@ -6135,9 +6147,9 @@ type App struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	App_ManagedDomainMappings_Local = "local"
+	App_ManagedDomainMappings_Local        = "local"
 	App_ManagedDomainMappings_LocalPrivate = "local_private"
-	App_ManagedDomainMappings_LocalPublic = "local_public"
+	App_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the App.ResourceType property.
@@ -6152,18 +6164,18 @@ const (
 const (
 	App_RunServiceAccount_Default = "default"
 	App_RunServiceAccount_Manager = "manager"
-	App_RunServiceAccount_None = "none"
-	App_RunServiceAccount_Reader = "reader"
-	App_RunServiceAccount_Writer = "writer"
+	App_RunServiceAccount_None    = "none"
+	App_RunServiceAccount_Reader  = "reader"
+	App_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the App.Status property.
 // The current status of the app.
 const (
 	App_Status_Deploying = "deploying"
-	App_Status_Failed = "failed"
-	App_Status_Ready = "ready"
-	App_Status_Warning = "warning"
+	App_Status_Failed    = "failed"
+	App_Status_Ready     = "ready"
+	App_Status_Warning   = "warning"
 )
 
 // UnmarshalApp unmarshals an instance of App from the specified map of raw messages.
@@ -6425,9 +6437,9 @@ const (
 // Constants associated with the AppInstance.Status property.
 // The current status of the instance.
 const (
-	AppInstance_Status_Failed = "failed"
-	AppInstance_Status_Pending = "pending"
-	AppInstance_Status_Running = "running"
+	AppInstance_Status_Failed    = "failed"
+	AppInstance_Status_Pending   = "pending"
+	AppInstance_Status_Running   = "running"
 	AppInstance_Status_Succeeded = "succeeded"
 )
 
@@ -6743,9 +6755,9 @@ type AppPatch struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	AppPatch_ManagedDomainMappings_Local = "local"
+	AppPatch_ManagedDomainMappings_Local        = "local"
 	AppPatch_ManagedDomainMappings_LocalPrivate = "local_private"
-	AppPatch_ManagedDomainMappings_LocalPublic = "local_public"
+	AppPatch_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the AppPatch.RunServiceAccount property.
@@ -6754,9 +6766,9 @@ const (
 const (
 	AppPatch_RunServiceAccount_Default = "default"
 	AppPatch_RunServiceAccount_Manager = "manager"
-	AppPatch_RunServiceAccount_None = "none"
-	AppPatch_RunServiceAccount_Reader = "reader"
-	AppPatch_RunServiceAccount_Writer = "writer"
+	AppPatch_RunServiceAccount_None    = "none"
+	AppPatch_RunServiceAccount_Reader  = "reader"
+	AppPatch_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalAppPatch unmarshals an instance of AppPatch from the specified map of raw messages.
@@ -7103,17 +7115,17 @@ const (
 const (
 	AppRevision_RunServiceAccount_Default = "default"
 	AppRevision_RunServiceAccount_Manager = "manager"
-	AppRevision_RunServiceAccount_None = "none"
-	AppRevision_RunServiceAccount_Reader = "reader"
-	AppRevision_RunServiceAccount_Writer = "writer"
+	AppRevision_RunServiceAccount_None    = "none"
+	AppRevision_RunServiceAccount_Reader  = "reader"
+	AppRevision_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the AppRevision.Status property.
 // The current status of the app revision.
 const (
-	AppRevision_Status_Failed = "failed"
+	AppRevision_Status_Failed  = "failed"
 	AppRevision_Status_Loading = "loading"
-	AppRevision_Status_Ready = "ready"
+	AppRevision_Status_Ready   = "ready"
 	AppRevision_Status_Warning = "warning"
 )
 
@@ -7351,23 +7363,23 @@ type AppRevisionStatus struct {
 // Constants associated with the AppRevisionStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	AppRevisionStatus_Reason_ContainerFailedExitCode0 = "container_failed_exit_code_0"
-	AppRevisionStatus_Reason_ContainerFailedExitCode1 = "container_failed_exit_code_1"
-	AppRevisionStatus_Reason_ContainerFailedExitCode139 = "container_failed_exit_code_139"
-	AppRevisionStatus_Reason_ContainerFailedExitCode24 = "container_failed_exit_code_24"
-	AppRevisionStatus_Reason_Deploying = "deploying"
-	AppRevisionStatus_Reason_DeployingWaitingForResources = "deploying_waiting_for_resources"
+	AppRevisionStatus_Reason_ContainerFailedExitCode0               = "container_failed_exit_code_0"
+	AppRevisionStatus_Reason_ContainerFailedExitCode1               = "container_failed_exit_code_1"
+	AppRevisionStatus_Reason_ContainerFailedExitCode139             = "container_failed_exit_code_139"
+	AppRevisionStatus_Reason_ContainerFailedExitCode24              = "container_failed_exit_code_24"
+	AppRevisionStatus_Reason_Deploying                              = "deploying"
+	AppRevisionStatus_Reason_DeployingWaitingForResources           = "deploying_waiting_for_resources"
 	AppRevisionStatus_Reason_FetchImageFailedMissingPullCredentials = "fetch_image_failed_missing_pull_credentials"
-	AppRevisionStatus_Reason_FetchImageFailedMissingPullSecret = "fetch_image_failed_missing_pull_secret"
-	AppRevisionStatus_Reason_FetchImageFailedRegistryNotFound = "fetch_image_failed_registry_not_found"
-	AppRevisionStatus_Reason_FetchImageFailedUnknownManifest = "fetch_image_failed_unknown_manifest"
-	AppRevisionStatus_Reason_FetchImageFailedUnknownRepository = "fetch_image_failed_unknown_repository"
-	AppRevisionStatus_Reason_FetchImageFailedWrongPullCredentials = "fetch_image_failed_wrong_pull_credentials"
-	AppRevisionStatus_Reason_ImagePullBackOff = "image_pull_back_off"
-	AppRevisionStatus_Reason_InitialScaleNeverAchieved = "initial_scale_never_achieved"
-	AppRevisionStatus_Reason_InvalidTarHeaderImagePullErr = "invalid_tar_header_image_pull_err"
-	AppRevisionStatus_Reason_Ready = "ready"
-	AppRevisionStatus_Reason_Waiting = "waiting"
+	AppRevisionStatus_Reason_FetchImageFailedMissingPullSecret      = "fetch_image_failed_missing_pull_secret"
+	AppRevisionStatus_Reason_FetchImageFailedRegistryNotFound       = "fetch_image_failed_registry_not_found"
+	AppRevisionStatus_Reason_FetchImageFailedUnknownManifest        = "fetch_image_failed_unknown_manifest"
+	AppRevisionStatus_Reason_FetchImageFailedUnknownRepository      = "fetch_image_failed_unknown_repository"
+	AppRevisionStatus_Reason_FetchImageFailedWrongPullCredentials   = "fetch_image_failed_wrong_pull_credentials"
+	AppRevisionStatus_Reason_ImagePullBackOff                       = "image_pull_back_off"
+	AppRevisionStatus_Reason_InitialScaleNeverAchieved              = "initial_scale_never_achieved"
+	AppRevisionStatus_Reason_InvalidTarHeaderImagePullErr           = "invalid_tar_header_image_pull_err"
+	AppRevisionStatus_Reason_Ready                                  = "ready"
+	AppRevisionStatus_Reason_Waiting                                = "waiting"
 )
 
 // UnmarshalAppRevisionStatus unmarshals an instance of AppRevisionStatus from the specified map of raw messages.
@@ -7402,11 +7414,11 @@ type AppStatus struct {
 // Constants associated with the AppStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	AppStatus_Reason_Deploying = "deploying"
-	AppStatus_Reason_NoRevisionReady = "no_revision_ready"
-	AppStatus_Reason_Ready = "ready"
+	AppStatus_Reason_Deploying                    = "deploying"
+	AppStatus_Reason_NoRevisionReady              = "no_revision_ready"
+	AppStatus_Reason_Ready                        = "ready"
 	AppStatus_Reason_ReadyButLatestRevisionFailed = "ready_but_latest_revision_failed"
-	AppStatus_Reason_WaitingForResources = "waiting_for_resources"
+	AppStatus_Reason_WaitingForResources          = "waiting_for_resources"
 )
 
 // UnmarshalAppStatus unmarshals an instance of AppStatus from the specified map of raw messages.
@@ -7654,7 +7666,7 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	Build_SourceType_Git = "git"
+	Build_SourceType_Git   = "git"
 	Build_SourceType_Local = "local"
 )
 
@@ -7662,17 +7674,17 @@ const (
 // The current status of the build.
 const (
 	Build_Status_Failed = "failed"
-	Build_Status_Ready = "ready"
+	Build_Status_Ready  = "ready"
 )
 
 // Constants associated with the Build.StrategySize property.
 // Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 // `large`, `xlarge`, `xxlarge`.
 const (
-	Build_StrategySize_Large = "large"
-	Build_StrategySize_Medium = "medium"
-	Build_StrategySize_Small = "small"
-	Build_StrategySize_Xlarge = "xlarge"
+	Build_StrategySize_Large   = "large"
+	Build_StrategySize_Medium  = "medium"
+	Build_StrategySize_Small   = "small"
+	Build_StrategySize_Xlarge  = "xlarge"
 	Build_StrategySize_Xxlarge = "xxlarge"
 )
 
@@ -7872,8 +7884,8 @@ type BuildParam struct {
 // Specify the type of the build param.
 const (
 	BuildParam_Type_ConfigMapKeyReference = "config_map_key_reference"
-	BuildParam_Type_Literal = "literal"
-	BuildParam_Type_SecretKeyReference = "secret_key_reference"
+	BuildParam_Type_Literal               = "literal"
+	BuildParam_Type_SecretKeyReference    = "secret_key_reference"
 )
 
 // UnmarshalBuildParam unmarshals an instance of BuildParam from the specified map of raw messages.
@@ -7930,8 +7942,8 @@ type BuildParamPrototype struct {
 // Specify the type of the build param.
 const (
 	BuildParamPrototype_Type_ConfigMapKeyReference = "config_map_key_reference"
-	BuildParamPrototype_Type_Literal = "literal"
-	BuildParamPrototype_Type_SecretKeyReference = "secret_key_reference"
+	BuildParamPrototype_Type_Literal               = "literal"
+	BuildParamPrototype_Type_SecretKeyReference    = "secret_key_reference"
 )
 
 // NewBuildParamPrototype : Instantiate BuildParamPrototype (Generic Model Constructor)
@@ -8056,7 +8068,7 @@ type BuildPatch struct {
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	BuildPatch_SourceType_Git = "git"
+	BuildPatch_SourceType_Git   = "git"
 	BuildPatch_SourceType_Local = "local"
 )
 
@@ -8064,10 +8076,10 @@ const (
 // Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 // `large`, `xlarge`, `xxlarge`.
 const (
-	BuildPatch_StrategySize_Large = "large"
-	BuildPatch_StrategySize_Medium = "medium"
-	BuildPatch_StrategySize_Small = "small"
-	BuildPatch_StrategySize_Xlarge = "xlarge"
+	BuildPatch_StrategySize_Large   = "large"
+	BuildPatch_StrategySize_Medium  = "medium"
+	BuildPatch_StrategySize_Small   = "small"
+	BuildPatch_StrategySize_Xlarge  = "xlarge"
 	BuildPatch_StrategySize_Xxlarge = "xxlarge"
 )
 
@@ -8290,9 +8302,9 @@ const (
 const (
 	BuildRun_ServiceAccount_Default = "default"
 	BuildRun_ServiceAccount_Manager = "manager"
-	BuildRun_ServiceAccount_None = "none"
-	BuildRun_ServiceAccount_Reader = "reader"
-	BuildRun_ServiceAccount_Writer = "writer"
+	BuildRun_ServiceAccount_None    = "none"
+	BuildRun_ServiceAccount_Reader  = "reader"
+	BuildRun_ServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the BuildRun.SourceType property.
@@ -8300,16 +8312,16 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	BuildRun_SourceType_Git = "git"
+	BuildRun_SourceType_Git   = "git"
 	BuildRun_SourceType_Local = "local"
 )
 
 // Constants associated with the BuildRun.Status property.
 // The current status of the build run.
 const (
-	BuildRun_Status_Failed = "failed"
-	BuildRun_Status_Pending = "pending"
-	BuildRun_Status_Running = "running"
+	BuildRun_Status_Failed    = "failed"
+	BuildRun_Status_Pending   = "pending"
+	BuildRun_Status_Running   = "running"
 	BuildRun_Status_Succeeded = "succeeded"
 )
 
@@ -8317,10 +8329,10 @@ const (
 // Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 // `large`, `xlarge`, `xxlarge`.
 const (
-	BuildRun_StrategySize_Large = "large"
-	BuildRun_StrategySize_Medium = "medium"
-	BuildRun_StrategySize_Small = "small"
-	BuildRun_StrategySize_Xlarge = "xlarge"
+	BuildRun_StrategySize_Large   = "large"
+	BuildRun_StrategySize_Medium  = "medium"
+	BuildRun_StrategySize_Small   = "small"
+	BuildRun_StrategySize_Xlarge  = "xlarge"
 	BuildRun_StrategySize_Xxlarge = "xxlarge"
 )
 
@@ -8533,23 +8545,23 @@ type BuildRunStatus struct {
 // Constants associated with the BuildRunStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	BuildRunStatus_Reason_BuildNotFound = "build_not_found"
-	BuildRunStatus_Reason_ExceededEphemeralStorage = "exceeded_ephemeral_storage"
-	BuildRunStatus_Reason_Failed = "failed"
-	BuildRunStatus_Reason_FailedToExecuteBuildRun = "failed_to_execute_build_run"
-	BuildRunStatus_Reason_InvalidBuildConfiguration = "invalid_build_configuration"
-	BuildRunStatus_Reason_MissingCodeRepoAccess = "missing_code_repo_access"
-	BuildRunStatus_Reason_MissingRegistryAccess = "missing_registry_access"
-	BuildRunStatus_Reason_MissingSecrets = "missing_secrets"
-	BuildRunStatus_Reason_MissingTaskRun = "missing_task_run"
-	BuildRunStatus_Reason_Pending = "pending"
-	BuildRunStatus_Reason_PodEvicted = "pod_evicted"
+	BuildRunStatus_Reason_BuildNotFound                          = "build_not_found"
+	BuildRunStatus_Reason_ExceededEphemeralStorage               = "exceeded_ephemeral_storage"
+	BuildRunStatus_Reason_Failed                                 = "failed"
+	BuildRunStatus_Reason_FailedToExecuteBuildRun                = "failed_to_execute_build_run"
+	BuildRunStatus_Reason_InvalidBuildConfiguration              = "invalid_build_configuration"
+	BuildRunStatus_Reason_MissingCodeRepoAccess                  = "missing_code_repo_access"
+	BuildRunStatus_Reason_MissingRegistryAccess                  = "missing_registry_access"
+	BuildRunStatus_Reason_MissingSecrets                         = "missing_secrets"
+	BuildRunStatus_Reason_MissingTaskRun                         = "missing_task_run"
+	BuildRunStatus_Reason_Pending                                = "pending"
+	BuildRunStatus_Reason_PodEvicted                             = "pod_evicted"
 	BuildRunStatus_Reason_PodEvictedBecauseOfStorageQuotaExceeds = "pod_evicted_because_of_storage_quota_exceeds"
-	BuildRunStatus_Reason_Running = "running"
-	BuildRunStatus_Reason_Succeeded = "succeeded"
-	BuildRunStatus_Reason_TaskRunGenerationFailed = "task_run_generation_failed"
-	BuildRunStatus_Reason_Timeout = "timeout"
-	BuildRunStatus_Reason_UnknownStrategy = "unknown_strategy"
+	BuildRunStatus_Reason_Running                                = "running"
+	BuildRunStatus_Reason_Succeeded                              = "succeeded"
+	BuildRunStatus_Reason_TaskRunGenerationFailed                = "task_run_generation_failed"
+	BuildRunStatus_Reason_Timeout                                = "timeout"
+	BuildRunStatus_Reason_UnknownStrategy                        = "unknown_strategy"
 )
 
 // UnmarshalBuildRunStatus unmarshals an instance of BuildRunStatus from the specified map of raw messages.
@@ -8609,16 +8621,16 @@ type BuildStatus struct {
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
 	BuildStatus_Reason_ClusterBuildStrategyNotFound = "cluster_build_strategy_not_found"
-	BuildStatus_Reason_Failed = "failed"
-	BuildStatus_Reason_MultipleSecretRefNotFound = "multiple_secret_ref_not_found"
-	BuildStatus_Reason_Registered = "registered"
-	BuildStatus_Reason_RemoteRepositoryUnreachable = "remote_repository_unreachable"
-	BuildStatus_Reason_RuntimePathsCanNotBeEmpty = "runtime_paths_can_not_be_empty"
-	BuildStatus_Reason_SetOwnerReferenceFailed = "set_owner_reference_failed"
-	BuildStatus_Reason_SpecOutputSecretRefNotFound = "spec_output_secret_ref_not_found"
+	BuildStatus_Reason_Failed                       = "failed"
+	BuildStatus_Reason_MultipleSecretRefNotFound    = "multiple_secret_ref_not_found"
+	BuildStatus_Reason_Registered                   = "registered"
+	BuildStatus_Reason_RemoteRepositoryUnreachable  = "remote_repository_unreachable"
+	BuildStatus_Reason_RuntimePathsCanNotBeEmpty    = "runtime_paths_can_not_be_empty"
+	BuildStatus_Reason_SetOwnerReferenceFailed      = "set_owner_reference_failed"
+	BuildStatus_Reason_SpecOutputSecretRefNotFound  = "spec_output_secret_ref_not_found"
 	BuildStatus_Reason_SpecRuntimeSecretRefNotFound = "spec_runtime_secret_ref_not_found"
-	BuildStatus_Reason_SpecSourceSecretNotFound = "spec_source_secret_not_found"
-	BuildStatus_Reason_StrategyNotFound = "strategy_not_found"
+	BuildStatus_Reason_SpecSourceSecretNotFound     = "spec_source_secret_not_found"
+	BuildStatus_Reason_StrategyNotFound             = "strategy_not_found"
 )
 
 // UnmarshalBuildStatus unmarshals an instance of BuildStatus from the specified map of raw messages.
@@ -8663,7 +8675,7 @@ type ComponentRef struct {
 // NewComponentRef : Instantiate ComponentRef (Generic Model Constructor)
 func (*CodeEngineV2) NewComponentRef(name string, resourceType string) (_model *ComponentRef, err error) {
 	_model = &ComponentRef{
-		Name: core.StringPtr(name),
+		Name:         core.StringPtr(name),
 		ResourceType: core.StringPtr(resourceType),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8889,8 +8901,8 @@ type ContainerStatusDetails struct {
 // Constants associated with the ContainerStatusDetails.ContainerStatus property.
 // The status of the container.
 const (
-	ContainerStatusDetails_ContainerStatus_Pending = "pending"
-	ContainerStatusDetails_ContainerStatus_Running = "running"
+	ContainerStatusDetails_ContainerStatus_Pending    = "pending"
+	ContainerStatusDetails_ContainerStatus_Running    = "running"
 	ContainerStatusDetails_ContainerStatus_Terminated = "terminated"
 )
 
@@ -8941,7 +8953,7 @@ type CreateAllowedOutboundDestinationOptions struct {
 // NewCreateAllowedOutboundDestinationOptions : Instantiate CreateAllowedOutboundDestinationOptions
 func (*CodeEngineV2) NewCreateAllowedOutboundDestinationOptions(projectID string, allowedOutboundDestination AllowedOutboundDestinationPrototypeIntf) *CreateAllowedOutboundDestinationOptions {
 	return &CreateAllowedOutboundDestinationOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:                  core.StringPtr(projectID),
 		AllowedOutboundDestination: allowedOutboundDestination,
 	}
 }
@@ -9074,9 +9086,9 @@ type CreateAppOptions struct {
 // values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
 // supports application private visibility.
 const (
-	CreateAppOptions_ManagedDomainMappings_Local = "local"
+	CreateAppOptions_ManagedDomainMappings_Local        = "local"
 	CreateAppOptions_ManagedDomainMappings_LocalPrivate = "local_private"
-	CreateAppOptions_ManagedDomainMappings_LocalPublic = "local_public"
+	CreateAppOptions_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the CreateAppOptions.RunServiceAccount property.
@@ -9085,17 +9097,17 @@ const (
 const (
 	CreateAppOptions_RunServiceAccount_Default = "default"
 	CreateAppOptions_RunServiceAccount_Manager = "manager"
-	CreateAppOptions_RunServiceAccount_None = "none"
-	CreateAppOptions_RunServiceAccount_Reader = "reader"
-	CreateAppOptions_RunServiceAccount_Writer = "writer"
+	CreateAppOptions_RunServiceAccount_None    = "none"
+	CreateAppOptions_RunServiceAccount_Reader  = "reader"
+	CreateAppOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateAppOptions : Instantiate CreateAppOptions
 func (*CodeEngineV2) NewCreateAppOptions(projectID string, imageReference string, name string) *CreateAppOptions {
 	return &CreateAppOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:      core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
-		Name: core.StringPtr(name),
+		Name:           core.StringPtr(name),
 	}
 }
 
@@ -9276,9 +9288,9 @@ type CreateBindingOptions struct {
 // NewCreateBindingOptions : Instantiate CreateBindingOptions
 func (*CodeEngineV2) NewCreateBindingOptions(projectID string, component *ComponentRef, prefix string, secretName string) *CreateBindingOptions {
 	return &CreateBindingOptions{
-		ProjectID: core.StringPtr(projectID),
-		Component: component,
-		Prefix: core.StringPtr(prefix),
+		ProjectID:  core.StringPtr(projectID),
+		Component:  component,
+		Prefix:     core.StringPtr(prefix),
 		SecretName: core.StringPtr(secretName),
 	}
 }
@@ -9385,7 +9397,7 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	CreateBuildOptions_SourceType_Git = "git"
+	CreateBuildOptions_SourceType_Git   = "git"
 	CreateBuildOptions_SourceType_Local = "local"
 )
 
@@ -9393,19 +9405,19 @@ const (
 // Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 // `large`, `xlarge`, `xxlarge`.
 const (
-	CreateBuildOptions_StrategySize_Large = "large"
-	CreateBuildOptions_StrategySize_Medium = "medium"
-	CreateBuildOptions_StrategySize_Small = "small"
-	CreateBuildOptions_StrategySize_Xlarge = "xlarge"
+	CreateBuildOptions_StrategySize_Large   = "large"
+	CreateBuildOptions_StrategySize_Medium  = "medium"
+	CreateBuildOptions_StrategySize_Small   = "small"
+	CreateBuildOptions_StrategySize_Xlarge  = "xlarge"
 	CreateBuildOptions_StrategySize_Xxlarge = "xxlarge"
 )
 
 // NewCreateBuildOptions : Instantiate CreateBuildOptions
 func (*CodeEngineV2) NewCreateBuildOptions(projectID string, name string, outputImage string, outputSecret string, strategyType string) *CreateBuildOptions {
 	return &CreateBuildOptions{
-		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		OutputImage: core.StringPtr(outputImage),
+		ProjectID:    core.StringPtr(projectID),
+		Name:         core.StringPtr(name),
+		OutputImage:  core.StringPtr(outputImage),
 		OutputSecret: core.StringPtr(outputSecret),
 		StrategyType: core.StringPtr(strategyType),
 	}
@@ -9575,9 +9587,9 @@ type CreateBuildRunOptions struct {
 const (
 	CreateBuildRunOptions_ServiceAccount_Default = "default"
 	CreateBuildRunOptions_ServiceAccount_Manager = "manager"
-	CreateBuildRunOptions_ServiceAccount_None = "none"
-	CreateBuildRunOptions_ServiceAccount_Reader = "reader"
-	CreateBuildRunOptions_ServiceAccount_Writer = "writer"
+	CreateBuildRunOptions_ServiceAccount_None    = "none"
+	CreateBuildRunOptions_ServiceAccount_Reader  = "reader"
+	CreateBuildRunOptions_ServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the CreateBuildRunOptions.SourceType property.
@@ -9585,7 +9597,7 @@ const (
 // * local - For builds from local source code.
 // * git - For builds from git version controlled source code.
 const (
-	CreateBuildRunOptions_SourceType_Git = "git"
+	CreateBuildRunOptions_SourceType_Git   = "git"
 	CreateBuildRunOptions_SourceType_Local = "local"
 )
 
@@ -9593,10 +9605,10 @@ const (
 // Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`,
 // `large`, `xlarge`, `xxlarge`.
 const (
-	CreateBuildRunOptions_StrategySize_Large = "large"
-	CreateBuildRunOptions_StrategySize_Medium = "medium"
-	CreateBuildRunOptions_StrategySize_Small = "small"
-	CreateBuildRunOptions_StrategySize_Xlarge = "xlarge"
+	CreateBuildRunOptions_StrategySize_Large   = "large"
+	CreateBuildRunOptions_StrategySize_Medium  = "medium"
+	CreateBuildRunOptions_StrategySize_Small   = "small"
+	CreateBuildRunOptions_StrategySize_Xlarge  = "xlarge"
 	CreateBuildRunOptions_StrategySize_Xxlarge = "xxlarge"
 )
 
@@ -9737,7 +9749,7 @@ type CreateConfigMapOptions struct {
 func (*CodeEngineV2) NewCreateConfigMapOptions(projectID string, name string) *CreateConfigMapOptions {
 	return &CreateConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -9788,7 +9800,7 @@ func (*CodeEngineV2) NewCreateDomainMappingOptions(projectID string, component *
 	return &CreateDomainMappingOptions{
 		ProjectID: core.StringPtr(projectID),
 		Component: component,
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 		TlsSecret: core.StringPtr(tlsSecret),
 	}
 }
@@ -9889,18 +9901,18 @@ type CreateFunctionOptions struct {
 // are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
 // function private visibility.
 const (
-	CreateFunctionOptions_ManagedDomainMappings_Local = "local"
+	CreateFunctionOptions_ManagedDomainMappings_Local        = "local"
 	CreateFunctionOptions_ManagedDomainMappings_LocalPrivate = "local_private"
-	CreateFunctionOptions_ManagedDomainMappings_LocalPublic = "local_public"
+	CreateFunctionOptions_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // NewCreateFunctionOptions : Instantiate CreateFunctionOptions
 func (*CodeEngineV2) NewCreateFunctionOptions(projectID string, codeReference string, name string, runtime string) *CreateFunctionOptions {
 	return &CreateFunctionOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:     core.StringPtr(projectID),
 		CodeReference: core.StringPtr(codeReference),
-		Name: core.StringPtr(name),
-		Runtime: core.StringPtr(runtime),
+		Name:          core.StringPtr(name),
+		Runtime:       core.StringPtr(runtime),
 	}
 }
 
@@ -10088,7 +10100,7 @@ type CreateJobOptions struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobOptions_RunMode_Daemon = "daemon"
-	CreateJobOptions_RunMode_Task = "task"
+	CreateJobOptions_RunMode_Task   = "task"
 )
 
 // Constants associated with the CreateJobOptions.RunServiceAccount property.
@@ -10097,17 +10109,17 @@ const (
 const (
 	CreateJobOptions_RunServiceAccount_Default = "default"
 	CreateJobOptions_RunServiceAccount_Manager = "manager"
-	CreateJobOptions_RunServiceAccount_None = "none"
-	CreateJobOptions_RunServiceAccount_Reader = "reader"
-	CreateJobOptions_RunServiceAccount_Writer = "writer"
+	CreateJobOptions_RunServiceAccount_None    = "none"
+	CreateJobOptions_RunServiceAccount_Reader  = "reader"
+	CreateJobOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateJobOptions : Instantiate CreateJobOptions
 func (*CodeEngineV2) NewCreateJobOptions(projectID string, imageReference string, name string) *CreateJobOptions {
 	return &CreateJobOptions{
-		ProjectID: core.StringPtr(projectID),
+		ProjectID:      core.StringPtr(projectID),
 		ImageReference: core.StringPtr(imageReference),
-		Name: core.StringPtr(name),
+		Name:           core.StringPtr(name),
 	}
 }
 
@@ -10320,7 +10332,7 @@ type CreateJobRunOptions struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	CreateJobRunOptions_RunMode_Daemon = "daemon"
-	CreateJobRunOptions_RunMode_Task = "task"
+	CreateJobRunOptions_RunMode_Task   = "task"
 )
 
 // Constants associated with the CreateJobRunOptions.RunServiceAccount property.
@@ -10329,9 +10341,9 @@ const (
 const (
 	CreateJobRunOptions_RunServiceAccount_Default = "default"
 	CreateJobRunOptions_RunServiceAccount_Manager = "manager"
-	CreateJobRunOptions_RunServiceAccount_None = "none"
-	CreateJobRunOptions_RunServiceAccount_Reader = "reader"
-	CreateJobRunOptions_RunServiceAccount_Writer = "writer"
+	CreateJobRunOptions_RunServiceAccount_None    = "none"
+	CreateJobRunOptions_RunServiceAccount_Reader  = "reader"
+	CreateJobRunOptions_RunServiceAccount_Writer  = "writer"
 )
 
 // NewCreateJobRunOptions : Instantiate CreateJobRunOptions
@@ -10496,8 +10508,8 @@ const (
 // NewCreatePersistentDataStoreOptions : Instantiate CreatePersistentDataStoreOptions
 func (*CodeEngineV2) NewCreatePersistentDataStoreOptions(projectID string, name string, storageType string) *CreatePersistentDataStoreOptions {
 	return &CreatePersistentDataStoreOptions{
-		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		ProjectID:   core.StringPtr(projectID),
+		Name:        core.StringPtr(name),
 		StorageType: core.StringPtr(storageType),
 	}
 }
@@ -10610,23 +10622,23 @@ type CreateSecretOptions struct {
 // Constants associated with the CreateSecretOptions.Format property.
 // Specify the format of the secret. The format of the secret will determine how the secret is used.
 const (
-	CreateSecretOptions_Format_BasicAuth = "basic_auth"
-	CreateSecretOptions_Format_Generic = "generic"
-	CreateSecretOptions_Format_HmacAuth = "hmac_auth"
-	CreateSecretOptions_Format_Other = "other"
-	CreateSecretOptions_Format_Registry = "registry"
-	CreateSecretOptions_Format_ServiceAccess = "service_access"
+	CreateSecretOptions_Format_BasicAuth       = "basic_auth"
+	CreateSecretOptions_Format_Generic         = "generic"
+	CreateSecretOptions_Format_HmacAuth        = "hmac_auth"
+	CreateSecretOptions_Format_Other           = "other"
+	CreateSecretOptions_Format_Registry        = "registry"
+	CreateSecretOptions_Format_ServiceAccess   = "service_access"
 	CreateSecretOptions_Format_ServiceOperator = "service_operator"
-	CreateSecretOptions_Format_SshAuth = "ssh_auth"
-	CreateSecretOptions_Format_Tls = "tls"
+	CreateSecretOptions_Format_SshAuth         = "ssh_auth"
+	CreateSecretOptions_Format_Tls             = "tls"
 )
 
 // NewCreateSecretOptions : Instantiate CreateSecretOptions
 func (*CodeEngineV2) NewCreateSecretOptions(projectID string, format string, name string) *CreateSecretOptions {
 	return &CreateSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Format: core.StringPtr(format),
-		Name: core.StringPtr(name),
+		Format:    core.StringPtr(format),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10688,7 +10700,7 @@ type DeleteAllowedOutboundDestinationOptions struct {
 func (*CodeEngineV2) NewDeleteAllowedOutboundDestinationOptions(projectID string, name string) *DeleteAllowedOutboundDestinationOptions {
 	return &DeleteAllowedOutboundDestinationOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10729,7 +10741,7 @@ type DeleteAppOptions struct {
 func (*CodeEngineV2) NewDeleteAppOptions(projectID string, name string) *DeleteAppOptions {
 	return &DeleteAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10776,8 +10788,8 @@ type DeleteAppRevisionOptions struct {
 func (*CodeEngineV2) NewDeleteAppRevisionOptions(projectID string, appName string, name string) *DeleteAppRevisionOptions {
 	return &DeleteAppRevisionOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
-		Name: core.StringPtr(name),
+		AppName:   core.StringPtr(appName),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10821,7 +10833,7 @@ type DeleteBindingOptions struct {
 func (*CodeEngineV2) NewDeleteBindingOptions(projectID string, id string) *DeleteBindingOptions {
 	return &DeleteBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		ID: core.StringPtr(id),
+		ID:        core.StringPtr(id),
 	}
 }
 
@@ -10859,7 +10871,7 @@ type DeleteBuildOptions struct {
 func (*CodeEngineV2) NewDeleteBuildOptions(projectID string, name string) *DeleteBuildOptions {
 	return &DeleteBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10897,7 +10909,7 @@ type DeleteBuildRunOptions struct {
 func (*CodeEngineV2) NewDeleteBuildRunOptions(projectID string, name string) *DeleteBuildRunOptions {
 	return &DeleteBuildRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10935,7 +10947,7 @@ type DeleteConfigMapOptions struct {
 func (*CodeEngineV2) NewDeleteConfigMapOptions(projectID string, name string) *DeleteConfigMapOptions {
 	return &DeleteConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -10973,7 +10985,7 @@ type DeleteDomainMappingOptions struct {
 func (*CodeEngineV2) NewDeleteDomainMappingOptions(projectID string, name string) *DeleteDomainMappingOptions {
 	return &DeleteDomainMappingOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11014,7 +11026,7 @@ type DeleteFunctionOptions struct {
 func (*CodeEngineV2) NewDeleteFunctionOptions(projectID string, name string) *DeleteFunctionOptions {
 	return &DeleteFunctionOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11061,7 +11073,7 @@ type DeleteJobOptions struct {
 func (*CodeEngineV2) NewDeleteJobOptions(projectID string, name string) *DeleteJobOptions {
 	return &DeleteJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11105,7 +11117,7 @@ type DeleteJobRunOptions struct {
 func (*CodeEngineV2) NewDeleteJobRunOptions(projectID string, name string) *DeleteJobRunOptions {
 	return &DeleteJobRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11143,7 +11155,7 @@ type DeletePersistentDataStoreOptions struct {
 func (*CodeEngineV2) NewDeletePersistentDataStoreOptions(projectID string, name string) *DeletePersistentDataStoreOptions {
 	return &DeletePersistentDataStoreOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11209,7 +11221,7 @@ type DeleteSecretOptions struct {
 func (*CodeEngineV2) NewDeleteSecretOptions(projectID string, name string) *DeleteSecretOptions {
 	return &DeleteSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -11292,18 +11304,18 @@ const (
 // The current status of the domain mapping.
 const (
 	DomainMapping_Status_Deploying = "deploying"
-	DomainMapping_Status_Failed = "failed"
-	DomainMapping_Status_Ready = "ready"
+	DomainMapping_Status_Failed    = "failed"
+	DomainMapping_Status_Ready     = "ready"
 )
 
 // Constants associated with the DomainMapping.Visibility property.
 // Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only
 // through other components within the same Code Engine project.
 const (
-	DomainMapping_Visibility_Custom = "custom"
+	DomainMapping_Visibility_Custom  = "custom"
 	DomainMapping_Visibility_Private = "private"
 	DomainMapping_Visibility_Project = "project"
-	DomainMapping_Visibility_Public = "public"
+	DomainMapping_Visibility_Public  = "public"
 )
 
 // UnmarshalDomainMapping unmarshals an instance of DomainMapping from the specified map of raw messages.
@@ -11486,12 +11498,12 @@ type DomainMappingStatus struct {
 // Constants associated with the DomainMappingStatus.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'warning' status.
 const (
-	DomainMappingStatus_Reason_AppRefFailed = "app_ref_failed"
-	DomainMappingStatus_Reason_Deploying = "deploying"
-	DomainMappingStatus_Reason_DomainAlreadyClaimed = "domain_already_claimed"
-	DomainMappingStatus_Reason_Failed = "failed"
+	DomainMappingStatus_Reason_AppRefFailed           = "app_ref_failed"
+	DomainMappingStatus_Reason_Deploying              = "deploying"
+	DomainMappingStatus_Reason_DomainAlreadyClaimed   = "domain_already_claimed"
+	DomainMappingStatus_Reason_Failed                 = "failed"
 	DomainMappingStatus_Reason_FailedReconcileIngress = "failed_reconcile_ingress"
-	DomainMappingStatus_Reason_Ready = "ready"
+	DomainMappingStatus_Reason_Ready                  = "ready"
 )
 
 // UnmarshalDomainMappingStatus unmarshals an instance of DomainMappingStatus from the specified map of raw messages.
@@ -11509,7 +11521,7 @@ func UnmarshalDomainMappingStatus(m map[string]json.RawMessage, result interface
 // EndpointGatewayDetails : Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private path
 // service gateway.
 type EndpointGatewayDetails struct {
-	// The account that created the endpoint gateway.
+	// The ID of the account that created the endpoint gateway, e.g. 4329073d16d2f3663f74bfa955259139.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// The timestamp when the endpoint gateway was created.
@@ -11561,10 +11573,10 @@ type EnforcementStatus struct {
 // Constants associated with the EnforcementStatus.Enforcement property.
 // Detailed information on the condition of the CBR enforcement.
 const (
-	EnforcementStatus_Enforcement_Applied = "applied"
-	EnforcementStatus_Enforcement_None = "none"
+	EnforcementStatus_Enforcement_Applied   = "applied"
+	EnforcementStatus_Enforcement_None      = "none"
 	EnforcementStatus_Enforcement_OutOfSync = "out_of_sync"
-	EnforcementStatus_Enforcement_Unknown = "unknown"
+	EnforcementStatus_Enforcement_Unknown   = "unknown"
 )
 
 // UnmarshalEnforcementStatus unmarshals an instance of EnforcementStatus from the specified map of raw messages.
@@ -11609,10 +11621,10 @@ type EnvVar struct {
 // Specify the type of the environment variable.
 const (
 	EnvVar_Type_ConfigMapFullReference = "config_map_full_reference"
-	EnvVar_Type_ConfigMapKeyReference = "config_map_key_reference"
-	EnvVar_Type_Literal = "literal"
-	EnvVar_Type_SecretFullReference = "secret_full_reference"
-	EnvVar_Type_SecretKeyReference = "secret_key_reference"
+	EnvVar_Type_ConfigMapKeyReference  = "config_map_key_reference"
+	EnvVar_Type_Literal                = "literal"
+	EnvVar_Type_SecretFullReference    = "secret_full_reference"
+	EnvVar_Type_SecretKeyReference     = "secret_key_reference"
 )
 
 // UnmarshalEnvVar unmarshals an instance of EnvVar from the specified map of raw messages.
@@ -11677,10 +11689,10 @@ type EnvVarPrototype struct {
 // Specify the type of the environment variable.
 const (
 	EnvVarPrototype_Type_ConfigMapFullReference = "config_map_full_reference"
-	EnvVarPrototype_Type_ConfigMapKeyReference = "config_map_key_reference"
-	EnvVarPrototype_Type_Literal = "literal"
-	EnvVarPrototype_Type_SecretFullReference = "secret_full_reference"
-	EnvVarPrototype_Type_SecretKeyReference = "secret_key_reference"
+	EnvVarPrototype_Type_ConfigMapKeyReference  = "config_map_key_reference"
+	EnvVarPrototype_Type_Literal                = "literal"
+	EnvVarPrototype_Type_SecretFullReference    = "secret_full_reference"
+	EnvVarPrototype_Type_SecretKeyReference     = "secret_key_reference"
 )
 
 // UnmarshalEnvVarPrototype unmarshals an instance of EnvVarPrototype from the specified map of raw messages.
@@ -11844,9 +11856,9 @@ type Function struct {
 // are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
 // function private visibility.
 const (
-	Function_ManagedDomainMappings_Local = "local"
+	Function_ManagedDomainMappings_Local        = "local"
 	Function_ManagedDomainMappings_LocalPrivate = "local_private"
-	Function_ManagedDomainMappings_LocalPublic = "local_public"
+	Function_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // Constants associated with the Function.ResourceType property.
@@ -11859,9 +11871,9 @@ const (
 // The current status of the function.
 const (
 	Function_Status_Deploying = "deploying"
-	Function_Status_Failed = "failed"
-	Function_Status_Offline = "offline"
-	Function_Status_Ready = "ready"
+	Function_Status_Failed    = "failed"
+	Function_Status_Offline   = "offline"
+	Function_Status_Ready     = "ready"
 )
 
 // UnmarshalFunction unmarshals an instance of Function from the specified map of raw messages.
@@ -12108,9 +12120,9 @@ type FunctionPatch struct {
 // are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports
 // function private visibility.
 const (
-	FunctionPatch_ManagedDomainMappings_Local = "local"
+	FunctionPatch_ManagedDomainMappings_Local        = "local"
 	FunctionPatch_ManagedDomainMappings_LocalPrivate = "local_private"
-	FunctionPatch_ManagedDomainMappings_LocalPublic = "local_public"
+	FunctionPatch_ManagedDomainMappings_LocalPublic  = "local_public"
 )
 
 // UnmarshalFunctionPatch unmarshals an instance of FunctionPatch from the specified map of raw messages.
@@ -12320,14 +12332,14 @@ type FunctionStatus struct {
 // Constants associated with the FunctionStatus.Reason property.
 // Provides additional information about the status of the function.
 const (
-	FunctionStatus_Reason_Deploying = "deploying"
+	FunctionStatus_Reason_Deploying                  = "deploying"
 	FunctionStatus_Reason_DeployingConfiguringRoutes = "deploying_configuring_routes"
-	FunctionStatus_Reason_NoCodeBundle = "no_code_bundle"
-	FunctionStatus_Reason_Offline = "offline"
-	FunctionStatus_Reason_Ready = "ready"
-	FunctionStatus_Reason_ReadyLastUpdateFailed = "ready_last_update_failed"
-	FunctionStatus_Reason_ReadyUpdateInProgress = "ready_update_in_progress"
-	FunctionStatus_Reason_UnknownReason = "unknown_reason"
+	FunctionStatus_Reason_NoCodeBundle               = "no_code_bundle"
+	FunctionStatus_Reason_Offline                    = "offline"
+	FunctionStatus_Reason_Ready                      = "ready"
+	FunctionStatus_Reason_ReadyLastUpdateFailed      = "ready_last_update_failed"
+	FunctionStatus_Reason_ReadyUpdateInProgress      = "ready_update_in_progress"
+	FunctionStatus_Reason_UnknownReason              = "unknown_reason"
 )
 
 // UnmarshalFunctionStatus unmarshals an instance of FunctionStatus from the specified map of raw messages.
@@ -12358,7 +12370,7 @@ type GetAllowedOutboundDestinationOptions struct {
 func (*CodeEngineV2) NewGetAllowedOutboundDestinationOptions(projectID string, name string) *GetAllowedOutboundDestinationOptions {
 	return &GetAllowedOutboundDestinationOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12396,7 +12408,7 @@ type GetAppOptions struct {
 func (*CodeEngineV2) NewGetAppOptions(projectID string, name string) *GetAppOptions {
 	return &GetAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12437,8 +12449,8 @@ type GetAppRevisionOptions struct {
 func (*CodeEngineV2) NewGetAppRevisionOptions(projectID string, appName string, name string) *GetAppRevisionOptions {
 	return &GetAppRevisionOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
-		Name: core.StringPtr(name),
+		AppName:   core.StringPtr(appName),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12482,7 +12494,7 @@ type GetBindingOptions struct {
 func (*CodeEngineV2) NewGetBindingOptions(projectID string, id string) *GetBindingOptions {
 	return &GetBindingOptions{
 		ProjectID: core.StringPtr(projectID),
-		ID: core.StringPtr(id),
+		ID:        core.StringPtr(id),
 	}
 }
 
@@ -12520,7 +12532,7 @@ type GetBuildOptions struct {
 func (*CodeEngineV2) NewGetBuildOptions(projectID string, name string) *GetBuildOptions {
 	return &GetBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12558,7 +12570,7 @@ type GetBuildRunOptions struct {
 func (*CodeEngineV2) NewGetBuildRunOptions(projectID string, name string) *GetBuildRunOptions {
 	return &GetBuildRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12596,7 +12608,7 @@ type GetConfigMapOptions struct {
 func (*CodeEngineV2) NewGetConfigMapOptions(projectID string, name string) *GetConfigMapOptions {
 	return &GetConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12634,7 +12646,7 @@ type GetDomainMappingOptions struct {
 func (*CodeEngineV2) NewGetDomainMappingOptions(projectID string, name string) *GetDomainMappingOptions {
 	return &GetDomainMappingOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12672,7 +12684,7 @@ type GetFunctionOptions struct {
 func (*CodeEngineV2) NewGetFunctionOptions(projectID string, name string) *GetFunctionOptions {
 	return &GetFunctionOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12710,7 +12722,7 @@ type GetJobOptions struct {
 func (*CodeEngineV2) NewGetJobOptions(projectID string, name string) *GetJobOptions {
 	return &GetJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12748,7 +12760,7 @@ type GetJobRunOptions struct {
 func (*CodeEngineV2) NewGetJobRunOptions(projectID string, name string) *GetJobRunOptions {
 	return &GetJobRunOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12786,7 +12798,7 @@ type GetPersistentDataStoreOptions struct {
 func (*CodeEngineV2) NewGetPersistentDataStoreOptions(projectID string, name string) *GetPersistentDataStoreOptions {
 	return &GetPersistentDataStoreOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12908,7 +12920,7 @@ type GetSecretOptions struct {
 func (*CodeEngineV2) NewGetSecretOptions(projectID string, name string) *GetSecretOptions {
 	return &GetSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -12952,11 +12964,11 @@ type IndexDetails struct {
 // Constants associated with the IndexDetails.Status property.
 // Current status of the job run index.
 const (
-	IndexDetails_Status_Failed = "failed"
-	IndexDetails_Status_Pending = "pending"
-	IndexDetails_Status_Running = "running"
+	IndexDetails_Status_Failed    = "failed"
+	IndexDetails_Status_Pending   = "pending"
+	IndexDetails_Status_Running   = "running"
 	IndexDetails_Status_Succeeded = "succeeded"
-	IndexDetails_Status_Unknown = "unknown"
+	IndexDetails_Status_Unknown   = "unknown"
 )
 
 // UnmarshalIndexDetails unmarshals an instance of IndexDetails from the specified map of raw messages.
@@ -13112,7 +13124,7 @@ const (
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	Job_RunMode_Daemon = "daemon"
-	Job_RunMode_Task = "task"
+	Job_RunMode_Task   = "task"
 )
 
 // Constants associated with the Job.RunServiceAccount property.
@@ -13121,9 +13133,9 @@ const (
 const (
 	Job_RunServiceAccount_Default = "default"
 	Job_RunServiceAccount_Manager = "manager"
-	Job_RunServiceAccount_None = "none"
-	Job_RunServiceAccount_Reader = "reader"
-	Job_RunServiceAccount_Writer = "writer"
+	Job_RunServiceAccount_None    = "none"
+	Job_RunServiceAccount_Reader  = "reader"
+	Job_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalJob unmarshals an instance of Job from the specified map of raw messages.
@@ -13398,7 +13410,7 @@ type JobPatch struct {
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobPatch_RunMode_Daemon = "daemon"
-	JobPatch_RunMode_Task = "task"
+	JobPatch_RunMode_Task   = "task"
 )
 
 // Constants associated with the JobPatch.RunServiceAccount property.
@@ -13407,9 +13419,9 @@ const (
 const (
 	JobPatch_RunServiceAccount_Default = "default"
 	JobPatch_RunServiceAccount_Manager = "manager"
-	JobPatch_RunServiceAccount_None = "none"
-	JobPatch_RunServiceAccount_Reader = "reader"
-	JobPatch_RunServiceAccount_Writer = "writer"
+	JobPatch_RunServiceAccount_None    = "none"
+	JobPatch_RunServiceAccount_Reader  = "reader"
+	JobPatch_RunServiceAccount_Writer  = "writer"
 )
 
 // UnmarshalJobPatch unmarshals an instance of JobPatch from the specified map of raw messages.
@@ -13687,7 +13699,7 @@ const (
 // indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
 const (
 	JobRun_RunMode_Daemon = "daemon"
-	JobRun_RunMode_Task = "task"
+	JobRun_RunMode_Task   = "task"
 )
 
 // Constants associated with the JobRun.RunServiceAccount property.
@@ -13696,18 +13708,18 @@ const (
 const (
 	JobRun_RunServiceAccount_Default = "default"
 	JobRun_RunServiceAccount_Manager = "manager"
-	JobRun_RunServiceAccount_None = "none"
-	JobRun_RunServiceAccount_Reader = "reader"
-	JobRun_RunServiceAccount_Writer = "writer"
+	JobRun_RunServiceAccount_None    = "none"
+	JobRun_RunServiceAccount_Reader  = "reader"
+	JobRun_RunServiceAccount_Writer  = "writer"
 )
 
 // Constants associated with the JobRun.Status property.
 // The current status of the job run.
 const (
 	JobRun_Status_Completed = "completed"
-	JobRun_Status_Failed = "failed"
-	JobRun_Status_Pending = "pending"
-	JobRun_Status_Running = "running"
+	JobRun_Status_Failed    = "failed"
+	JobRun_Status_Pending   = "pending"
+	JobRun_Status_Running   = "running"
 )
 
 // UnmarshalJobRun unmarshals an instance of JobRun from the specified map of raw messages.
@@ -14093,7 +14105,7 @@ type ListAppInstancesOptions struct {
 func (*CodeEngineV2) NewListAppInstancesOptions(projectID string, appName string) *ListAppInstancesOptions {
 	return &ListAppInstancesOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
+		AppName:   core.StringPtr(appName),
 	}
 }
 
@@ -14151,7 +14163,7 @@ type ListAppRevisionsOptions struct {
 func (*CodeEngineV2) NewListAppRevisionsOptions(projectID string, appName string) *ListAppRevisionsOptions {
 	return &ListAppRevisionsOptions{
 		ProjectID: core.StringPtr(projectID),
-		AppName: core.StringPtr(appName),
+		AppName:   core.StringPtr(appName),
 	}
 }
 
@@ -14805,14 +14817,14 @@ type ListSecretsOptions struct {
 // Constants associated with the ListSecretsOptions.Format property.
 // Secret format to filter results by.
 const (
-	ListSecretsOptions_Format_BasicAuth = "basic_auth"
-	ListSecretsOptions_Format_Generic = "generic"
-	ListSecretsOptions_Format_HmacAuth = "hmac_auth"
-	ListSecretsOptions_Format_Registry = "registry"
-	ListSecretsOptions_Format_ServiceAccess = "service_access"
+	ListSecretsOptions_Format_BasicAuth       = "basic_auth"
+	ListSecretsOptions_Format_Generic         = "generic"
+	ListSecretsOptions_Format_HmacAuth        = "hmac_auth"
+	ListSecretsOptions_Format_Registry        = "registry"
+	ListSecretsOptions_Format_ServiceAccess   = "service_access"
 	ListSecretsOptions_Format_ServiceOperator = "service_operator"
-	ListSecretsOptions_Format_SshAuth = "ssh_auth"
-	ListSecretsOptions_Format_Tls = "tls"
+	ListSecretsOptions_Format_SshAuth         = "ssh_auth"
+	ListSecretsOptions_Format_Tls             = "tls"
 )
 
 // NewListSecretsOptions : Instantiate ListSecretsOptions
@@ -14946,9 +14958,18 @@ type PersistentDataStore struct {
 	// 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
 	Region *string `json:"region,omitempty"`
 
+	// The type of the persistent data store.
+	ResourceType *string `json:"resource_type,omitempty"`
+
 	// Specify the storage type of the persistent data store.
 	StorageType *string `json:"storage_type" validate:"required"`
 }
+
+// Constants associated with the PersistentDataStore.ResourceType property.
+// The type of the persistent data store.
+const (
+	PersistentDataStore_ResourceType_PersistentDataStoreV2 = "persistent_data_store_v2"
+)
 
 // Constants associated with the PersistentDataStore.StorageType property.
 // Specify the storage type of the persistent data store.
@@ -14992,6 +15013,11 @@ func UnmarshalPersistentDataStore(m map[string]json.RawMessage, result interface
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "region-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "storage_type", &obj.StorageType)
@@ -15117,7 +15143,7 @@ type Probe struct {
 // Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
 const (
 	Probe_Type_Http = "http"
-	Probe_Type_Tcp = "tcp"
+	Probe_Type_Tcp  = "tcp"
 )
 
 // UnmarshalProbe unmarshals an instance of Probe from the specified map of raw messages.
@@ -15191,7 +15217,7 @@ type ProbePrototype struct {
 // Specifies whether to use HTTP or TCP for the probe checks. The default is TCP.
 const (
 	ProbePrototype_Type_Http = "http"
-	ProbePrototype_Type_Tcp = "tcp"
+	ProbePrototype_Type_Tcp  = "tcp"
 )
 
 // UnmarshalProbePrototype unmarshals an instance of ProbePrototype from the specified map of raw messages.
@@ -15266,7 +15292,7 @@ func (probePrototype *ProbePrototype) asPatch() (_patch map[string]interface{}) 
 
 // Project : Describes the model of a project.
 type Project struct {
-	// An alphanumeric value identifying the account ID.
+	// The ID of the account of the project, e.g. 4329073d16d2f3663f74bfa955259139.
 	AccountID *string `json:"account_id,omitempty"`
 
 	// The timestamp when the project was created.
@@ -15309,18 +15335,18 @@ const (
 // The current state of the project. For example, when the project is created and is ready for use, the status of the
 // project is active.
 const (
-	Project_Status_Active = "active"
-	Project_Status_Creating = "creating"
-	Project_Status_CreationFailed = "creation_failed"
-	Project_Status_Deleting = "deleting"
-	Project_Status_DeletionFailed = "deletion_failed"
-	Project_Status_HardDeleted = "hard_deleted"
-	Project_Status_HardDeleting = "hard_deleting"
+	Project_Status_Active             = "active"
+	Project_Status_Creating           = "creating"
+	Project_Status_CreationFailed     = "creation_failed"
+	Project_Status_Deleting           = "deleting"
+	Project_Status_DeletionFailed     = "deletion_failed"
+	Project_Status_HardDeleted        = "hard_deleted"
+	Project_Status_HardDeleting       = "hard_deleting"
 	Project_Status_HardDeletionFailed = "hard_deletion_failed"
-	Project_Status_Inactive = "inactive"
-	Project_Status_PendingRemoval = "pending_removal"
-	Project_Status_Preparing = "preparing"
-	Project_Status_SoftDeleted = "soft_deleted"
+	Project_Status_Inactive           = "inactive"
+	Project_Status_PendingRemoval     = "pending_removal"
+	Project_Status_Preparing          = "preparing"
+	Project_Status_SoftDeleted        = "soft_deleted"
 )
 
 // UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
@@ -15477,7 +15503,7 @@ type ProjectStatusDetails struct {
 // Constants associated with the ProjectStatusDetails.Domain property.
 // Status of the domain created for the project.
 const (
-	ProjectStatusDetails_Domain_Ready = "ready"
+	ProjectStatusDetails_Domain_Ready   = "ready"
 	ProjectStatusDetails_Domain_Unknown = "unknown"
 )
 
@@ -15485,13 +15511,13 @@ const (
 // Defines whether a project is enabled for management and consumption.
 const (
 	ProjectStatusDetails_Project_Disabled = "disabled"
-	ProjectStatusDetails_Project_Enabled = "enabled"
+	ProjectStatusDetails_Project_Enabled  = "enabled"
 )
 
 // Constants associated with the ProjectStatusDetails.Vpe property.
 // Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network.
 const (
-	ProjectStatusDetails_Vpe_Ready = "ready"
+	ProjectStatusDetails_Vpe_Ready   = "ready"
 	ProjectStatusDetails_Vpe_Unknown = "unknown"
 )
 
@@ -15553,8 +15579,8 @@ type ReplaceConfigMapOptions struct {
 func (*CodeEngineV2) NewReplaceConfigMapOptions(projectID string, name string, ifMatch string) *ReplaceConfigMapOptions {
 	return &ReplaceConfigMapOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -15616,24 +15642,24 @@ type ReplaceSecretOptions struct {
 // Constants associated with the ReplaceSecretOptions.Format property.
 // Specify the format of the secret. The format of the secret will determine how the secret is used.
 const (
-	ReplaceSecretOptions_Format_BasicAuth = "basic_auth"
-	ReplaceSecretOptions_Format_Generic = "generic"
-	ReplaceSecretOptions_Format_HmacAuth = "hmac_auth"
-	ReplaceSecretOptions_Format_Other = "other"
-	ReplaceSecretOptions_Format_Registry = "registry"
-	ReplaceSecretOptions_Format_ServiceAccess = "service_access"
+	ReplaceSecretOptions_Format_BasicAuth       = "basic_auth"
+	ReplaceSecretOptions_Format_Generic         = "generic"
+	ReplaceSecretOptions_Format_HmacAuth        = "hmac_auth"
+	ReplaceSecretOptions_Format_Other           = "other"
+	ReplaceSecretOptions_Format_Registry        = "registry"
+	ReplaceSecretOptions_Format_ServiceAccess   = "service_access"
 	ReplaceSecretOptions_Format_ServiceOperator = "service_operator"
-	ReplaceSecretOptions_Format_SshAuth = "ssh_auth"
-	ReplaceSecretOptions_Format_Tls = "tls"
+	ReplaceSecretOptions_Format_SshAuth         = "ssh_auth"
+	ReplaceSecretOptions_Format_Tls             = "tls"
 )
 
 // NewReplaceSecretOptions : Instantiate ReplaceSecretOptions
 func (*CodeEngineV2) NewReplaceSecretOptions(projectID string, name string, ifMatch string, format string) *ReplaceSecretOptions {
 	return &ReplaceSecretOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Format: core.StringPtr(format),
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Format:    core.StringPtr(format),
 	}
 }
 
@@ -15809,37 +15835,37 @@ type Secret struct {
 // Constants associated with the Secret.Format property.
 // Specify the format of the secret.
 const (
-	Secret_Format_BasicAuth = "basic_auth"
-	Secret_Format_Generic = "generic"
-	Secret_Format_HmacAuth = "hmac_auth"
-	Secret_Format_Other = "other"
-	Secret_Format_Registry = "registry"
-	Secret_Format_ServiceAccess = "service_access"
+	Secret_Format_BasicAuth       = "basic_auth"
+	Secret_Format_Generic         = "generic"
+	Secret_Format_HmacAuth        = "hmac_auth"
+	Secret_Format_Other           = "other"
+	Secret_Format_Registry        = "registry"
+	Secret_Format_ServiceAccess   = "service_access"
 	Secret_Format_ServiceOperator = "service_operator"
-	Secret_Format_SshAuth = "ssh_auth"
-	Secret_Format_Tls = "tls"
+	Secret_Format_SshAuth         = "ssh_auth"
+	Secret_Format_Tls             = "tls"
 )
 
 // Constants associated with the Secret.GeneratedBy property.
 // Specifies whether the secret is user generated.
 const (
 	Secret_GeneratedBy_System = "system"
-	Secret_GeneratedBy_User = "user"
+	Secret_GeneratedBy_User   = "user"
 )
 
 // Constants associated with the Secret.ResourceType property.
 // The type of the secret.
 const (
-	Secret_ResourceType_SecretAuthSshV2 = "secret_auth_ssh_v2"
-	Secret_ResourceType_SecretBasicAuthV2 = "secret_basic_auth_v2"
-	Secret_ResourceType_SecretGenericV2 = "secret_generic_v2"
-	Secret_ResourceType_SecretHmacAuthV2 = "secret_hmac_auth_v2"
-	Secret_ResourceType_SecretOperatorV2 = "secret_operator_v2"
-	Secret_ResourceType_SecretOtherV2 = "secret_other_v2"
-	Secret_ResourceType_SecretRegistryV2 = "secret_registry_v2"
+	Secret_ResourceType_SecretAuthSshV2       = "secret_auth_ssh_v2"
+	Secret_ResourceType_SecretBasicAuthV2     = "secret_basic_auth_v2"
+	Secret_ResourceType_SecretGenericV2       = "secret_generic_v2"
+	Secret_ResourceType_SecretHmacAuthV2      = "secret_hmac_auth_v2"
+	Secret_ResourceType_SecretOperatorV2      = "secret_operator_v2"
+	Secret_ResourceType_SecretOtherV2         = "secret_other_v2"
+	Secret_ResourceType_SecretRegistryV2      = "secret_registry_v2"
 	Secret_ResourceType_SecretServiceAccessV2 = "secret_service_access_v2"
-	Secret_ResourceType_SecretTlsV2 = "secret_tls_v2"
-	Secret_ResourceType_SecretV2 = "secret_v2"
+	Secret_ResourceType_SecretTlsV2           = "secret_tls_v2"
+	Secret_ResourceType_SecretV2              = "secret_v2"
 )
 
 // UnmarshalSecret unmarshals an instance of Secret from the specified map of raw messages.
@@ -15926,23 +15952,23 @@ func UnmarshalSecret(m map[string]json.RawMessage, result interface{}) (err erro
 // - SecretDataHMACAuthSecretData
 // - SecretDataTLSSecretData
 type SecretData struct {
-	// Basic auth username.
-	Username *string `json:"username,omitempty"`
-
 	// Basic auth password.
 	Password *string `json:"password,omitempty"`
 
-	// Registry server.
-	Server *string `json:"server,omitempty"`
+	// Basic auth username.
+	Username *string `json:"username,omitempty"`
 
 	// Registry email address.
 	Email *string `json:"email,omitempty"`
 
-	// SSH key.
-	SshKey *string `json:"ssh_key,omitempty"`
+	// Registry server.
+	Server *string `json:"server,omitempty"`
 
 	// Known hosts.
 	KnownHosts *string `json:"known_hosts,omitempty"`
+
+	// SSH key.
+	SshKey *string `json:"ssh_key,omitempty"`
 
 	// HMAC access key id.
 	AccessKeyID *string `json:"access_key_id,omitempty"`
@@ -15959,6 +15985,7 @@ type SecretData struct {
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
+
 func (*SecretData) isaSecretData() bool {
 	return true
 }
@@ -16005,23 +16032,23 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	if o.Username != nil {
-		m["username"] = o.Username
-	}
 	if o.Password != nil {
 		m["password"] = o.Password
 	}
-	if o.Server != nil {
-		m["server"] = o.Server
+	if o.Username != nil {
+		m["username"] = o.Username
 	}
 	if o.Email != nil {
 		m["email"] = o.Email
 	}
-	if o.SshKey != nil {
-		m["ssh_key"] = o.SshKey
+	if o.Server != nil {
+		m["server"] = o.Server
 	}
 	if o.KnownHosts != nil {
 		m["known_hosts"] = o.KnownHosts
+	}
+	if o.SshKey != nil {
+		m["ssh_key"] = o.SshKey
 	}
 	if o.AccessKeyID != nil {
 		m["access_key_id"] = o.AccessKeyID
@@ -16045,42 +16072,42 @@ func (o *SecretData) MarshalJSON() (buffer []byte, err error) {
 // UnmarshalSecretData unmarshals an instance of SecretData from the specified map of raw messages.
 func UnmarshalSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretData)
-	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
-		return
-	}
-	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "password")
-	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "server-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "server")
+	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "email")
-	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	err = core.UnmarshalPrimitive(m, "server", &obj.Server)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "server-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "ssh_key")
+	delete(m, "server")
 	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "known_hosts-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "known_hosts")
+	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "ssh_key")
 	err = core.UnmarshalPrimitive(m, "access_key_id", &obj.AccessKeyID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "access_key_id-error", common.GetComponentInfo())
@@ -16372,31 +16399,6 @@ type StorageData struct {
 	additionalProperties map[string]*string
 }
 
-// Constants associated with the StorageData.BucketLocation property.
-// Specify the location of the bucket.
-const (
-	StorageData_BucketLocation_Ams03 = "ams03"
-	StorageData_BucketLocation_Ap = "ap"
-	StorageData_BucketLocation_AuSyd = "au-syd"
-	StorageData_BucketLocation_BrSao = "br-sao"
-	StorageData_BucketLocation_CaMon = "ca-mon"
-	StorageData_BucketLocation_CaTor = "ca-tor"
-	StorageData_BucketLocation_Che01 = "che01"
-	StorageData_BucketLocation_Eu = "eu"
-	StorageData_BucketLocation_EuDe = "eu-de"
-	StorageData_BucketLocation_EuEs = "eu-es"
-	StorageData_BucketLocation_EuGb = "eu-gb"
-	StorageData_BucketLocation_JpOsa = "jp-osa"
-	StorageData_BucketLocation_JpTok = "jp-tok"
-	StorageData_BucketLocation_Mil01 = "mil01"
-	StorageData_BucketLocation_Mon01 = "mon01"
-	StorageData_BucketLocation_Par01 = "par01"
-	StorageData_BucketLocation_Sjc04 = "sjc04"
-	StorageData_BucketLocation_Sng01 = "sng01"
-	StorageData_BucketLocation_Us = "us"
-	StorageData_BucketLocation_UsEast = "us-east"
-	StorageData_BucketLocation_UsSouth = "us-south"
-)
 func (*StorageData) isaStorageData() bool {
 	return true
 }
@@ -16516,9 +16518,9 @@ type UpdateAllowedOutboundDestinationOptions struct {
 // NewUpdateAllowedOutboundDestinationOptions : Instantiate UpdateAllowedOutboundDestinationOptions
 func (*CodeEngineV2) NewUpdateAllowedOutboundDestinationOptions(projectID string, name string, ifMatch string, allowedOutboundDestination map[string]interface{}) *UpdateAllowedOutboundDestinationOptions {
 	return &UpdateAllowedOutboundDestinationOptions{
-		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
+		ProjectID:                  core.StringPtr(projectID),
+		Name:                       core.StringPtr(name),
+		IfMatch:                    core.StringPtr(ifMatch),
 		AllowedOutboundDestination: allowedOutboundDestination,
 	}
 }
@@ -16577,9 +16579,9 @@ type UpdateAppOptions struct {
 func (*CodeEngineV2) NewUpdateAppOptions(projectID string, name string, ifMatch string, app map[string]interface{}) *UpdateAppOptions {
 	return &UpdateAppOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		App: app,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		App:       app,
 	}
 }
 
@@ -16637,9 +16639,9 @@ type UpdateBuildOptions struct {
 func (*CodeEngineV2) NewUpdateBuildOptions(projectID string, name string, ifMatch string, build map[string]interface{}) *UpdateBuildOptions {
 	return &UpdateBuildOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Build: build,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Build:     build,
 	}
 }
 
@@ -16696,9 +16698,9 @@ type UpdateDomainMappingOptions struct {
 // NewUpdateDomainMappingOptions : Instantiate UpdateDomainMappingOptions
 func (*CodeEngineV2) NewUpdateDomainMappingOptions(projectID string, name string, ifMatch string, domainMapping map[string]interface{}) *UpdateDomainMappingOptions {
 	return &UpdateDomainMappingOptions{
-		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
+		ProjectID:     core.StringPtr(projectID),
+		Name:          core.StringPtr(name),
+		IfMatch:       core.StringPtr(ifMatch),
 		DomainMapping: domainMapping,
 	}
 }
@@ -16757,9 +16759,9 @@ type UpdateFunctionOptions struct {
 func (*CodeEngineV2) NewUpdateFunctionOptions(projectID string, name string, ifMatch string, function map[string]interface{}) *UpdateFunctionOptions {
 	return &UpdateFunctionOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Function: function,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Function:  function,
 	}
 }
 
@@ -16817,9 +16819,9 @@ type UpdateJobOptions struct {
 func (*CodeEngineV2) NewUpdateJobOptions(projectID string, name string, ifMatch string, job map[string]interface{}) *UpdateJobOptions {
 	return &UpdateJobOptions{
 		ProjectID: core.StringPtr(projectID),
-		Name: core.StringPtr(name),
-		IfMatch: core.StringPtr(ifMatch),
-		Job: job,
+		Name:      core.StringPtr(name),
+		IfMatch:   core.StringPtr(ifMatch),
+		Job:       job,
 	}
 }
 
@@ -16858,9 +16860,6 @@ type VolumeMount struct {
 	// The path that should be mounted.
 	MountPath *string `json:"mount_path" validate:"required"`
 
-	// The name of the mount.
-	Name *string `json:"name,omitempty"`
-
 	// Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only.
 	ReadOnly *bool `json:"read_only,omitempty"`
 
@@ -16877,9 +16876,9 @@ type VolumeMount struct {
 // Constants associated with the VolumeMount.Type property.
 // Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 const (
-	VolumeMount_Type_ConfigMap = "config_map"
+	VolumeMount_Type_ConfigMap           = "config_map"
 	VolumeMount_Type_PersistentDataStore = "persistent_data_store"
-	VolumeMount_Type_Secret = "secret"
+	VolumeMount_Type_Secret              = "secret"
 )
 
 // UnmarshalVolumeMount unmarshals an instance of VolumeMount from the specified map of raw messages.
@@ -16888,11 +16887,6 @@ func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err
 	err = core.UnmarshalPrimitive(m, "mount_path", &obj.MountPath)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "mount_path-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "read_only", &obj.ReadOnly)
@@ -16924,10 +16918,6 @@ type VolumeMountPrototype struct {
 	// The path that should be mounted.
 	MountPath *string `json:"mount_path" validate:"required"`
 
-	// Optional name of the mount. If not set, it will be generated based on the `reference` and a random ID. In case the
-	// `reference` is longer than 58 characters, it will be cut off.
-	Name *string `json:"name,omitempty"`
-
 	// Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only.
 	ReadOnly *bool `json:"read_only,omitempty"`
 
@@ -16944,9 +16934,9 @@ type VolumeMountPrototype struct {
 // Constants associated with the VolumeMountPrototype.Type property.
 // Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'.
 const (
-	VolumeMountPrototype_Type_ConfigMap = "config_map"
+	VolumeMountPrototype_Type_ConfigMap           = "config_map"
 	VolumeMountPrototype_Type_PersistentDataStore = "persistent_data_store"
-	VolumeMountPrototype_Type_Secret = "secret"
+	VolumeMountPrototype_Type_Secret              = "secret"
 )
 
 // NewVolumeMountPrototype : Instantiate VolumeMountPrototype (Generic Model Constructor)
@@ -16954,7 +16944,7 @@ func (*CodeEngineV2) NewVolumeMountPrototype(mountPath string, reference string,
 	_model = &VolumeMountPrototype{
 		MountPath: core.StringPtr(mountPath),
 		Reference: core.StringPtr(reference),
-		Type: core.StringPtr(typeVar),
+		Type:      core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -16969,11 +16959,6 @@ func UnmarshalVolumeMountPrototype(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "mount_path", &obj.MountPath)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "mount_path-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "read_only", &obj.ReadOnly)
@@ -17005,9 +16990,6 @@ func (volumeMountPrototype *VolumeMountPrototype) asPatch() (_patch map[string]i
 	_patch = map[string]interface{}{}
 	if !core.IsNil(volumeMountPrototype.MountPath) {
 		_patch["mount_path"] = volumeMountPrototype.MountPath
-	}
-	if !core.IsNil(volumeMountPrototype.Name) {
-		_patch["name"] = volumeMountPrototype.Name
 	}
 	if !core.IsNil(volumeMountPrototype.ReadOnly) {
 		_patch["read_only"] = volumeMountPrototype.ReadOnly
@@ -17075,7 +17057,7 @@ type AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch struct {
 // be set to `shared`.
 const (
 	AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch_IsolationPolicy_Shared    = "shared"
 )
 
 func (*AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch) isaAllowedOutboundDestinationPatch() bool {
@@ -17107,12 +17089,12 @@ func (allowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch *Allowed
 // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Create an allowed outbound destination by using a CIDR block.
 // This model "extends" AllowedOutboundDestinationPrototype
 type AllowedOutboundDestinationPrototypeCidrBlockDataPrototype struct {
+	// The name of the allowed outbound destination.
+	Name *string `json:"name" validate:"required"`
+
 	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
-
-	// The name of the allowed outbound destination.
-	Name *string `json:"name" validate:"required"`
 
 	// The IPv4 address range.
 	CidrBlock *string `json:"cidr_block" validate:"required"`
@@ -17122,15 +17104,15 @@ type AllowedOutboundDestinationPrototypeCidrBlockDataPrototype struct {
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestinationPrototypeCidrBlockDataPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
 // NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype : Instantiate AllowedOutboundDestinationPrototypeCidrBlockDataPrototype (Generic Model Constructor)
-func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(typeVar string, name string, cidrBlock string) (_model *AllowedOutboundDestinationPrototypeCidrBlockDataPrototype, err error) {
+func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(name string, typeVar string, cidrBlock string) (_model *AllowedOutboundDestinationPrototypeCidrBlockDataPrototype, err error) {
 	_model = &AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
+		Type:      core.StringPtr(typeVar),
 		CidrBlock: core.StringPtr(cidrBlock),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -17147,14 +17129,14 @@ func (*AllowedOutboundDestinationPrototypeCidrBlockDataPrototype) isaAllowedOutb
 // UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype unmarshals an instance of AllowedOutboundDestinationPrototypeCidrBlockDataPrototype from the specified map of raw messages.
 func UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AllowedOutboundDestinationPrototypeCidrBlockDataPrototype)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cidr_block", &obj.CidrBlock)
@@ -17169,29 +17151,29 @@ func UnmarshalAllowedOutboundDestinationPrototypeCidrBlockDataPrototype(m map[st
 // AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype : Create an allowed outbound destination by connecting to a VPC Private Path service.
 // This model "extends" AllowedOutboundDestinationPrototype
 type AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype struct {
-	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
-	// `private_path_service_gateway`.
-	Type *string `json:"type" validate:"required"`
-
 	// The name of the allowed outbound destination.
 	Name *string `json:"name" validate:"required"`
 
-	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
-	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
-	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
+	// Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+	// `private_path_service_gateway`.
+	Type *string `json:"type" validate:"required"`
 
 	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
 	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
 	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
 	// be set to `shared`.
 	IsolationPolicy *string `json:"isolation_policy,omitempty"`
+
+	// The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private Path
+	// service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
 }
 
 // Constants associated with the AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.Type property.
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
@@ -17202,14 +17184,14 @@ const (
 // be set to `shared`.
 const (
 	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype_IsolationPolicy_Shared    = "shared"
 )
 
 // NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype : Instantiate AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype (Generic Model Constructor)
-func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(typeVar string, name string, privatePathServiceGatewayCrn string) (_model *AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype, err error) {
+func (*CodeEngineV2) NewAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(name string, typeVar string, privatePathServiceGatewayCrn string) (_model *AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype, err error) {
 	_model = &AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype{
-		Type: core.StringPtr(typeVar),
-		Name: core.StringPtr(name),
+		Name:                         core.StringPtr(name),
+		Type:                         core.StringPtr(typeVar),
 		PrivatePathServiceGatewayCrn: core.StringPtr(privatePathServiceGatewayCrn),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -17226,24 +17208,24 @@ func (*AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
 // UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype unmarshals an instance of AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype from the specified map of raw messages.
 func UnmarshalAllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -17258,6 +17240,9 @@ type AllowedOutboundDestinationCidrBlockData struct {
 
 	// The name of the allowed outbound destination.
 	Name *string `json:"name,omitempty"`
+
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
 
 	// The current status of the outbound destination.
 	Status *string `json:"status,omitempty"`
@@ -17276,15 +17261,15 @@ type AllowedOutboundDestinationCidrBlockData struct {
 // The current status of the outbound destination.
 const (
 	AllowedOutboundDestinationCidrBlockData_Status_Deploying = "deploying"
-	AllowedOutboundDestinationCidrBlockData_Status_Failed = "failed"
-	AllowedOutboundDestinationCidrBlockData_Status_Ready = "ready"
+	AllowedOutboundDestinationCidrBlockData_Status_Failed    = "failed"
+	AllowedOutboundDestinationCidrBlockData_Status_Ready     = "ready"
 )
 
 // Constants associated with the AllowedOutboundDestinationCidrBlockData.Type property.
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestinationCidrBlockData_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationCidrBlockData_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestinationCidrBlockData_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
@@ -17303,6 +17288,11 @@ func UnmarshalAllowedOutboundDestinationCidrBlockData(m map[string]json.RawMessa
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
@@ -17338,6 +17328,9 @@ type AllowedOutboundDestinationPrivatePathServiceGatewayData struct {
 	// The name of the allowed outbound destination.
 	Name *string `json:"name,omitempty"`
 
+	// The ID of the project in which the resource is located.
+	ProjectID *string `json:"project_id,omitempty"`
+
 	// The current status of the outbound destination.
 	Status *string `json:"status,omitempty"`
 
@@ -17347,29 +17340,29 @@ type AllowedOutboundDestinationPrivatePathServiceGatewayData struct {
 	// `private_path_service_gateway`.
 	Type *string `json:"type" validate:"required"`
 
-	// The CRN of the Private Path service.
-	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
-
 	// Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other
 	// projects within the same account or enterprise account family can connect to Private Path service, too. If set to
 	// `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will
 	// be set to `shared`.
 	IsolationPolicy *string `json:"isolation_policy" validate:"required"`
+
+	// The CRN of the Private Path service.
+	PrivatePathServiceGatewayCrn *string `json:"private_path_service_gateway_crn" validate:"required"`
 }
 
 // Constants associated with the AllowedOutboundDestinationPrivatePathServiceGatewayData.Status property.
 // The current status of the outbound destination.
 const (
 	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Deploying = "deploying"
-	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Failed = "failed"
-	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Ready = "ready"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Failed    = "failed"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Status_Ready     = "ready"
 )
 
 // Constants associated with the AllowedOutboundDestinationPrivatePathServiceGatewayData.Type property.
 // Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
 // `private_path_service_gateway`.
 const (
-	AllowedOutboundDestinationPrivatePathServiceGatewayData_Type_CidrBlock = "cidr_block"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_Type_CidrBlock                 = "cidr_block"
 	AllowedOutboundDestinationPrivatePathServiceGatewayData_Type_PrivatePathServiceGateway = "private_path_service_gateway"
 )
 
@@ -17380,7 +17373,7 @@ const (
 // be set to `shared`.
 const (
 	AllowedOutboundDestinationPrivatePathServiceGatewayData_IsolationPolicy_Dedicated = "dedicated"
-	AllowedOutboundDestinationPrivatePathServiceGatewayData_IsolationPolicy_Shared = "shared"
+	AllowedOutboundDestinationPrivatePathServiceGatewayData_IsolationPolicy_Shared    = "shared"
 )
 
 func (*AllowedOutboundDestinationPrivatePathServiceGatewayData) isaAllowedOutboundDestination() bool {
@@ -17400,6 +17393,11 @@ func UnmarshalAllowedOutboundDestinationPrivatePathServiceGatewayData(m map[stri
 		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "project_id-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
@@ -17415,14 +17413,14 @@ func UnmarshalAllowedOutboundDestinationPrivatePathServiceGatewayData(m map[stri
 		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "isolation_policy", &obj.IsolationPolicy)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "isolation_policy-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_path_service_gateway_crn", &obj.PrivatePathServiceGatewayCrn)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "private_path_service_gateway_crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -17446,17 +17444,17 @@ type AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails struct {
 // Constants associated with the AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails.Reason property.
 // Optional information to provide more context in case of a 'failed' or 'deploying' status.
 const (
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Deploying = "deploying"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Failed = "failed"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionAlreadyExists = "private_path_connection_already_exists"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionApprovalDenied = "private_path_connection_approval_denied"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Deploying                            = "deploying"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Failed                               = "failed"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionAlreadyExists   = "private_path_connection_already_exists"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionApprovalDenied  = "private_path_connection_approval_denied"
 	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathConnectionApprovalPending = "private_path_connection_approval_pending"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathCrnInvalid = "private_path_crn_invalid"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotFound = "private_path_not_found"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameAccountFamily = "private_path_not_in_same_account_family"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameRegion = "private_path_not_in_same_region"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotPublished = "private_path_not_published"
-	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Ready = "ready"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathCrnInvalid                = "private_path_crn_invalid"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotFound                  = "private_path_not_found"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameAccountFamily    = "private_path_not_in_same_account_family"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotInSameRegion           = "private_path_not_in_same_region"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_PrivatePathNotPublished              = "private_path_not_published"
+	AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails_Reason_Ready                                = "ready"
 )
 
 func (*AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails) isaAllowedOutboundStatusDetails() bool {
@@ -17489,21 +17487,21 @@ func UnmarshalAllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails
 // This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataBasicAuthSecretData struct {
-	// Basic auth username.
-	Username *string `json:"username" validate:"required"`
-
 	// Basic auth password.
 	Password *string `json:"password" validate:"required"`
+
+	// Basic auth username.
+	Username *string `json:"username" validate:"required"`
 
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
 // NewSecretDataBasicAuthSecretData : Instantiate SecretDataBasicAuthSecretData (Generic Model Constructor)
-func (*CodeEngineV2) NewSecretDataBasicAuthSecretData(username string, password string) (_model *SecretDataBasicAuthSecretData, err error) {
+func (*CodeEngineV2) NewSecretDataBasicAuthSecretData(password string, username string) (_model *SecretDataBasicAuthSecretData, err error) {
 	_model = &SecretDataBasicAuthSecretData{
-		Username: core.StringPtr(username),
 		Password: core.StringPtr(password),
+		Username: core.StringPtr(username),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -17550,11 +17548,11 @@ func (o *SecretDataBasicAuthSecretData) MarshalJSON() (buffer []byte, err error)
 			m[k] = v
 		}
 	}
-	if o.Username != nil {
-		m["username"] = o.Username
-	}
 	if o.Password != nil {
 		m["password"] = o.Password
+	}
+	if o.Username != nil {
+		m["username"] = o.Username
 	}
 	buffer, err = json.Marshal(m)
 	if err != nil {
@@ -17566,18 +17564,18 @@ func (o *SecretDataBasicAuthSecretData) MarshalJSON() (buffer []byte, err error)
 // UnmarshalSecretDataBasicAuthSecretData unmarshals an instance of SecretDataBasicAuthSecretData from the specified map of raw messages.
 func UnmarshalSecretDataBasicAuthSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretDataBasicAuthSecretData)
-	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
-		return
-	}
-	delete(m, "username")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "password")
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "username")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
@@ -17680,7 +17678,7 @@ type SecretDataHMACAuthSecretData struct {
 // NewSecretDataHMACAuthSecretData : Instantiate SecretDataHMACAuthSecretData (Generic Model Constructor)
 func (*CodeEngineV2) NewSecretDataHMACAuthSecretData(accessKeyID string, secretAccessKey string) (_model *SecretDataHMACAuthSecretData, err error) {
 	_model = &SecretDataHMACAuthSecretData{
-		AccessKeyID: core.StringPtr(accessKeyID),
+		AccessKeyID:     core.StringPtr(accessKeyID),
 		SecretAccessKey: core.StringPtr(secretAccessKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -17773,8 +17771,8 @@ func UnmarshalSecretDataHMACAuthSecretData(m map[string]json.RawMessage, result 
 // This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataRegistrySecretData struct {
-	// Registry username.
-	Username *string `json:"username" validate:"required"`
+	// Registry email address.
+	Email *string `json:"email,omitempty"`
 
 	// Registry password.
 	Password *string `json:"password" validate:"required"`
@@ -17782,19 +17780,19 @@ type SecretDataRegistrySecretData struct {
 	// Registry server.
 	Server *string `json:"server" validate:"required"`
 
-	// Registry email address.
-	Email *string `json:"email,omitempty"`
+	// Registry username.
+	Username *string `json:"username" validate:"required"`
 
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
 
 // NewSecretDataRegistrySecretData : Instantiate SecretDataRegistrySecretData (Generic Model Constructor)
-func (*CodeEngineV2) NewSecretDataRegistrySecretData(username string, password string, server string) (_model *SecretDataRegistrySecretData, err error) {
+func (*CodeEngineV2) NewSecretDataRegistrySecretData(password string, server string, username string) (_model *SecretDataRegistrySecretData, err error) {
 	_model = &SecretDataRegistrySecretData{
-		Username: core.StringPtr(username),
 		Password: core.StringPtr(password),
-		Server: core.StringPtr(server),
+		Server:   core.StringPtr(server),
+		Username: core.StringPtr(username),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -17841,8 +17839,8 @@ func (o *SecretDataRegistrySecretData) MarshalJSON() (buffer []byte, err error) 
 			m[k] = v
 		}
 	}
-	if o.Username != nil {
-		m["username"] = o.Username
+	if o.Email != nil {
+		m["email"] = o.Email
 	}
 	if o.Password != nil {
 		m["password"] = o.Password
@@ -17850,8 +17848,8 @@ func (o *SecretDataRegistrySecretData) MarshalJSON() (buffer []byte, err error) 
 	if o.Server != nil {
 		m["server"] = o.Server
 	}
-	if o.Email != nil {
-		m["email"] = o.Email
+	if o.Username != nil {
+		m["username"] = o.Username
 	}
 	buffer, err = json.Marshal(m)
 	if err != nil {
@@ -17863,12 +17861,12 @@ func (o *SecretDataRegistrySecretData) MarshalJSON() (buffer []byte, err error) 
 // UnmarshalSecretDataRegistrySecretData unmarshals an instance of SecretDataRegistrySecretData from the specified map of raw messages.
 func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretDataRegistrySecretData)
-	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "username")
+	delete(m, "email")
 	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "password-error", common.GetComponentInfo())
@@ -17881,12 +17879,12 @@ func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result 
 		return
 	}
 	delete(m, "server")
-	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "username-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "email")
+	delete(m, "username")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
@@ -17904,11 +17902,11 @@ func UnmarshalSecretDataRegistrySecretData(m map[string]json.RawMessage, result 
 // This type supports additional properties of type *string.
 // This model "extends" SecretData
 type SecretDataSSHSecretData struct {
-	// SSH key.
-	SshKey *string `json:"ssh_key" validate:"required"`
-
 	// Known hosts.
 	KnownHosts *string `json:"known_hosts,omitempty"`
+
+	// SSH key.
+	SshKey *string `json:"ssh_key" validate:"required"`
 
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
@@ -17964,11 +17962,11 @@ func (o *SecretDataSSHSecretData) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	if o.SshKey != nil {
-		m["ssh_key"] = o.SshKey
-	}
 	if o.KnownHosts != nil {
 		m["known_hosts"] = o.KnownHosts
+	}
+	if o.SshKey != nil {
+		m["ssh_key"] = o.SshKey
 	}
 	buffer, err = json.Marshal(m)
 	if err != nil {
@@ -17980,18 +17978,18 @@ func (o *SecretDataSSHSecretData) MarshalJSON() (buffer []byte, err error) {
 // UnmarshalSecretDataSSHSecretData unmarshals an instance of SecretDataSSHSecretData from the specified map of raw messages.
 func UnmarshalSecretDataSSHSecretData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SecretDataSSHSecretData)
-	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
-		return
-	}
-	delete(m, "ssh_key")
 	err = core.UnmarshalPrimitive(m, "known_hosts", &obj.KnownHosts)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "known_hosts-error", common.GetComponentInfo())
 		return
 	}
 	delete(m, "known_hosts")
+	err = core.UnmarshalPrimitive(m, "ssh_key", &obj.SshKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ssh_key-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "ssh_key")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
@@ -18023,7 +18021,7 @@ type SecretDataTLSSecretData struct {
 func (*CodeEngineV2) NewSecretDataTLSSecretData(tlsCert string, tlsKey string) (_model *SecretDataTLSSecretData, err error) {
 	_model = &SecretDataTLSSecretData{
 		TlsCert: core.StringPtr(tlsCert),
-		TlsKey: core.StringPtr(tlsKey),
+		TlsKey:  core.StringPtr(tlsKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -18130,38 +18128,12 @@ type StorageDataObjectStorageData struct {
 	additionalProperties map[string]*string
 }
 
-// Constants associated with the StorageDataObjectStorageData.BucketLocation property.
-// Specify the location of the bucket.
-const (
-	StorageDataObjectStorageData_BucketLocation_Ams03 = "ams03"
-	StorageDataObjectStorageData_BucketLocation_Ap = "ap"
-	StorageDataObjectStorageData_BucketLocation_AuSyd = "au-syd"
-	StorageDataObjectStorageData_BucketLocation_BrSao = "br-sao"
-	StorageDataObjectStorageData_BucketLocation_CaMon = "ca-mon"
-	StorageDataObjectStorageData_BucketLocation_CaTor = "ca-tor"
-	StorageDataObjectStorageData_BucketLocation_Che01 = "che01"
-	StorageDataObjectStorageData_BucketLocation_Eu = "eu"
-	StorageDataObjectStorageData_BucketLocation_EuDe = "eu-de"
-	StorageDataObjectStorageData_BucketLocation_EuEs = "eu-es"
-	StorageDataObjectStorageData_BucketLocation_EuGb = "eu-gb"
-	StorageDataObjectStorageData_BucketLocation_JpOsa = "jp-osa"
-	StorageDataObjectStorageData_BucketLocation_JpTok = "jp-tok"
-	StorageDataObjectStorageData_BucketLocation_Mil01 = "mil01"
-	StorageDataObjectStorageData_BucketLocation_Mon01 = "mon01"
-	StorageDataObjectStorageData_BucketLocation_Par01 = "par01"
-	StorageDataObjectStorageData_BucketLocation_Sjc04 = "sjc04"
-	StorageDataObjectStorageData_BucketLocation_Sng01 = "sng01"
-	StorageDataObjectStorageData_BucketLocation_Us = "us"
-	StorageDataObjectStorageData_BucketLocation_UsEast = "us-east"
-	StorageDataObjectStorageData_BucketLocation_UsSouth = "us-south"
-)
-
 // NewStorageDataObjectStorageData : Instantiate StorageDataObjectStorageData (Generic Model Constructor)
 func (*CodeEngineV2) NewStorageDataObjectStorageData(bucketLocation string, bucketName string, secretName string) (_model *StorageDataObjectStorageData, err error) {
 	_model = &StorageDataObjectStorageData{
 		BucketLocation: core.StringPtr(bucketLocation),
-		BucketName: core.StringPtr(bucketName),
-		SecretName: core.StringPtr(secretName),
+		BucketName:     core.StringPtr(bucketName),
+		SecretName:     core.StringPtr(secretName),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -18258,13 +18230,11 @@ func UnmarshalStorageDataObjectStorageData(m map[string]json.RawMessage, result 
 	return
 }
 
-//
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
-//
 type ProjectsPager struct {
-	hasNext bool
-	options *ListProjectsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListProjectsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18345,13 +18315,11 @@ func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
 	return
 }
 
-//
 // AllowedOutboundDestinationsPager can be used to simplify the use of the "ListAllowedOutboundDestinations" method.
-//
 type AllowedOutboundDestinationsPager struct {
-	hasNext bool
-	options *ListAllowedOutboundDestinationsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListAllowedOutboundDestinationsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18432,13 +18400,11 @@ func (pager *AllowedOutboundDestinationsPager) GetAll() (allItems []AllowedOutbo
 	return
 }
 
-//
 // AppsPager can be used to simplify the use of the "ListApps" method.
-//
 type AppsPager struct {
-	hasNext bool
-	options *ListAppsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListAppsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18519,100 +18485,11 @@ func (pager *AppsPager) GetAll() (allItems []App, err error) {
 	return
 }
 
-//
-// AppRevisionsPager can be used to simplify the use of the "ListAppRevisions" method.
-//
-type AppRevisionsPager struct {
-	hasNext bool
-	options *ListAppRevisionsOptions
-	client  *CodeEngineV2
-	pageContext struct {
-		next *string
-	}
-}
-
-// NewAppRevisionsPager returns a new AppRevisionsPager instance.
-func (codeEngine *CodeEngineV2) NewAppRevisionsPager(options *ListAppRevisionsOptions) (pager *AppRevisionsPager, err error) {
-	if options.Start != nil && *options.Start != "" {
-		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
-		return
-	}
-
-	var optionsCopy ListAppRevisionsOptions = *options
-	pager = &AppRevisionsPager{
-		hasNext: true,
-		options: &optionsCopy,
-		client:  codeEngine,
-	}
-	return
-}
-
-// HasNext returns true if there are potentially more results to be retrieved.
-func (pager *AppRevisionsPager) HasNext() bool {
-	return pager.hasNext
-}
-
-// GetNextWithContext returns the next page of results using the specified Context.
-func (pager *AppRevisionsPager) GetNextWithContext(ctx context.Context) (page []AppRevision, err error) {
-	if !pager.HasNext() {
-		return nil, fmt.Errorf("no more results available")
-	}
-
-	pager.options.Start = pager.pageContext.next
-
-	result, _, err := pager.client.ListAppRevisionsWithContext(ctx, pager.options)
-	if err != nil {
-		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
-		return
-	}
-
-	var next *string
-	if result.Next != nil {
-		next = result.Next.Start
-	}
-	pager.pageContext.next = next
-	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Revisions
-
-	return
-}
-
-// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
-// until all pages of results have been retrieved.
-func (pager *AppRevisionsPager) GetAllWithContext(ctx context.Context) (allItems []AppRevision, err error) {
-	for pager.HasNext() {
-		var nextPage []AppRevision
-		nextPage, err = pager.GetNextWithContext(ctx)
-		if err != nil {
-			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
-			return
-		}
-		allItems = append(allItems, nextPage...)
-	}
-	return
-}
-
-// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *AppRevisionsPager) GetNext() (page []AppRevision, err error) {
-	page, err = pager.GetNextWithContext(context.Background())
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
-	allItems, err = pager.GetAllWithContext(context.Background())
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-//
 // AppInstancesPager can be used to simplify the use of the "ListAppInstances" method.
-//
 type AppInstancesPager struct {
-	hasNext bool
-	options *ListAppInstancesOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListAppInstancesOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18693,27 +18570,25 @@ func (pager *AppInstancesPager) GetAll() (allItems []AppInstance, err error) {
 	return
 }
 
-//
-// JobsPager can be used to simplify the use of the "ListJobs" method.
-//
-type JobsPager struct {
-	hasNext bool
-	options *ListJobsOptions
-	client  *CodeEngineV2
+// AppRevisionsPager can be used to simplify the use of the "ListAppRevisions" method.
+type AppRevisionsPager struct {
+	hasNext     bool
+	options     *ListAppRevisionsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
 }
 
-// NewJobsPager returns a new JobsPager instance.
-func (codeEngine *CodeEngineV2) NewJobsPager(options *ListJobsOptions) (pager *JobsPager, err error) {
+// NewAppRevisionsPager returns a new AppRevisionsPager instance.
+func (codeEngine *CodeEngineV2) NewAppRevisionsPager(options *ListAppRevisionsOptions) (pager *AppRevisionsPager, err error) {
 	if options.Start != nil && *options.Start != "" {
 		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
 	}
 
-	var optionsCopy ListJobsOptions = *options
-	pager = &JobsPager{
+	var optionsCopy ListAppRevisionsOptions = *options
+	pager = &AppRevisionsPager{
 		hasNext: true,
 		options: &optionsCopy,
 		client:  codeEngine,
@@ -18722,19 +18597,19 @@ func (codeEngine *CodeEngineV2) NewJobsPager(options *ListJobsOptions) (pager *J
 }
 
 // HasNext returns true if there are potentially more results to be retrieved.
-func (pager *JobsPager) HasNext() bool {
+func (pager *AppRevisionsPager) HasNext() bool {
 	return pager.hasNext
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *JobsPager) GetNextWithContext(ctx context.Context) (page []Job, err error) {
+func (pager *AppRevisionsPager) GetNextWithContext(ctx context.Context) (page []AppRevision, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
 
 	pager.options.Start = pager.pageContext.next
 
-	result, _, err := pager.client.ListJobsWithContext(ctx, pager.options)
+	result, _, err := pager.client.ListAppRevisionsWithContext(ctx, pager.options)
 	if err != nil {
 		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
 		return
@@ -18746,16 +18621,16 @@ func (pager *JobsPager) GetNextWithContext(ctx context.Context) (page []Job, err
 	}
 	pager.pageContext.next = next
 	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Jobs
+	page = result.Revisions
 
 	return
 }
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, err error) {
+func (pager *AppRevisionsPager) GetAllWithContext(ctx context.Context) (allItems []AppRevision, err error) {
 	for pager.HasNext() {
-		var nextPage []Job
+		var nextPage []AppRevision
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
@@ -18767,26 +18642,24 @@ func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, 
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *JobsPager) GetNext() (page []Job, err error) {
+func (pager *AppRevisionsPager) GetNext() (page []AppRevision, err error) {
 	page, err = pager.GetNextWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *JobsPager) GetAll() (allItems []Job, err error) {
+func (pager *AppRevisionsPager) GetAll() (allItems []AppRevision, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-//
 // JobRunsPager can be used to simplify the use of the "ListJobRuns" method.
-//
 type JobRunsPager struct {
-	hasNext bool
-	options *ListJobRunsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListJobRunsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18867,13 +18740,96 @@ func (pager *JobRunsPager) GetAll() (allItems []JobRun, err error) {
 	return
 }
 
-//
+// JobsPager can be used to simplify the use of the "ListJobs" method.
+type JobsPager struct {
+	hasNext     bool
+	options     *ListJobsOptions
+	client      *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewJobsPager returns a new JobsPager instance.
+func (codeEngine *CodeEngineV2) NewJobsPager(options *ListJobsOptions) (pager *JobsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListJobsOptions = *options
+	pager = &JobsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *JobsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *JobsPager) GetNextWithContext(ctx context.Context) (page []Job, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListJobsWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Jobs
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *JobsPager) GetAllWithContext(ctx context.Context) (allItems []Job, err error) {
+	for pager.HasNext() {
+		var nextPage []Job
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *JobsPager) GetNext() (page []Job, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *JobsPager) GetAll() (allItems []Job, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
 // FunctionsPager can be used to simplify the use of the "ListFunctions" method.
-//
 type FunctionsPager struct {
-	hasNext bool
-	options *ListFunctionsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListFunctionsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -18954,13 +18910,11 @@ func (pager *FunctionsPager) GetAll() (allItems []Function, err error) {
 	return
 }
 
-//
 // BindingsPager can be used to simplify the use of the "ListBindings" method.
-//
 type BindingsPager struct {
-	hasNext bool
-	options *ListBindingsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListBindingsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -19041,100 +18995,11 @@ func (pager *BindingsPager) GetAll() (allItems []Binding, err error) {
 	return
 }
 
-//
-// BuildsPager can be used to simplify the use of the "ListBuilds" method.
-//
-type BuildsPager struct {
-	hasNext bool
-	options *ListBuildsOptions
-	client  *CodeEngineV2
-	pageContext struct {
-		next *string
-	}
-}
-
-// NewBuildsPager returns a new BuildsPager instance.
-func (codeEngine *CodeEngineV2) NewBuildsPager(options *ListBuildsOptions) (pager *BuildsPager, err error) {
-	if options.Start != nil && *options.Start != "" {
-		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
-		return
-	}
-
-	var optionsCopy ListBuildsOptions = *options
-	pager = &BuildsPager{
-		hasNext: true,
-		options: &optionsCopy,
-		client:  codeEngine,
-	}
-	return
-}
-
-// HasNext returns true if there are potentially more results to be retrieved.
-func (pager *BuildsPager) HasNext() bool {
-	return pager.hasNext
-}
-
-// GetNextWithContext returns the next page of results using the specified Context.
-func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []Build, err error) {
-	if !pager.HasNext() {
-		return nil, fmt.Errorf("no more results available")
-	}
-
-	pager.options.Start = pager.pageContext.next
-
-	result, _, err := pager.client.ListBuildsWithContext(ctx, pager.options)
-	if err != nil {
-		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
-		return
-	}
-
-	var next *string
-	if result.Next != nil {
-		next = result.Next.Start
-	}
-	pager.pageContext.next = next
-	pager.hasNext = (pager.pageContext.next != nil)
-	page = result.Builds
-
-	return
-}
-
-// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
-// until all pages of results have been retrieved.
-func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []Build, err error) {
-	for pager.HasNext() {
-		var nextPage []Build
-		nextPage, err = pager.GetNextWithContext(ctx)
-		if err != nil {
-			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
-			return
-		}
-		allItems = append(allItems, nextPage...)
-	}
-	return
-}
-
-// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *BuildsPager) GetNext() (page []Build, err error) {
-	page, err = pager.GetNextWithContext(context.Background())
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *BuildsPager) GetAll() (allItems []Build, err error) {
-	allItems, err = pager.GetAllWithContext(context.Background())
-	err = core.RepurposeSDKProblem(err, "")
-	return
-}
-
-//
 // BuildRunsPager can be used to simplify the use of the "ListBuildRuns" method.
-//
 type BuildRunsPager struct {
-	hasNext bool
-	options *ListBuildRunsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListBuildRunsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -19215,13 +19080,96 @@ func (pager *BuildRunsPager) GetAll() (allItems []BuildRun, err error) {
 	return
 }
 
-//
+// BuildsPager can be used to simplify the use of the "ListBuilds" method.
+type BuildsPager struct {
+	hasNext     bool
+	options     *ListBuildsOptions
+	client      *CodeEngineV2
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewBuildsPager returns a new BuildsPager instance.
+func (codeEngine *CodeEngineV2) NewBuildsPager(options *ListBuildsOptions) (pager *BuildsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy ListBuildsOptions = *options
+	pager = &BuildsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  codeEngine,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *BuildsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *BuildsPager) GetNextWithContext(ctx context.Context) (page []Build, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListBuildsWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Builds
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *BuildsPager) GetAllWithContext(ctx context.Context) (allItems []Build, err error) {
+	for pager.HasNext() {
+		var nextPage []Build
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *BuildsPager) GetNext() (page []Build, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *BuildsPager) GetAll() (allItems []Build, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
 // DomainMappingsPager can be used to simplify the use of the "ListDomainMappings" method.
-//
 type DomainMappingsPager struct {
-	hasNext bool
-	options *ListDomainMappingsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListDomainMappingsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -19302,13 +19250,11 @@ func (pager *DomainMappingsPager) GetAll() (allItems []DomainMapping, err error)
 	return
 }
 
-//
 // ConfigMapsPager can be used to simplify the use of the "ListConfigMaps" method.
-//
 type ConfigMapsPager struct {
-	hasNext bool
-	options *ListConfigMapsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListConfigMapsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -19389,13 +19335,11 @@ func (pager *ConfigMapsPager) GetAll() (allItems []ConfigMap, err error) {
 	return
 }
 
-//
 // SecretsPager can be used to simplify the use of the "ListSecrets" method.
-//
 type SecretsPager struct {
-	hasNext bool
-	options *ListSecretsOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListSecretsOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}
@@ -19476,13 +19420,11 @@ func (pager *SecretsPager) GetAll() (allItems []Secret, err error) {
 	return
 }
 
-//
 // PersistentDataStoresPager can be used to simplify the use of the "ListPersistentDataStores" method.
-//
 type PersistentDataStoresPager struct {
-	hasNext bool
-	options *ListPersistentDataStoresOptions
-	client  *CodeEngineV2
+	hasNext     bool
+	options     *ListPersistentDataStoresOptions
+	client      *CodeEngineV2
 	pageContext struct {
 		next *string
 	}

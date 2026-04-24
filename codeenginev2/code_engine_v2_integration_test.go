@@ -42,10 +42,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 	const externalConfigFile = "../code_engine_v2.env"
 
 	var (
-		err          error
+		err               error
 		codeEngineService *codeenginev2.CodeEngineV2
-		serviceURL   string
-		config       map[string]string
+		serviceURL        string
+		config            map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -95,7 +95,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProjects(listProjectsOptions *ListProjectsOptions) with pagination`, func(){
+		It(`ListProjects(listProjectsOptions *ListProjectsOptions) with pagination`, func() {
 			listProjectsOptions := &codeenginev2.ListProjectsOptions{
 				Limit: core.Int64Ptr(int64(100)),
 				Start: core.StringPtr("testString"),
@@ -121,7 +121,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListProjects(listProjectsOptions *ListProjectsOptions) using ProjectsPager`, func(){
+		It(`ListProjects(listProjectsOptions *ListProjectsOptions) using ProjectsPager`, func() {
 			listProjectsOptions := &codeenginev2.ListProjectsOptions{
 				Limit: core.Int64Ptr(int64(100)),
 			}
@@ -159,9 +159,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateProject(createProjectOptions *CreateProjectOptions)`, func() {
 			createProjectOptions := &codeenginev2.CreateProjectOptions{
-				Name: core.StringPtr("my-project"),
+				Name:            core.StringPtr("my-project"),
 				ResourceGroupID: core.StringPtr("b91e849cedb04e7e92bd68c040c672dc"),
-				Tags: []string{"testString"},
+				Tags:            []string{"testString"},
 			}
 
 			project, response, err := codeEngineService.CreateProject(createProjectOptions)
@@ -191,11 +191,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) with pagination`, func(){
+		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) with pagination`, func() {
 			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listAllowedOutboundDestinationsOptions.Start = nil
@@ -218,10 +218,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) using AllowedOutboundDestinationsPager`, func(){
+		It(`ListAllowedOutboundDestinations(listAllowedOutboundDestinationsOptions *ListAllowedOutboundDestinationsOptions) using AllowedOutboundDestinationsPager`, func() {
 			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -257,13 +257,13 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateAllowedOutboundDestination(createAllowedOutboundDestinationOptions *CreateAllowedOutboundDestinationOptions)`, func() {
 			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
-				Type: core.StringPtr("cidr_block"),
-				Name: core.StringPtr("allow-all"),
+				Name:      core.StringPtr("allow-all"),
+				Type:      core.StringPtr("cidr_block"),
 				CidrBlock: core.StringPtr("testString"),
 			}
 
 			createAllowedOutboundDestinationOptions := &codeenginev2.CreateAllowedOutboundDestinationOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ProjectID:                  core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				AllowedOutboundDestination: allowedOutboundDestinationPrototypeModel,
 			}
 
@@ -281,7 +281,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions *GetAllowedOutboundDestinationOptions)`, func() {
 			getAllowedOutboundDestinationOptions := &codeenginev2.GetAllowedOutboundDestinationOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-allowed-outbound-destination"),
+				Name:      core.StringPtr("my-allowed-outbound-destination"),
 			}
 
 			allowedOutboundDestination, response, err := codeEngineService.GetAllowedOutboundDestination(getAllowedOutboundDestinationOptions)
@@ -303,9 +303,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateAllowedOutboundDestinationOptions := &codeenginev2.UpdateAllowedOutboundDestinationOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-allowed-outbound-destination"),
-				IfMatch: core.StringPtr("testString"),
+				ProjectID:                  core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:                       core.StringPtr("my-allowed-outbound-destination"),
+				IfMatch:                    core.StringPtr("testString"),
 				AllowedOutboundDestination: allowedOutboundDestinationPatchModelAsPatch,
 			}
 
@@ -352,11 +352,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListApps(listAppsOptions *ListAppsOptions) with pagination`, func(){
+		It(`ListApps(listAppsOptions *ListAppsOptions) with pagination`, func() {
 			listAppsOptions := &codeenginev2.ListAppsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listAppsOptions.Start = nil
@@ -379,10 +379,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListApps(listAppsOptions *ListAppsOptions) using AppsPager`, func(){
+		It(`ListApps(listAppsOptions *ListAppsOptions) using AppsPager`, func() {
 			listAppsOptions := &codeenginev2.ListAppsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -419,58 +419,57 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`CreateApp(createAppOptions *CreateAppOptions)`, func() {
 			probePrototypeModel := &codeenginev2.ProbePrototype{
 				FailureThreshold: core.Int64Ptr(int64(5)),
-				InitialDelay: core.Int64Ptr(int64(5)),
-				Interval: core.Int64Ptr(int64(5)),
-				Path: core.StringPtr("testString"),
-				Port: core.Int64Ptr(int64(8080)),
-				Timeout: core.Int64Ptr(int64(300)),
-				Type: core.StringPtr("tcp"),
+				InitialDelay:     core.Int64Ptr(int64(5)),
+				Interval:         core.Int64Ptr(int64(5)),
+				Path:             core.StringPtr("testString"),
+				Port:             core.Int64Ptr(int64(8080)),
+				Timeout:          core.Int64Ptr(int64(300)),
+				Type:             core.StringPtr("tcp"),
 			}
 
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
-				Name: core.StringPtr("codeengine-mount-b69u90"),
-				ReadOnly: core.BoolPtr(true),
+				ReadOnly:  core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
-				SubPath: core.StringPtr("some-path"),
-				Type: core.StringPtr("secret"),
+				SubPath:   core.StringPtr("some-path"),
+				Type:      core.StringPtr("secret"),
 			}
 
 			createAppOptions := &codeenginev2.CreateAppOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
-				Name: core.StringPtr("my-app"),
-				ImagePort: core.Int64Ptr(int64(8080)),
-				ImageSecret: core.StringPtr("my-secret"),
-				ManagedDomainMappings: core.StringPtr("local_public"),
-				ProbeLiveness: probePrototypeModel,
-				ProbeReadiness: probePrototypeModel,
-				RunArguments: []string{"testString"},
-				RunAsUser: core.Int64Ptr(int64(1001)),
-				RunCommands: []string{"testString"},
+				ProjectID:                      core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ImageReference:                 core.StringPtr("icr.io/codeengine/helloworld"),
+				Name:                           core.StringPtr("my-app"),
+				ImagePort:                      core.Int64Ptr(int64(8080)),
+				ImageSecret:                    core.StringPtr("my-secret"),
+				ManagedDomainMappings:          core.StringPtr("local_public"),
+				ProbeLiveness:                  probePrototypeModel,
+				ProbeReadiness:                 probePrototypeModel,
+				RunArguments:                   []string{"testString"},
+				RunAsUser:                      core.Int64Ptr(int64(1001)),
+				RunCommands:                    []string{"testString"},
 				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				RunServiceAccount: core.StringPtr("default"),
-				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
-				ScaleConcurrency: core.Int64Ptr(int64(100)),
-				ScaleConcurrencyTarget: core.Int64Ptr(int64(80)),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleDownDelay: core.Int64Ptr(int64(300)),
-				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
-				ScaleInitialInstances: core.Int64Ptr(int64(1)),
-				ScaleMaxInstances: core.Int64Ptr(int64(10)),
-				ScaleMemoryLimit: core.StringPtr("4G"),
-				ScaleMinInstances: core.Int64Ptr(int64(1)),
-				ScaleRequestTimeout: core.Int64Ptr(int64(300)),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				RunServiceAccount:              core.StringPtr("default"),
+				RunVolumeMounts:                []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				ScaleConcurrency:               core.Int64Ptr(int64(100)),
+				ScaleConcurrencyTarget:         core.Int64Ptr(int64(80)),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleDownDelay:                 core.Int64Ptr(int64(300)),
+				ScaleEphemeralStorageLimit:     core.StringPtr("4G"),
+				ScaleInitialInstances:          core.Int64Ptr(int64(1)),
+				ScaleMaxInstances:              core.Int64Ptr(int64(10)),
+				ScaleMemoryLimit:               core.StringPtr("4G"),
+				ScaleMinInstances:              core.Int64Ptr(int64(1)),
+				ScaleRequestTimeout:            core.Int64Ptr(int64(300)),
 			}
 
 			app, response, err := codeEngineService.CreateApp(createAppOptions)
@@ -480,95 +479,69 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetApp - Get an application`, func() {
+	Describe(`ListAppInstances - List application instances`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetApp(getAppOptions *GetAppOptions)`, func() {
-			getAppOptions := &codeenginev2.GetAppOptions{
+		It(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) with pagination`, func() {
+			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-app"),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
-			app, response, err := codeEngineService.GetApp(getAppOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(app).ToNot(BeNil())
+			listAppInstancesOptions.Start = nil
+			listAppInstancesOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.AppInstance
+			for {
+				appInstanceList, response, err := codeEngineService.ListAppInstances(listAppInstancesOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(appInstanceList).ToNot(BeNil())
+				allResults = append(allResults, appInstanceList.Instances...)
+
+				listAppInstancesOptions.Start, err = appInstanceList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listAppInstancesOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-	})
-
-	Describe(`UpdateApp - Update an application`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`UpdateApp(updateAppOptions *UpdateAppOptions)`, func() {
-			probePrototypeModel := &codeenginev2.ProbePrototype{
-				FailureThreshold: core.Int64Ptr(int64(5)),
-				InitialDelay: core.Int64Ptr(int64(5)),
-				Interval: core.Int64Ptr(int64(5)),
-				Path: core.StringPtr("testString"),
-				Port: core.Int64Ptr(int64(8080)),
-				Timeout: core.Int64Ptr(int64(300)),
-				Type: core.StringPtr("tcp"),
-			}
-
-			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
-				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
-			}
-
-			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
-				MountPath: core.StringPtr("/app"),
-				Name: core.StringPtr("codeengine-mount-b69u90"),
-				ReadOnly: core.BoolPtr(true),
-				Reference: core.StringPtr("my-secret"),
-				SubPath: core.StringPtr("some-path"),
-				Type: core.StringPtr("secret"),
-			}
-
-			appPatchModel := &codeenginev2.AppPatch{
-				ImagePort: core.Int64Ptr(int64(8080)),
-				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
-				ImageSecret: core.StringPtr("my-secret"),
-				ManagedDomainMappings: core.StringPtr("local_public"),
-				ProbeLiveness: probePrototypeModel,
-				ProbeReadiness: probePrototypeModel,
-				RunArguments: []string{"testString"},
-				RunAsUser: core.Int64Ptr(int64(1001)),
-				RunCommands: []string{"testString"},
-				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				RunServiceAccount: core.StringPtr("default"),
-				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
-				ScaleConcurrency: core.Int64Ptr(int64(100)),
-				ScaleConcurrencyTarget: core.Int64Ptr(int64(80)),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleDownDelay: core.Int64Ptr(int64(300)),
-				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
-				ScaleInitialInstances: core.Int64Ptr(int64(1)),
-				ScaleMaxInstances: core.Int64Ptr(int64(10)),
-				ScaleMemoryLimit: core.StringPtr("4G"),
-				ScaleMinInstances: core.Int64Ptr(int64(1)),
-				ScaleRequestTimeout: core.Int64Ptr(int64(300)),
-			}
-			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
-			Expect(asPatchErr).To(BeNil())
-
-			updateAppOptions := &codeenginev2.UpdateAppOptions{
+		It(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) using AppInstancesPager`, func() {
+			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-app"),
-				IfMatch: core.StringPtr("testString"),
-				App: appPatchModelAsPatch,
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
-			app, response, err := codeEngineService.UpdateApp(updateAppOptions)
+			// Test GetNext().
+			pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(app).ToNot(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.AppInstance
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListAppInstances() returned a total of %d item(s) using AppInstancesPager.\n", len(allResults))
 		})
 	})
 
@@ -576,12 +549,12 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) with pagination`, func(){
+		It(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) with pagination`, func() {
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listAppRevisionsOptions.Start = nil
@@ -604,11 +577,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) using AppRevisionsPager`, func(){
+		It(`ListAppRevisions(listAppRevisionsOptions *ListAppRevisionsOptions) using AppRevisionsPager`, func() {
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -645,8 +618,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetAppRevision(getAppRevisionOptions *GetAppRevisionOptions)`, func() {
 			getAppRevisionOptions := &codeenginev2.GetAppRevisionOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Name: core.StringPtr("my-app-00001"),
+				AppName:   core.StringPtr("my-app"),
+				Name:      core.StringPtr("my-app-00001"),
 			}
 
 			appRevision, response, err := codeEngineService.GetAppRevision(getAppRevisionOptions)
@@ -656,259 +629,94 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAppInstances - List application instances`, func() {
+	Describe(`GetApp - Get an application`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) with pagination`, func(){
-			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
+		It(`GetApp(getAppOptions *GetAppOptions)`, func() {
+			getAppOptions := &codeenginev2.GetAppOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Name:      core.StringPtr("my-app"),
 			}
 
-			listAppInstancesOptions.Start = nil
-			listAppInstancesOptions.Limit = core.Int64Ptr(1)
-
-			var allResults []codeenginev2.AppInstance
-			for {
-				appInstanceList, response, err := codeEngineService.ListAppInstances(listAppInstancesOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(appInstanceList).ToNot(BeNil())
-				allResults = append(allResults, appInstanceList.Instances...)
-
-				listAppInstancesOptions.Start, err = appInstanceList.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if listAppInstancesOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`ListAppInstances(listAppInstancesOptions *ListAppInstancesOptions) using AppInstancesPager`, func(){
-			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			// Test GetNext().
-			pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			var allResults []codeenginev2.AppInstance
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListAppInstances() returned a total of %d item(s) using AppInstancesPager.\n", len(allResults))
-		})
-	})
-
-	Describe(`ListJobs - List jobs`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListJobs(listJobsOptions *ListJobsOptions) with pagination`, func(){
-			listJobsOptions := &codeenginev2.ListJobsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
-			}
-
-			listJobsOptions.Start = nil
-			listJobsOptions.Limit = core.Int64Ptr(1)
-
-			var allResults []codeenginev2.Job
-			for {
-				jobList, response, err := codeEngineService.ListJobs(listJobsOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(jobList).ToNot(BeNil())
-				allResults = append(allResults, jobList.Jobs...)
-
-				listJobsOptions.Start, err = jobList.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if listJobsOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`ListJobs(listJobsOptions *ListJobsOptions) using JobsPager`, func(){
-			listJobsOptions := &codeenginev2.ListJobsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			// Test GetNext().
-			pager, err := codeEngineService.NewJobsPager(listJobsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			var allResults []codeenginev2.Job
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = codeEngineService.NewJobsPager(listJobsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListJobs() returned a total of %d item(s) using JobsPager.\n", len(allResults))
-		})
-	})
-
-	Describe(`CreateJob - Create a job`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateJob(createJobOptions *CreateJobOptions)`, func() {
-			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
-				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
-			}
-
-			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
-				MountPath: core.StringPtr("/app"),
-				Name: core.StringPtr("codeengine-mount-b69u90"),
-				ReadOnly: core.BoolPtr(true),
-				Reference: core.StringPtr("my-secret"),
-				SubPath: core.StringPtr("some-path"),
-				Type: core.StringPtr("secret"),
-			}
-
-			createJobOptions := &codeenginev2.CreateJobOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
-				Name: core.StringPtr("my-job"),
-				ImageSecret: core.StringPtr("my-secret"),
-				RunArguments: []string{"testString"},
-				RunAsUser: core.Int64Ptr(int64(1001)),
-				RunCommands: []string{"testString"},
-				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				RunMode: core.StringPtr("task"),
-				RunServiceAccount: core.StringPtr("default"),
-				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
-				ScaleArraySpec: core.StringPtr("1-5,7-8,10"),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
-				ScaleMaxExecutionTime: core.Int64Ptr(int64(7200)),
-				ScaleMemoryLimit: core.StringPtr("4G"),
-				ScaleRetryLimit: core.Int64Ptr(int64(3)),
-			}
-
-			job, response, err := codeEngineService.CreateJob(createJobOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(job).ToNot(BeNil())
-		})
-	})
-
-	Describe(`GetJob - Get a job`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetJob(getJobOptions *GetJobOptions)`, func() {
-			getJobOptions := &codeenginev2.GetJobOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-job"),
-			}
-
-			job, response, err := codeEngineService.GetJob(getJobOptions)
+			app, response, err := codeEngineService.GetApp(getAppOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(job).ToNot(BeNil())
+			Expect(app).ToNot(BeNil())
 		})
 	})
 
-	Describe(`UpdateJob - Update a job`, func() {
+	Describe(`UpdateApp - Update an application`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateJob(updateJobOptions *UpdateJobOptions)`, func() {
+		It(`UpdateApp(updateAppOptions *UpdateAppOptions)`, func() {
+			probePrototypeModel := &codeenginev2.ProbePrototype{
+				FailureThreshold: core.Int64Ptr(int64(5)),
+				InitialDelay:     core.Int64Ptr(int64(5)),
+				Interval:         core.Int64Ptr(int64(5)),
+				Path:             core.StringPtr("testString"),
+				Port:             core.Int64Ptr(int64(8080)),
+				Timeout:          core.Int64Ptr(int64(300)),
+				Type:             core.StringPtr("tcp"),
+			}
+
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
-				Name: core.StringPtr("codeengine-mount-b69u90"),
-				ReadOnly: core.BoolPtr(true),
+				ReadOnly:  core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
-				SubPath: core.StringPtr("some-path"),
-				Type: core.StringPtr("secret"),
+				SubPath:   core.StringPtr("some-path"),
+				Type:      core.StringPtr("secret"),
 			}
 
-			jobPatchModel := &codeenginev2.JobPatch{
-				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
-				ImageSecret: core.StringPtr("my-secret"),
-				RunArguments: []string{"testString"},
-				RunAsUser: core.Int64Ptr(int64(1001)),
-				RunCommands: []string{"testString"},
+			appPatchModel := &codeenginev2.AppPatch{
+				ImagePort:                      core.Int64Ptr(int64(8080)),
+				ImageReference:                 core.StringPtr("icr.io/codeengine/helloworld"),
+				ImageSecret:                    core.StringPtr("my-secret"),
+				ManagedDomainMappings:          core.StringPtr("local_public"),
+				ProbeLiveness:                  probePrototypeModel,
+				ProbeReadiness:                 probePrototypeModel,
+				RunArguments:                   []string{"testString"},
+				RunAsUser:                      core.Int64Ptr(int64(1001)),
+				RunCommands:                    []string{"testString"},
 				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				RunMode: core.StringPtr("task"),
-				RunServiceAccount: core.StringPtr("default"),
-				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
-				ScaleArraySpec: core.StringPtr("1-5,7-8,10"),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
-				ScaleMaxExecutionTime: core.Int64Ptr(int64(7200)),
-				ScaleMemoryLimit: core.StringPtr("4G"),
-				ScaleRetryLimit: core.Int64Ptr(int64(3)),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				RunServiceAccount:              core.StringPtr("default"),
+				RunVolumeMounts:                []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				ScaleConcurrency:               core.Int64Ptr(int64(100)),
+				ScaleConcurrencyTarget:         core.Int64Ptr(int64(80)),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleDownDelay:                 core.Int64Ptr(int64(300)),
+				ScaleEphemeralStorageLimit:     core.StringPtr("4G"),
+				ScaleInitialInstances:          core.Int64Ptr(int64(1)),
+				ScaleMaxInstances:              core.Int64Ptr(int64(10)),
+				ScaleMemoryLimit:               core.StringPtr("4G"),
+				ScaleMinInstances:              core.Int64Ptr(int64(1)),
+				ScaleRequestTimeout:            core.Int64Ptr(int64(300)),
 			}
-			jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
-			updateJobOptions := &codeenginev2.UpdateJobOptions{
+			updateAppOptions := &codeenginev2.UpdateAppOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-job"),
-				IfMatch: core.StringPtr("testString"),
-				Job: jobPatchModelAsPatch,
+				Name:      core.StringPtr("my-app"),
+				IfMatch:   core.StringPtr("testString"),
+				App:       appPatchModelAsPatch,
 			}
 
-			job, response, err := codeEngineService.UpdateJob(updateJobOptions)
+			app, response, err := codeEngineService.UpdateApp(updateAppOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(job).ToNot(BeNil())
+			Expect(app).ToNot(BeNil())
 		})
 	})
 
@@ -916,12 +724,12 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) with pagination`, func(){
+		It(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) with pagination`, func() {
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				JobName: core.StringPtr("my-job"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				JobName:   core.StringPtr("my-job"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listJobRunsOptions.Start = nil
@@ -944,11 +752,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) using JobRunsPager`, func(){
+		It(`ListJobRuns(listJobRunsOptions *ListJobRunsOptions) using JobRunsPager`, func() {
 			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				JobName: core.StringPtr("my-job"),
-				Limit: core.Int64Ptr(int64(100)),
+				JobName:   core.StringPtr("my-job"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -984,44 +792,43 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateJobRun(createJobRunOptions *CreateJobRunOptions)`, func() {
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
 				MountPath: core.StringPtr("/app"),
-				Name: core.StringPtr("codeengine-mount-b69u90"),
-				ReadOnly: core.BoolPtr(true),
+				ReadOnly:  core.BoolPtr(true),
 				Reference: core.StringPtr("my-secret"),
-				SubPath: core.StringPtr("some-path"),
-				Type: core.StringPtr("secret"),
+				SubPath:   core.StringPtr("some-path"),
+				Type:      core.StringPtr("secret"),
 			}
 
 			createJobRunOptions := &codeenginev2.CreateJobRunOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ImageReference: core.StringPtr("icr.io/codeengine/helloworld"),
-				ImageSecret: core.StringPtr("my-secret"),
-				JobName: core.StringPtr("my-job"),
-				Name: core.StringPtr("my-job-run"),
-				RunArguments: []string{"testString"},
-				RunAsUser: core.Int64Ptr(int64(1001)),
-				RunCommands: []string{"testString"},
+				ProjectID:                      core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ImageReference:                 core.StringPtr("icr.io/codeengine/helloworld"),
+				ImageSecret:                    core.StringPtr("my-secret"),
+				JobName:                        core.StringPtr("my-job"),
+				Name:                           core.StringPtr("my-job-run"),
+				RunArguments:                   []string{"testString"},
+				RunAsUser:                      core.Int64Ptr(int64(1001)),
+				RunCommands:                    []string{"testString"},
 				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				RunMode: core.StringPtr("task"),
-				RunServiceAccount: core.StringPtr("default"),
-				RunVolumeMounts: []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				RunMode:                        core.StringPtr("task"),
+				RunServiceAccount:              core.StringPtr("default"),
+				RunVolumeMounts:                []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
 				ScaleArraySizeVariableOverride: core.Int64Ptr(int64(2)),
-				ScaleArraySpec: core.StringPtr("1-5,7-8,10"),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleEphemeralStorageLimit: core.StringPtr("4G"),
-				ScaleMaxExecutionTime: core.Int64Ptr(int64(7200)),
-				ScaleMemoryLimit: core.StringPtr("4G"),
-				ScaleRetryLimit: core.Int64Ptr(int64(3)),
+				ScaleArraySpec:                 core.StringPtr("1-5,7-8,10"),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleEphemeralStorageLimit:     core.StringPtr("4G"),
+				ScaleMaxExecutionTime:          core.Int64Ptr(int64(7200)),
+				ScaleMemoryLimit:               core.StringPtr("4G"),
+				ScaleRetryLimit:                core.Int64Ptr(int64(3)),
 			}
 
 			jobRun, response, err := codeEngineService.CreateJobRun(createJobRunOptions)
@@ -1038,7 +845,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetJobRun(getJobRunOptions *GetJobRunOptions)`, func() {
 			getJobRunOptions := &codeenginev2.GetJobRunOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-job-run"),
+				Name:      core.StringPtr("my-job-run"),
 			}
 
 			jobRun, response, err := codeEngineService.GetJobRun(getJobRunOptions)
@@ -1048,13 +855,200 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListJobs - List jobs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListJobs(listJobsOptions *ListJobsOptions) with pagination`, func() {
+			listJobsOptions := &codeenginev2.ListJobsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
+			}
+
+			listJobsOptions.Start = nil
+			listJobsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.Job
+			for {
+				jobList, response, err := codeEngineService.ListJobs(listJobsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(jobList).ToNot(BeNil())
+				allResults = append(allResults, jobList.Jobs...)
+
+				listJobsOptions.Start, err = jobList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listJobsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListJobs(listJobsOptions *ListJobsOptions) using JobsPager`, func() {
+			listJobsOptions := &codeenginev2.ListJobsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewJobsPager(listJobsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.Job
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewJobsPager(listJobsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListJobs() returned a total of %d item(s) using JobsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateJob - Create a job`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateJob(createJobOptions *CreateJobOptions)`, func() {
+			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
+				Reference: core.StringPtr("my-secret"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
+			}
+
+			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
+				MountPath: core.StringPtr("/app"),
+				ReadOnly:  core.BoolPtr(true),
+				Reference: core.StringPtr("my-secret"),
+				SubPath:   core.StringPtr("some-path"),
+				Type:      core.StringPtr("secret"),
+			}
+
+			createJobOptions := &codeenginev2.CreateJobOptions{
+				ProjectID:                      core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				ImageReference:                 core.StringPtr("icr.io/codeengine/helloworld"),
+				Name:                           core.StringPtr("my-job"),
+				ImageSecret:                    core.StringPtr("my-secret"),
+				RunArguments:                   []string{"testString"},
+				RunAsUser:                      core.Int64Ptr(int64(1001)),
+				RunCommands:                    []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				RunMode:                        core.StringPtr("task"),
+				RunServiceAccount:              core.StringPtr("default"),
+				RunVolumeMounts:                []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				ScaleArraySpec:                 core.StringPtr("1-5,7-8,10"),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleEphemeralStorageLimit:     core.StringPtr("4G"),
+				ScaleMaxExecutionTime:          core.Int64Ptr(int64(7200)),
+				ScaleMemoryLimit:               core.StringPtr("4G"),
+				ScaleRetryLimit:                core.Int64Ptr(int64(3)),
+			}
+
+			job, response, err := codeEngineService.CreateJob(createJobOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(job).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetJob - Get a job`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetJob(getJobOptions *GetJobOptions)`, func() {
+			getJobOptions := &codeenginev2.GetJobOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:      core.StringPtr("my-job"),
+			}
+
+			job, response, err := codeEngineService.GetJob(getJobOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(job).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateJob - Update a job`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateJob(updateJobOptions *UpdateJobOptions)`, func() {
+			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
+				Reference: core.StringPtr("my-secret"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
+			}
+
+			volumeMountPrototypeModel := &codeenginev2.VolumeMountPrototype{
+				MountPath: core.StringPtr("/app"),
+				ReadOnly:  core.BoolPtr(true),
+				Reference: core.StringPtr("my-secret"),
+				SubPath:   core.StringPtr("some-path"),
+				Type:      core.StringPtr("secret"),
+			}
+
+			jobPatchModel := &codeenginev2.JobPatch{
+				ImageReference:                 core.StringPtr("icr.io/codeengine/helloworld"),
+				ImageSecret:                    core.StringPtr("my-secret"),
+				RunArguments:                   []string{"testString"},
+				RunAsUser:                      core.Int64Ptr(int64(1001)),
+				RunCommands:                    []string{"testString"},
+				RunComputeResourceTokenEnabled: core.BoolPtr(true),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				RunMode:                        core.StringPtr("task"),
+				RunServiceAccount:              core.StringPtr("default"),
+				RunVolumeMounts:                []codeenginev2.VolumeMountPrototype{*volumeMountPrototypeModel},
+				ScaleArraySpec:                 core.StringPtr("1-5,7-8,10"),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleEphemeralStorageLimit:     core.StringPtr("4G"),
+				ScaleMaxExecutionTime:          core.Int64Ptr(int64(7200)),
+				ScaleMemoryLimit:               core.StringPtr("4G"),
+				ScaleRetryLimit:                core.Int64Ptr(int64(3)),
+			}
+			jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateJobOptions := &codeenginev2.UpdateJobOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:      core.StringPtr("my-job"),
+				IfMatch:   core.StringPtr("testString"),
+				Job:       jobPatchModelAsPatch,
+			}
+
+			job, response, err := codeEngineService.UpdateJob(updateJobOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(job).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListFunctionRuntimes - List the function runtimes`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`ListFunctionRuntimes(listFunctionRuntimesOptions *ListFunctionRuntimesOptions)`, func() {
-			listFunctionRuntimesOptions := &codeenginev2.ListFunctionRuntimesOptions{
-			}
+			listFunctionRuntimesOptions := &codeenginev2.ListFunctionRuntimesOptions{}
 
 			functionRuntimeList, response, err := codeEngineService.ListFunctionRuntimes(listFunctionRuntimesOptions)
 			Expect(err).To(BeNil())
@@ -1067,11 +1061,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) with pagination`, func(){
+		It(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) with pagination`, func() {
 			listFunctionsOptions := &codeenginev2.ListFunctionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listFunctionsOptions.Start = nil
@@ -1094,10 +1088,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) using FunctionsPager`, func(){
+		It(`ListFunctions(listFunctionsOptions *ListFunctionsOptions) using FunctionsPager`, func() {
 			listFunctionsOptions := &codeenginev2.ListFunctionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1133,30 +1127,30 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateFunction(createFunctionOptions *CreateFunctionOptions)`, func() {
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			createFunctionOptions := &codeenginev2.CreateFunctionOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				CodeReference: core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
-				Name: core.StringPtr("my-function"),
-				Runtime: core.StringPtr("nodejs-20"),
-				CodeBinary: core.BoolPtr(false),
-				CodeMain: core.StringPtr("main"),
-				CodeSecret: core.StringPtr("my-secret"),
-				ManagedDomainMappings: core.StringPtr("local_public"),
+				ProjectID:                      core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				CodeReference:                  core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
+				Name:                           core.StringPtr("my-function"),
+				Runtime:                        core.StringPtr("nodejs-20"),
+				CodeBinary:                     core.BoolPtr(false),
+				CodeMain:                       core.StringPtr("main"),
+				CodeSecret:                     core.StringPtr("my-secret"),
+				ManagedDomainMappings:          core.StringPtr("local_public"),
 				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				ScaleConcurrency: core.Int64Ptr(int64(1)),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleDownDelay: core.Int64Ptr(int64(300)),
-				ScaleMaxExecutionTime: core.Int64Ptr(int64(60)),
-				ScaleMemoryLimit: core.StringPtr("1G"),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				ScaleConcurrency:               core.Int64Ptr(int64(1)),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleDownDelay:                 core.Int64Ptr(int64(300)),
+				ScaleMaxExecutionTime:          core.Int64Ptr(int64(60)),
+				ScaleMemoryLimit:               core.StringPtr("1G"),
 			}
 
 			function, response, err := codeEngineService.CreateFunction(createFunctionOptions)
@@ -1173,7 +1167,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetFunction(getFunctionOptions *GetFunctionOptions)`, func() {
 			getFunctionOptions := &codeenginev2.GetFunctionOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-function"),
+				Name:      core.StringPtr("my-function"),
 			}
 
 			function, response, err := codeEngineService.GetFunction(getFunctionOptions)
@@ -1189,37 +1183,37 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`UpdateFunction(updateFunctionOptions *UpdateFunctionOptions)`, func() {
 			envVarPrototypeModel := &codeenginev2.EnvVarPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Prefix: core.StringPtr("PREFIX_"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Prefix:    core.StringPtr("PREFIX_"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			functionPatchModel := &codeenginev2.FunctionPatch{
-				CodeBinary: core.BoolPtr(false),
-				CodeMain: core.StringPtr("main"),
-				CodeReference: core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
-				CodeSecret: core.StringPtr("my-secret"),
-				ManagedDomainMappings: core.StringPtr("local_public"),
+				CodeBinary:                     core.BoolPtr(false),
+				CodeMain:                       core.StringPtr("main"),
+				CodeReference:                  core.StringPtr("data:text/plain;base64,<base64encoded-source-code>"),
+				CodeSecret:                     core.StringPtr("my-secret"),
+				ManagedDomainMappings:          core.StringPtr("local_public"),
 				RunComputeResourceTokenEnabled: core.BoolPtr(true),
-				RunEnvVariables: []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
-				Runtime: core.StringPtr("nodejs-20"),
-				ScaleConcurrency: core.Int64Ptr(int64(1)),
-				ScaleCpuLimit: core.StringPtr("1"),
-				ScaleDownDelay: core.Int64Ptr(int64(300)),
-				ScaleMaxExecutionTime: core.Int64Ptr(int64(60)),
-				ScaleMemoryLimit: core.StringPtr("1G"),
+				RunEnvVariables:                []codeenginev2.EnvVarPrototype{*envVarPrototypeModel},
+				Runtime:                        core.StringPtr("nodejs-20"),
+				ScaleConcurrency:               core.Int64Ptr(int64(1)),
+				ScaleCpuLimit:                  core.StringPtr("1"),
+				ScaleDownDelay:                 core.Int64Ptr(int64(300)),
+				ScaleMaxExecutionTime:          core.Int64Ptr(int64(60)),
+				ScaleMemoryLimit:               core.StringPtr("1G"),
 			}
 			functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
 			updateFunctionOptions := &codeenginev2.UpdateFunctionOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-function"),
-				IfMatch: core.StringPtr("testString"),
-				Function: functionPatchModelAsPatch,
+				Name:      core.StringPtr("my-function"),
+				IfMatch:   core.StringPtr("testString"),
+				Function:  functionPatchModelAsPatch,
 			}
 
 			function, response, err := codeEngineService.UpdateFunction(updateFunctionOptions)
@@ -1233,11 +1227,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListBindings(listBindingsOptions *ListBindingsOptions) with pagination`, func(){
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) with pagination`, func() {
 			listBindingsOptions := &codeenginev2.ListBindingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listBindingsOptions.Start = nil
@@ -1260,10 +1254,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListBindings(listBindingsOptions *ListBindingsOptions) using BindingsPager`, func(){
+		It(`ListBindings(listBindingsOptions *ListBindingsOptions) using BindingsPager`, func() {
 			listBindingsOptions := &codeenginev2.ListBindingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1299,14 +1293,14 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateBinding(createBindingOptions *CreateBindingOptions)`, func() {
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
+				Name:         core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
 			createBindingOptions := &codeenginev2.CreateBindingOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Component: componentRefModel,
-				Prefix: core.StringPtr("MY_COS"),
+				ProjectID:  core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Component:  componentRefModel,
+				Prefix:     core.StringPtr("MY_COS"),
 				SecretName: core.StringPtr("my-service-access"),
 			}
 
@@ -1324,7 +1318,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetBinding(getBindingOptions *GetBindingOptions)`, func() {
 			getBindingOptions := &codeenginev2.GetBindingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ID: core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
+				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
 			}
 
 			binding, response, err := codeEngineService.GetBinding(getBindingOptions)
@@ -1334,178 +1328,16 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListBuilds - List builds`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListBuilds(listBuildsOptions *ListBuildsOptions) with pagination`, func(){
-			listBuildsOptions := &codeenginev2.ListBuildsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
-			}
-
-			listBuildsOptions.Start = nil
-			listBuildsOptions.Limit = core.Int64Ptr(1)
-
-			var allResults []codeenginev2.Build
-			for {
-				buildList, response, err := codeEngineService.ListBuilds(listBuildsOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(buildList).ToNot(BeNil())
-				allResults = append(allResults, buildList.Builds...)
-
-				listBuildsOptions.Start, err = buildList.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if listBuildsOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`ListBuilds(listBuildsOptions *ListBuildsOptions) using BuildsPager`, func(){
-			listBuildsOptions := &codeenginev2.ListBuildsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			// Test GetNext().
-			pager, err := codeEngineService.NewBuildsPager(listBuildsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			var allResults []codeenginev2.Build
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = codeEngineService.NewBuildsPager(listBuildsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "ListBuilds() returned a total of %d item(s) using BuildsPager.\n", len(allResults))
-		})
-	})
-
-	Describe(`CreateBuild - Create a build`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
-			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
-			}
-
-			createBuildOptions := &codeenginev2.CreateBuildOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build"),
-				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
-				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
-				StrategyType: core.StringPtr("dockerfile"),
-				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
-				SourceContextDir: core.StringPtr("some/subfolder"),
-				SourceRevision: core.StringPtr("main"),
-				SourceSecret: core.StringPtr("testString"),
-				SourceType: core.StringPtr("git"),
-				SourceURL: core.StringPtr("https://github.com/IBM/CodeEngine"),
-				StrategySize: core.StringPtr("medium"),
-				StrategySpecFile: core.StringPtr("Dockerfile"),
-				Timeout: core.Int64Ptr(int64(600)),
-			}
-
-			build, response, err := codeEngineService.CreateBuild(createBuildOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(build).ToNot(BeNil())
-		})
-	})
-
-	Describe(`GetBuild - Get a build`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
-			getBuildOptions := &codeenginev2.GetBuildOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build"),
-			}
-
-			build, response, err := codeEngineService.GetBuild(getBuildOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(build).ToNot(BeNil())
-		})
-	})
-
-	Describe(`UpdateBuild - Update a build`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
-			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
-				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
-			}
-
-			buildPatchModel := &codeenginev2.BuildPatch{
-				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
-				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
-				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
-				SourceContextDir: core.StringPtr("some/subfolder"),
-				SourceRevision: core.StringPtr("main"),
-				SourceSecret: core.StringPtr("testString"),
-				SourceType: core.StringPtr("git"),
-				SourceURL: core.StringPtr("https://github.com/IBM/CodeEngine"),
-				StrategySize: core.StringPtr("medium"),
-				StrategySpecFile: core.StringPtr("Dockerfile"),
-				StrategyType: core.StringPtr("dockerfile"),
-				Timeout: core.Int64Ptr(int64(600)),
-			}
-			buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
-			Expect(asPatchErr).To(BeNil())
-
-			updateBuildOptions := &codeenginev2.UpdateBuildOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build"),
-				IfMatch: core.StringPtr("testString"),
-				Build: buildPatchModelAsPatch,
-			}
-
-			build, response, err := codeEngineService.UpdateBuild(updateBuildOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(build).ToNot(BeNil())
-		})
-	})
-
 	Describe(`ListBuildRuns - List build runs`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) with pagination`, func(){
+		It(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) with pagination`, func() {
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				BuildName: core.StringPtr("my-build"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listBuildRunsOptions.Start = nil
@@ -1528,11 +1360,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) using BuildRunsPager`, func(){
+		It(`ListBuildRuns(listBuildRunsOptions *ListBuildRunsOptions) using BuildRunsPager`, func() {
 			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				BuildName: core.StringPtr("my-build"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1568,30 +1400,30 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateBuildRun(createBuildRunOptions *CreateBuildRunOptions)`, func() {
 			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
-				Key: core.StringPtr("MY_VARIABLE"),
-				Name: core.StringPtr("SOME"),
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
 				Reference: core.StringPtr("my-secret"),
-				Type: core.StringPtr("literal"),
-				Value: core.StringPtr("VALUE"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
 			}
 
 			createBuildRunOptions := &codeenginev2.CreateBuildRunOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				BuildName: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				OutputImage: core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
-				OutputSecret: core.StringPtr("ce-auto-icr-private-eu-de"),
-				RunBuildParams: []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
-				ServiceAccount: core.StringPtr("default"),
+				ProjectID:        core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				BuildName:        core.StringPtr("testString"),
+				Name:             core.StringPtr("testString"),
+				OutputImage:      core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
+				OutputSecret:     core.StringPtr("ce-auto-icr-private-eu-de"),
+				RunBuildParams:   []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
+				ServiceAccount:   core.StringPtr("default"),
 				SourceContextDir: core.StringPtr("some/subfolder"),
-				SourceRevision: core.StringPtr("main"),
-				SourceSecret: core.StringPtr("testString"),
-				SourceType: core.StringPtr("git"),
-				SourceURL: core.StringPtr("https://github.com/IBM/CodeEngine"),
-				StrategySize: core.StringPtr("medium"),
+				SourceRevision:   core.StringPtr("main"),
+				SourceSecret:     core.StringPtr("testString"),
+				SourceType:       core.StringPtr("git"),
+				SourceURL:        core.StringPtr("https://github.com/IBM/CodeEngine"),
+				StrategySize:     core.StringPtr("medium"),
 				StrategySpecFile: core.StringPtr("Dockerfile"),
-				StrategyType: core.StringPtr("dockerfile"),
-				Timeout: core.Int64Ptr(int64(600)),
+				StrategyType:     core.StringPtr("dockerfile"),
+				Timeout:          core.Int64Ptr(int64(600)),
 			}
 
 			buildRun, response, err := codeEngineService.CreateBuildRun(createBuildRunOptions)
@@ -1608,7 +1440,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetBuildRun(getBuildRunOptions *GetBuildRunOptions)`, func() {
 			getBuildRunOptions := &codeenginev2.GetBuildRunOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build-run"),
+				Name:      core.StringPtr("my-build-run"),
 			}
 
 			buildRun, response, err := codeEngineService.GetBuildRun(getBuildRunOptions)
@@ -1618,15 +1450,177 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListBuilds - List builds`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListBuilds(listBuildsOptions *ListBuildsOptions) with pagination`, func() {
+			listBuildsOptions := &codeenginev2.ListBuildsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
+			}
+
+			listBuildsOptions.Start = nil
+			listBuildsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []codeenginev2.Build
+			for {
+				buildList, response, err := codeEngineService.ListBuilds(listBuildsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(buildList).ToNot(BeNil())
+				allResults = append(allResults, buildList.Builds...)
+
+				listBuildsOptions.Start, err = buildList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listBuildsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListBuilds(listBuildsOptions *ListBuildsOptions) using BuildsPager`, func() {
+			listBuildsOptions := &codeenginev2.ListBuildsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := codeEngineService.NewBuildsPager(listBuildsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []codeenginev2.Build
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = codeEngineService.NewBuildsPager(listBuildsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListBuilds() returned a total of %d item(s) using BuildsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateBuild - Create a build`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateBuild(createBuildOptions *CreateBuildOptions)`, func() {
+			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Reference: core.StringPtr("my-secret"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
+			}
+
+			createBuildOptions := &codeenginev2.CreateBuildOptions{
+				ProjectID:        core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:             core.StringPtr("my-build"),
+				OutputImage:      core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
+				OutputSecret:     core.StringPtr("ce-auto-icr-private-eu-de"),
+				StrategyType:     core.StringPtr("dockerfile"),
+				RunBuildParams:   []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
+				SourceContextDir: core.StringPtr("some/subfolder"),
+				SourceRevision:   core.StringPtr("main"),
+				SourceSecret:     core.StringPtr("testString"),
+				SourceType:       core.StringPtr("git"),
+				SourceURL:        core.StringPtr("https://github.com/IBM/CodeEngine"),
+				StrategySize:     core.StringPtr("medium"),
+				StrategySpecFile: core.StringPtr("Dockerfile"),
+				Timeout:          core.Int64Ptr(int64(600)),
+			}
+
+			build, response, err := codeEngineService.CreateBuild(createBuildOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(build).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetBuild - Get a build`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBuild(getBuildOptions *GetBuildOptions)`, func() {
+			getBuildOptions := &codeenginev2.GetBuildOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:      core.StringPtr("my-build"),
+			}
+
+			build, response, err := codeEngineService.GetBuild(getBuildOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(build).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateBuild - Update a build`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateBuild(updateBuildOptions *UpdateBuildOptions)`, func() {
+			buildParamPrototypeModel := &codeenginev2.BuildParamPrototype{
+				Key:       core.StringPtr("MY_VARIABLE"),
+				Name:      core.StringPtr("SOME"),
+				Reference: core.StringPtr("my-secret"),
+				Type:      core.StringPtr("literal"),
+				Value:     core.StringPtr("VALUE"),
+			}
+
+			buildPatchModel := &codeenginev2.BuildPatch{
+				OutputImage:      core.StringPtr("private.de.icr.io/icr_namespace/image-name"),
+				OutputSecret:     core.StringPtr("ce-auto-icr-private-eu-de"),
+				RunBuildParams:   []codeenginev2.BuildParamPrototype{*buildParamPrototypeModel},
+				SourceContextDir: core.StringPtr("some/subfolder"),
+				SourceRevision:   core.StringPtr("main"),
+				SourceSecret:     core.StringPtr("testString"),
+				SourceType:       core.StringPtr("git"),
+				SourceURL:        core.StringPtr("https://github.com/IBM/CodeEngine"),
+				StrategySize:     core.StringPtr("medium"),
+				StrategySpecFile: core.StringPtr("Dockerfile"),
+				StrategyType:     core.StringPtr("dockerfile"),
+				Timeout:          core.Int64Ptr(int64(600)),
+			}
+			buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateBuildOptions := &codeenginev2.UpdateBuildOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:      core.StringPtr("my-build"),
+				IfMatch:   core.StringPtr("testString"),
+				Build:     buildPatchModelAsPatch,
+			}
+
+			build, response, err := codeEngineService.UpdateBuild(updateBuildOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(build).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ListDomainMappings - List domain mappings`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) with pagination`, func(){
+		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) with pagination`, func() {
 			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listDomainMappingsOptions.Start = nil
@@ -1649,10 +1643,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) using DomainMappingsPager`, func(){
+		It(`ListDomainMappings(listDomainMappingsOptions *ListDomainMappingsOptions) using DomainMappingsPager`, func() {
 			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1688,14 +1682,14 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreateDomainMapping(createDomainMappingOptions *CreateDomainMappingOptions)`, func() {
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
+				Name:         core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
 			createDomainMappingOptions := &codeenginev2.CreateDomainMappingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
 				Component: componentRefModel,
-				Name: core.StringPtr("www.example.com"),
+				Name:      core.StringPtr("www.example.com"),
 				TlsSecret: core.StringPtr("my-tls-secret"),
 			}
 
@@ -1713,7 +1707,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetDomainMapping(getDomainMappingOptions *GetDomainMappingOptions)`, func() {
 			getDomainMappingOptions := &codeenginev2.GetDomainMappingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("www.example.com"),
+				Name:      core.StringPtr("www.example.com"),
 			}
 
 			domainMapping, response, err := codeEngineService.GetDomainMapping(getDomainMappingOptions)
@@ -1729,7 +1723,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`UpdateDomainMapping(updateDomainMappingOptions *UpdateDomainMappingOptions)`, func() {
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
+				Name:         core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
@@ -1741,9 +1735,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateDomainMappingOptions := &codeenginev2.UpdateDomainMappingOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("www.example.com"),
-				IfMatch: core.StringPtr("testString"),
+				ProjectID:     core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:          core.StringPtr("www.example.com"),
+				IfMatch:       core.StringPtr("testString"),
 				DomainMapping: domainMappingPatchModelAsPatch,
 			}
 
@@ -1758,11 +1752,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) with pagination`, func(){
+		It(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) with pagination`, func() {
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listConfigMapsOptions.Start = nil
@@ -1785,10 +1779,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) using ConfigMapsPager`, func(){
+		It(`ListConfigMaps(listConfigMapsOptions *ListConfigMapsOptions) using ConfigMapsPager`, func() {
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1825,8 +1819,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`CreateConfigMap(createConfigMapOptions *CreateConfigMapOptions)`, func() {
 			createConfigMapOptions := &codeenginev2.CreateConfigMapOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-config-map"),
-				Data: map[string]string{"key1": "testString"},
+				Name:      core.StringPtr("my-config-map"),
+				Data:      map[string]string{"key1": "testString"},
 			}
 
 			configMap, response, err := codeEngineService.CreateConfigMap(createConfigMapOptions)
@@ -1843,7 +1837,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetConfigMap(getConfigMapOptions *GetConfigMapOptions)`, func() {
 			getConfigMapOptions := &codeenginev2.GetConfigMapOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-config-map"),
+				Name:      core.StringPtr("my-config-map"),
 			}
 
 			configMap, response, err := codeEngineService.GetConfigMap(getConfigMapOptions)
@@ -1860,9 +1854,9 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`ReplaceConfigMap(replaceConfigMapOptions *ReplaceConfigMapOptions)`, func() {
 			replaceConfigMapOptions := &codeenginev2.ReplaceConfigMapOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-config-map"),
-				IfMatch: core.StringPtr("testString"),
-				Data: map[string]string{"key1": "testString"},
+				Name:      core.StringPtr("my-config-map"),
+				IfMatch:   core.StringPtr("testString"),
+				Data:      map[string]string{"key1": "testString"},
 			}
 
 			configMap, response, err := codeEngineService.ReplaceConfigMap(replaceConfigMapOptions)
@@ -1876,12 +1870,12 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) with pagination`, func(){
+		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) with pagination`, func() {
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Format: core.StringPtr("ssh_auth"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Format:    core.StringPtr("ssh_auth"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listSecretsOptions.Start = nil
@@ -1904,11 +1898,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) using SecretsPager`, func(){
+		It(`ListSecrets(listSecretsOptions *ListSecretsOptions) using SecretsPager`, func() {
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Format: core.StringPtr("ssh_auth"),
-				Limit: core.Int64Ptr(int64(100)),
+				Format:    core.StringPtr("ssh_auth"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -1943,8 +1937,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateSecret(createSecretOptions *CreateSecretOptions)`, func() {
-			secretDataModel := &codeenginev2.SecretDataGenericSecretData{
-			}
+			secretDataModel := &codeenginev2.SecretDataGenericSecretData{}
 			secretDataModel.SetProperty("foo", core.StringPtr("testString"))
 
 			resourceKeyRefPrototypeModel := &codeenginev2.ResourceKeyRefPrototype{
@@ -1961,14 +1954,14 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 
 			serviceIdRefModel := &codeenginev2.ServiceIDRef{
 				Crn: core.StringPtr("testString"),
-				ID: core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"),
+				ID:  core.StringPtr("ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"),
 			}
 
 			serviceAccessSecretPrototypePropsModel := &codeenginev2.ServiceAccessSecretPrototypeProps{
-				ResourceKey: resourceKeyRefPrototypeModel,
-				Role: roleRefPrototypeModel,
+				ResourceKey:     resourceKeyRefPrototypeModel,
+				Role:            roleRefPrototypeModel,
 				ServiceInstance: serviceInstanceRefPrototypeModel,
-				Serviceid: serviceIdRefModel,
+				Serviceid:       serviceIdRefModel,
 			}
 
 			serviceIdRefPrototypeModel := &codeenginev2.ServiceIDRefPrototype{
@@ -1977,15 +1970,15 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 
 			operatorSecretPrototypePropsModel := &codeenginev2.OperatorSecretPrototypeProps{
 				ResourceGroupIds: []string{"testString"},
-				Serviceid: serviceIdRefPrototypeModel,
+				Serviceid:        serviceIdRefPrototypeModel,
 			}
 
 			createSecretOptions := &codeenginev2.CreateSecretOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Format: core.StringPtr("generic"),
-				Name: core.StringPtr("my-secret"),
-				Data: secretDataModel,
-				ServiceAccess: serviceAccessSecretPrototypePropsModel,
+				ProjectID:       core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Format:          core.StringPtr("generic"),
+				Name:            core.StringPtr("my-secret"),
+				Data:            secretDataModel,
+				ServiceAccess:   serviceAccessSecretPrototypePropsModel,
 				ServiceOperator: operatorSecretPrototypePropsModel,
 			}
 
@@ -2003,7 +1996,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetSecret(getSecretOptions *GetSecretOptions)`, func() {
 			getSecretOptions := &codeenginev2.GetSecretOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-secret"),
+				Name:      core.StringPtr("my-secret"),
 			}
 
 			secret, response, err := codeEngineService.GetSecret(getSecretOptions)
@@ -2018,16 +2011,15 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ReplaceSecret(replaceSecretOptions *ReplaceSecretOptions)`, func() {
-			secretDataModel := &codeenginev2.SecretDataGenericSecretData{
-			}
+			secretDataModel := &codeenginev2.SecretDataGenericSecretData{}
 			secretDataModel.SetProperty("foo", core.StringPtr("testString"))
 
 			replaceSecretOptions := &codeenginev2.ReplaceSecretOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-secret"),
-				IfMatch: core.StringPtr("testString"),
-				Format: core.StringPtr("generic"),
-				Data: secretDataModel,
+				Name:      core.StringPtr("my-secret"),
+				IfMatch:   core.StringPtr("testString"),
+				Format:    core.StringPtr("generic"),
+				Data:      secretDataModel,
 			}
 
 			secret, response, err := codeEngineService.ReplaceSecret(replaceSecretOptions)
@@ -2041,11 +2033,11 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) with pagination`, func(){
+		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) with pagination`, func() {
 			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
-				Start: core.StringPtr("testString"),
+				Limit:     core.Int64Ptr(int64(100)),
+				Start:     core.StringPtr("testString"),
 			}
 
 			listPersistentDataStoresOptions.Start = nil
@@ -2068,10 +2060,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) using PersistentDataStoresPager`, func(){
+		It(`ListPersistentDataStores(listPersistentDataStoresOptions *ListPersistentDataStoresOptions) using PersistentDataStoresPager`, func() {
 			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			// Test GetNext().
@@ -2107,17 +2099,17 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`CreatePersistentDataStore(createPersistentDataStoreOptions *CreatePersistentDataStoreOptions)`, func() {
 			storageDataModel := &codeenginev2.StorageDataObjectStorageData{
-				BucketLocation: core.StringPtr("au-syd"),
-				BucketName: core.StringPtr("testString"),
-				SecretName: core.StringPtr("testString"),
+				BucketLocation: core.StringPtr("testString"),
+				BucketName:     core.StringPtr("testString"),
+				SecretName:     core.StringPtr("testString"),
 			}
 			storageDataModel.SetProperty("foo", core.StringPtr("testString"))
 
 			createPersistentDataStoreOptions := &codeenginev2.CreatePersistentDataStoreOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-persistent-data-store"),
+				ProjectID:   core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:        core.StringPtr("my-persistent-data-store"),
 				StorageType: core.StringPtr("object_storage"),
-				Data: storageDataModel,
+				Data:        storageDataModel,
 			}
 
 			persistentDataStore, response, err := codeEngineService.CreatePersistentDataStore(createPersistentDataStoreOptions)
@@ -2134,7 +2126,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`GetPersistentDataStore(getPersistentDataStoreOptions *GetPersistentDataStoreOptions)`, func() {
 			getPersistentDataStoreOptions := &codeenginev2.GetPersistentDataStoreOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-persistent-data-store"),
+				Name:      core.StringPtr("my-persistent-data-store"),
 			}
 
 			persistentDataStore, response, err := codeEngineService.GetPersistentDataStore(getPersistentDataStoreOptions)
@@ -2166,27 +2158,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions *DeleteAllowedOutboundDestinationOptions)`, func() {
 			deleteAllowedOutboundDestinationOptions := &codeenginev2.DeleteAllowedOutboundDestinationOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-allowed-outbound-destination"),
+				Name:      core.StringPtr("my-allowed-outbound-destination"),
 			}
 
 			response, err := codeEngineService.DeleteAllowedOutboundDestination(deleteAllowedOutboundDestinationOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`DeleteApp - Delete an application`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteApp(deleteAppOptions *DeleteAppOptions)`, func() {
-			deleteAppOptions := &codeenginev2.DeleteAppOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-app"),
-				KeepServiceAccess: core.BoolPtr(false),
-			}
-
-			response, err := codeEngineService.DeleteApp(deleteAppOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
@@ -2199,8 +2174,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteAppRevision(deleteAppRevisionOptions *DeleteAppRevisionOptions)`, func() {
 			deleteAppRevisionOptions := &codeenginev2.DeleteAppRevisionOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Name: core.StringPtr("my-app-00001"),
+				AppName:   core.StringPtr("my-app"),
+				Name:      core.StringPtr("my-app-00001"),
 			}
 
 			response, err := codeEngineService.DeleteAppRevision(deleteAppRevisionOptions)
@@ -2209,18 +2184,18 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteJob - Delete a job`, func() {
+	Describe(`DeleteApp - Delete an application`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteJob(deleteJobOptions *DeleteJobOptions)`, func() {
-			deleteJobOptions := &codeenginev2.DeleteJobOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-job"),
+		It(`DeleteApp(deleteAppOptions *DeleteAppOptions)`, func() {
+			deleteAppOptions := &codeenginev2.DeleteAppOptions{
+				ProjectID:         core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:              core.StringPtr("my-app"),
 				KeepServiceAccess: core.BoolPtr(false),
 			}
 
-			response, err := codeEngineService.DeleteJob(deleteJobOptions)
+			response, err := codeEngineService.DeleteApp(deleteAppOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
@@ -2233,10 +2208,27 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteJobRun(deleteJobRunOptions *DeleteJobRunOptions)`, func() {
 			deleteJobRunOptions := &codeenginev2.DeleteJobRunOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-job-run"),
+				Name:      core.StringPtr("my-job-run"),
 			}
 
 			response, err := codeEngineService.DeleteJobRun(deleteJobRunOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeleteJob - Delete a job`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteJob(deleteJobOptions *DeleteJobOptions)`, func() {
+			deleteJobOptions := &codeenginev2.DeleteJobOptions{
+				ProjectID:         core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:              core.StringPtr("my-job"),
+				KeepServiceAccess: core.BoolPtr(false),
+			}
+
+			response, err := codeEngineService.DeleteJob(deleteJobOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
@@ -2248,8 +2240,8 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		})
 		It(`DeleteFunction(deleteFunctionOptions *DeleteFunctionOptions)`, func() {
 			deleteFunctionOptions := &codeenginev2.DeleteFunctionOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-function"),
+				ProjectID:         core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:              core.StringPtr("my-function"),
 				KeepServiceAccess: core.BoolPtr(false),
 			}
 
@@ -2266,26 +2258,10 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteBinding(deleteBindingOptions *DeleteBindingOptions)`, func() {
 			deleteBindingOptions := &codeenginev2.DeleteBindingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				ID: core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
+				ID:        core.StringPtr("a172ced-b5f21bc-71ba50c-1638604"),
 			}
 
 			response, err := codeEngineService.DeleteBinding(deleteBindingOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`DeleteBuild - Delete a build`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
-			deleteBuildOptions := &codeenginev2.DeleteBuildOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build"),
-			}
-
-			response, err := codeEngineService.DeleteBuild(deleteBuildOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
@@ -2298,10 +2274,26 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteBuildRun(deleteBuildRunOptions *DeleteBuildRunOptions)`, func() {
 			deleteBuildRunOptions := &codeenginev2.DeleteBuildRunOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-build-run"),
+				Name:      core.StringPtr("my-build-run"),
 			}
 
 			response, err := codeEngineService.DeleteBuildRun(deleteBuildRunOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`DeleteBuild - Delete a build`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteBuild(deleteBuildOptions *DeleteBuildOptions)`, func() {
+			deleteBuildOptions := &codeenginev2.DeleteBuildOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				Name:      core.StringPtr("my-build"),
+			}
+
+			response, err := codeEngineService.DeleteBuild(deleteBuildOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
@@ -2314,7 +2306,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteDomainMapping(deleteDomainMappingOptions *DeleteDomainMappingOptions)`, func() {
 			deleteDomainMappingOptions := &codeenginev2.DeleteDomainMappingOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("www.example.com"),
+				Name:      core.StringPtr("www.example.com"),
 			}
 
 			response, err := codeEngineService.DeleteDomainMapping(deleteDomainMappingOptions)
@@ -2330,7 +2322,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteConfigMap(deleteConfigMapOptions *DeleteConfigMapOptions)`, func() {
 			deleteConfigMapOptions := &codeenginev2.DeleteConfigMapOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-config-map"),
+				Name:      core.StringPtr("my-config-map"),
 			}
 
 			response, err := codeEngineService.DeleteConfigMap(deleteConfigMapOptions)
@@ -2346,7 +2338,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeleteSecret(deleteSecretOptions *DeleteSecretOptions)`, func() {
 			deleteSecretOptions := &codeenginev2.DeleteSecretOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-secret"),
+				Name:      core.StringPtr("my-secret"),
 			}
 
 			response, err := codeEngineService.DeleteSecret(deleteSecretOptions)
@@ -2362,7 +2354,7 @@ var _ = Describe(`CodeEngineV2 Integration Tests`, func() {
 		It(`DeletePersistentDataStore(deletePersistentDataStoreOptions *DeletePersistentDataStoreOptions)`, func() {
 			deletePersistentDataStoreOptions := &codeenginev2.DeletePersistentDataStoreOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Name: core.StringPtr("my-persistent-data-store"),
+				Name:      core.StringPtr("my-persistent-data-store"),
 			}
 
 			response, err := codeEngineService.DeletePersistentDataStore(deletePersistentDataStoreOptions)

@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Code Engine service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,14 +40,13 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../code_engine_v2.env"
 
 	var (
 		codeEngineService *codeenginev2.CodeEngineV2
-		config       map[string]string
+		config            map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -173,7 +171,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_allowed_outbound_destinations
 			listAllowedOutboundDestinationsOptions := &codeenginev2.ListAllowedOutboundDestinationsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAllowedOutboundDestinationsPager(listAllowedOutboundDestinationsOptions)
@@ -198,8 +196,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-create_allowed_outbound_destination
 
 			allowedOutboundDestinationPrototypeModel := &codeenginev2.AllowedOutboundDestinationPrototypeCidrBlockDataPrototype{
-				Type: core.StringPtr("cidr_block"),
-				Name: core.StringPtr("allow-all"),
+				Name:      core.StringPtr("allow-all"),
+				Type:      core.StringPtr("cidr_block"),
 				CidrBlock: core.StringPtr("testString"),
 			}
 
@@ -247,8 +245,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateAllowedOutboundDestination() result:")
 			// begin-update_allowed_outbound_destination
 
-			allowedOutboundDestinationPatchModel := &codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch{
-			}
+			allowedOutboundDestinationPatchModel := &codeenginev2.AllowedOutboundDestinationPatchCidrBlockDataPatch{}
 			allowedOutboundDestinationPatchModelAsPatch, asPatchErr := allowedOutboundDestinationPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -319,7 +316,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_apps
 			listAppsOptions := &codeenginev2.ListAppsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppsPager(listAppsOptions)
@@ -362,64 +359,39 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(app).ToNot(BeNil())
 		})
-		It(`GetApp request example`, func() {
-			fmt.Println("\nGetApp() result:")
-			// begin-get_app
+		It(`ListAppInstances request example`, func() {
+			fmt.Println("\nListAppInstances() result:")
+			// begin-list_app_instances
+			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
 
-			getAppOptions := codeEngineService.NewGetAppOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-app",
-			)
-
-			app, response, err := codeEngineService.GetApp(getAppOptions)
+			pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(app, "", "  ")
-			fmt.Println(string(b))
 
-			// end-get_app
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(app).ToNot(BeNil())
-		})
-		It(`UpdateApp request example`, func() {
-			fmt.Println("\nUpdateApp() result:")
-			// begin-update_app
-
-			appPatchModel := &codeenginev2.AppPatch{
+			var allResults []codeenginev2.AppInstance
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
 			}
-			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
-			Expect(asPatchErr).To(BeNil())
-
-			updateAppOptions := codeEngineService.NewUpdateAppOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-app",
-				"testString",
-				appPatchModelAsPatch,
-			)
-
-			app, response, err := codeEngineService.UpdateApp(updateAppOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(app, "", "  ")
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
-			// end-update_app
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(app).ToNot(BeNil())
+			// end-list_app_instances
 		})
 		It(`ListAppRevisions request example`, func() {
 			fmt.Println("\nListAppRevisions() result:")
 			// begin-list_app_revisions
 			listAppRevisionsOptions := &codeenginev2.ListAppRevisionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
+				AppName:   core.StringPtr("my-app"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewAppRevisionsPager(listAppRevisionsOptions)
@@ -462,21 +434,71 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(appRevision).ToNot(BeNil())
 		})
-		It(`ListAppInstances request example`, func() {
-			fmt.Println("\nListAppInstances() result:")
-			// begin-list_app_instances
-			listAppInstancesOptions := &codeenginev2.ListAppInstancesOptions{
+		It(`GetApp request example`, func() {
+			fmt.Println("\nGetApp() result:")
+			// begin-get_app
+
+			getAppOptions := codeEngineService.NewGetAppOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-app",
+			)
+
+			app, response, err := codeEngineService.GetApp(getAppOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(app, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_app
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(app).ToNot(BeNil())
+		})
+		It(`UpdateApp request example`, func() {
+			fmt.Println("\nUpdateApp() result:")
+			// begin-update_app
+
+			appPatchModel := &codeenginev2.AppPatch{}
+			appPatchModelAsPatch, asPatchErr := appPatchModel.AsPatch()
+			Expect(asPatchErr).To(BeNil())
+
+			updateAppOptions := codeEngineService.NewUpdateAppOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-app",
+				"testString",
+				appPatchModelAsPatch,
+			)
+
+			app, response, err := codeEngineService.UpdateApp(updateAppOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(app, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_app
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(app).ToNot(BeNil())
+		})
+		It(`ListJobRuns request example`, func() {
+			fmt.Println("\nListJobRuns() result:")
+			// begin-list_job_runs
+			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				AppName: core.StringPtr("my-app"),
-				Limit: core.Int64Ptr(int64(100)),
+				JobName:   core.StringPtr("my-job"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
-			pager, err := codeEngineService.NewAppInstancesPager(listAppInstancesOptions)
+			pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptions)
 			if err != nil {
 				panic(err)
 			}
 
-			var allResults []codeenginev2.AppInstance
+			var allResults []codeenginev2.JobRun
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				if err != nil {
@@ -486,14 +508,57 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-			// end-list_app_instances
+			// end-list_job_runs
+		})
+		It(`CreateJobRun request example`, func() {
+			fmt.Println("\nCreateJobRun() result:")
+			// begin-create_job_run
+
+			createJobRunOptions := codeEngineService.NewCreateJobRunOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+			)
+
+			jobRun, response, err := codeEngineService.CreateJobRun(createJobRunOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(jobRun, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_job_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(jobRun).ToNot(BeNil())
+		})
+		It(`GetJobRun request example`, func() {
+			fmt.Println("\nGetJobRun() result:")
+			// begin-get_job_run
+
+			getJobRunOptions := codeEngineService.NewGetJobRunOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-job-run",
+			)
+
+			jobRun, response, err := codeEngineService.GetJobRun(getJobRunOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(jobRun, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_job_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(jobRun).ToNot(BeNil())
 		})
 		It(`ListJobs request example`, func() {
 			fmt.Println("\nListJobs() result:")
 			// begin-list_jobs
 			listJobsOptions := &codeenginev2.ListJobsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewJobsPager(listJobsOptions)
@@ -562,8 +627,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateJob() result:")
 			// begin-update_job
 
-			jobPatchModel := &codeenginev2.JobPatch{
-			}
+			jobPatchModel := &codeenginev2.JobPatch{}
 			jobPatchModelAsPatch, asPatchErr := jobPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -586,75 +650,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(job).ToNot(BeNil())
-		})
-		It(`ListJobRuns request example`, func() {
-			fmt.Println("\nListJobRuns() result:")
-			// begin-list_job_runs
-			listJobRunsOptions := &codeenginev2.ListJobRunsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				JobName: core.StringPtr("my-job"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			pager, err := codeEngineService.NewJobRunsPager(listJobRunsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []codeenginev2.JobRun
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_job_runs
-		})
-		It(`CreateJobRun request example`, func() {
-			fmt.Println("\nCreateJobRun() result:")
-			// begin-create_job_run
-
-			createJobRunOptions := codeEngineService.NewCreateJobRunOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-			)
-
-			jobRun, response, err := codeEngineService.CreateJobRun(createJobRunOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(jobRun, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_job_run
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(jobRun).ToNot(BeNil())
-		})
-		It(`GetJobRun request example`, func() {
-			fmt.Println("\nGetJobRun() result:")
-			// begin-get_job_run
-
-			getJobRunOptions := codeEngineService.NewGetJobRunOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job-run",
-			)
-
-			jobRun, response, err := codeEngineService.GetJobRun(getJobRunOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(jobRun, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_job_run
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(jobRun).ToNot(BeNil())
 		})
 		It(`ListFunctionRuntimes request example`, func() {
 			fmt.Println("\nListFunctionRuntimes() result:")
@@ -680,7 +675,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_functions
 			listFunctionsOptions := &codeenginev2.ListFunctionsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewFunctionsPager(listFunctionsOptions)
@@ -750,8 +745,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateFunction() result:")
 			// begin-update_function
 
-			functionPatchModel := &codeenginev2.FunctionPatch{
-			}
+			functionPatchModel := &codeenginev2.FunctionPatch{}
 			functionPatchModelAsPatch, asPatchErr := functionPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -780,7 +774,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_bindings
 			listBindingsOptions := &codeenginev2.ListBindingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBindingsPager(listBindingsOptions)
@@ -805,7 +799,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-create_binding
 
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
+				Name:         core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
@@ -851,12 +845,81 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(binding).ToNot(BeNil())
 		})
+		It(`ListBuildRuns request example`, func() {
+			fmt.Println("\nListBuildRuns() result:")
+			// begin-list_build_runs
+			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
+				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
+				BuildName: core.StringPtr("my-build"),
+				Limit:     core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []codeenginev2.BuildRun
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_build_runs
+		})
+		It(`CreateBuildRun request example`, func() {
+			fmt.Println("\nCreateBuildRun() result:")
+			// begin-create_build_run
+
+			createBuildRunOptions := codeEngineService.NewCreateBuildRunOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+			)
+
+			buildRun, response, err := codeEngineService.CreateBuildRun(createBuildRunOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(buildRun, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_build_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(buildRun).ToNot(BeNil())
+		})
+		It(`GetBuildRun request example`, func() {
+			fmt.Println("\nGetBuildRun() result:")
+			// begin-get_build_run
+
+			getBuildRunOptions := codeEngineService.NewGetBuildRunOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-build-run",
+			)
+
+			buildRun, response, err := codeEngineService.GetBuildRun(getBuildRunOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(buildRun, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_build_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(buildRun).ToNot(BeNil())
+		})
 		It(`ListBuilds request example`, func() {
 			fmt.Println("\nListBuilds() result:")
 			// begin-list_builds
 			listBuildsOptions := &codeenginev2.ListBuildsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewBuildsPager(listBuildsOptions)
@@ -927,8 +990,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateBuild() result:")
 			// begin-update_build
 
-			buildPatchModel := &codeenginev2.BuildPatch{
-			}
+			buildPatchModel := &codeenginev2.BuildPatch{}
 			buildPatchModelAsPatch, asPatchErr := buildPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -952,81 +1014,12 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(build).ToNot(BeNil())
 		})
-		It(`ListBuildRuns request example`, func() {
-			fmt.Println("\nListBuildRuns() result:")
-			// begin-list_build_runs
-			listBuildRunsOptions := &codeenginev2.ListBuildRunsOptions{
-				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				BuildName: core.StringPtr("my-build"),
-				Limit: core.Int64Ptr(int64(100)),
-			}
-
-			pager, err := codeEngineService.NewBuildRunsPager(listBuildRunsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []codeenginev2.BuildRun
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_build_runs
-		})
-		It(`CreateBuildRun request example`, func() {
-			fmt.Println("\nCreateBuildRun() result:")
-			// begin-create_build_run
-
-			createBuildRunOptions := codeEngineService.NewCreateBuildRunOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-			)
-
-			buildRun, response, err := codeEngineService.CreateBuildRun(createBuildRunOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(buildRun, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_build_run
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(buildRun).ToNot(BeNil())
-		})
-		It(`GetBuildRun request example`, func() {
-			fmt.Println("\nGetBuildRun() result:")
-			// begin-get_build_run
-
-			getBuildRunOptions := codeEngineService.NewGetBuildRunOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-build-run",
-			)
-
-			buildRun, response, err := codeEngineService.GetBuildRun(getBuildRunOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(buildRun, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_build_run
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(buildRun).ToNot(BeNil())
-		})
 		It(`ListDomainMappings request example`, func() {
 			fmt.Println("\nListDomainMappings() result:")
 			// begin-list_domain_mappings
 			listDomainMappingsOptions := &codeenginev2.ListDomainMappingsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewDomainMappingsPager(listDomainMappingsOptions)
@@ -1051,7 +1044,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-create_domain_mapping
 
 			componentRefModel := &codeenginev2.ComponentRef{
-				Name: core.StringPtr("my-app-1"),
+				Name:         core.StringPtr("my-app-1"),
 				ResourceType: core.StringPtr("app_v2"),
 			}
 
@@ -1101,8 +1094,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			fmt.Println("\nUpdateDomainMapping() result:")
 			// begin-update_domain_mapping
 
-			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{
-			}
+			domainMappingPatchModel := &codeenginev2.DomainMappingPatch{}
 			domainMappingPatchModelAsPatch, asPatchErr := domainMappingPatchModel.AsPatch()
 			Expect(asPatchErr).To(BeNil())
 
@@ -1131,7 +1123,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_config_maps
 			listConfigMapsOptions := &codeenginev2.ListConfigMapsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewConfigMapsPager(listConfigMapsOptions)
@@ -1223,8 +1215,8 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_secrets
 			listSecretsOptions := &codeenginev2.ListSecretsOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Format: core.StringPtr("ssh_auth"),
-				Limit: core.Int64Ptr(int64(100)),
+				Format:    core.StringPtr("ssh_auth"),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewSecretsPager(listSecretsOptions)
@@ -1318,7 +1310,7 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			// begin-list_persistent_data_stores
 			listPersistentDataStoresOptions := &codeenginev2.ListPersistentDataStoresOptions{
 				ProjectID: core.StringPtr("15314cc3-85b4-4338-903f-c28cdee6d005"),
-				Limit: core.Int64Ptr(int64(100)),
+				Limit:     core.Int64Ptr(int64(100)),
 			}
 
 			pager, err := codeEngineService.NewPersistentDataStoresPager(listPersistentDataStoresOptions)
@@ -1424,27 +1416,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
-		It(`DeleteApp request example`, func() {
-			// begin-delete_app
-
-			deleteAppOptions := codeEngineService.NewDeleteAppOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-app",
-			)
-
-			response, err := codeEngineService.DeleteApp(deleteAppOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 202 {
-				fmt.Printf("\nUnexpected response status code received from DeleteApp(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_app
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
 		It(`DeleteAppRevision request example`, func() {
 			// begin-delete_app_revision
 
@@ -1467,23 +1438,23 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
-		It(`DeleteJob request example`, func() {
-			// begin-delete_job
+		It(`DeleteApp request example`, func() {
+			// begin-delete_app
 
-			deleteJobOptions := codeEngineService.NewDeleteJobOptions(
+			deleteAppOptions := codeEngineService.NewDeleteAppOptions(
 				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-job",
+				"my-app",
 			)
 
-			response, err := codeEngineService.DeleteJob(deleteJobOptions)
+			response, err := codeEngineService.DeleteApp(deleteAppOptions)
 			if err != nil {
 				panic(err)
 			}
 			if response.StatusCode != 202 {
-				fmt.Printf("\nUnexpected response status code received from DeleteJob(): %d\n", response.StatusCode)
+				fmt.Printf("\nUnexpected response status code received from DeleteApp(): %d\n", response.StatusCode)
 			}
 
-			// end-delete_job
+			// end-delete_app
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
@@ -1505,6 +1476,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_job_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteJob request example`, func() {
+			// begin-delete_job
+
+			deleteJobOptions := codeEngineService.NewDeleteJobOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-job",
+			)
+
+			response, err := codeEngineService.DeleteJob(deleteJobOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteJob(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_job
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
@@ -1551,27 +1543,6 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 		})
-		It(`DeleteBuild request example`, func() {
-			// begin-delete_build
-
-			deleteBuildOptions := codeEngineService.NewDeleteBuildOptions(
-				"15314cc3-85b4-4338-903f-c28cdee6d005",
-				"my-build",
-			)
-
-			response, err := codeEngineService.DeleteBuild(deleteBuildOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 202 {
-				fmt.Printf("\nUnexpected response status code received from DeleteBuild(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_build
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
 		It(`DeleteBuildRun request example`, func() {
 			// begin-delete_build_run
 
@@ -1589,6 +1560,27 @@ var _ = Describe(`CodeEngineV2 Examples Tests`, func() {
 			}
 
 			// end-delete_build_run
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteBuild request example`, func() {
+			// begin-delete_build
+
+			deleteBuildOptions := codeEngineService.NewDeleteBuildOptions(
+				"15314cc3-85b4-4338-903f-c28cdee6d005",
+				"my-build",
+			)
+
+			response, err := codeEngineService.DeleteBuild(deleteBuildOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteBuild(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_build
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))

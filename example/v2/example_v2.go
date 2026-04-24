@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/IBM/code-engine-go-sdk/v2/codeenginev2"
+	"github.com/IBM/code-engine-go-sdk/codeenginev2"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 )
@@ -154,7 +154,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret '%s', format: %s", *obtainedSecret.Name, *obtainedSecret.Format)
+	fmt.Printf("Obtained secret '%s', format: %s\n", *obtainedSecret.Name, *obtainedSecret.Format)
 
 	// Update ssh secret
 	replaceSecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -175,7 +175,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedSecret.Name, *updatedSecret.Format)
+	fmt.Printf("Updated secret '%s', format: %s\n", *updatedSecret.Name, *updatedSecret.Format)
 
 	listSecretOpts := codeEngineService.NewListSecretsOptions(
 		*createdProject.ID,
@@ -186,7 +186,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret list '%d'", len(secretList.Secrets))
+	fmt.Printf("Obtained secret list '%d'\n", len(secretList.Secrets))
 
 	// Delete ssh secret
 	deleteSecretOpts := codeEngineService.NewDeleteSecretOptions(
@@ -234,7 +234,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret '%s', format: %s", *obtainedBASecret.Name, *obtainedBASecret.Format)
+	fmt.Printf("Obtained secret '%s', format: %s\n", *obtainedBASecret.Name, *obtainedBASecret.Format)
 
 	// Update basic auth secret
 	replaceBASecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -257,7 +257,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedBASecret.Name, *updatedBASecret.Format)
+	fmt.Printf("Updated secret '%s', format: %s\n", *updatedBASecret.Name, *updatedBASecret.Format)
 
 	// Delete basic auth secret
 	deleteBASecretOpts := codeEngineService.NewDeleteSecretOptions(
@@ -305,7 +305,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret '%s', format: %s", *obtainedHASecret.Name, *obtainedHASecret.Format)
+	fmt.Printf("Obtained secret '%s', format: %s\n", *obtainedHASecret.Name, *obtainedHASecret.Format)
 
 	// Create registry secret
 	createRegistrySecretOpts := codeEngineService.NewCreateSecretOptions(
@@ -343,7 +343,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret '%s', format: %s", *obtainedRegistrySecret.Name, *obtainedRegistrySecret.Format)
+	fmt.Printf("Obtained secret '%s', format: %s\n", *obtainedRegistrySecret.Name, *obtainedRegistrySecret.Format)
 
 	// Update registry secret
 	replaceRegistrySecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -369,7 +369,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedRegistrySecret.Name, *updatedRegistrySecret.Format)
+	fmt.Printf("Updated secret '%s', format: %s\n", *updatedRegistrySecret.Name, *updatedRegistrySecret.Format)
 
 	// Delete registry secret
 	deleteRegistrySecretOpts := codeEngineService.NewDeleteSecretOptions(
@@ -395,7 +395,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained PersistentDataStore list '%d'", len(persistentDataStoreList.PersistentDataStores))
+	fmt.Printf("Obtained PersistentDataStore list '%d'\n", len(persistentDataStoreList.PersistentDataStores))
 
 	// Update hmac auth secret
 	replaceHASecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -418,7 +418,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedHASecret.Name, *updatedHASecret.Format)
+	fmt.Printf("Updated secret '%s', format: %s\n", *updatedHASecret.Name, *updatedHASecret.Format)
 
 	// Delete hmac auth secret
 	deleteHASecretOpts := codeEngineService.NewDeleteSecretOptions(
@@ -444,7 +444,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained AllowedOutboundDestination list '%d'", len(allowedOutboundDestinationList.AllowedOutboundDestinations))
+	fmt.Printf("Obtained AllowedOutboundDestination list '%d'\n", len(allowedOutboundDestinationList.AllowedOutboundDestinations))
 
 	var cidrTypeDefault = "cidr_block"
 	var cidrBlock = "192.68.4.0/24"
@@ -466,7 +466,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Created allowed outbound destination '%s'\n", createdAllowedOutboundDestination)
+	fmt.Printf("Created allowed outbound destination %q\n", stringifyAllowedOutboundDestination(createdAllowedOutboundDestination))
 
 	// Get allowed outbound destination
 	getAllowedOutboundDestinationOpts := codeEngineService.NewGetAllowedOutboundDestinationOptions(
@@ -480,7 +480,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained allowed outbound destination '%s'\n", obtainedAllowedOutboundDestination)
+	fmt.Printf("Obtained allowed outbound destination %q\n", stringifyAllowedOutboundDestination(obtainedAllowedOutboundDestination))
 
 	var updatedCidrBlock = "192.68.3.0/24"
 
@@ -507,7 +507,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated allowed outbound destination'%s'\n", updatedAllowedOutboundDestination)
+	fmt.Printf("Updated allowed outbound destination %q\n", stringifyAllowedOutboundDestination(updatedAllowedOutboundDestination))
 
 	// Delete allowed outbound destination
 	deleteAllowedOutboundDestinationOpts := codeEngineService.NewDeleteAllowedOutboundDestinationOptions(
@@ -857,7 +857,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained secret '%s', format: %s", *obtainedTLSSecret.Name, *obtainedTLSSecret.Format)
+	fmt.Printf("Obtained secret '%s', format: %s\n", *obtainedTLSSecret.Name, *obtainedTLSSecret.Format)
 
 	// Update ssh secret
 	replaceTLSSecretopts := codeEngineService.NewReplaceSecretOptions(
@@ -880,7 +880,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Updated secret '%s', format: %s", *updatedTLSSecret.Name, *updatedTLSSecret.Format)
+	fmt.Printf("Updated secret '%s', format: %s\n", *updatedTLSSecret.Name, *updatedTLSSecret.Format)
 
 	// Delete tls secret
 	deleteTLSSecretOpts := codeEngineService.NewDeleteSecretOptions(
@@ -904,7 +904,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained Function runtime list '%d'", len(functionRuntimeList.FunctionRuntimes))
+	fmt.Printf("Obtained Function runtime list '%d'\n", len(functionRuntimeList.FunctionRuntimes))
 
 	// List Functions
 	listFunctionsOptions := codeEngineService.NewListFunctionsOptions(
@@ -917,7 +917,7 @@ func main() {
 		os.Exit(1)
 		return
 	}
-	fmt.Printf("Obtained Functions list '%d'", len(functionsList.Functions))
+	fmt.Printf("Obtained Functions list '%d'\n", len(functionsList.Functions))
 
 	// Create Function
 	createFunctionOptions := codeEngineService.NewCreateFunctionOptions(
@@ -1121,7 +1121,7 @@ func cleanupProjectReclamations(authenticator *core.IamAuthenticator, rcEndpoint
 		}
 		b, marshalErr := json.MarshalIndent(reclamation, "", "  ")
 		if marshalErr != nil {
-			fmt.Printf("faild to print reclamation: %s\n", parserErr.Error())
+			fmt.Printf("faild to print reclamation: %s\n", marshalErr.Error())
 			os.Exit(1)
 		}
 		fmt.Println(string(b))
@@ -1129,4 +1129,36 @@ func cleanupProjectReclamations(authenticator *core.IamAuthenticator, rcEndpoint
 	}
 
 	fmt.Printf("Done cleaning up!\n")
+}
+
+func stringifyAllowedOutboundDestination(allowedOutboundDestinationIntf codeenginev2.AllowedOutboundDestinationIntf) string {
+	if allowedOutboundDestinationIntf == nil {
+		return "(nil)"
+	}
+
+	switch allowedOutboundDestinationIntf.(type) {
+	case *codeenginev2.AllowedOutboundDestination:
+
+	default:
+	}
+
+	allowedOutboundDestination, ok := allowedOutboundDestinationIntf.(*codeenginev2.AllowedOutboundDestination)
+	if !ok {
+		return "(unknown)"
+	}
+
+	if allowedOutboundDestination == nil {
+		return "(nil)"
+	}
+
+	if allowedOutboundDestination.Name == nil {
+		return "(nil)"
+	}
+
+	out, err := json.Marshal(allowedOutboundDestination)
+	if err != nil {
+		return err.Error()
+	}
+
+	return string(out)
 }

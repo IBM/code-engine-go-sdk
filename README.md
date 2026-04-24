@@ -2,7 +2,7 @@
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Code Engine Go SDK 5.0.0
+# IBM Cloud Code Engine Go SDK 6.0.0
 
 Go client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
@@ -50,6 +50,12 @@ Service Name | Package name
 - An [IBM Cloud][ibm-cloud-onboarding] account.
 - An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
 - Go version 1.24 or above.
+
+## Breaking Changes in `codeenginev2` (April 2026)
+
+As part of the introduction of `persistent_data_stores` as a Volume Mount type for **apps** and **jobs**, the optional `name` property of entries in `run_volume_mounts` is no longer supported.
+
+If you used the optional `name` property, remove it from the prototype of the **app** or **job**.
 
 ## Breaking Changes in `codeenginev2` (March 2026)
 
@@ -208,7 +214,7 @@ For consistency, the March 2026 update introduces **pluralized list APIs**, **ne
 
 ## Installation
 
-The current version of this SDK: 5.0.0
+The current version of this SDK: 6.0.0
 
 There are a few different ways to download and install the Code Engine Go SDK project for use by your
 Go application:
