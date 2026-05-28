@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2026-03-27`.
+	// and `2026-05-14`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2026-03-27`.
+	// and `2026-05-14`.
 	Version *string
 }
 
@@ -8647,7 +8647,7 @@ func UnmarshalBuildStatus(m map[string]json.RawMessage, result interface{}) (err
 
 // CbrStatus : Status of the Context-based-restriction configuration applicable for this project.
 type CbrStatus struct {
-	// Describes the model of the enforcement status of a CBR status.
+	// Describes the model of the CBR enforcement status.
 	DataPlane *EnforcementStatus `json:"data_plane" validate:"required"`
 }
 
@@ -11561,10 +11561,16 @@ func UnmarshalEndpointGatewayDetails(m map[string]json.RawMessage, result interf
 	return
 }
 
-// EnforcementStatus : Describes the model of the enforcement status of a CBR status.
+// EnforcementStatus : Describes the model of the CBR enforcement status.
 type EnforcementStatus struct {
 	// Detailed information on the condition of the CBR enforcement.
 	Enforcement *string `json:"enforcement" validate:"required"`
+
+	// Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed.
+	InboundPrivate *string `json:"inbound_private" validate:"required"`
+
+	// Indicates whether the public dataplane access to the project is blocked or allowed.
+	InboundPublic *string `json:"inbound_public" validate:"required"`
 
 	// Date time information specifying when the last synchronization happened.
 	LastSyncedAt *string `json:"last_synced_at,omitempty"`
@@ -11579,12 +11585,39 @@ const (
 	EnforcementStatus_Enforcement_Unknown   = "unknown"
 )
 
+// Constants associated with the EnforcementStatus.InboundPrivate property.
+// Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed.
+const (
+	EnforcementStatus_InboundPrivate_Allowed             = "allowed"
+	EnforcementStatus_InboundPrivate_Blocked             = "blocked"
+	EnforcementStatus_InboundPrivate_PartiallyRestricted = "partially_restricted"
+	EnforcementStatus_InboundPrivate_Unknown             = "unknown"
+)
+
+// Constants associated with the EnforcementStatus.InboundPublic property.
+// Indicates whether the public dataplane access to the project is blocked or allowed.
+const (
+	EnforcementStatus_InboundPublic_Allowed = "allowed"
+	EnforcementStatus_InboundPublic_Blocked = "blocked"
+	EnforcementStatus_InboundPublic_Unknown = "unknown"
+)
+
 // UnmarshalEnforcementStatus unmarshals an instance of EnforcementStatus from the specified map of raw messages.
 func UnmarshalEnforcementStatus(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(EnforcementStatus)
 	err = core.UnmarshalPrimitive(m, "enforcement", &obj.Enforcement)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "enforcement-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "inbound_private", &obj.InboundPrivate)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "inbound_private-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "inbound_public", &obj.InboundPublic)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "inbound_public-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_synced_at", &obj.LastSyncedAt)
@@ -14945,6 +14978,9 @@ type PersistentDataStore struct {
 	// The version of the persistent data store, which is used to achieve optimistic locking.
 	EntityTag *string `json:"entity_tag" validate:"required"`
 
+	// When you provision a new persistent data store, a URL is created identifying the location of the instance.
+	Href *string `json:"href,omitempty"`
+
 	// The identifier of the resource.
 	ID *string `json:"id,omitempty"`
 
@@ -14993,6 +15029,11 @@ func UnmarshalPersistentDataStore(m map[string]json.RawMessage, result interface
 	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "entity_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
