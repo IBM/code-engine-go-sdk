@@ -40,7 +40,7 @@ type CodeEngineV2 struct {
 	Service *core.BaseService
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2026-05-14`.
+	// and `2026-07-10`.
 	Version *string
 }
 
@@ -57,7 +57,7 @@ type CodeEngineV2Options struct {
 	Authenticator core.Authenticator
 
 	// The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between `2021-03-31`
-	// and `2026-05-14`.
+	// and `2026-07-10`.
 	Version *string
 }
 
@@ -15169,7 +15169,7 @@ type Probe struct {
 	// The path of the HTTP request to the resource. A path is only supported for a probe with a `type` of `http`.
 	Path *string `json:"path,omitempty"`
 
-	// The port on which to probe the resource.
+	// The port on which to probe the resource, or 0 to probe the default app port 8080.
 	Port *int64 `json:"port,omitempty"`
 
 	// The amount of time in seconds that the probe waits for a response from the application before it times out and
