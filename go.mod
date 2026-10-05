@@ -3,11 +3,11 @@ module github.com/IBM/code-engine-go-sdk
 go 1.26.0
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.23.3
-	github.com/go-openapi/strfmt v0.27.0
+	github.com/IBM/go-sdk-core/v5 v5.23.5
+	github.com/go-openapi/strfmt v0.27.2
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/ginkgo/v2 v2.32.1
-	github.com/onsi/gomega v1.43.0
+	github.com/onsi/ginkgo/v2 v2.33.0
+	github.com/onsi/gomega v1.44.0
 	github.com/stretchr/testify v1.12.1
 )
 
@@ -19,7 +19,7 @@ require (
 	github.com/go-openapi/errors v0.22.8 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.30.3 // indirect
+	github.com/go-playground/validator/v10 v10.30.4 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.5.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect

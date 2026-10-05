@@ -1,5 +1,15 @@
 version: "2"
 linters:
+  enable:
+    - gosec
+  settings:
+    gosec:
+      config:
+        G101:
+          pattern: "(?i)passwd|pass|password|pwd|token|pw|apiKey|bearer|cred"
+          ignore_entropy: false
+          entropy_threshold: "80.0"
+          truncate: "16"
   exclusions:
     generated: lax
     presets:
@@ -15,6 +25,11 @@ linters:
       - third_party$
       - builtin$
       - examples$
+    rules:
+      - path: ibmcloudcodeenginev1/ibm_cloud_code_engine_v1.go
+        linters:
+          - gosec
+        text: "G117"
 formatters:
   exclusions:
     generated: lax
