@@ -1,26 +1,3 @@
 .DS_Store
 .env
 .vscode
-
-# ignore vendor/
-vendor/
-
-# SDK generator
-.openapi-generator-ignore
-.openapi-generator/VERSION
-/.project
-
-# API repo (pulled from Github)
-api
-
-# credentials files
-*.env
-
-# development guide ignores
-swagger.json
-openapi-sdkgen
-
-# example binary ignore
-example/example
-example/v2/example_v2
-coverage.txt
